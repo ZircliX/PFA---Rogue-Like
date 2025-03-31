@@ -11,5 +11,8 @@ namespace RogueLike
         
         [field: SerializeField]
         public EventReference test { get; private set; }
+
+        [field: SerializeField]
+        public float PlayerBaseSpeed { get; private set; }
     }
 }

@@ -12,8 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7662139ab00a4bf5b2b197798bc0abe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectAnnotations:
-  - annotation:
-      annotation: Write a new note...
-      fontSize: 10
-    guid: 5cc3b1d3a1f34474eb5678b4842c6818
+  projectAnnotations: []
