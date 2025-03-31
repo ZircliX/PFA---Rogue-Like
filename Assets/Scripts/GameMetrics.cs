@@ -1,3 +1,4 @@
+using FMODUnity;
 using RogueLike.Controllers;
 using UnityEngine;
 
@@ -7,5 +8,8 @@ namespace RogueLike
     public class GameMetrics : ScriptableObject
     {
         public static GameMetrics Global => GameController.Metrics;
+        
+        [field: SerializeField]
+        public EventReference test { get; private set; }
     }
 }
