@@ -12,37 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdf870fed234952a77aa0036142d86c, type: 3}
   m_Name: GameMetrics
   m_EditorClassIdentifier: 
-  <BaseClient>k__BackingField: 3
-  <MaxActiveClients>k__BackingField: 3
-  <TimerStart>k__BackingField: 150
-  <Burnt>k__BackingField: {fileID: 11400000, guid: 1b801dcea1472d04ba7673dfec870006, type: 2}
-  <Cooked>k__BackingField: {fileID: 11400000, guid: ce6e94ae7bd608544bbcedde73c3023d, type: 2}
-  <UnderCooked>k__BackingField: {fileID: 11400000, guid: 6613bcc580874ae40b9daa51e01d47a8, type: 2}
-  <Raw>k__BackingField: {fileID: 11400000, guid: ee24d27a4b905704fa4f6fcb34098222, type: 2}
-  <Plate>k__BackingField: {fileID: 11400000, guid: 0d0ace0510997924ca75fa78f3ddf643, type: 2}
-  <Cup>k__BackingField: {fileID: 11400000, guid: 7423aca7b277e9047bbc2cd4011996a9, type: 2}
-  <Tea>k__BackingField: {fileID: 11400000, guid: 95b8481a2e193884998ec8a563fa9ee0, type: 2}
-  <Grill>k__BackingField: {fileID: 11400000, guid: 48f9304df6d2af2488a782eb9955849b, type: 2}
-  <Frier>k__BackingField: {fileID: 11400000, guid: 5fa477c5c804e414db3dff1066e4bf89, type: 2}
-  <Kettle>k__BackingField: {fileID: 11400000, guid: 33cef0c0a522fb94ea3f43dbef8812ed, type: 2}
-  <Toaster>k__BackingField: {fileID: 11400000, guid: f62e7522a09618f47bfc4663d4e4de24, type: 2}
-  <Microwave>k__BackingField: {fileID: 11400000, guid: 1f5fdeef82bba3f449167b68c8de2b98, type: 2}
-  <Recipes>k__BackingField:
-  - {fileID: 11400000, guid: abfe139b952eee34190b21ca757ab015, type: 2}
-  - {fileID: 11400000, guid: bb4627e2ce3336b40a886c44f00abd41, type: 2}
-  - {fileID: 11400000, guid: 6686d2054403cc442800ad1ae0076ab3, type: 2}
-  - {fileID: 11400000, guid: e55b145c09e7b784281677778b2908f7, type: 2}
-  - {fileID: 11400000, guid: b2cee300d4e9c47469fb23604ade9de9, type: 2}
-  - {fileID: 11400000, guid: ad713ddaace861b40baf195da217d590, type: 2}
-  <FoodCooked>k__BackingField: {fileID: 11400000, guid: db66a764432f13341b748d548b054ecc, type: 2}
-  <FoodBurnt>k__BackingField: {fileID: 11400000, guid: 40863506a989f854db31a6b030808451, type: 2}
-  <GrillCook>k__BackingField: {fileID: 11400000, guid: 381e45bc57118f749a44d3d34342e186, type: 2}
-  <FrierCook>k__BackingField: {fileID: 11400000, guid: 3812178feb9f601418fd35a6a07709ba, type: 2}
-  <KettleCook>k__BackingField: {fileID: 11400000, guid: 9b7433f1076bf6440813be48704851b4, type: 2}
-  <EarnMoney>k__BackingField: {fileID: 11400000, guid: e19fc63bf5e0cc6408d04829c7319c5b, type: 2}
-  <ClientServe>k__BackingField: {fileID: 11400000, guid: 8876ab4363ae9e340975e53aaeaa49ed, type: 2}
-  <ButtonClickOn>k__BackingField: {fileID: 11400000, guid: 73c03db2660707a4fafd70aacf7a889c, type: 2}
-  <ButtonClickOff>k__BackingField: {fileID: 11400000, guid: 5de83f4605ac2c246a85b228c818d428, type: 2}
-  <TrashSound>k__BackingField: {fileID: 11400000, guid: b817a03c8bd6256499b93333f4268a5a, type: 2}
-  <CountDown>k__BackingField: {fileID: 11400000, guid: bfd0acd0578d39449b90fbebcfda10fd, type: 2}
-  <EndGame>k__BackingField: {fileID: 11400000, guid: 8876ab4363ae9e340975e53aaeaa49ed, type: 2}
+  <test>k__BackingField:
+    Guid:
+      Data1: -790836542
+      Data2: 1218030727
+      Data3: -1599217255
+      Data4: 1041057648
+    Path: event:/Blablabla
