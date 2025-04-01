@@ -1,3 +1,4 @@
+using System;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using UnityEngine;
@@ -7,25 +8,25 @@ namespace RogueLike.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [System.Serializable]
-        private class MovementStateStatus
-        {
-            public MovementStateBehavior behavior;
-            public bool isActive;
-        }
-        
+        public bool IsGrounded { get; private set; }
         public Vector3 InputDirection { get; private set; }
-        public MovementState CurrentState { get; private set; }
-        public InfluencedProperty<Velocity> CurrentVelocity { get; private set; }
+        public Vector3 GroundNormal { get; private set; }
+        public Vector3 StateVelocity => CurrentVelocity.GetValue(stateChannelKey);
+        [field: SerializeField] public MovementState CurrentState { get; private set; }
+        public InfluencedProperty<Vector3> CurrentVelocity { get; private set; }
         public PrioritisedProperty<Vector3> Gravity { get; private set; }
 
         [SerializeField] private float groundCheckDistance;
+        [SerializeField] private float groundCheckRadius;
         [SerializeField] private float groundCheckMaxAngle;
+        [SerializeField] private LayerMask groundLayer;
 
+        [SerializeField] private float gravityScale = 1;
         [SerializeField] private int coyoteTime = 10;
         [SerializeField, Self] private Rigidbody rb;
+        [SerializeField, Child] private CapsuleCollider cc;
 
-        [SerializeField] private MovementStateStatus[] movementStates;
+        [SerializeField] private MovementStateBehavior[] movementStates;
         
         private bool runInput;
         private int jumpInput;
@@ -33,7 +34,8 @@ namespace RogueLike.Player
         private int slideInput;
         private bool WantsToSlide => slideInput > 0;
         private bool crouchInput;
-        public bool IsGrounded { get; private set; }
+
+        private ChannelKey stateChannelKey;
 
         private void OnValidate()
         {
@@ -42,13 +44,18 @@ namespace RogueLike.Player
 
         private void Awake()
         {
-            CurrentVelocity = new InfluencedProperty<Velocity>(Vector3.zero);
+            CurrentVelocity = new InfluencedProperty<Vector3>(Vector3.zero);
+            CurrentVelocity.AddInfluence(this, Influence.Add, 0, 0);
+
+            stateChannelKey = ChannelKey.GetUniqueChannelKey();
+            CurrentVelocity.AddInfluence(stateChannelKey, Influence.Add, 1, 0);
+            
             Gravity = new PrioritisedProperty<Vector3>(Vector3.down * 9.81f);
             
             for (int i = 0; i < movementStates.Length; i++)
             {
-                MovementStateStatus state = movementStates[i];
-                state.behavior.Initialize(this);
+                MovementStateBehavior state = movementStates[i];
+                state.Initialize(this);
             }
         }
         private void Start()
@@ -58,77 +65,129 @@ namespace RogueLike.Player
         
         private void OnDestroy()
         {
+            CurrentVelocity.RemoveInfluence(stateChannelKey);
+            
             for (int i = 0; i < movementStates.Length; i++)
             {
-                MovementStateStatus state = movementStates[i];
-                state.behavior.Dispose(this);
+                MovementStateBehavior state = movementStates[i];
+                state.Dispose(this);
             }
         }
         
-        private void Update()
-        {
-            if (IsGrounded)
-            {
-                if (runInput)
-                {
-                    SetMovementState(MovementState.Running);
-                }
-                else
-                {
-                    SetMovementState(MovementState.Walking);
-                }
-            }
-            else
-            {
-                SetMovementState(MovementState.Air);
-            }
-        }
-
         private void FixedUpdate()
         {
             HandleGroundDetection();
+            HandleStateChange();
             
+            //Debug.Log(jumpInput);
+            
+            //Set Buffers
             if (jumpInput > 0)
             {
                 jumpInput --;
             }
             if (slideInput > 0)
-            {
                 slideInput --;
-            }
             
+            float deltaTime = Time.deltaTime;
             for (int i = 0; i < movementStates.Length; i++)
             {
-                MovementStateStatus state = movementStates[i];
-                if (state.isActive)
+                MovementStateBehavior state = movementStates[i];
+                if (state.State == CurrentState)
                 {
-                    state.behavior.OnFixedUpdate(this);
+                    Vector3 result = state.GetVelocity(this, deltaTime);
+                    CurrentVelocity.Write(stateChannelKey, result);
                 }
             }
 
             MovePlayer();
+            
+            //Debug.Log(rb.linearVelocity);
         }
 
         private void MovePlayer()
         {
-            Vector3 finalVelocity = CurrentVelocity.Value;
+            Vector3 currentGravityVelocity = IsGrounded ? - GroundNormal : CurrentVelocity[this] + Gravity.Value * Time.deltaTime;
+            CurrentVelocity.Write(this, currentGravityVelocity * gravityScale);
             
-            rb.MovePosition(rb.position + finalVelocity * Time.deltaTime);
+            rb.linearVelocity = CurrentVelocity;
+        }
+
+        private void HandleStateChange()
+        {
+            switch (CurrentState)
+            {
+                case MovementState.Falling:
+                    if (IsGrounded)
+                    {
+                        SetMovementState(runInput ? MovementState.Running : MovementState.Walking);
+                    }
+                    break;
+                case MovementState.Jumping:
+                    if (CurrentVelocity.Value.y < 0)
+                    {
+                        SetMovementState(MovementState.Falling);
+                    }
+                    break;
+                case MovementState.Idle:
+                    if (WantsToJump)
+                    {
+                        SetMovementState(MovementState.Jumping);
+                        jumpInput = 0;
+                    }
+                    break;
+                case MovementState.Crouching:
+                    break;
+                case MovementState.Walking:
+                case MovementState.Running:
+                    if (!IsGrounded)
+                    {
+                        SetMovementState(MovementState.Falling);
+                    }
+                    else
+                    {
+                        if (WantsToJump)
+                        {
+                            SetMovementState(MovementState.Jumping);
+                            jumpInput = 0;
+                        }
+                        else
+                        {
+                            SetMovementState(runInput ? MovementState.Running : MovementState.Walking);
+                        }
+                    }
+                    break;
+                case MovementState.Sliding:
+                    if (WantsToJump)
+                    {
+                        SetMovementState(MovementState.Jumping);
+                        jumpInput = 0;
+                    }
+                    break;
+            }
         }
         
         private void HandleGroundDetection()
         {
-            RaycastHit[] results = rb.SweepTestAll(Gravity.Value.normalized, groundCheckDistance, QueryTriggerInteraction.Ignore);
-            for (int i = 0; i < results.Length; i++)
+            Vector3 gravityNormalized = Gravity.Value.normalized;
+            
+            bool result = Physics.SphereCast(rb.position, groundCheckRadius,
+                gravityNormalized, out RaycastHit hit, groundCheckDistance + cc.height * 0.5f - groundCheckRadius, groundLayer);
+            
+            //Debug.DrawRay(rb.position, gravityNormalized * (groundCheckDistance + cc.height * 0.5f), Color.red);
+            
+            if (result)
             {
-                RaycastHit res = results[i];
-                if (Vector3.Angle(res.normal, -Gravity.Value.normalized) < groundCheckMaxAngle)
+                float angle = Vector3.Angle(hit.normal, -gravityNormalized);
+                if (angle < groundCheckMaxAngle)
                 {
+                    GroundNormal = hit.normal;
                     IsGrounded = true;
                     return;
                 }
             }
-
+            
+            GroundNormal = Vector3.up;
             IsGrounded = false;
         }
 
@@ -136,24 +195,24 @@ namespace RogueLike.Player
         {
             for (int i = 0; i < movementStates.Length; i++)
             {
-                MovementStateStatus movementStateBehavior = movementStates[i];
-                if (movementStateBehavior.behavior.State == state)
+                MovementStateBehavior movementStateBehavior = movementStates[i];
+                if (movementStateBehavior.State == state)
                 {
-                    if (!movementStateBehavior.isActive)
+                    if (movementStateBehavior.State != CurrentState)
                     {
-                        movementStateBehavior.isActive = true;
-                        movementStateBehavior.behavior.Enter(this);
+                        movementStateBehavior.Enter(this);
                     }
                 }
                 else
                 {
-                    if (movementStateBehavior.isActive)
+                    if (movementStateBehavior.State == CurrentState)
                     {
-                        movementStateBehavior.isActive = false;
-                        movementStateBehavior.behavior.Exit(this);
+                        movementStateBehavior.Exit(this);
                     }
                 }
             }
+            
+            CurrentState = state;
         }
         
         
@@ -167,7 +226,6 @@ namespace RogueLike.Player
 
         public void ReadInputJump(InputAction.CallbackContext context)
         {
-            //Buffer
             if (context.performed)
             {
                 jumpInput = coyoteTime;

@@ -3,7 +3,8 @@ namespace RogueLike.Player
     public enum MovementState
     {
         None,
-        Air,
+        Falling,
+        Jumping,
         Idle,
         Crouching,
         Walking,
