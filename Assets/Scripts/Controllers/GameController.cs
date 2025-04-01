@@ -1,3 +1,4 @@
+using LTX.ChanneledProperties;
 using RogueLike.Save;
 using SaveSystem.Core;
 
@@ -16,6 +17,7 @@ namespace RogueLike.Controllers
         public static void Play() => IsPlaying = true;
         
         public static SaveListener SaveListener { get; private set; }
+        public static AudioManager AudioManager { get; private set; }
 
         private static GameMetrics gameMetrics;
         public static GameMetrics Metrics
@@ -46,10 +48,13 @@ namespace RogueLike.Controllers
             Application.quitting += QuitGame;
 
             SetupFields();
+            SetupPrioritisedProperties();
             
             SaveManager<SampleSaveFile>.SetSaveController(new SaveController());
             SaveManager<SampleSaveFile>.AddListener(SaveListener);
             SaveManager<SampleSaveFile>.Pull();
+            
+            InfluencedPropertyUtilities.AddCalculator(new VelocityCalculator());
         }
 
         public static void QuitGame()
@@ -62,6 +67,23 @@ namespace RogueLike.Controllers
         private static void SetupFields()
         {
             SaveListener = new SaveListener();
+            AudioManager = new AudioManager();
         }
+        
+        #region Prioritised Properties
+
+        public static PrioritisedProperty<float> TimeScale { get; private set; }
+
+        private static void SetupPrioritisedProperties()
+        {
+            TimeScale = new PrioritisedProperty<float>(1f);
+            TimeScale.AddOnValueChangeCallback(UpdateTimeScale, true);
+        }
+
+        private static void UpdateTimeScale(float value)
+        {
+            Time.timeScale = value;
+        }
+        #endregion
     }
 }

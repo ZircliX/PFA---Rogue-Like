@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "51505097662373070f9e68a83d2dd5b59c82a8e2"
     },
+    "com.ltx.channeled-properties": {
+      "version": "1.0.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://helteix-verdaccio.euvtgm.easypanel.host"
+    },
     "com.ltx.save-system": {
       "version": "1.0.1",
       "depth": 0,
@@ -252,15 +259,6 @@
       "source": "git",
       "dependencies": {},
       "hash": "187cb847a550816bb347c400b0158357e722dbe5"
-    },
-    "www.nulltale.outlinefx": {
-      "version": "https://github.com/NullTale/OutlineFx.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.render-pipelines.universal": "12.1.11"
-      },
-      "hash": "f255804f363c58470aae28c949237ca3a1ef3b16"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
