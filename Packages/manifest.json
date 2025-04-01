@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.cysharp.zlinq": "https://github.com/Cysharp/ZLinq.git?path=src/ZLinq.Unity/Assets/ZLinq.Unity",
+    "com.ltx.channeled-properties": "1.0.1",
     "com.ltx.save-system": "1.0.1",
     "com.ltx.singletons": "1.0.3",
     "com.ltx.tools": "1.0.9",
@@ -14,7 +15,6 @@
     "com.unity.ugui": "2.0.0",
     "com.unity.visualscripting": "1.9.5",
     "com.wooshii.hierarchydecorator": "https://github.com/WooshiiDev/HierarchyDecorator.git",
-    "www.nulltale.outlinefx": "https://github.com/NullTale/OutlineFx.git",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",

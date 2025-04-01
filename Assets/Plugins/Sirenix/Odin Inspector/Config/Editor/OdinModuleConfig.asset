@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db3f3891213a4904821f8dd35c2d5d76, type: 3}
-  m_Name: Countdown
+  m_Script: {fileID: 0}
+  m_Name: OdinModuleConfig
   m_EditorClassIdentifier: 
-  clips:
-  - {fileID: 8300000, guid: 08ebe53fd56d60e49a16014fb21d9167, type: 3}
-  pitch: 1
-  loop: 0
-  volume: 0.833
+  configurations:
+  - ID: Unity.Mathematics
+    ActivationSettings: 0
+  ModuleTogglingSettings: 1
+  ModuleUpdateSettings: 1
