@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eee84514dc5a4b7282c1c22b429e6e96, type: 3}
-  m_Name: New Run State
+  m_Script: {fileID: 11500000, guid: 9ad488206cba46cf8d546999cd40a53d, type: 3}
+  m_Name: Jump
   m_EditorClassIdentifier: 
-  maxSpeed: 8
+  maxSpeed: 12
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -61,5 +61,40 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  accelerationDuration: 0.1
-  decelerationDuration: 0.2
+  accelerationDuration: 0.8
+  decelerationDuration: 0.8
+  jumpForce: 15
+  jumpDuration: 1
+  jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0041656494
+      value: 1
+      inSlope: -1.0081372
+      outSlope: -1.0081372
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0.33333334
+      outWeight: 0.49599618
+    - serializedVersion: 3
+      time: 0.3112183
+      value: 0.23768719
+      inSlope: -0.7619622
+      outSlope: -0.7619622
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.78162944
+      outWeight: 0.31357837
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.16440946
+      outSlope: -0.16440946
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.29157734
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

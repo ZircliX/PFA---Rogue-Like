@@ -42,7 +42,6 @@ namespace RogueLike.Player.States
 
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime)
         {
-            Debug.Log(cam);
             Vector3 worldInputs = cam.transform.right * movement.InputDirection.x +
                                   cam.transform.forward * movement.InputDirection.z;
             
@@ -55,13 +54,13 @@ namespace RogueLike.Player.States
 
             if (Mathf.Approximately(speed, startSpeedSqrMagnitude))
             {
-                Debug.Log("max aqiscjqiscjqi");
+                //Debug.Log("max aqiscjqiscjqi");
                 return targetSpeed;
             }
             
             if (startSpeedSqrMagnitude < speed) //Accelerate
             {
-                Debug.Log("Acceleatirheiern");
+                //Debug.Log("Acceleatirheiern");
                 currentAcceleration += deltaTime;
                 currentDeceleration = 0;
 
@@ -71,7 +70,7 @@ namespace RogueLike.Player.States
             }
             else //Decelerate
             {
-                Debug.Log("Deceleuizhfuzeshfuehf");
+                //Debug.Log("Deceleuizhfuzeshfuehf");
                 currentDeceleration += deltaTime;
                 currentAcceleration = 0;
                 

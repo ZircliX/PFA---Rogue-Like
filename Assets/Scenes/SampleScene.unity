@@ -681,6 +681,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7673975130547769438, guid: cf92d20b8f0092d4f9a173646f029921, type: 3}
+      propertyPath: gravityScale
+      value: 1.025
+      objectReference: {fileID: 0}
     - target: {fileID: 7771178899970783667, guid: cf92d20b8f0092d4f9a173646f029921, type: 3}
       propertyPath: m_Name
       value: PlayerController

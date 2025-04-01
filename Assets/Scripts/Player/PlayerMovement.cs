@@ -16,9 +16,9 @@ namespace RogueLike.Player
         public InfluencedProperty<Vector3> CurrentVelocity { get; private set; }
         public PrioritisedProperty<Vector3> Gravity { get; private set; }
 
-        [SerializeField] private float groundCheckDistance;
-        [SerializeField] private float groundCheckRadius;
-        [SerializeField] private float groundCheckMaxAngle;
+        [SerializeField] private float groundCheckDistance = 0.1f;
+        [SerializeField] private float groundCheckRadius = 0.25f;
+        [SerializeField] private float groundCheckMaxAngle = 50;
         [SerializeField] private LayerMask groundLayer;
 
         [SerializeField] private float gravityScale = 1;
