@@ -53,8 +53,6 @@ namespace RogueLike.Controllers
             SaveManager<SampleSaveFile>.SetSaveController(new SaveController());
             SaveManager<SampleSaveFile>.AddListener(SaveListener);
             SaveManager<SampleSaveFile>.Pull();
-            
-            InfluencedPropertyUtilities.AddCalculator(new VelocityCalculator());
         }
 
         public static void QuitGame()
@@ -73,17 +71,36 @@ namespace RogueLike.Controllers
         #region Prioritised Properties
 
         public static PrioritisedProperty<float> TimeScale { get; private set; }
+        public static PrioritisedProperty<CursorLockMode> CursorLockMode { get; private set; }
+        public static PrioritisedProperty<bool> CursorVisibility { get; private set; }
 
         private static void SetupPrioritisedProperties()
         {
             TimeScale = new PrioritisedProperty<float>(1f);
             TimeScale.AddOnValueChangeCallback(UpdateTimeScale, true);
+
+            CursorLockMode = new PrioritisedProperty<CursorLockMode>(UnityEngine.CursorLockMode.Locked);
+            CursorLockMode.AddOnValueChangeCallback(UpdateCursorLockMode, true);
+            
+            CursorVisibility = new PrioritisedProperty<bool>(false);
+            CursorVisibility.AddOnValueChangeCallback(UpdateCursorVisibility, true);
         }
 
         private static void UpdateTimeScale(float value)
         {
             Time.timeScale = value;
         }
+        
+        private static void UpdateCursorLockMode(CursorLockMode value)
+        {
+            Cursor.lockState = value;
+        }
+        
+        private static void UpdateCursorVisibility(bool value)
+        {
+            Cursor.visible = value;
+        }
+        
         #endregion
     }
 }

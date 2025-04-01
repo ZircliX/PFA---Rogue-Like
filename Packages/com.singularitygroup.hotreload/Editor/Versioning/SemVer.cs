@@ -107,7 +107,7 @@ namespace SingularityGroup.HotReload.Editor.Semver
         /// <param name="version">The version string.</param>
         /// <param name="strict">If set to <c>true</c> minor and patch version are required, else they default to 0.</param>
         /// <returns>The SemVersion object.</returns>
-        /// <exception cref="InvalidOperationException">When a invalid version string is passed.</exception>
+        /// <exception cref="System.InvalidOperationException">When a invalid version string is passed.</exception>
         public static SemVersion Parse(string version, bool strict = false)
         {
             var match = parseEx.Match(version);
@@ -267,10 +267,10 @@ namespace SingularityGroup.HotReload.Editor.Semver
         public string Build { get; private set; }
 
         /// <summary>
-        /// Returns a <see cref="string" /> that represents this instance.
+        /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="string" /> that represents this instance.
+        /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
         public override string ToString()
         {
