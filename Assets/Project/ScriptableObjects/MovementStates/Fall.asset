@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61a01be6bed94ef4b1f484652d5e52c6, type: 3}
-  m_Name: New Fall State
+  m_Name: Fall
   m_EditorClassIdentifier: 
   maxSpeed: 10
   accelerationCurve:
@@ -61,5 +61,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  accelerationDuration: 0.8
-  decelerationDuration: 20
+  accelerationDuration: 0.5
+  decelerationDuration: 0.5
