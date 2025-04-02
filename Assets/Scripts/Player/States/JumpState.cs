@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -10,25 +11,27 @@ namespace RogueLike.Player.States
         [SerializeField] private float jumpDuration;
         [SerializeField] private AnimationCurve jumpCurve;
         private float currentJumpTime;
-        
+
+
+        private int count;
         public override void Enter(PlayerMovement movement)
         {
             base.Enter(movement);
-            
+
+            count = 0;
             currentJumpTime = 0;
         }
 
         public override void Exit(PlayerMovement movement)
         {
             base.Exit(movement);
-            
             currentJumpTime = 0;
         }
 
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime)
         {
             float normTime = currentJumpTime / jumpDuration;
-            
+
             float jumpModifier = jumpCurve.Evaluate(normTime);
 
             Vector3 baseVelocity = base.GetVelocity(movement, deltaTime);
@@ -39,19 +42,17 @@ namespace RogueLike.Player.States
                 //Debug.Log($"before : {baseVelocity} ");
                 baseVelocity = Vector3.ProjectOnPlane(baseVelocity, gravityNormal);
                 //Debug.Log($"after : {baseVelocity} ");
+            }
 
-                //Debug.Log(movement.ApplyGravity(gravityNormal * (jumpModifier * jumpForce) + baseVelocity).y);
-            }
-            
             currentJumpTime += deltaTime;
-            
-            if (normTime >= 1)
-            {
+            if (currentJumpTime >= jumpDuration)
                 movement.SetMovementState(MovementState.Falling);
-                return baseVelocity;
-            }
-            
-            return movement.ApplyGravity(gravityNormal * (jumpModifier * jumpForce) + baseVelocity);
+
+            Vector3 finalVelocity = movement.ApplyGravity(gravityNormal * (jumpModifier * jumpForce) + baseVelocity);
+
+            // Debug.Log($"{count++} | {baseVelocity.y} => {finalVelocity.y}");
+
+            return finalVelocity;
         }
 
         public override MovementState State => MovementState.Jumping;
