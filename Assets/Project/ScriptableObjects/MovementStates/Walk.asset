@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Walk
   m_EditorClassIdentifier: 
   maxSpeed: 6
-  directionControl: 10
+  directionControl: 20
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -39,7 +39,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   accelerationDuration: 0.1
-  acceleration: 0
+  acceleration: 35
   decelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -65,4 +65,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   decelerationDuration: 0.2
-  deceleration: 0
+  deceleration: 35

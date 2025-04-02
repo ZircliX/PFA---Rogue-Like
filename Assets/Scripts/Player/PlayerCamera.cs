@@ -12,7 +12,6 @@ namespace RogueLike.Player
         [SerializeField, Range(0,1)] private float xModifier = 1;
         [SerializeField, Range(0,1)] private float yModifier = 1;
         [SerializeField] private int yRange = 70;
-        [SerializeField] private Transform head;
         
         private void Update()
         {

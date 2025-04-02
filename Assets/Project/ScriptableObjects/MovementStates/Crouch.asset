@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crouch
   m_EditorClassIdentifier: 
   maxSpeed: 2
-  directionControl: 20
+  directionControl: 50
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -39,7 +39,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   accelerationDuration: 1
-  acceleration: 0
+  acceleration: 50
   decelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -65,5 +65,5 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   decelerationDuration: 1
-  deceleration: 0
+  deceleration: 50
   playerCrouchHeight: 0.5
