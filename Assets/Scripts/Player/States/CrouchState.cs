@@ -10,7 +10,7 @@ namespace RogueLike.Player.States
         {
             base.Enter(movement);
             movement.transform.localScale = new Vector3(1, playerCrouchHeight, 1);
-            movement.rb.MovePosition(movement.rb.position - GetProjectionPlaneNormal(movement) * 0.5f);
+            movement.rb.MovePosition(movement.rb.position - GetProjectionPlaneNormal(movement) * 0.25f);
         }
 
         public override void Exit(PlayerMovement movement)
