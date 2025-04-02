@@ -226,12 +226,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CurrentState>k__BackingField: 0
   groundCheckDistance: 0.1
-  groundCheckRadius: 0.25
   groundCheckMaxAngle: 50
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
-  gravityScale: 1
+  gravityScale: 1.025
+  horizontalDamping: 1
   coyoteTime: 10
   rb: {fileID: 7362595536518079642}
   cc: {fileID: 6617578319277999684}
@@ -241,6 +241,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9d3d4af720a56e642b1fdbd0543cb6e0, type: 2}
   - {fileID: 11400000, guid: 1584499b6b911c740bb388239cf6a091, type: 2}
   - {fileID: 11400000, guid: 65418ada7e21f654fa5e1c852d785aa5, type: 2}
+  - {fileID: 11400000, guid: 1aa7a36b7dffb6c4cb38c3b598ac66a4, type: 2}
   - {fileID: 11400000, guid: 9a432f516a3ed30479c1ffd7ad841227, type: 2}
 --- !u!114 &3643170854386174536
 MonoBehaviour:
@@ -380,7 +381,7 @@ MonoBehaviour:
     m_ActionId: 742891ed-3345-4251-b289-da8e9bc08864
     m_ActionName: 'Player/Run[/Keyboard/leftShift]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard and Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -597,7 +598,6 @@ GameObject:
   - component: {fileID: 1853930067422575411}
   - component: {fileID: 7880227904453035219}
   - component: {fileID: 7505193715655629119}
-  - component: {fileID: 2087720474697855013}
   - component: {fileID: 3653037008799984262}
   m_Layer: 0
   m_Name: CinemachineCamera
@@ -683,19 +683,6 @@ MonoBehaviour:
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
   FollowOffset: {x: 0, y: 0, z: 0}
---- !u!114 &2087720474697855013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8831171802724599823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4afa82ae3200b82408d605c3dbdd1e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damping: 0
 --- !u!114 &3653037008799984262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,9 +695,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aceb76db0bd646738b79931a465c5629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 2
   xModifier: 0.2
   yModifier: 0.2
-  minY: -80
-  maxY: 80
+  yRange: 70
   head: {fileID: 6284688945968191880}

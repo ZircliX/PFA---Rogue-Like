@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0342c04d4235429ca0e0d9fdef82def4, type: 3}
   m_Name: Walk
   m_EditorClassIdentifier: 
-  maxSpeed: 8
+  maxSpeed: 6
+  directionControl: 10
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
