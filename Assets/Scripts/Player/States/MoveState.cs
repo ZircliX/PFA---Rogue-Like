@@ -1,3 +1,4 @@
+using BgTools.Utils;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -7,16 +8,22 @@ namespace RogueLike.Player.States
     {
         [SerializeField] private float maxSpeed;
         [SerializeField] private float directionControl;
+        
+        [Header("Acceleration")]
         [SerializeField] private AnimationCurve accelerationCurve;
-        [SerializeField] private AnimationCurve decelerationCurve;
         [SerializeField] private float accelerationDuration;
+        [SerializeField] private float acceleration;
+        
+        [Header("Deceleration")]
+        [SerializeField] private AnimationCurve decelerationCurve;
         [SerializeField] private float decelerationDuration;
+        [SerializeField] private float deceleration;
         private float currentAcceleration;
         private float currentDeceleration;
-
-        private Vector3 startSpeed;
+        
         private Vector3 direction;
         private Camera cam;
+        
         public override void Initialize(PlayerMovement movement)
         {
             cam = Camera.main;
@@ -29,8 +36,7 @@ namespace RogueLike.Player.States
 
         public override void Enter(PlayerMovement movement)
         {
-            startSpeed = movement.StateVelocity.ProjectOntoPlane(movement.GroundNormal);
-            direction = startSpeed.sqrMagnitude > 0.1f ? startSpeed.normalized : Vector3.zero;
+            direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
             
             currentAcceleration = 0;
             currentDeceleration = 0;
@@ -54,8 +60,9 @@ namespace RogueLike.Player.States
 
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime)
         {
+            Vector3 lastVelocity = movement.StateVelocity;
+            
             Vector3 worldInputs = cam.transform.right * movement.InputDirection.x;
-
             worldInputs += GetCameraDotProduct(movement) switch
             {
                 < -0.8f => cam.transform.up,
@@ -63,29 +70,40 @@ namespace RogueLike.Player.States
                 _ => cam.transform.forward
             } * movement.InputDirection.z;
 
-            Vector3 project = worldInputs.ProjectOntoPlane(GetProjectionPlaneNormal(movement)).normalized;
+            Vector3 projectionPlaneNormal = GetProjectionPlaneNormal(movement);
+            Vector3 project = worldInputs.ProjectOntoPlane(projectionPlaneNormal).normalized;
             direction = Vector3.Lerp(direction, project, directionControl * deltaTime);
+
+            Vector3 planeVelocity = lastVelocity.ProjectOntoPlane(projectionPlaneNormal);
+            Vector3 otherVelocity = lastVelocity - planeVelocity;
+            Debug.DrawRay(movement.transform.position, planeVelocity * 10, Color.red);
+            Debug.DrawRay(movement.transform.position, otherVelocity * 10, Color.yellow);
             
             Vector3 targetSpeed = direction * maxSpeed;
-
-            float speed = maxSpeed * maxSpeed;
-            float startSpeedSqrMagnitude = startSpeed.sqrMagnitude;
-
-            if (Mathf.Approximately(speed, startSpeedSqrMagnitude))
+            
+            float planeVelocitySqrMagnitude = planeVelocity.sqrMagnitude;
+            
+            //Debug . Log(planeVelocitySqrMagnitude);
+            if (Mathf.Approximately(direction.sqrMagnitude, planeVelocitySqrMagnitude))
             {
                 //Debug.Log("max aqiscjqiscjqi");
-                return targetSpeed;
+                
+                if (movement.IsGrounded)
+                {
+                    return targetSpeed;
+                }
+                
+                return movement.ApplyGravity(targetSpeed + otherVelocity, deltaTime);
             }
-            
-            if (startSpeedSqrMagnitude < speed) //Accelerate
+
+            float modifier;
+            if (planeVelocitySqrMagnitude < direction.sqrMagnitude) //Accelerate
             {
                 //Debug.Log("Acceleatirheiern");
                 currentAcceleration += deltaTime;
                 currentDeceleration = 0;
-
-                //Debug.Log(currentAcceleration / accelerationDuration);
-                float modifier = accelerationCurve.Evaluate(currentAcceleration / accelerationDuration);
-                return Vector3.Lerp(startSpeed, targetSpeed, modifier);
+                
+                modifier = accelerationCurve.Evaluate(currentAcceleration / accelerationDuration) * acceleration;
             }
             else //Decelerate
             {
@@ -93,9 +111,19 @@ namespace RogueLike.Player.States
                 currentDeceleration += deltaTime;
                 currentAcceleration = 0;
                 
-                float modifier = accelerationCurve.Evaluate(currentDeceleration / decelerationDuration);
-                return Vector3.Lerp(startSpeed, targetSpeed, modifier);
+                modifier = accelerationCurve.Evaluate(currentDeceleration / decelerationDuration) * deceleration;
             }
+
+            Vector3 finalVelocity = Vector3.Lerp(planeVelocity, targetSpeed, modifier * deltaTime);
+            
+            if (movement.IsGrounded)
+            {
+                return finalVelocity;
+            }
+            
+            finalVelocity += otherVelocity;
+            
+            return movement.ApplyGravity(finalVelocity, deltaTime);
         }
     }
 }

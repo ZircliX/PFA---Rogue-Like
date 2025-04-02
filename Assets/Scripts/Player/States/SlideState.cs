@@ -14,7 +14,7 @@ namespace RogueLike.Player.States
             base.Enter(movement);
             currentSlideTime = 0;
             movement.transform.localScale = new Vector3(1, playerSlideHeight, 1);
-            movement.rb.MovePosition(movement.rb.position - GetProjectionPlaneNormal(movement) * 0.5f);
+            movement.rb.MovePosition(movement.rb.position - GetProjectionPlaneNormal(movement) * 0.25f);
         }
 
         public override void Exit(PlayerMovement movement)
@@ -32,6 +32,10 @@ namespace RogueLike.Player.States
             if ((GetProjectionPlaneNormal(movement) - Vector3.up).sqrMagnitude < 0.01f)
             {
                 currentSlideTime += deltaTime;
+            }
+            else
+            {
+                //Increase slide velocity by adding a value to base.GetVelocity(movement, deltaTime);
             }
 
             if (currentSlideTime >= maxSlideTime)

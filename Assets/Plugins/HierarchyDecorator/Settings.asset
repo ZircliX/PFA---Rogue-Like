@@ -4328,5 +4328,109 @@ MonoBehaviour:
         isBuiltIn: 0
         script: {fileID: 11500000, guid: 03c8102322ad0d04fa6ae3f17887e967, type: 3}
         hasToggle: 1
+      - displayName: StudioListener
+        name: FMODUnity.StudioListener, FMODUnity, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        content:
+          m_Text: StudioListener
+          m_Image: {fileID: -8204150473280056172, guid: 0000000000000000d000000000000000, type: 0}
+          m_Tooltip: StudioListener
+          m_TextWithWhitespace: "StudioListener\u200B"
+        shown: 0
+        excluded: 0
+        isBuiltIn: 0
+        script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+        hasToggle: 1
+      - displayName: CinemachineBrain
+        name: Unity.Cinemachine.CinemachineBrain, Unity.Cinemachine, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        content:
+          m_Text: CinemachineBrain
+          m_Image: {fileID: 2800000, guid: 57da91ef0c2a5489891995dc81537253, type: 3}
+          m_Tooltip: CinemachineBrain
+          m_TextWithWhitespace: "CinemachineBrain\u200B"
+        shown: 0
+        excluded: 0
+        isBuiltIn: 0
+        script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+        hasToggle: 1
+      - displayName: CinemachineCamera
+        name: Unity.Cinemachine.CinemachineCamera, Unity.Cinemachine, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        content:
+          m_Text: CinemachineCamera
+          m_Image: {fileID: 2800000, guid: 57da91ef0c2a5489891995dc81537253, type: 3}
+          m_Tooltip: CinemachineCamera
+          m_TextWithWhitespace: "CinemachineCamera\u200B"
+        shown: 0
+        excluded: 0
+        isBuiltIn: 0
+        script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+        hasToggle: 1
+      - displayName: CinemachineFollow
+        name: Unity.Cinemachine.CinemachineFollow, Unity.Cinemachine, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        content:
+          m_Text: CinemachineFollow
+          m_Image: {fileID: 2800000, guid: 26663a5ec9987421996161615506b6c5, type: 3}
+          m_Tooltip: CinemachineFollow
+          m_TextWithWhitespace: "CinemachineFollow\u200B"
+        shown: 0
+        excluded: 0
+        isBuiltIn: 0
+        script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
+        hasToggle: 1
+      - displayName: PlayerCamera
+        name: RogueLike.Player.PlayerCamera, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        content:
+          m_Text: PlayerCamera
+          m_Image: {fileID: -8204150473280056172, guid: 0000000000000000d000000000000000, type: 0}
+          m_Tooltip: PlayerCamera
+          m_TextWithWhitespace: "PlayerCamera\u200B"
+        shown: 0
+        excluded: 0
+        isBuiltIn: 0
+        script: {fileID: 11500000, guid: aceb76db0bd646738b79931a465c5629, type: 3}
+        hasToggle: 1
+      - displayName: PlayerMovement
+        name: RogueLike.Player.PlayerMovement, Assembly-CSharp, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        content:
+          m_Text: PlayerMovement
+          m_Image: {fileID: -8204150473280056172, guid: 0000000000000000d000000000000000, type: 0}
+          m_Tooltip: PlayerMovement
+          m_TextWithWhitespace: "PlayerMovement\u200B"
+        shown: 0
+        excluded: 0
+        isBuiltIn: 0
+        script: {fileID: 11500000, guid: 021c8954cdd7467c982615ead7e470f0, type: 3}
+        hasToggle: 1
+      - displayName: UpdateEventProxy
+        name: SingularityGroup.HotReload.RuntimeDependencies.UpdateEventProxy, SingularityGroup.HotReload.RuntimeDependencies,
+          Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+        content:
+          m_Text: UpdateEventProxy
+          m_Image: {fileID: 1958022779231644424, guid: 0000000000000000d000000000000000, type: 0}
+          m_Tooltip: UpdateEventProxy
+          m_TextWithWhitespace: "UpdateEventProxy\u200B"
+        shown: 0
+        excluded: 0
+        isBuiltIn: 0
+        script: {fileID: 308069754, guid: e0277ee5c436c344a9d7720bdc0391d1, type: 3}
+        hasToggle: 1
+      - displayName: CinemachineRotateWithFollowTarget
+        name: Unity.Cinemachine.CinemachineRotateWithFollowTarget, Unity.Cinemachine,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        content:
+          m_Text: CinemachineRotateWithFollowTarget
+          m_Image: {fileID: 2800000, guid: 26663a5ec9987421996161615506b6c5, type: 3}
+          m_Tooltip: CinemachineRotateWithFollowTarget
+          m_TextWithWhitespace: "CinemachineRotateWithFollowTarget\u200B"
+        shown: 0
+        excluded: 0
+        isBuiltIn: 0
+        script: {fileID: 11500000, guid: 4afa82ae3200b82408d605c3dbdd1e38, type: 3}
+        hasToggle: 1
     unityVersion: 6000.0.28f1
-    unityCount: 378
+    unityCount: 385

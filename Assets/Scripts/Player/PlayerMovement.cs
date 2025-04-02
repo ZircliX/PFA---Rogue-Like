@@ -1,6 +1,5 @@
 using KBCore.Refs;
 using LTX.ChanneledProperties;
-using RogueLike.Player.States;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,16 +39,11 @@ namespace RogueLike.Player
         
         private const float MinMoveInputThresholdSqr = 0.01f;
 
-        private void OnValidate()
-        {
-            this.ValidateRefs();
-        }
-
+        private void OnValidate() => this.ValidateRefs();
+        
         private void Awake()
         {
             CurrentVelocity = new InfluencedProperty<Vector3>(Vector3.zero);
-            CurrentVelocity.AddInfluence(this, Influence.Add, 0, 0);
-
             stateChannelKey = ChannelKey.GetUniqueChannelKey();
             CurrentVelocity.AddInfluence(stateChannelKey, Influence.Add, 1, 0);
             
@@ -61,6 +55,7 @@ namespace RogueLike.Player
                 state.Initialize(this);
             }
         }
+        
         private void Start()
         {
             SetMovementState(MovementState.Walking);
@@ -77,11 +72,6 @@ namespace RogueLike.Player
             }
         }
 
-        private void Update()
-        {
-            //Debug.Log(InputDirection.sqrMagnitude);
-        }
-        
         private void FixedUpdate()
         {
             HandleGroundDetection();
@@ -105,19 +95,21 @@ namespace RogueLike.Player
             }
 
             MovePlayer();
-            
-            //Debug.Log(rb.linearVelocity);
         }
 
         private void MovePlayer()
         {
-            Vector3 currentGravityVelocity = IsGrounded ?
-                CurrentState == MovementState.Jumping ? Vector3.zero : - GroundNormal : 
-                CurrentVelocity[this] + Gravity.Value * Time.deltaTime;
-            
-            CurrentVelocity.Write(this, currentGravityVelocity * gravityScale);
-            
             rb.linearVelocity = CurrentVelocity;
+        }
+
+        public Vector3 ApplyGravity(Vector3 baseVelocity)
+        {
+            return ApplyGravity(baseVelocity, Time.deltaTime);
+        }
+        
+        public Vector3 ApplyGravity(Vector3 baseVelocity, float deltaTime)
+        {
+            return baseVelocity + Gravity.Value * (gravityScale * deltaTime);
         }
 
         private void HandleStateChange()
@@ -137,6 +129,7 @@ namespace RogueLike.Player
                         
                         SetMovementState(nextState);
                     }
+                    
                     break;
                 
                 case MovementState.Jumping:
@@ -290,11 +283,6 @@ namespace RogueLike.Player
             
             GroundNormal = Vector3.up;
             IsGrounded = false;
-        }
-
-        public void SetVelocity(Vector3 force)
-        {
-            CurrentVelocity.Write(this, force);
         }
 
         public void SetMovementState(MovementState state)
