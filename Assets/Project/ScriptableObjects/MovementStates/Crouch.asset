@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Crouch
   m_EditorClassIdentifier: 
   maxSpeed: 2
+  directionControl: 20
   accelerationCurve:
     serializedVersion: 2
     m_Curve:

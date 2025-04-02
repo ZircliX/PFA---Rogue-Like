@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Fall
   m_EditorClassIdentifier: 
   maxSpeed: 10
+  directionControl: 3
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
