@@ -11,7 +11,7 @@ namespace RogueLike.Player
         public Vector3 InputDirection { get; private set; }
         public Vector3 GroundNormal { get; private set; }
         public Vector3 StateVelocity => CurrentVelocity.GetValue(stateChannelKey);
-        [field: SerializeField] public MovementState CurrentState { get; private set; }
+        public MovementState CurrentState { get; private set; }
         public InfluencedProperty<Vector3> CurrentVelocity { get; private set; }
         public PrioritisedProperty<Vector3> Gravity { get; private set; }
 

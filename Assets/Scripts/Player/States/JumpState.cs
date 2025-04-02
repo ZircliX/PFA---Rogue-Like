@@ -40,7 +40,7 @@ namespace RogueLike.Player.States
                 baseVelocity = Vector3.ProjectOnPlane(baseVelocity, gravityNormal);
                 //Debug.Log($"after : {baseVelocity} ");
 
-                Debug.Log(movement.ApplyGravity(gravityNormal * (jumpModifier * jumpForce) + baseVelocity).y);
+                //Debug.Log(movement.ApplyGravity(gravityNormal * (jumpModifier * jumpForce) + baseVelocity).y);
             }
             
             currentJumpTime += deltaTime;

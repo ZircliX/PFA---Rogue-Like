@@ -1,0 +1,24 @@
+{
+    "name": "DeadLink",
+    "rootNamespace": "DeadLink",
+    "references": [
+        "GUID:0c752da273b17c547ae705acf0f2adf2",
+        "GUID:33759803a11f4d538227861a78aba30b",
+        "GUID:c08e6420a9402a248878197da69c4d9a",
+        "GUID:7f6fdd18b438ff245b7f869ddfb77b44",
+        "GUID:218d83f778a79c74791573f907cb34c7",
+        "GUID:3e712867162a60e44a30faa129258f36",
+        "GUID:4307f53044263cf4b835bd812fc161a4",
+        "GUID:c71612acbe346a344abbc0dcfdf4f0bd",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

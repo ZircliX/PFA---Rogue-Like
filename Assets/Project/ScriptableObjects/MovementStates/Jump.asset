@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Jump
   m_EditorClassIdentifier: 
   maxSpeed: 12
-  directionControl: 20
+  directionControl: 15
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -39,7 +39,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   accelerationDuration: 0.8
-  acceleration: 0
+  acceleration: 50
   decelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -65,20 +65,38 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   decelerationDuration: 0.8
-  deceleration: 0
-  jumpForce: 20
-  jumpDuration: 0.3
+  deceleration: 50
+  jumpForce: 5
+  jumpDuration: 0.1
   jumpCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -1
-      outSlope: -1
+      inSlope: -3.1057136
+      outSlope: -3.1057136
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.11843917
+      value: 0.63216186
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.43848372
+      value: 0.050706804
+      inSlope: -0.2300774
+      outSlope: -0.2300774
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1

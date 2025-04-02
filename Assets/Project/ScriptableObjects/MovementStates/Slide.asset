@@ -38,8 +38,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  accelerationDuration: 0.1
-  acceleration: 0
+  accelerationDuration: 0.25
+  acceleration: 25
   decelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -64,7 +64,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  decelerationDuration: 0.1
-  deceleration: 0
+  decelerationDuration: 0.25
+  deceleration: 25
   playerSlideHeight: 0.5
   maxSlideTime: 1
