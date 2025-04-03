@@ -1,11 +1,9 @@
 using LTX.ChanneledProperties;
-using UnityEngine;
 
 namespace Enemy
 {
     public abstract class Enemy : Entity
     {
-        
         public override void Spawn(EntityData entityData, DifficultyData difficultyData)
         {
             base.Spawn(entityData, difficultyData);

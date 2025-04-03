@@ -55,6 +55,16 @@ namespace RogueLike.Player.States
             return finalVelocity;
         }
 
+        public override MovementState GetNextState(PlayerMovement movement)
+        {
+            if (movement.CurrentVelocity.Value.y < -0.2f)
+            {
+                return MovementState.Falling;
+            }
+
+            return State;
+        }
+
         public override MovementState State => MovementState.Jumping;
     }
 }

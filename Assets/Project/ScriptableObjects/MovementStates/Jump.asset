@@ -39,7 +39,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   accelerationDuration: 0.8
-  acceleration: 50
+  acceleration: 10
   decelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -64,8 +64,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  decelerationDuration: 0.1
-  deceleration: 50
+  decelerationDuration: 0.8
+  deceleration: 10
   jumpForce: 2.5
   jumpDuration: 0.175
   jumpCurve:

@@ -5,7 +5,7 @@ using DG.Tweening;
 using KBCore.Refs;
 using LTX.Tools;
 using UnityEngine;
-using ZLinq;
+using UnityEngine.InputSystem;
 
 namespace RogueLike.Player
 {
@@ -20,7 +20,6 @@ namespace RogueLike.Player
         
         public List<PlayerRewindComposite> Composites { get; private set; }
         private DynamicBuffer<PlayerRewindComposite> buffer;
-        public PlayerRewindComposite[] gogogo;
         
         [Header("References")]
         [SerializeField, Self] private PlayerMovement pm;
@@ -61,7 +60,7 @@ namespace RogueLike.Player
 
                 currentComposite.Rotation = new Vector3(
                     currentComposite.Rotation.x, 
-                    currentComposite.Rotation.y + 180,
+                    currentComposite.Rotation.y,
                     currentComposite.Rotation.z);
                 
                 camPivot.DOLocalRotate(currentComposite.Rotation, rewindSpeed * compositesSpacing).SetEase(Ease.Linear);
@@ -80,13 +79,6 @@ namespace RogueLike.Player
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.R) && !isRewinding)
-            {
-                StartCoroutine(DoRewind());
-            }
-
-            gogogo = Composites.AsValueEnumerable().ToArray();
-
             if (!isRewinding)
             {
                 currentCompositeTimer += Time.deltaTime;
@@ -113,6 +105,14 @@ namespace RogueLike.Player
 
                     Composites.Add(composite);
                 }
+            }
+        }
+
+        public void InputRewind(InputAction.CallbackContext context)
+        {
+            if (!isRewinding && context.performed)
+            {
+                StartCoroutine(DoRewind());
             }
         }
     }

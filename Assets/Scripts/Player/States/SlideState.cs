@@ -3,48 +3,98 @@ using UnityEngine;
 namespace RogueLike.Player.States
 {
     [CreateAssetMenu(menuName = "RogueLike/Movement/Slide")]
-    public class SlideState : MoveState
+    public class SlideState : MovementStateBehavior
     {
-        [Header("SLiding")]
+        [Header("Speed")] 
+        [SerializeField] private float slideSpeed;
+        [SerializeField] private float slideMinSpeed;
+        [SerializeField, Space] private AnimationCurve accelerationCurve;
+        [SerializeField] private float accelerationDuration;
+        [SerializeField] private float decelerationStrength;
+        [SerializeField] private float decelerationThreshold;
+
+        [Header("Slopes")] 
+        [SerializeField] private AnimationCurve slopeCurve;
+        [SerializeField] private float slopeModifier;
+        [SerializeField, Range(0, 1)] private float minSlopeAngle;
+        
+        [Header("Sliding")]
         [SerializeField] private float playerSlideHeight = 0.5f;
         [SerializeField] private float maxSlideTime = 1.5f;
-        private float currentSlideTime;
         
+        private float currentSlideTime;
+        private Vector3 direction;
+
+        public override void Initialize(PlayerMovement movement)
+        {
+        }
+
+        public override void Dispose(PlayerMovement movement)
+        {
+        }
+
         public override void Enter(PlayerMovement movement)
         {
-            base.Enter(movement);
             currentSlideTime = 0;
-            movement.transform.localScale = new Vector3(1, playerSlideHeight, 1);
-            movement.rb.MovePosition(movement.rb.position - GetProjectionPlaneNormal(movement) * 0.25f);
+            direction = GetCameraDirection(movement, Vector2.up);
         }
 
         public override void Exit(PlayerMovement movement)
         {
-            base.Exit(movement);
             currentSlideTime = 0;
-            movement.transform.localScale = new Vector3(1, 1, 1);
         }
-
         
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime)
         {
-            //Debug.Log((GetProjectionPlaneNormal(movement) - Vector3.up).sqrMagnitude);
+            Vector3 velocity = Vector3.zero;
+            Vector3 projectionPlaneNormal = GetProjectionPlaneNormal(movement);
             
-            if ((GetProjectionPlaneNormal(movement) - Vector3.up).sqrMagnitude < 0.01f)
+            //Acceleration
+            if (currentSlideTime < accelerationDuration)
             {
-                currentSlideTime += deltaTime;
+                Vector3 projectOnPlane = Vector3.ProjectOnPlane(direction, projectionPlaneNormal);
+                Vector3 newVelocity = projectOnPlane * accelerationCurve.Evaluate(currentSlideTime / accelerationDuration) * slideSpeed;
+                velocity = newVelocity;
             }
+            //Deceleration
             else
             {
-                //Increase slide velocity by adding a value to base.GetVelocity(movement, deltaTime);
+                Vector3 currentVelocity = movement.StateVelocity;
+                float dotProduct = Vector3.Dot(movement.Gravity.Value.normalized, Vector3.ProjectOnPlane(currentVelocity, projectionPlaneNormal).normalized);
+
+                if (Mathf.Abs(dotProduct) <= minSlopeAngle)
+                    velocity = Vector3.MoveTowards(currentVelocity, direction * slideMinSpeed, decelerationStrength * deltaTime);
+                else
+                    velocity = currentVelocity;
+                
+                float modifier = slopeCurve.Evaluate(dotProduct) * slopeModifier * deltaTime;
+                velocity += direction.normalized * modifier;
             }
 
-            if (currentSlideTime >= maxSlideTime)
+            currentSlideTime += deltaTime;
+            return movement.ApplyGravity(velocity);
+        }
+
+        public override MovementState GetNextState(PlayerMovement movement)
+        {
+            if (!movement.IsGrounded)
             {
-                movement.SetMovementState(MovementState.Running);
+                return MovementState.Falling;
+            }
+            if (movement.WantsToJump)
+            {
+                return MovementState.Jumping;
             }
             
-            return base.GetVelocity(movement, deltaTime);
+            Vector3 projectionPlaneNormal = GetProjectionPlaneNormal(movement);
+            Vector3 projectOnPlane = Vector3.ProjectOnPlane(movement.StateVelocity, projectionPlaneNormal);
+            
+            if (projectOnPlane.sqrMagnitude < slideMinSpeed * slideMinSpeed + decelerationThreshold)
+            {
+                return MovementState.Running;
+            }
+
+            return State;
         }
 
         public override MovementState State => MovementState.Sliding;
