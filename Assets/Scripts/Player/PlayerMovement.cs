@@ -1,4 +1,3 @@
-using System;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using UnityEngine;
@@ -15,19 +14,24 @@ namespace RogueLike.Player
         public MovementState CurrentState { get; private set; }
         public InfluencedProperty<Vector3> CurrentVelocity { get; private set; }
         public PrioritisedProperty<Vector3> Gravity { get; private set; }
+        
+        [Header("Movement States")]
+        [SerializeField] private MovementStateBehavior[] movementStates;
 
+        [Header("Ground")]
         [SerializeField] private float groundCheckDistance = 0.1f;
         [SerializeField] private float groundCheckMaxAngle = 50;
-        [SerializeField] private LayerMask groundLayer;
+        [field: SerializeField] public LayerMask GroundLayer { get; private set; }
 
+        [Header("Gravity")]
         [SerializeField] private float gravityScale = 1;
-        [SerializeField] private float horizontalDamping = 1;
+        
+        [Header("Coyote")]
         [SerializeField] private int coyoteTime = 10;
-        [field: SerializeField, Self]
-        public Rigidbody rb { get; private set; }
-        [SerializeField, Child] private CapsuleCollider cc;
 
-        [SerializeField] private MovementStateBehavior[] movementStates;
+        
+        [field: SerializeField, Self, Space] public Rigidbody rb { get; private set; }
+        [SerializeField, Child] private CapsuleCollider cc;
 
         private bool runInput;
         private bool crouchInput;
@@ -277,7 +281,7 @@ namespace RogueLike.Player
 
             Vector3 gravityNormalized = Gravity.Value.normalized;
 
-            bool result = Physics.SphereCast(rb.position, cc.radius, gravityNormalized, out RaycastHit hit, groundCheckDistance + cc.height * 0.5f - cc.radius, groundLayer);
+            bool result = Physics.SphereCast(rb.position, cc.radius, gravityNormalized, out RaycastHit hit, groundCheckDistance + cc.height * 0.5f - cc.radius, GroundLayer);
 
             //Debug.DrawRay(rb.position, gravityNormalized * (groundCheckDistance + cc.height * 0.5f), Color.red);
 

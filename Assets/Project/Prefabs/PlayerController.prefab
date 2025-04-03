@@ -225,9 +225,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05743492e0d464091a92e83db69cd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxComposites: 200
-  compositesSpacing: 0.1
-  rewindSpeed: 0.8
+  abilityDuration: 2.5
+  compositesSpacing: 0.05
+  rewindSpeed: 0.9
   gogogo: []
   pm: {fileID: 7673975130547769438}
   camPivot: {fileID: 6284688945968191880}
@@ -244,16 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 021c8954cdd7467c982615ead7e470f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheckDistance: 0.1
-  groundCheckMaxAngle: 50
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  gravityScale: 1.1
-  horizontalDamping: 1
-  coyoteTime: 10
-  <rb>k__BackingField: {fileID: 7362595536518079642}
-  cc: {fileID: 6617578319277999684}
   movementStates:
   - {fileID: 11400000, guid: 5e4bcd4b83c261443b9414fe80298e6b, type: 2}
   - {fileID: 11400000, guid: be1dcc172ba00724ea9b156b06ecc9da, type: 2}
@@ -262,6 +252,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 65418ada7e21f654fa5e1c852d785aa5, type: 2}
   - {fileID: 11400000, guid: 1aa7a36b7dffb6c4cb38c3b598ac66a4, type: 2}
   - {fileID: 11400000, guid: 9a432f516a3ed30479c1ffd7ad841227, type: 2}
+  groundCheckDistance: 0.1
+  groundCheckMaxAngle: 50
+  <GroundLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 128
+  gravityScale: 1.5
+  coyoteTime: 10
+  <rb>k__BackingField: {fileID: 7362595536518079642}
+  cc: {fileID: 6617578319277999684}
 --- !u!114 &3643170854386174536
 MonoBehaviour:
   m_ObjectHideFlags: 0

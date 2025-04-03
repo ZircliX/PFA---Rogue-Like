@@ -11,8 +11,9 @@ namespace RogueLike.Player
 {
     public class PlayerRewind : MonoBehaviour
     {
-        [SerializeField] private int maxComposites = 100;
-        [SerializeField] private float compositesSpacing = 0.05f;
+        [Header("Ability")]
+        [SerializeField] private float abilityDuration = 2;
+        [SerializeField] private float compositesSpacing = 0.1f;
         [SerializeField] private float rewindSpeed = 1;
         private float currentCompositeTimer;
         private bool isRewinding;
@@ -21,6 +22,7 @@ namespace RogueLike.Player
         private DynamicBuffer<PlayerRewindComposite> buffer;
         public PlayerRewindComposite[] gogogo;
         
+        [Header("References")]
         [SerializeField, Self] private PlayerMovement pm;
         [SerializeField] private Transform camPivot;
         [SerializeField] private PlayerCamera cineMachineCam;
@@ -37,50 +39,48 @@ namespace RogueLike.Player
         public IEnumerator DoRewind()
         {
             isRewinding = true;
-            pm.enabled = false;
             
-            bool originalKinematicState = false;
-            originalKinematicState = pm.rb.isKinematic;
+            pm.enabled = false;
             pm.rb.isKinematic = true;
-
+            cineMachineCam.enabled = false;
 
             buffer.Clear();
             buffer.CopyFrom(Composites);
-            cineMachineCam.enabled = false;
             
             //cam.DORotate(Composites[0].Rotation, rewindSpeed * compositesSpacing * Composites.Count).SetEase(Ease.Linear);
 
             for (int i = buffer.Length - 1; i >= 0; i--)
             {
                 PlayerRewindComposite currentComposite = buffer[i];
-
+                Composites.Remove(currentComposite);
+                
                 target.DOKill();
                 camPivot.DOKill();
 
                 target.DOMove(currentComposite.Position, rewindSpeed * compositesSpacing).SetEase(Ease.Linear);
+
+                currentComposite.Rotation = new Vector3(
+                    currentComposite.Rotation.x, 
+                    currentComposite.Rotation.y + 180,
+                    currentComposite.Rotation.z);
+                
                 camPivot.DOLocalRotate(currentComposite.Rotation, rewindSpeed * compositesSpacing).SetEase(Ease.Linear);
 
                 //pm.health = currentComposite.Health;
 
                 yield return new WaitForSeconds(rewindSpeed * compositesSpacing);
             }
-            
-            if (buffer.Length > 0)
-            {
-                 target.position = buffer[0].Position;
-                 camPivot.rotation = Quaternion.Euler(buffer[0].Rotation);
-                 pm.SetMovementState(buffer[0].State);
-            }
-            
+
             cineMachineCam.enabled = true;
             pm.enabled = true;
-            pm.rb.isKinematic = originalKinematicState;
+            pm.rb.isKinematic = false;
+            
             isRewinding = false;
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R) && !isRewinding)
             {
                 StartCoroutine(DoRewind());
             }
@@ -90,11 +90,12 @@ namespace RogueLike.Player
             if (!isRewinding)
             {
                 currentCompositeTimer += Time.deltaTime;
+                
                 if (currentCompositeTimer >= compositesSpacing)
                 {
                     currentCompositeTimer = 0;
 
-                    if (Composites.Count >= maxComposites)
+                    if (Composites.Count * compositesSpacing >= abilityDuration)
                     {
                         Composites.RemoveAt(0);
                     }

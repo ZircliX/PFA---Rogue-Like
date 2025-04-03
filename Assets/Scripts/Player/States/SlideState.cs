@@ -5,6 +5,7 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Slide")]
     public class SlideState : MoveState
     {
+        [Header("SLiding")]
         [SerializeField] private float playerSlideHeight = 0.5f;
         [SerializeField] private float maxSlideTime = 1.5f;
         private float currentSlideTime;
