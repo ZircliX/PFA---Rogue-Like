@@ -5317,7 +5317,7 @@ MonoBehaviour:
       name: All
       components:
       - displayName: EventManager
-        name: RogueLike.Events.EventManager, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        name: RogueLike.Events.EventManager, DeadLink, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
         content:
           m_Text: EventManager
@@ -5421,7 +5421,7 @@ MonoBehaviour:
         script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
         hasToggle: 1
       - displayName: PlayerCamera
-        name: RogueLike.Player.PlayerCamera, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        name: RogueLike.Player.PlayerCamera, DeadLink, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
         content:
           m_Text: PlayerCamera
@@ -5434,8 +5434,8 @@ MonoBehaviour:
         script: {fileID: 11500000, guid: aceb76db0bd646738b79931a465c5629, type: 3}
         hasToggle: 1
       - displayName: PlayerMovement
-        name: RogueLike.Player.PlayerMovement, Assembly-CSharp, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
+        name: RogueLike.Player.PlayerMovement, DeadLink, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
         content:
           m_Text: PlayerMovement
           m_Image: {fileID: -8204150473280056172, guid: 0000000000000000d000000000000000, type: 0}
@@ -5471,6 +5471,58 @@ MonoBehaviour:
         excluded: 0
         isBuiltIn: 0
         script: {fileID: 11500000, guid: 4afa82ae3200b82408d605c3dbdd1e38, type: 3}
+        hasToggle: 1
+      - displayName: PlayerRewind
+        name: RogueLike.Player.PlayerRewind, DeadLink, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        content:
+          m_Text: PlayerRewind
+          m_Image: {fileID: -8204150473280056172, guid: 0000000000000000d000000000000000, type: 0}
+          m_Tooltip: PlayerRewind
+          m_TextWithWhitespace: "PlayerRewind\u200B"
+        shown: 0
+        excluded: 0
+        isBuiltIn: 0
+        script: {fileID: 11500000, guid: e05743492e0d464091a92e83db69cd73, type: 3}
+        hasToggle: 1
+      - displayName: Player
+        name: RogueLike.Player.Player, DeadLink, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        content:
+          m_Text: Player
+          m_Image: {fileID: -8204150473280056172, guid: 0000000000000000d000000000000000, type: 0}
+          m_Tooltip: Player
+          m_TextWithWhitespace: "Player\u200B"
+        shown: 0
+        excluded: 0
+        isBuiltIn: 0
+        script: {fileID: 11500000, guid: b4e5b408c32141b3882a35648cded372, type: 3}
+        hasToggle: 1
+      - displayName: LevelManager
+        name: RogueLike.Managers.LevelManager, DeadLink, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        content:
+          m_Text: LevelManager
+          m_Image: {fileID: -8204150473280056172, guid: 0000000000000000d000000000000000, type: 0}
+          m_Tooltip: LevelManager
+          m_TextWithWhitespace: "LevelManager\u200B"
+        shown: 0
+        excluded: 0
+        isBuiltIn: 0
+        script: {fileID: 11500000, guid: 5fa0d3e64d2a4c199e3413c548474afd, type: 3}
+        hasToggle: 1
+      - displayName: MeleeEnemy
+        name: Enemy.TheTriadEnemies.MeleeEnemy, DeadLink, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        content:
+          m_Text: MeleeEnemy
+          m_Image: {fileID: -8204150473280056172, guid: 0000000000000000d000000000000000, type: 0}
+          m_Tooltip: MeleeEnemy
+          m_TextWithWhitespace: "MeleeEnemy\u200B"
+        shown: 0
+        excluded: 0
+        isBuiltIn: 0
+        script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
         hasToggle: 1
     unityVersion: 6000.0.28f1
     unityCount: 385

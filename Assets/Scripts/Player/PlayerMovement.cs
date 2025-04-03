@@ -1,4 +1,3 @@
-using System;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using UnityEngine;
@@ -15,31 +14,47 @@ namespace RogueLike.Player
         public MovementState CurrentState { get; private set; }
         public InfluencedProperty<Vector3> CurrentVelocity { get; private set; }
         public PrioritisedProperty<Vector3> Gravity { get; private set; }
+        
+        [Header("Movement States")]
+        [SerializeField] private MovementStateBehavior[] movementStates;
+        private int currentStateIndex;
 
+        [Header("Ground")]
         [SerializeField] private float groundCheckDistance = 0.1f;
         [SerializeField] private float groundCheckMaxAngle = 50;
-        [SerializeField] private LayerMask groundLayer;
+        [field: SerializeField] public LayerMask GroundLayer { get; private set; }
 
+        [Header("Walls")] 
+        [SerializeField] private int wallCastSample = 15;
+        [SerializeField] private int wallCastDistance = 75;
+        [SerializeField] private int wallCastAngle = 90;
+        [field: SerializeField] public LayerMask WallLayer { get; private set; }
+        [field: SerializeField] public bool IsWalled { get; private set; }
+        public Vector3 WallNormal { get; private set; }
+        public Collider CurrentWall { get; private set; }
+        
+        [Header("Gravity")]
         [SerializeField] private float gravityScale = 1;
-        [SerializeField] private float horizontalDamping = 1;
+        
+        [Header("Coyote")]
         [SerializeField] private int coyoteTime = 10;
-        [field: SerializeField, Self]
-        public Rigidbody rb { get; private set; }
+        
+        [field: SerializeField] public Transform Head { get; private set; }
+        [field: SerializeField] public Camera Camera { get; private set; }
+        [field: SerializeField, Self, Space] public Rigidbody rb { get; private set; }
         [SerializeField, Child] private CapsuleCollider cc;
 
-        [SerializeField] private MovementStateBehavior[] movementStates;
-
-        private bool runInput;
-        private bool crouchInput;
+        public bool runInput { get; private set; }
+        public bool crouchInput { get; private set; }
 
         private int jumpInput;
-        private bool WantsToJump => jumpInput > 0;
+        public bool WantsToJump => jumpInput > 0;
         private int slideInput;
-        private bool WantsToSlide => slideInput > 0;
+        public bool WantsToSlide => slideInput > 0;
 
         private ChannelKey stateChannelKey;
 
-        private const float MinMoveInputThresholdSqr = 0.01f;
+        public const float MIN_THRESHOLD = 0.01f;
 
         private void OnValidate() => this.ValidateRefs();
 
@@ -76,8 +91,13 @@ namespace RogueLike.Player
 
         private void FixedUpdate()
         {
+            if (currentStateIndex == -1)
+            {
+                currentStateIndex = 0;
+            }
+            
             HandleGroundDetection();
-            HandleStateChange();
+            HandleWallDetection();
 
             //Set Buffers
             if (jumpInput > 0)
@@ -86,26 +106,30 @@ namespace RogueLike.Player
                 slideInput --;
 
             float deltaTime = Time.fixedDeltaTime;
-            for (int i = 0; i < movementStates.Length; i++)
-            {
-                MovementStateBehavior state = movementStates[i];
-                if (state.State == CurrentState)
-                {
-                    Vector3 result = state.GetVelocity(this, deltaTime);
-                    CurrentVelocity.Write(stateChannelKey, result);
-                }
-            }
-
+            
+            MovementStateBehavior state = movementStates[currentStateIndex];
+            Vector3 result = state.GetVelocity(this, deltaTime);
+            CurrentVelocity.Write(stateChannelKey, result);
+            
             MovePlayer();
+            HandleStateChange();
         }
 
         private void MovePlayer()
         {
             Vector3 velocity = CurrentVelocity.Value;
+            
+            /*
+            Vector3 stateVelocity = StateVelocity;
+            if (rb.SweepTest(velocity, out RaycastHit hit, velocity.magnitude * Time.deltaTime))
+            {
+                CurrentVelocity.Write(stateChannelKey, hit.distance / Time.deltaTime * stateVelocity.normalized);
+            }
+            */
+                     
             rb.linearVelocity = velocity;
         }
-
-
+        
         public Vector3 ApplyGravity(Vector3 baseVelocity)
         {
             return ApplyGravity(baseVelocity, Time.deltaTime);
@@ -118,152 +142,49 @@ namespace RogueLike.Player
 
         private void HandleStateChange()
         {
-            switch (CurrentState)
+            MovementStateBehavior currentState = movementStates[currentStateIndex];
+            MovementState nextState = currentState.GetNextState(this);
+
+            if (nextState != CurrentState)
             {
-                case MovementState.Falling:
-                    if (IsGrounded)
-                    {
-                        MovementState nextState = MovementState.Idle;
-
-                        if (crouchInput)
-                            nextState = MovementState.Crouching;
-                        else if (InputDirection.sqrMagnitude > MinMoveInputThresholdSqr)
-                        {
-                            nextState = runInput ? MovementState.Running : MovementState.Walking;
-                        }
-
-                        SetMovementState(nextState);
-                    }
-
-                    break;
-
-                case MovementState.Jumping:
-                    if (CurrentVelocity.Value.y < -0.2f)
-                    {
-                        SetMovementState(MovementState.Falling);
-                    }
-                    break;
-
-                case MovementState.Idle:
-                    if (!IsGrounded)
-                    {
-                        SetMovementState(MovementState.Falling);
-                        break;
-                    }
-                    if (WantsToJump)
-                    {
-                        SetMovementState(MovementState.Jumping);
-                        jumpInput = 0;
-                        break;
-                    }
-                    if (crouchInput)
-                    {
-                        SetMovementState(MovementState.Crouching);
-                        break;
-                    }
-                    if (InputDirection.sqrMagnitude > MinMoveInputThresholdSqr)
-                    {
-                        SetMovementState(MovementState.Walking);
-                        break;
-                    }
-
-                    break;
-
-                case MovementState.Crouching:
-                    if (!IsGrounded)
-                    {
-                        SetMovementState(MovementState.Falling);
-                        break;
-                    }
-                    if (!crouchInput)
-                    {
-                        SetMovementState(MovementState.Idle);
-                        break;
-                    }
-
-                    break;
-
-                case MovementState.Walking:
-                    if (!IsGrounded)
-                    {
-                        SetMovementState(MovementState.Falling);
-                        break;
-                    }
-                    if (WantsToJump)
-                    {
-                        SetMovementState(MovementState.Jumping);
-                        jumpInput = 0;
-                        break;
-                    }
-                    if (crouchInput)
-                    {
-                        SetMovementState(MovementState.Crouching);
-                        break;
-                    }
-                    if (runInput)
-                    {
-                        SetMovementState(MovementState.Running);
-                        break;
-                    }
-                    if (InputDirection.sqrMagnitude < MinMoveInputThresholdSqr)
-                    {
-                        SetMovementState(MovementState.Idle);
-                        break;
-                    }
-
-                    break;
-
-                case MovementState.Running:
-                    if (!IsGrounded)
-                    {
-                        SetMovementState(MovementState.Falling);
-                        break;
-                    }
-                    if (WantsToJump)
-                    {
-                        SetMovementState(MovementState.Jumping);
-                        jumpInput = 0;
-                        break;
-                    }
-                    if (WantsToSlide)
-                    {
-                        SetMovementState(MovementState.Sliding);
-                        slideInput = 0;
-                        break;
-                    }
-                    if (InputDirection.sqrMagnitude < MinMoveInputThresholdSqr)
-                    {
-                        SetMovementState(MovementState.Idle);
-                        break;
-                    }
-                    if (!runInput)
-                    {
-                        SetMovementState(MovementState.Walking);
-                        break;
-                    }
-
-                    break;
-
-                case MovementState.Sliding:
-                    if (!IsGrounded)
-                    {
-                        SetMovementState(MovementState.Falling);
-                        break;
-                    }
-                    if (WantsToJump)
-                    {
-                        SetMovementState(MovementState.Jumping);
-                        jumpInput = 0;
-                        break;
-                    }
-
-                    // *** IMPORTANT: No normal slide end condition HERE ***
-                    // Per your clarification, the logic script dedicated to sliding
-                    // handles the transition back to Running when the slide naturally ends.
-                    // This switch only handles external interruptions like Jump or Falling.
-                    break;
-
+                SetMovementState(nextState);
             }
+        }
+
+        private void HandleWallDetection()
+        {
+            Vector3 up = -Gravity.Value.normalized;
+            Vector3 castDirection = Vector3.ProjectOnPlane(CurrentVelocity.Value, up).normalized;
+            
+            for (int i = 0; i < wallCastSample; i++)
+            {
+                float lerp = Mathf.InverseLerp(0, wallCastSample - 1, i);
+                Quaternion rotation = Quaternion.AngleAxis(Mathf.Lerp(-wallCastAngle, wallCastAngle, lerp), up);
+
+                Vector3 direction = rotation * castDirection;
+                //Debug.DrawRay(transform.position, direction * wallCastDistance, Color.yellow);
+
+                Vector3 p1 = rb.position + cc.center + transform.up * -cc.height * 0.5f;
+                Vector3 p2 = p1 + transform.up * cc.height;
+                
+                if (Physics.CapsuleCast(p1, p2, cc.radius - MIN_THRESHOLD, direction, out RaycastHit hit, wallCastDistance, WallLayer))
+                {
+                    //Debug.DrawRay(hit.point, hit.normal * 10, Color.magenta);
+                    
+                    float angle = Vector3.Angle(hit.normal, up);
+                    if (angle > groundCheckMaxAngle)
+                    {
+                        IsWalled = true;
+                        WallNormal = hit.normal;
+                        CurrentWall = hit.collider;
+                        return;
+                    }
+                }
+            }
+            
+            IsWalled = false;
+            WallNormal = Vector3.zero;
+            CurrentWall = null;
         }
 
         private void HandleGroundDetection()
@@ -274,10 +195,10 @@ namespace RogueLike.Player
                 IsGrounded = false;
                 return;
             }
-
+            
             Vector3 gravityNormalized = Gravity.Value.normalized;
 
-            bool result = Physics.SphereCast(rb.position, cc.radius, gravityNormalized, out RaycastHit hit, groundCheckDistance + cc.height * 0.5f - cc.radius, groundLayer);
+            bool result = Physics.SphereCast(rb.position, cc.radius, gravityNormalized, out RaycastHit hit, groundCheckDistance + cc.height * 0.5f - cc.radius, GroundLayer);
 
             //Debug.DrawRay(rb.position, gravityNormalized * (groundCheckDistance + cc.height * 0.5f), Color.red);
 
@@ -295,9 +216,7 @@ namespace RogueLike.Player
             GroundNormal = Vector3.up;
             IsGrounded = false;
         }
-
-        public void SetStateVelocity(Vector3 velocity) => CurrentVelocity.Write(stateChannelKey, velocity);
-
+        
         public void SetMovementState(MovementState state)
         {
             for (int i = 0; i < movementStates.Length; i++)
@@ -305,21 +224,18 @@ namespace RogueLike.Player
                 MovementStateBehavior movementStateBehavior = movementStates[i];
                 if (movementStateBehavior.State == state)
                 {
-                    if (movementStateBehavior.State != CurrentState)
+                    if (currentStateIndex != -1)
                     {
-                        movementStateBehavior.Enter(this);
+                        movementStates[currentStateIndex].Exit(this);
                     }
-                }
-                else
-                {
-                    if (movementStateBehavior.State == CurrentState)
-                    {
-                        movementStateBehavior.Exit(this);
-                    }
+                    
+                    CurrentState = state;
+                    currentStateIndex = i;
+                    
+                    movementStates[currentStateIndex].Enter(this);
+                    return;
                 }
             }
-
-            CurrentState = state;
         }
 
         #region Inputs

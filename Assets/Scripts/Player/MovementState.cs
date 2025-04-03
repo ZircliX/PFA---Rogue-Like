@@ -9,6 +9,7 @@ namespace RogueLike.Player
         Crouching,
         Walking,
         Running,
-        Sliding
+        Sliding,
+        WallRuning
     }
 }

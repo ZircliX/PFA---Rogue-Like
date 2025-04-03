@@ -18,7 +18,21 @@ namespace RogueLike.Player.States
             base.Exit(movement);
             movement.transform.localScale = new Vector3(1, 1, 1);
         }
-        
+
+        public override MovementState GetNextState(PlayerMovement movement)
+        {
+            if (!movement.IsGrounded)
+            {
+                return MovementState.Falling;
+            }
+            if (!movement.crouchInput)
+            {
+                return MovementState.Idle;
+            }
+
+            return State;
+        }
+
         public override MovementState State => MovementState.Crouching;
     }
 }

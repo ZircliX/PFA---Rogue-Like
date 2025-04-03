@@ -1,4 +1,4 @@
-namespace Enemy.TheTriadEnemys
+namespace Enemy.TheTriadEnemies
 {
     public class DistanceEnemy : Enemy
     {

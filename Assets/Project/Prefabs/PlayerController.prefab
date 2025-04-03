@@ -185,6 +185,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8676647657924908099}
+  - component: {fileID: 5095986187323191965}
   - component: {fileID: 3016530247966428140}
   - component: {fileID: 7673975130547769438}
   - component: {fileID: 3643170854386174536}
@@ -213,6 +214,19 @@ Transform:
   - {fileID: 6284688945968191880}
   m_Father: {fileID: 8406938040259338861}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5095986187323191965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6401934034392761331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e5b408c32141b3882a35648cded372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CurrentData>k__BackingField: {fileID: 11400000, guid: f28fe2fd1bf23b944b37bfc0b2bfc6dc, type: 2}
 --- !u!114 &3016530247966428140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,10 +239,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05743492e0d464091a92e83db69cd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxComposites: 200
-  compositesSpacing: 0.1
-  rewindSpeed: 0.8
-  gogogo: []
+  abilityDuration: 2.5
+  compositesSpacing: 0.05
+  rewindSpeed: 0.9
   pm: {fileID: 7673975130547769438}
   camPivot: {fileID: 6284688945968191880}
   cineMachineCam: {fileID: 5472269180914424130}
@@ -244,16 +257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 021c8954cdd7467c982615ead7e470f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheckDistance: 0.1
-  groundCheckMaxAngle: 50
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  gravityScale: 1.1
-  horizontalDamping: 1
-  coyoteTime: 10
-  <rb>k__BackingField: {fileID: 7362595536518079642}
-  cc: {fileID: 6617578319277999684}
   movementStates:
   - {fileID: 11400000, guid: 5e4bcd4b83c261443b9414fe80298e6b, type: 2}
   - {fileID: 11400000, guid: be1dcc172ba00724ea9b156b06ecc9da, type: 2}
@@ -262,6 +265,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 65418ada7e21f654fa5e1c852d785aa5, type: 2}
   - {fileID: 11400000, guid: 1aa7a36b7dffb6c4cb38c3b598ac66a4, type: 2}
   - {fileID: 11400000, guid: 9a432f516a3ed30479c1ffd7ad841227, type: 2}
+  groundCheckDistance: 0.1
+  groundCheckMaxAngle: 50
+  <GroundLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 128
+  <WallLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 0
+  gravityScale: 1.5
+  coyoteTime: 10
+  <Head>k__BackingField: {fileID: 0}
+  <Camera>k__BackingField: {fileID: 818597675296926653}
+  <rb>k__BackingField: {fileID: 7362595536518079642}
+  cc: {fileID: 6617578319277999684}
 --- !u!114 &3643170854386174536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,6 +416,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 742891ed-3345-4251-b289-da8e9bc08864
     m_ActionName: 'Player/Run[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3016530247966428140}
+        m_TargetAssemblyTypeName: RogueLike.Player.PlayerRewind, DeadLink
+        m_MethodName: InputRewind
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 359c87a2-f013-4ec3-a94c-91956d532ddd
+    m_ActionName: 'Player/Rewind[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard and Mouse
   m_DefaultActionMap: Player
@@ -607,7 +640,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8100090039071302774}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 283f783d5b70f9c409dedfc5b3ad48c6, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

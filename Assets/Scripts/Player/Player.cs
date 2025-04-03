@@ -1,6 +1,5 @@
 using Enemy;
 using LTX.ChanneledProperties;
-using LTX.Singletons;
 
 namespace RogueLike.Player
 {

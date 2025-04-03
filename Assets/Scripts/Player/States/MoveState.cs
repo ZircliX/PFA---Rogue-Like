@@ -47,29 +47,11 @@ namespace RogueLike.Player.States
             currentDeceleration = 0;
         }
 
-        protected virtual Vector3 GetProjectionPlaneNormal(PlayerMovement movement)
-        {
-            return movement.GroundNormal;
-        }
-
-        protected virtual float GetCameraDotProduct(PlayerMovement movement)
-        {
-            return Vector3.Dot(cam.transform.forward, -movement.Gravity.Value.normalized);
-        }
-
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime)
         {
             Vector3 lastVelocity = movement.StateVelocity;
 
-            Vector3 worldInputs = cam.transform.right * movement.InputDirection.x;
-            var cameraDotProduct = GetCameraDotProduct(movement);
-            worldInputs += cameraDotProduct switch
-            {
-                < -0.8f => cam.transform.up,
-                > 0.8f => -cam.transform.up,
-                _ => cam.transform.forward
-            } * movement.InputDirection.z;
-
+            Vector3 worldInputs = GetWorldInputs(movement);
 
             Vector3 projectionPlaneNormal = GetProjectionPlaneNormal(movement);
             Vector3 projectedInputs = worldInputs.ProjectOntoPlane(projectionPlaneNormal).normalized;

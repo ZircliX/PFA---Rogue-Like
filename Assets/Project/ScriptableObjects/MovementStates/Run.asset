@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Run
   m_EditorClassIdentifier: 
   maxSpeed: 12
-  directionControl: 3
+  directionControl: 15
   accelerationCurve:
     serializedVersion: 2
     m_Curve:

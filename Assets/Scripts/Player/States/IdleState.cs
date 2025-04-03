@@ -26,6 +26,28 @@ namespace RogueLike.Player.States
             return Vector3.zero;
         }
 
+        public override MovementState GetNextState(PlayerMovement movement)
+        {
+            if (!movement.IsGrounded)
+            {
+                return MovementState.Falling;
+            }
+            if (movement.WantsToJump)
+            {
+                return MovementState.Jumping;
+            }
+            if (movement.crouchInput)
+            {
+                return MovementState.Crouching;
+            }
+            if (movement.InputDirection.sqrMagnitude > PlayerMovement.MIN_THRESHOLD)
+            {
+                return MovementState.Walking;
+            }
+
+            return State;
+        }
+
         public override MovementState State => MovementState.Idle;
     }
 }

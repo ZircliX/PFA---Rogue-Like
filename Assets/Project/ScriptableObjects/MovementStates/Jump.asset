@@ -39,7 +39,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   accelerationDuration: 0.8
-  acceleration: 50
+  acceleration: 10
   decelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -65,24 +65,24 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   decelerationDuration: 0.8
-  deceleration: 50
-  jumpForce: 5
-  jumpDuration: 0.1
+  deceleration: 10
+  jumpForce: 2.5
+  jumpDuration: 0.175
   jumpCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -3.1057136
-      outSlope: -3.1057136
+      inSlope: -1.5350587
+      outSlope: -1.5350587
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.11843917
-      value: 0.63216186
+      time: 0.32260558
+      value: 0.5047815
       inSlope: Infinity
       outSlope: Infinity
       tangentMode: 103
@@ -90,10 +90,10 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.43848372
-      value: 0.050706804
-      inSlope: -0.2300774
-      outSlope: -0.2300774
+      time: 0.49265242
+      value: 0.093156755
+      inSlope: -0.5500887
+      outSlope: -0.5500887
       tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334
