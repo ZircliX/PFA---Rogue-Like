@@ -5,10 +5,10 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Slide")]
     public class SlideState : MovementStateBehavior
     {
-        [Header("Speed")] 
+        [Header("Speed")]
         [SerializeField] private float slideSpeed;
         [SerializeField] private float slideMinSpeed;
-        [SerializeField, Space] private AnimationCurve accelerationCurve;
+        [SerializeField] private AnimationCurve accelerationCurve;
         [SerializeField] private float accelerationDuration;
         [SerializeField] private float decelerationStrength;
         [SerializeField] private float decelerationThreshold;
@@ -24,9 +24,11 @@ namespace RogueLike.Player.States
         
         private float currentSlideTime;
         private Vector3 direction;
+        private Camera cam;
 
         public override void Initialize(PlayerMovement movement)
         {
+            cam = Camera.main;
         }
 
         public override void Dispose(PlayerMovement movement)

@@ -270,12 +270,16 @@ MonoBehaviour:
   <GroundLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 128
+  wallCastSample: 15
+  wallCastDistance: 1
+  wallCastAngle: 90
   <WallLayer>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
-  gravityScale: 1.5
+    m_Bits: 128
+  <IsWalled>k__BackingField: 0
+  gravityScale: 2
   coyoteTime: 10
-  <Head>k__BackingField: {fileID: 0}
+  <Head>k__BackingField: {fileID: 6284688945968191880}
   <Camera>k__BackingField: {fileID: 818597675296926653}
   <rb>k__BackingField: {fileID: 7362595536518079642}
   cc: {fileID: 6617578319277999684}

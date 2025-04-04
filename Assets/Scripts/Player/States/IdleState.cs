@@ -5,8 +5,11 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Idle")]
     public class IdleState : MovementStateBehavior
     {
+        private Camera cam;
+        
         public override void Initialize(PlayerMovement movement)
         {
+            cam = Camera.main;
         }
 
         public override void Dispose(PlayerMovement movement)
@@ -36,12 +39,13 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Jumping;
             }
-            if (movement.crouchInput)
+            if (movement.CrouchInput)
             {
                 return MovementState.Crouching;
             }
             if (movement.InputDirection.sqrMagnitude > PlayerMovement.MIN_THRESHOLD)
             {
+                Debug.Log("WHUTTTTT");
                 return MovementState.Walking;
             }
 

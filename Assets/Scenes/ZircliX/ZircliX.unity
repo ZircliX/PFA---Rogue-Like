@@ -2214,6 +2214,11 @@ MonoBehaviour:
   entities:
   - {fileID: 1171379394}
   - {fileID: 1435609508}
+--- !u!4 &2017144892 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6284688945968191880, guid: cf92d20b8f0092d4f9a173646f029921, type: 3}
+  m_PrefabInstance: {fileID: 8419302337040558291}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2026750032
 GameObject:
   m_ObjectHideFlags: 0
@@ -2294,9 +2299,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7673975130547769438, guid: cf92d20b8f0092d4f9a173646f029921, type: 3}
-      propertyPath: <WallLayer>k__BackingField.m_Bits
-      value: 128
+      propertyPath: gravityScale
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7673975130547769438, guid: cf92d20b8f0092d4f9a173646f029921, type: 3}
+      propertyPath: <Head>k__BackingField
+      value: 
+      objectReference: {fileID: 2017144892}
     - target: {fileID: 7771178899970783667, guid: cf92d20b8f0092d4f9a173646f029921, type: 3}
       propertyPath: m_Name
       value: PlayerController

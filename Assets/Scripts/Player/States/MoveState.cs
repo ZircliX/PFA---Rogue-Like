@@ -12,12 +12,12 @@ namespace RogueLike.Player.States
         [SerializeField] private AnimationCurve accelerationCurve;
         [SerializeField] private float accelerationDuration;
         [SerializeField] private float acceleration;
+        private float currentAcceleration;
 
         [Header("Deceleration")]
         [SerializeField] private AnimationCurve decelerationCurve;
         [SerializeField] private float decelerationDuration;
         [SerializeField] private float deceleration;
-        private float currentAcceleration;
         private float currentDeceleration;
 
         private Vector3 direction;

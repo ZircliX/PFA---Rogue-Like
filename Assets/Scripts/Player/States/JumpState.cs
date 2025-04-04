@@ -10,10 +10,10 @@ namespace RogueLike.Player.States
         [SerializeField] private float jumpForce;
         [SerializeField] private float jumpDuration;
         [SerializeField] private AnimationCurve jumpCurve;
+        
         private float currentJumpTime;
-
-
         private int count;
+        
         public override void Enter(PlayerMovement movement)
         {
             base.Enter(movement);
@@ -60,6 +60,10 @@ namespace RogueLike.Player.States
             if (movement.CurrentVelocity.Value.y < -0.2f)
             {
                 return MovementState.Falling;
+            }
+            if (movement.IsWalled && movement.CurrentWall != null)
+            {
+                return MovementState.WallRunning;
             }
 
             return State;

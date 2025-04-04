@@ -9,14 +9,11 @@ namespace RogueLike.Player.States
         public override void Enter(PlayerMovement movement)
         {
             base.Enter(movement);
-            movement.transform.localScale = new Vector3(1, playerCrouchHeight, 1);
-            movement.rb.MovePosition(movement.rb.position - GetProjectionPlaneNormal(movement) * 0.25f);
         }
 
         public override void Exit(PlayerMovement movement)
         {
             base.Exit(movement);
-            movement.transform.localScale = new Vector3(1, 1, 1);
         }
 
         public override MovementState GetNextState(PlayerMovement movement)
@@ -25,7 +22,7 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Falling;
             }
-            if (!movement.crouchInput)
+            if (!movement.CrouchInput)
             {
                 return MovementState.Idle;
             }
