@@ -67,7 +67,7 @@ MonoBehaviour:
   decelerationDuration: 0.8
   deceleration: 10
   jumpForce: 3
-  jumpDuration: 0.15
+  jumpDuration: 0.175
   jumpCurve:
     serializedVersion: 2
     m_Curve:

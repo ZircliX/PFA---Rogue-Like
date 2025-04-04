@@ -93,8 +93,6 @@ namespace RogueLike.Player
 
         private void FixedUpdate()
         {
-            Debug.Log(InputDirection.sqrMagnitude);
-            
             if (currentStateIndex == -1)
             {
                 currentStateIndex = 0;

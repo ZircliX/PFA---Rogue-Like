@@ -29,7 +29,7 @@ namespace RogueLike.Player.States
             }
             if (movement.InputDirection.sqrMagnitude < PlayerMovement.MIN_THRESHOLD)
             {
-                Debug.Log("HAAAAAAA");
+                //Debug.Log("HAAAAAAA");
                 return MovementState.Idle;
             }
 
