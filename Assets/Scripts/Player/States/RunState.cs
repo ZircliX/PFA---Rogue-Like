@@ -19,11 +19,15 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Sliding;
             }
+            if (movement.IsWalled && movement.CurrentWall != null)
+            {
+                return MovementState.WallRunning;
+            }
             if (movement.InputDirection.sqrMagnitude < PlayerMovement.MIN_THRESHOLD)
             {
                 return MovementState.Idle;
             }
-            if (!movement.runInput)
+            if (!movement.RunInput)
             {
                 return MovementState.Walking;
             }

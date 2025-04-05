@@ -11,16 +11,20 @@ namespace RogueLike.Player.States
             {
                 MovementState nextState = MovementState.Idle;
 
-                if (movement.crouchInput)
+                if (movement.CrouchInput)
                     nextState = MovementState.Crouching;
                 else if (movement.InputDirection.sqrMagnitude > PlayerMovement.MIN_THRESHOLD)
                 {
-                    nextState = movement.runInput ? MovementState.Running : MovementState.Walking;
+                    nextState = movement.RunInput ? MovementState.Running : MovementState.Walking;
                 }
 
                 return nextState;
             }
-
+            if (movement.IsWalled && movement.CurrentWall != null)
+            {
+                return MovementState.WallRunning;
+            }
+            
             return State;
         }
 

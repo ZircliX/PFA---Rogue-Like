@@ -28,7 +28,6 @@ namespace RogueLike.Player
             } * direction.y;
             
             return worldInputs;
-            
         }
         
         protected virtual Vector3 GetWorldInputs(PlayerMovement movement)
@@ -42,6 +41,5 @@ namespace RogueLike.Player
         }
         
         public abstract MovementState State { get; }
-
     }
 }

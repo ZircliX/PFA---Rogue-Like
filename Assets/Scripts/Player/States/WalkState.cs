@@ -15,16 +15,21 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Jumping;
             }
-            if (movement.crouchInput)
+            if (movement.CrouchInput)
             {
                 return MovementState.Crouching;
             }
-            if (movement.runInput)
+            if (movement.RunInput)
             {
                 return MovementState.Running;
             }
+            if (movement.IsWalled && movement.CurrentWall != null)
+            {
+                return MovementState.WallRunning;
+            }
             if (movement.InputDirection.sqrMagnitude < PlayerMovement.MIN_THRESHOLD)
             {
+                //Debug.Log("HAAAAAAA");
                 return MovementState.Idle;
             }
 

@@ -39,13 +39,15 @@ namespace RogueLike.Player
         [Header("Coyote")]
         [SerializeField] private int coyoteTime = 10;
         
+        [Header("References")]
         [field: SerializeField] public Transform Head { get; private set; }
         [field: SerializeField] public Camera Camera { get; private set; }
         [field: SerializeField, Self, Space] public Rigidbody rb { get; private set; }
         [SerializeField, Child] private CapsuleCollider cc;
 
-        public bool runInput { get; private set; }
-        public bool crouchInput { get; private set; }
+        public bool RunInput { get; private set; }
+        public bool CrouchInput { get; private set; }
+        public bool WantsToWallrun => IsWalled && CurrentWall != null;
 
         private int jumpInput;
         public bool WantsToJump => jumpInput > 0;
@@ -108,8 +110,8 @@ namespace RogueLike.Player
             float deltaTime = Time.fixedDeltaTime;
             
             MovementStateBehavior state = movementStates[currentStateIndex];
-            Vector3 result = state.GetVelocity(this, deltaTime);
-            CurrentVelocity.Write(stateChannelKey, result);
+            Vector3 stateVelocity = state.GetVelocity(this, deltaTime);
+            CurrentVelocity.Write(stateChannelKey, stateVelocity);
             
             MovePlayer();
             HandleStateChange();
@@ -119,7 +121,7 @@ namespace RogueLike.Player
         {
             Vector3 velocity = CurrentVelocity.Value;
             
-            /*
+            /* //Check for incoming collision to prevent player from getting blocked
             Vector3 stateVelocity = StateVelocity;
             if (rb.SweepTest(velocity, out RaycastHit hit, velocity.magnitude * Time.deltaTime))
             {
@@ -162,14 +164,14 @@ namespace RogueLike.Player
                 Quaternion rotation = Quaternion.AngleAxis(Mathf.Lerp(-wallCastAngle, wallCastAngle, lerp), up);
 
                 Vector3 direction = rotation * castDirection;
-                //Debug.DrawRay(transform.position, direction * wallCastDistance, Color.yellow);
+                Debug.DrawRay(transform.position, direction * wallCastDistance, Color.yellow);
 
                 Vector3 p1 = rb.position + cc.center + transform.up * -cc.height * 0.5f;
                 Vector3 p2 = p1 + transform.up * cc.height;
                 
                 if (Physics.CapsuleCast(p1, p2, cc.radius - MIN_THRESHOLD, direction, out RaycastHit hit, wallCastDistance, WallLayer))
                 {
-                    //Debug.DrawRay(hit.point, hit.normal * 10, Color.magenta);
+                    Debug.DrawRay(hit.point, hit.normal * 10, Color.magenta);
                     
                     float angle = Vector3.Angle(hit.normal, up);
                     if (angle > groundCheckMaxAngle)
@@ -260,12 +262,12 @@ namespace RogueLike.Player
 
         public void ReadInputRun(InputAction.CallbackContext context)
         {
-            runInput = context.performed;
+            RunInput = context.performed;
         }
 
         public void ReadInputCrouch(InputAction.CallbackContext context)
         {
-            crouchInput = context.performed;
+            CrouchInput = context.performed;
         }
 
         public void ReadInputSlide(InputAction.CallbackContext context)

@@ -1,9 +1,9 @@
+using RogueLike.Controllers;
 using UnityEngine;
 
-namespace Enemy.TheTriadEnemies
+namespace Enemy.Enemies
 {
     public class MeleeEnemy : Enemy
     {
-        
     }
 }

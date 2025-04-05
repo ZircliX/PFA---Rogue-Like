@@ -1,3 +1,4 @@
+using System;
 using LTX.ChanneledProperties;
 using UnityEngine;
 
@@ -5,15 +6,16 @@ namespace Enemy
 {
     public abstract class Entity : MonoBehaviour
     {
+        [Header("Datas :")]
+        
         [field : SerializeField]
         public EntityData CurrentData { get; private set; }
-        
         public int Health { get; private set; }
         public InfluencedProperty<float> Strength { get; private set; }
         public InfluencedProperty<float> Speed { get; private set; }
         public InfluencedProperty<float> MaxHealth { get; private set; }
 
-        public virtual void Spawn(EntityData data, DifficultyData difficultyData)
+        public virtual void Spawn(EntityData data, DifficultyData difficultyData, Vector3 SpawnPosition)
         {
             CurrentData = data;
             MaxHealth = new InfluencedProperty<float>(CurrentData.BaseHealth);
@@ -22,7 +24,7 @@ namespace Enemy
             
             SetFullHealth();
         }
-        
+
         public virtual void Die()
         {
             
