@@ -1,9 +1,7 @@
 using System;
-using Enemy;
 using KBCore.Refs;
 using LTX.Singletons;
 using RogueLike.Controllers;
-using RogueLike.Managers;
 using UnityEngine;
 
 namespace Enemy
@@ -14,15 +12,19 @@ namespace Enemy
         [SerializeField] private Vector3[] SpawnPositions;
 
         public event Action OnAllEnemiesDie;
-        
-        private int RemainingsEnemies;
+        public int RemainingsEnemies { get; private set; }
+        public bool AllEnemiesKilled => RemainingsEnemies == 0;
+
+        private void OnValidate() => this.ValidateRefs();
 
         public void SpawnEnemies(DifficultyData difficultyData)
         {
             for (var i = 0; i < enemies.Length; i++)
             {
-                var enemiesToSpawn = enemies[i];
+                Enemy enemiesToSpawn = enemies[i];
                 enemiesToSpawn.Spawn(enemiesToSpawn.CurrentData, difficultyData , SpawnPositions[i]);
+
+                RemainingsEnemies++;
                 // pas sur pour le spawnPosition
             }
         }
@@ -30,17 +32,13 @@ namespace Enemy
         public void EnemyKilled(Enemy EnemyKilled)
         {
             //Imobiliser le mob
-            GameController.VfxManager.VFX(EnemyKilled.vfxToSpawn, EnemyKilled.transform.position, EnemyKilled.delayAfterDestroyVfx);
+            GameController.VFXManager.VFX(EnemyKilled.VFXToSpawn, EnemyKilled.transform.position, EnemyKilled.DelayAfterDestroyVFX);
+            RemainingsEnemies--;
             
-            if (AllEnemyKilled())
+            if (AllEnemiesKilled)
             {
                 OnAllEnemiesDie?.Invoke();
             }
-        }
-
-        public bool AllEnemyKilled()
-        {
-            return RemainingsEnemies == 0;
         }
     }
 }

@@ -1,14 +1,14 @@
 using LTX.ChanneledProperties;
 using RogueLike.Controllers;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Enemy
 {
     public abstract class Enemy : Entity
     {
-        
-        public ParticleSystem vfxToSpawn; 
-        public float delayAfterDestroyVfx;
+        [field: SerializeField] public VisualEffect VFXToSpawn { get; private set; }
+        [field: SerializeField] public float DelayAfterDestroyVFX { get; private set; }
         
         public override void Spawn(EntityData entityData, DifficultyData difficultyData, Vector3 SpawnPosition)
         {

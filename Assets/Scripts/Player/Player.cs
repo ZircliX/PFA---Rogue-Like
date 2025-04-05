@@ -6,12 +6,11 @@ namespace RogueLike.Player
 {
     public class Player : Entity
     {
-        [SerializeField] private Vector3 SP;
+        [SerializeField] private Vector3 spawnPosition;
         
-        
-        public override void Spawn(EntityData data, DifficultyData difficultyData, Vector3 SpawnPosition)
+        public override void Spawn(EntityData data, DifficultyData difficultyData, Vector3 spawnPoint)
         {
-            base.Spawn(data, difficultyData, SP);
+            base.Spawn(data, difficultyData, spawnPoint);
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
             Strength.AddInfluence(difficultyData, difficultyData.PlayerStrengthMultiplier, Influence.Multiply);
             

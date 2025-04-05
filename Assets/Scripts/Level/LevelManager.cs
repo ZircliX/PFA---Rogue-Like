@@ -1,7 +1,6 @@
-using System;
 using Enemy;
-using KBCore.Refs;
 using RogueLike.Controllers;
+using RogueLike.Timer;
 using UnityEngine;
 
 namespace RogueLike.Managers
@@ -9,9 +8,6 @@ namespace RogueLike.Managers
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private DifficultyData difficulty;
-
-        
-        private void OnValidate() => this.ValidateRefs();
 
         private void OnEnable()
         {
@@ -21,12 +17,12 @@ namespace RogueLike.Managers
         private void OnDisable()
         {
             EnemiesManager.Instance.OnAllEnemiesDie -= AllEnemiesAreDie;
-
         }
 
         private void AllEnemiesAreDie()
         {
             //Utilisable pour les rooms (on fait ce qu'on veux dedans)
+            FinishLevel();
         }
 
         private void Start()
@@ -37,13 +33,13 @@ namespace RogueLike.Managers
         public void StartLevel()
         {
             EnemiesManager.Instance.SpawnEnemies(difficulty);
-            GameController.Timer.StartTimer();
+            TimerManager.Instance.StartTimer();
             // PlayerManager qui fait spawn le player? Ou c'est le LevelManager Qui fait spawn Le joueur ?
         }
 
         public void FinishLevel()
         {
-            GameController.Timer.PauseTimer();
+            TimerManager.Instance.PauseTimer();
             //TODO finir le level (avec affichage des 3 powers-up puis le chemin que le joueur peux prendre, ect...
             
         }

@@ -1,4 +1,3 @@
-using System;
 using LTX.ChanneledProperties;
 using UnityEngine;
 
@@ -7,9 +6,8 @@ namespace Enemy
     public abstract class Entity : MonoBehaviour
     {
         [Header("Datas :")]
+        [field : SerializeField] public EntityData CurrentData { get; private set; }
         
-        [field : SerializeField]
-        public EntityData CurrentData { get; private set; }
         public int Health { get; private set; }
         public InfluencedProperty<float> Strength { get; private set; }
         public InfluencedProperty<float> Speed { get; private set; }
