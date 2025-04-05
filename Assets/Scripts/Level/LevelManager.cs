@@ -1,22 +1,22 @@
 using Enemy;
-using RogueLike.Controllers;
+using LTX.Singletons;
 using RogueLike.Timer;
 using UnityEngine;
 
 namespace RogueLike.Managers
 {
-    public class LevelManager : MonoBehaviour
+    public class LevelManager : MonoSingleton<LevelManager>
     {
         [SerializeField] private DifficultyData difficulty;
 
         private void OnEnable()
         {
-            EnemiesManager.Instance.OnAllEnemiesDie += AllEnemiesAreDie;
+            EnemyManager.Instance.OnAllEnemiesDie += AllEnemiesAreDie;
         }
 
         private void OnDisable()
         {
-            EnemiesManager.Instance.OnAllEnemiesDie -= AllEnemiesAreDie;
+            EnemyManager.Instance.OnAllEnemiesDie -= AllEnemiesAreDie;
         }
 
         private void AllEnemiesAreDie()
@@ -32,7 +32,8 @@ namespace RogueLike.Managers
         
         public void StartLevel()
         {
-            EnemiesManager.Instance.SpawnEnemies(difficulty);
+            //Debug.Log("Start Level");
+            EnemyManager.Instance.SpawnEnemies(difficulty);
             TimerManager.Instance.StartTimer();
             // PlayerManager qui fait spawn le player? Ou c'est le LevelManager Qui fait spawn Le joueur ?
         }

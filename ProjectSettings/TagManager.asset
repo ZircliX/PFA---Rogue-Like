@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FxTemporaire
   - Trash
+  - MainLight
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - 
   - Ground
   - 
-  - 
+  - Wall
   - 
   - 
   - 

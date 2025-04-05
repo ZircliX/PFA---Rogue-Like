@@ -23,10 +23,12 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Running;
             }
+            /*
             if (movement.IsWalled && movement.CurrentWall != null)
             {
                 return MovementState.WallRunning;
             }
+            */
             if (movement.InputDirection.sqrMagnitude < PlayerMovement.MIN_THRESHOLD)
             {
                 //Debug.Log("HAAAAAAA");

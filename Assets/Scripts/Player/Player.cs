@@ -6,7 +6,7 @@ namespace RogueLike.Player
 {
     public class Player : Entity
     {
-        [SerializeField] private Vector3 spawnPosition;
+        [SerializeField] private Transform spawnPosition;
         
         public override void Spawn(EntityData data, DifficultyData difficultyData, Vector3 spawnPoint)
         {

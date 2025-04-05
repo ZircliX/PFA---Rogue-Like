@@ -166,7 +166,7 @@ namespace RogueLike.Player
                 Vector3 direction = rotation * castDirection;
                 Debug.DrawRay(transform.position, direction * wallCastDistance, Color.yellow);
 
-                Vector3 p1 = rb.position + cc.center + transform.up * -cc.height * 0.5f;
+                Vector3 p1 = rb.position + cc.center + transform.up * -cc.height * 0.25f;
                 Vector3 p2 = p1 + transform.up * cc.height;
                 
                 if (Physics.CapsuleCast(p1, p2, cc.radius - MIN_THRESHOLD, direction, out RaycastHit hit, wallCastDistance, WallLayer))
@@ -283,6 +283,5 @@ namespace RogueLike.Player
         }
 
         #endregion
-
     }
 }

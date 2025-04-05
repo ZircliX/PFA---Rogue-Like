@@ -1,28 +1,26 @@
 using System;
-using KBCore.Refs;
 using LTX.Singletons;
 using RogueLike.Controllers;
 using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemiesManager : MonoSingleton<EnemiesManager>
+    public class EnemyManager : MonoSingleton<EnemyManager>
     {
-        [SerializeField, Scene] private Enemy[] enemies;
-        [SerializeField] private Vector3[] SpawnPositions;
+        [SerializeField] private Enemy[] enemyPrefabs;
+        [SerializeField] private Transform[] SpawnPositions;
 
         public event Action OnAllEnemiesDie;
         public int RemainingsEnemies { get; private set; }
         public bool AllEnemiesKilled => RemainingsEnemies == 0;
-
-        private void OnValidate() => this.ValidateRefs();
-
+        
         public void SpawnEnemies(DifficultyData difficultyData)
         {
-            for (var i = 0; i < enemies.Length; i++)
+            //Debug.Log("Spawn enemies");
+            for (var i = 0; i < enemyPrefabs.Length; i++)
             {
-                Enemy enemiesToSpawn = enemies[i];
-                enemiesToSpawn.Spawn(enemiesToSpawn.CurrentData, difficultyData , SpawnPositions[i]);
+                Enemy spawnedEnemy = Instantiate(enemyPrefabs[i], SpawnPositions[i].position, Quaternion.identity);
+                spawnedEnemy.Spawn(spawnedEnemy.CurrentData, difficultyData , SpawnPositions[i].position);
 
                 RemainingsEnemies++;
                 // pas sur pour le spawnPosition

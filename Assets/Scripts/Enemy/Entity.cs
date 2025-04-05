@@ -16,6 +16,7 @@ namespace Enemy
         public virtual void Spawn(EntityData data, DifficultyData difficultyData, Vector3 SpawnPosition)
         {
             CurrentData = data;
+            
             MaxHealth = new InfluencedProperty<float>(CurrentData.BaseHealth);
             Strength = new InfluencedProperty<float>(CurrentData.BaseStrength);
             Speed = new InfluencedProperty<float>(CurrentData.BaseSpeed);
