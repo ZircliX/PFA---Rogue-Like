@@ -1,4 +1,3 @@
-using Unity.Cinemachine;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -61,7 +60,7 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Falling;
             }
-            if (movement.IsWalled && movement.CurrentWall != null)
+            if (movement.WantsToWallrun)
             {
                 return MovementState.WallRunning;
             }

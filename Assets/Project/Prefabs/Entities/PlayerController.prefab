@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4586079106163108224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.51, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 6401934034392761331}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CurrentData>k__BackingField: {fileID: 11400000, guid: f28fe2fd1bf23b944b37bfc0b2bfc6dc, type: 2}
+  spawnPosition: {fileID: 0}
 --- !u!114 &3016530247966428140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,17 +266,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 65418ada7e21f654fa5e1c852d785aa5, type: 2}
   - {fileID: 11400000, guid: 1aa7a36b7dffb6c4cb38c3b598ac66a4, type: 2}
   - {fileID: 11400000, guid: 9a432f516a3ed30479c1ffd7ad841227, type: 2}
+  - {fileID: 11400000, guid: fbab10ddc9204e24eb7857ef1f772720, type: 2}
   groundCheckDistance: 0.1
   groundCheckMaxAngle: 50
   <GroundLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 128
-  wallCastSample: 15
-  wallCastDistance: 1
-  wallCastAngle: 90
+  wallCastSample: 5
+  wallCastDistance: 1.25
+  wallCastAngle: 50
+  wallrunExitTime: 1
+  wallrunMinHeight: 2.25
   <WallLayer>k__BackingField:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 512
   <IsWalled>k__BackingField: 0
   gravityScale: 2
   coyoteTime: 10

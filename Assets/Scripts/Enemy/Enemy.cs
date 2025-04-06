@@ -1,17 +1,18 @@
 using LTX.ChanneledProperties;
 using RogueLike.Controllers;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Enemy
 {
     public abstract class Enemy : Entity
     {
-        
-        public ParticleSystem vfxToSpawn; 
-        public float delayAfterDestroyVfx;
+        [field: SerializeField] public VisualEffect VFXToSpawn { get; private set; }
+        [field: SerializeField] public float DelayAfterDestroyVFX { get; private set; }
         
         public override void Spawn(EntityData entityData, DifficultyData difficultyData, Vector3 SpawnPosition)
         {
+            //Debug.Log("Spawn 1 enemy");
             base.Spawn(entityData, difficultyData, SpawnPosition);
             
             MaxHealth.AddInfluence(difficultyData, difficultyData.EnemyHealthMultiplier, Influence.Multiply);
@@ -23,7 +24,7 @@ namespace Enemy
 
         public override void Die()
         {
-            EnemiesManager.Instance.EnemyKilled(this);
+            EnemyManager.Instance.EnemyKilled(this);
         }
     }
 }

@@ -18,10 +18,8 @@ namespace RogueLike.Controllers
         
         public static SaveListener SaveListener { get; private set; }
         public static AudioManager AudioManager { get; private set; }
+        public static VFXManager VFXManager { get; private set; }
         
-        public static TimerController Timer { get; private set; }
-        
-        public static VfxManager VfxManager { get; private set; }
 
         private static GameMetrics gameMetrics;
         public static GameMetrics Metrics
@@ -70,6 +68,7 @@ namespace RogueLike.Controllers
         {
             SaveListener = new SaveListener();
             AudioManager = new AudioManager();
+            VFXManager = new VFXManager();
         }
         
         #region Prioritised Properties
