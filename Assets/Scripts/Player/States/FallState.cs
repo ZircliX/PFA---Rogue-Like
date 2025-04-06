@@ -20,7 +20,7 @@ namespace RogueLike.Player.States
 
                 return nextState;
             }
-            if (movement.IsWalled && movement.CurrentWall != null)
+            if (movement.WantsToWallrun)
             {
                 return MovementState.WallRunning;
             }

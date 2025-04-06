@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallrunSpeed: 15
   minWallrunSpeed: 3
+  directionControl: 0
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -38,7 +39,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  accelerationDuration: 0.2
+  accelerationDuration: 1
   acceleration: 10
   decelerationCurve:
     serializedVersion: 2
@@ -64,33 +65,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  decelerationDuration: 0.2
+  decelerationDuration: 1
   deceleration: 10
   decelerationThreshold: 0.5
-  slopeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  slopeModifier: 50
-  minSlopeAngle: 0.115
-  maxWallrunTime: 5
+  wallPull: 0.25

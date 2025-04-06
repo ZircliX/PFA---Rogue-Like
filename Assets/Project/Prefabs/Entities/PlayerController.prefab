@@ -272,9 +272,11 @@ MonoBehaviour:
   <GroundLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 128
-  wallCastSample: 10
-  wallCastDistance: 1
-  wallCastAngle: 45
+  wallCastSample: 5
+  wallCastDistance: 1.25
+  wallCastAngle: 50
+  wallrunExitTime: 1
+  wallrunMinHeight: 2.25
   <WallLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 512

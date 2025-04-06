@@ -60,7 +60,7 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Falling;
             }
-            if (movement.IsWalled && movement.CurrentWall != null)
+            if (movement.WantsToWallrun)
             {
                 return MovementState.WallRunning;
             }

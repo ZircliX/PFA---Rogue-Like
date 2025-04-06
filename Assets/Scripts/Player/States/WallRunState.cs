@@ -9,6 +9,7 @@ namespace RogueLike.Player.States
         [Header("Speed")] 
         [SerializeField] private float wallrunSpeed;
         [SerializeField] private float minWallrunSpeed;
+        [SerializeField] private float directionControl;
         
         [Header("Acceleration")]
         [SerializeField] private AnimationCurve accelerationCurve;
@@ -24,16 +25,9 @@ namespace RogueLike.Player.States
         private float currentDeceleration;
 
         [Header("Wall")] 
-        [SerializeField] private AnimationCurve slopeCurve;
-        [SerializeField] private float slopeModifier;
-        [SerializeField, Range(0, 1)] private float minSlopeAngle;
+        [SerializeField] private float wallPull;
         
-        [Header("Wall Running")]
-        [SerializeField] private float maxWallrunTime = 5f;
-        
-        private float currentWallrunTime;
-        private Vector3 velocityDirection;
-        private Vector3 camDirection;
+        private Vector3 direction;
         private Camera cam;
         
         public override void Initialize(PlayerMovement movement)
@@ -47,17 +41,14 @@ namespace RogueLike.Player.States
 
         public override void Enter(PlayerMovement movement)
         {
-            velocityDirection = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
-            camDirection = GetCameraDirection(movement, Vector2.up);
+            direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
             
-            currentWallrunTime = 0;
             currentAcceleration = 0;
             currentDeceleration = 0;
         }
 
         public override void Exit(PlayerMovement movement)
         {
-            currentWallrunTime = 0;
             currentAcceleration = 0;
             currentDeceleration = 0;
         }
@@ -65,32 +56,44 @@ namespace RogueLike.Player.States
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime)
         {
             Vector3 lastVelocity = movement.StateVelocity;
-            Vector3 worldInput = GetWorldInputs(movement);
+            
+            //Calculate wallrun direction
             Vector3 wallNormal = movement.WallNormal;
+            Vector3 alongWallDirection = Vector3.Cross(wallNormal.normalized, movement.Gravity.Value.normalized);
             
-            Vector3 projectedInputs = worldInput.ProjectOntoPlane(wallNormal).normalized;
-            Vector3 projectedLastDirection = velocityDirection.ProjectOntoPlane(wallNormal);
-
-            //Needs to lerp direction
-            
-            Vector3 wallVelocity = lastVelocity.ProjectOntoPlane(wallNormal);
-            Vector3 otherVelocity = lastVelocity - wallVelocity;
-            
-            Vector3 targetSpeed = projectedLastDirection * wallrunSpeed;
-
-            float wallVelocitySqrMagnitude = wallVelocity.sqrMagnitude;
-
-            if (Mathf.Approximately(velocityDirection.sqrMagnitude, wallVelocitySqrMagnitude))
+            float angle = Vector3.Dot(alongWallDirection, lastVelocity);
+            if (angle < 0)
             {
-                if (movement.IsWalled && Vector3.Dot(otherVelocity, wallNormal) > 0)
-                {
-                    return targetSpeed;
-                }
+                //invert direction
+                alongWallDirection = -alongWallDirection;
             }
             
-            float modifier;
+            //For inputs based movement
+            //Vector3 worldInput = GetWorldInputs(movement);
+            //Vector3 projectedInputsDirection = worldInput.ProjectOntoPlane(wallNormal).normalized;
+            
+            //Vector3 projectedLastDirection = direction.ProjectOntoPlane(wallNormal);
+            //projectedLastDirection = Vector3.Lerp(projectedLastDirection, projectedInputsDirection, directionControl * deltaTime);
+            //Vector3 targetSpeed = projectedLastDirection * wallrunSpeed;
+            
+            //Velocities calculation
+            Vector3 wallPullForce = wallPull * -wallNormal;
+            Vector3 wallVelocity = lastVelocity.ProjectOntoPlane(wallNormal) + wallPullForce;
+            Vector3 targetSpeed = alongWallDirection * wallrunSpeed;
+
+            //Sqr Magnitudes
+            float wallVelocitySqrMagnitude = wallVelocity.sqrMagnitude;
+            float directionSqrMagnitude = direction.sqrMagnitude;
+
+            //Wanted speed
+            if (Mathf.Approximately(directionSqrMagnitude, wallVelocitySqrMagnitude))
+            {
+                targetSpeed = targetSpeed.ProjectOntoPlane(movement.Gravity.Value.normalized);
+                return targetSpeed;
+            }
             //Accelerate
-            if (wallVelocitySqrMagnitude < velocityDirection.sqrMagnitude)
+            float modifier;
+            if (wallVelocitySqrMagnitude < directionSqrMagnitude)
             {
                 currentAcceleration += deltaTime;
                 currentDeceleration = 0;
@@ -105,13 +108,7 @@ namespace RogueLike.Player.States
             }
 
             Vector3 finalVelocity = Vector3.Lerp(wallVelocity, targetSpeed, modifier * deltaTime);
-
-            if (movement.IsWalled)
-            {
-                return finalVelocity;
-            }
-
-            finalVelocity += otherVelocity;
+            finalVelocity = finalVelocity.ProjectOntoPlane(movement.Gravity.Value.normalized);
 
             return finalVelocity;
         }
@@ -120,10 +117,12 @@ namespace RogueLike.Player.States
         {
             if (movement.WantsToJump)
             {
+                movement.ExitWallrun();
                 return MovementState.Jumping;
             }
             if (!movement.WantsToWallrun)
             {
+                movement.ExitWallrun();
                 return MovementState.Falling;
             }
 
@@ -132,6 +131,7 @@ namespace RogueLike.Player.States
 
             if (projectOnPlane.sqrMagnitude < minWallrunSpeed * minWallrunSpeed + decelerationThreshold)
             {
+                movement.ExitWallrun();
                 return MovementState.Falling;
             }
             

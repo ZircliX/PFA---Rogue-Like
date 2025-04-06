@@ -23,11 +23,22 @@ namespace RogueLike.Player
         [SerializeField] private float groundCheckDistance = 0.1f;
         [SerializeField] private float groundCheckMaxAngle = 50;
         [field: SerializeField] public LayerMask GroundLayer { get; private set; }
+        public float DistanceFromGround { get; private set; }
 
         [Header("Walls")] 
         [SerializeField] private int wallCastSample = 15;
-        [SerializeField] private int wallCastDistance = 75;
-        [SerializeField] private int wallCastAngle = 90;
+        [SerializeField] private float wallCastDistance = 1.5f;
+        [SerializeField] private int wallCastAngle = 60;
+        [SerializeField] private float wallrunExitTime = 1;
+        [SerializeField] private float wallrunMinHeight = 1.5f;
+        private float currentWallrunExitTime;
+        private bool exitWallrun;
+        public void ExitWallrun()
+        {
+            exitWallrun = true;
+            currentWallrunExitTime = wallrunExitTime;
+        }
+
         [field: SerializeField] public LayerMask WallLayer { get; private set; }
         [field: SerializeField] public bool IsWalled { get; private set; }
         public Vector3 WallNormal { get; private set; }
@@ -47,7 +58,7 @@ namespace RogueLike.Player
 
         public bool RunInput { get; private set; }
         public bool CrouchInput { get; private set; }
-        public bool WantsToWallrun => IsWalled && CurrentWall != null;
+        public bool WantsToWallrun => IsWalled && CurrentWall != null && !exitWallrun && DistanceFromGround > wallrunMinHeight;
 
         private int jumpInput;
         public bool WantsToJump => jumpInput > 0;
@@ -155,6 +166,23 @@ namespace RogueLike.Player
 
         private void HandleWallDetection()
         {
+            if (exitWallrun)
+            {
+                exitWallrun = false;
+                
+                currentWallrunExitTime -= Time.deltaTime;
+
+                if (currentWallrunExitTime <= 0)
+                {
+                    exitWallrun = false;
+                }
+
+                IsWalled = false;
+                WallNormal = Vector3.zero;
+                CurrentWall = null;
+                return;
+            }
+            
             Vector3 up = -Gravity.Value.normalized;
             Vector3 castDirection = Vector3.ProjectOnPlane(CurrentVelocity.Value, up).normalized;
             
@@ -200,8 +228,17 @@ namespace RogueLike.Player
             
             Vector3 gravityNormalized = Gravity.Value.normalized;
 
-            bool result = Physics.SphereCast(rb.position, cc.radius, gravityNormalized, out RaycastHit hit, groundCheckDistance + cc.height * 0.5f - cc.radius, GroundLayer);
-
+            bool distanceResult = Physics.SphereCast(rb.position, cc.radius, gravityNormalized, out RaycastHit hit, Mathf.Infinity, GroundLayer);
+            if (distanceResult)
+            {
+                DistanceFromGround = Vector3.Distance(hit.point, rb.position);
+            }
+            else
+            {
+                DistanceFromGround = Mathf.Infinity;
+            }
+            
+            bool result = Physics.SphereCast(rb.position, cc.radius, gravityNormalized, out hit, groundCheckDistance + cc.height * 0.5f - cc.radius, GroundLayer);
             //Debug.DrawRay(rb.position, gravityNormalized * (groundCheckDistance + cc.height * 0.5f), Color.red);
 
             if (result)
