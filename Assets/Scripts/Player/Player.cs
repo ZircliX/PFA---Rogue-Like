@@ -8,6 +8,8 @@ namespace RogueLike.Player
     {
         [SerializeField] private Transform spawnPosition;
         
+        public int Kills { get; private set; }
+        
         public override void Spawn(EntityData data, DifficultyData difficultyData, Vector3 spawnPoint)
         {
             base.Spawn(data, difficultyData, spawnPoint);
