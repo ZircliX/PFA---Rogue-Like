@@ -1,5 +1,5 @@
+using DeadLink.Entities;
 using Enemy;
-using LTX.ChanneledProperties;
 using LTX.Singletons;
 using RogueLike.Timer;
 using UnityEngine;
@@ -9,8 +9,7 @@ namespace RogueLike.Managers
     public class LevelManager : MonoSingleton<LevelManager>
     {
         [SerializeField] private DifficultyData difficulty;
-
-        
+        [SerializeField] private Player.Player player;
 
         private void OnEnable()
         {
@@ -30,7 +29,10 @@ namespace RogueLike.Managers
         public void StartLevel()
         {
             //Debug.Log("Start Level");
-            EnemyManager.Instance.SpawnEnemies(difficulty);
+            //EnemyManager.Instance.SpawnEnemies(difficulty);
+            EnemyManager.Instance.ActivateEnemies(difficulty);
+            player.Spawn(player.EntityData, difficulty, player.SpawnPosition.position);
+            
             TimerManager.Instance.StartTimer();
             // PlayerManager qui fait spawn le player? Ou c'est le LevelManager Qui fait spawn Le joueur ?
         }

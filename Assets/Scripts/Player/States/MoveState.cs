@@ -32,7 +32,6 @@ namespace RogueLike.Player.States
         {
         }
 
-
         public override void Enter(PlayerMovement movement)
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
@@ -58,7 +57,7 @@ namespace RogueLike.Player.States
             Vector3 projectedLastDirection = direction.ProjectOntoPlane(projectionPlaneNormal).normalized;
 
             direction = Vector3.Lerp(projectedLastDirection, projectedInputs, directionControl * deltaTime);
-            //direction = projectedInputs;
+            direction = projectedInputs;
 
             Vector3 planeVelocity = lastVelocity.ProjectOntoPlane(projectionPlaneNormal);
             Vector3 otherVelocity = lastVelocity - planeVelocity;

@@ -7,6 +7,8 @@ namespace RogueLike.Controllers
     {
         public void VFX(VisualEffect vfx, Vector3 position, float delayAfterDestroyVfx)
         {
+            if (vfx == null) return;
+            
             VisualEffect spawnedVFX = Object.Instantiate(vfx, position, Quaternion.identity);
             
             if (spawnedVFX != null)

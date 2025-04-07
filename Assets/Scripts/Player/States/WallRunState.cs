@@ -59,13 +59,13 @@ namespace RogueLike.Player.States
             
             //Calculate wallrun direction
             Vector3 wallNormal = movement.WallNormal;
-            Vector3 alongWallDirection = Vector3.Cross(wallNormal.normalized, movement.Gravity.Value.normalized);
+            Vector3 ulongWallDirection = Vector3.Cross(wallNormal, movement.Gravity).normalized;
             
-            float angle = Vector3.Dot(alongWallDirection, lastVelocity);
+            float angle = Vector3.Dot(ulongWallDirection, lastVelocity);
             if (angle < 0)
             {
                 //invert direction
-                alongWallDirection = -alongWallDirection;
+                ulongWallDirection = -ulongWallDirection;
             }
             
             //For inputs based movement
@@ -79,7 +79,7 @@ namespace RogueLike.Player.States
             //Velocities calculation
             Vector3 wallPullForce = wallPull * -wallNormal;
             Vector3 wallVelocity = lastVelocity.ProjectOntoPlane(wallNormal) + wallPullForce;
-            Vector3 targetSpeed = alongWallDirection * wallrunSpeed;
+            Vector3 targetSpeed = ulongWallDirection * wallrunSpeed;
 
             //Sqr Magnitudes
             float wallVelocitySqrMagnitude = wallVelocity.sqrMagnitude;

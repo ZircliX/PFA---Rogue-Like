@@ -1,0 +1,35 @@
+#if UNITY_EDITOR
+using LTX.Editor;
+using UnityEditor;
+#endif
+using UnityEngine;
+using UnityEngine.VFX;
+
+namespace DeadLink.Weapons.Data
+{
+    public abstract class WeaponData : ScriptableObject
+    {
+        [field: Header("VFX")]
+        [field : SerializeField] public VisualEffect ShootVFX { get; private set; }
+        
+        [field: Header("Prefab")]
+        [field : SerializeField] public Weapon WeaponPrefab { get; private set; }
+        
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (WeaponPrefab && !Application.isPlaying)
+            {
+                using (SerializedObject serializedObject = new SerializedObject(WeaponPrefab))
+                {
+                    SerializedProperty dataProperty =
+                        serializedObject.FindBackingFieldProperty(nameof(Weapon.WeaponData));
+                    dataProperty.objectReferenceValue = this;
+                    
+                    serializedObject.ApplyModifiedProperties();
+                }
+            }
+        }
+#endif
+    }
+}

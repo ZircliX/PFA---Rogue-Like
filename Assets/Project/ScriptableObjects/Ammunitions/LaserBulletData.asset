@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99add3b889704a7da655ca9be35e50f2, type: 3}
+  m_Name: LaserBulletData
+  m_EditorClassIdentifier: 
+  <BulletSpeed>k__BackingField: 10
+  <Damage>k__BackingField: 5
+  <HitVFX>k__BackingField: {fileID: 0}
+  <BulletPrefab>k__BackingField: {fileID: 5124190240242742243, guid: 9147eefa93c2b724e86e9e6f1d7fe6d1, type: 3}
