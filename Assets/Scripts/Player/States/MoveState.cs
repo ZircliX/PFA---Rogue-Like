@@ -32,7 +32,6 @@ namespace RogueLike.Player.States
         {
         }
 
-
         public override void Enter(PlayerMovement movement)
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;

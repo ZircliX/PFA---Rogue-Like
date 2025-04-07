@@ -5,10 +5,8 @@ namespace DeadLink.Weapons
 {
     public abstract class Weapon : MonoBehaviour
     {
-        [Field : SerializeField] 
-        public WeaponsData Data { get; private set; }
-
-
+        [field : SerializeField] public WeaponData WeaponData { get; private set; }
+        
         public virtual void Fire()
         {
             
@@ -18,6 +16,5 @@ namespace DeadLink.Weapons
         {
             
         }
-        
     }
 }
