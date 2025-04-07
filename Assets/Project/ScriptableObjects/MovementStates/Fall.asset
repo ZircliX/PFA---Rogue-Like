@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fall
   m_EditorClassIdentifier: 
   maxSpeed: 15
-  directionControl: 8
+  directionControl: 10
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -38,7 +38,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  accelerationDuration: 0.5
+  accelerationDuration: 1
   acceleration: 50
   decelerationCurve:
     serializedVersion: 2
@@ -64,5 +64,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  decelerationDuration: 0.5
+  decelerationDuration: 1
   deceleration: 50

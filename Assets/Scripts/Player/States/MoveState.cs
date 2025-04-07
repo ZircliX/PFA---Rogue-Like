@@ -58,7 +58,7 @@ namespace RogueLike.Player.States
             Vector3 projectedLastDirection = direction.ProjectOntoPlane(projectionPlaneNormal).normalized;
 
             direction = Vector3.Lerp(projectedLastDirection, projectedInputs, directionControl * deltaTime);
-            //direction = projectedInputs;
+            direction = projectedInputs;
 
             Vector3 planeVelocity = lastVelocity.ProjectOntoPlane(projectionPlaneNormal);
             Vector3 otherVelocity = lastVelocity - planeVelocity;

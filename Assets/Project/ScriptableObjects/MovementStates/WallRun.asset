@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78395f6380a5481f882ee335a63259c2, type: 3}
   m_Name: WallRun
   m_EditorClassIdentifier: 
-  wallrunSpeed: 15
+  wallrunSpeed: 25
   minWallrunSpeed: 3
   directionControl: 0
   accelerationCurve:
@@ -39,8 +39,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  accelerationDuration: 1
-  acceleration: 10
+  accelerationDuration: 0.5
+  acceleration: 2
   decelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -65,7 +65,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  decelerationDuration: 1
-  deceleration: 10
+  decelerationDuration: 0.5
+  deceleration: 2
   decelerationThreshold: 0.5
   wallPull: 0.25

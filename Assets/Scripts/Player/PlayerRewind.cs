@@ -64,7 +64,8 @@ namespace RogueLike.Player
                     currentComposite.Rotation.z);
                 
                 camPivot.DOLocalRotate(currentComposite.Rotation, rewindSpeed * compositesSpacing).SetEase(Ease.Linear);
-
+                pm.SetMovementState(currentComposite.State);
+                
                 //pm.health = currentComposite.Health;
 
                 yield return new WaitForSeconds(rewindSpeed * compositesSpacing);
