@@ -18,6 +18,7 @@ namespace Enemy
         #region Enemy
         
         [field : SerializeField]
+        public int WaveBalanceMultiplier { get; private set; }
         public float EnemyHealthMultiplier { get; private set; }
         
         [field : SerializeField]

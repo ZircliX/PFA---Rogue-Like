@@ -1,4 +1,5 @@
 using Enemy;
+using LTX.ChanneledProperties;
 using LTX.Singletons;
 using RogueLike.Timer;
 using UnityEngine;
@@ -9,20 +10,16 @@ namespace RogueLike.Managers
     {
         [SerializeField] private DifficultyData difficulty;
 
+        
+
         private void OnEnable()
         {
-            EnemyManager.Instance.OnAllEnemiesDie += AllEnemiesAreDie;
+            WaveManager.Instance.OnAllEnemiesDie += EndWaveMode;
         }
 
         private void OnDisable()
         {
-            EnemyManager.Instance.OnAllEnemiesDie -= AllEnemiesAreDie;
-        }
-
-        private void AllEnemiesAreDie()
-        {
-            //Utilisable pour les rooms (on fait ce qu'on veux dedans)
-            FinishLevel();
+            WaveManager.Instance.OnAllEnemiesDie -= EndWaveMode;
         }
 
         private void Start()
@@ -36,6 +33,16 @@ namespace RogueLike.Managers
             EnemyManager.Instance.SpawnEnemies(difficulty);
             TimerManager.Instance.StartTimer();
             // PlayerManager qui fait spawn le player? Ou c'est le LevelManager Qui fait spawn Le joueur ?
+        }
+
+        public void StartWaveMode()
+        {
+            WaveManager.Instance.SetupWaveManager(difficulty);
+        }
+
+        public void EndWaveMode()
+        {
+            
         }
 
         public void FinishLevel()

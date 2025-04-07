@@ -9,6 +9,7 @@ namespace Enemy
     {
         [field: SerializeField] public VisualEffect VFXToSpawn { get; private set; }
         [field: SerializeField] public float DelayAfterDestroyVFX { get; private set; }
+        [field: SerializeField] public int Cost { get; private set; }
         
         public override void Spawn(EntityData entityData, DifficultyData difficultyData, Vector3 SpawnPosition)
         {

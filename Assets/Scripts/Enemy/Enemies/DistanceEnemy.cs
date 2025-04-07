@@ -6,6 +6,5 @@ namespace Enemy.Enemies
 {
     public class DistanceEnemy : Enemy
     {
-        [SerializeField] private int cost;
     }
 }
