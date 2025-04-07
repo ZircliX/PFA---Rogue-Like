@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <WeaponData>k__BackingField: {fileID: 11400000, guid: 489cadd037a676a4d87d13242f4102f3, type: 2}
+  <BulletData>k__BackingField: {fileID: 11400000, guid: 113f1131ae0aaf846ae4864f373a4e3f, type: 2}

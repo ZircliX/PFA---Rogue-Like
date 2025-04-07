@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Enemy
+namespace DeadLink.Entities.Data
 {
     public abstract class EntityData : ScriptableObject
     {

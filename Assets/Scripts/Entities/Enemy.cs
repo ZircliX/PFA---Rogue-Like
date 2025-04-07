@@ -1,9 +1,10 @@
+using DeadLink.Entities.Data;
+using Enemy;
 using LTX.ChanneledProperties;
-using RogueLike.Controllers;
 using UnityEngine;
 using UnityEngine.VFX;
 
-namespace Enemy
+namespace DeadLink.Entities
 {
     public abstract class Enemy : Entity
     {

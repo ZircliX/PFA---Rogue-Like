@@ -1,9 +1,10 @@
 using System;
+using Enemy;
 using LTX.ChanneledProperties;
 using LTX.Singletons;
 using UnityEngine;
 
-namespace Enemy
+namespace DeadLink.Entities
 {
     public class WaveManager : MonoSingleton<WaveManager>
     {

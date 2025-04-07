@@ -2,7 +2,7 @@ using KBCore.Refs;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace DeadLink.Enemy
+namespace DeadLink.Entities
 {
     public class ClickToMove : MonoBehaviour {
         [SerializeField] private Transform player;

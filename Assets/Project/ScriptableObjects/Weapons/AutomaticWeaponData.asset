@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ShootVFX>k__BackingField: {fileID: 0}
   <WeaponPrefab>k__BackingField: {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
-  <FireRate>k__BackingField: 0
-  <ReloadDuration>k__BackingField: 0
-  <MagCapacity>k__BackingField: 0
+  <FireRate>k__BackingField: 0.25
+  <ReloadDuration>k__BackingField: 1
+  <MagCapacity>k__BackingField: 30

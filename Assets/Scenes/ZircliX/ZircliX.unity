@@ -2463,6 +2463,7 @@ GameObject:
   - component: {fileID: 80614342}
   - component: {fileID: 80614341}
   - component: {fileID: 80614340}
+  - component: {fileID: 80614345}
   m_Layer: 0
   m_Name: enemy (13)
   m_TagString: Untagged
@@ -2595,6 +2596,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &80614345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80614338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!43 &80768670
 Mesh:
   m_ObjectHideFlags: 0
@@ -7727,6 +7747,7 @@ GameObject:
   - component: {fileID: 282273542}
   - component: {fileID: 282273541}
   - component: {fileID: 282273540}
+  - component: {fileID: 282273545}
   m_Layer: 0
   m_Name: enemy (12)
   m_TagString: Untagged
@@ -7859,6 +7880,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &282273545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282273538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!43 &327986571
 Mesh:
   m_ObjectHideFlags: 0
@@ -11709,7 +11749,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 5
-  m_NavMeshData: {fileID: 23800000, guid: 93fba914d1a6d1543a4a477585fc8f61, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 414c8e0bfab81eb488affa147c103ccf, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &455290934
 Transform:
@@ -11740,6 +11780,7 @@ GameObject:
   - component: {fileID: 495072598}
   - component: {fileID: 495072597}
   - component: {fileID: 495072596}
+  - component: {fileID: 495072601}
   m_Layer: 0
   m_Name: enemy (8)
   m_TagString: Untagged
@@ -11872,6 +11913,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &495072601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495072594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!1 &499003335
 GameObject:
   m_ObjectHideFlags: 0
@@ -24042,6 +24102,7 @@ GameObject:
   - component: {fileID: 654833522}
   - component: {fileID: 654833521}
   - component: {fileID: 654833520}
+  - component: {fileID: 654833525}
   m_Layer: 0
   m_Name: enemy (18)
   m_TagString: Untagged
@@ -24174,6 +24235,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &654833525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654833518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!43 &675796795
 Mesh:
   m_ObjectHideFlags: 0
@@ -24353,6 +24433,7 @@ GameObject:
   - component: {fileID: 676634461}
   - component: {fileID: 676634460}
   - component: {fileID: 676634459}
+  - component: {fileID: 676634464}
   m_Layer: 0
   m_Name: enemy (5)
   m_TagString: Untagged
@@ -24485,6 +24566,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &676634464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676634457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!1 &686882518
 GameObject:
   m_ObjectHideFlags: 0
@@ -25721,6 +25821,170 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &714146755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 714146756}
+  - component: {fileID: 714146757}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &714146756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714146755}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2131322482}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &714146757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714146755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fce77f0059ee4ce8a9f57d2757425a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <WaveBalance>k__BackingField:
+    channels:
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    - _channelKey:
+        pointer: {fileID: 0}
+        pointerTag: 
+      influence: 0
+      _value: 0
+      layer: -1
+      orderInLayer: -1
+    availableSlots: 01010101010101010101010101010101
+    _channelCount: 0
+    _capacity: 16
+    _expandOnFullCapacityReached: 0
+    value: 0
+    startValue: 0
 --- !u!1 &725439351
 GameObject:
   m_ObjectHideFlags: 0
@@ -25735,6 +25999,7 @@ GameObject:
   - component: {fileID: 725439355}
   - component: {fileID: 725439354}
   - component: {fileID: 725439353}
+  - component: {fileID: 725439358}
   m_Layer: 0
   m_Name: enemy (17)
   m_TagString: Untagged
@@ -25867,6 +26132,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &725439358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725439351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!1 &727385053
 GameObject:
   m_ObjectHideFlags: 0
@@ -35874,6 +36158,7 @@ GameObject:
   - component: {fileID: 865697521}
   - component: {fileID: 865697520}
   - component: {fileID: 865697519}
+  - component: {fileID: 865697524}
   m_Layer: 0
   m_Name: enemy (9)
   m_TagString: Untagged
@@ -36006,6 +36291,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &865697524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865697517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!1 &868488830
 GameObject:
   m_ObjectHideFlags: 0
@@ -39422,6 +39726,7 @@ GameObject:
   - component: {fileID: 996117102}
   - component: {fileID: 996117101}
   - component: {fileID: 996117100}
+  - component: {fileID: 996117105}
   m_Layer: 0
   m_Name: enemy (15)
   m_TagString: Untagged
@@ -39554,6 +39859,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &996117105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996117098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!1 &998772041
 GameObject:
   m_ObjectHideFlags: 0
@@ -45163,6 +45487,7 @@ GameObject:
   - component: {fileID: 1133876941}
   - component: {fileID: 1133876940}
   - component: {fileID: 1133876939}
+  - component: {fileID: 1133876944}
   m_Layer: 0
   m_Name: enemy (10)
   m_TagString: Untagged
@@ -45295,6 +45620,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1133876944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133876937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!43 &1135837520
 Mesh:
   m_ObjectHideFlags: 0
@@ -47526,6 +47870,7 @@ GameObject:
   - component: {fileID: 1199842043}
   - component: {fileID: 1199842042}
   - component: {fileID: 1199842041}
+  - component: {fileID: 1199842046}
   m_Layer: 0
   m_Name: enemy (2)
   m_TagString: Untagged
@@ -47658,6 +48003,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1199842046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199842039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!43 &1208048103
 Mesh:
   m_ObjectHideFlags: 0
@@ -48408,6 +48772,7 @@ GameObject:
   - component: {fileID: 1234989505}
   - component: {fileID: 1234989504}
   - component: {fileID: 1234989503}
+  - component: {fileID: 1234989508}
   m_Layer: 0
   m_Name: enemy (6)
   m_TagString: Untagged
@@ -48540,6 +48905,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1234989508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234989501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!1 &1235389013
 GameObject:
   m_ObjectHideFlags: 0
@@ -49931,6 +50315,7 @@ GameObject:
   - component: {fileID: 1260831501}
   - component: {fileID: 1260831500}
   - component: {fileID: 1260831499}
+  - component: {fileID: 1260831504}
   m_Layer: 0
   m_Name: enemy (1)
   m_TagString: Untagged
@@ -50063,6 +50448,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1260831504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260831497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!1 &1272549955
 GameObject:
   m_ObjectHideFlags: 0
@@ -51586,6 +51990,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &1301545643 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5095986187323191965, guid: cf92d20b8f0092d4f9a173646f029921, type: 3}
+  m_PrefabInstance: {fileID: 8419302337040558291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e5b408c32141b3882a35648cded372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1320080713
 GameObject:
   m_ObjectHideFlags: 0
@@ -52141,6 +52556,7 @@ GameObject:
   - component: {fileID: 1328612176}
   - component: {fileID: 1328612175}
   - component: {fileID: 1328612174}
+  - component: {fileID: 1328612179}
   m_Layer: 0
   m_Name: enemy (7)
   m_TagString: Untagged
@@ -52273,6 +52689,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1328612179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328612172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!43 &1334377388
 Mesh:
   m_ObjectHideFlags: 0
@@ -65413,6 +65848,7 @@ GameObject:
   - component: {fileID: 1550150530}
   - component: {fileID: 1550150529}
   - component: {fileID: 1550150528}
+  - component: {fileID: 1550150533}
   m_Layer: 0
   m_Name: enemy (16)
   m_TagString: Untagged
@@ -65545,6 +65981,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1550150533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550150526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!1 &1557810502
 GameObject:
   m_ObjectHideFlags: 0
@@ -66298,6 +66753,26 @@ MonoBehaviour:
   enemyPrefabs: []
   SpawnPositions:
   - {fileID: 2058342904}
+  enemies:
+  - {fileID: 2013429105}
+  - {fileID: 1998333372}
+  - {fileID: 1832888187}
+  - {fileID: 1819709607}
+  - {fileID: 1704218914}
+  - {fileID: 1550150533}
+  - {fileID: 1328612179}
+  - {fileID: 1260831504}
+  - {fileID: 1234989508}
+  - {fileID: 1199842046}
+  - {fileID: 1133876944}
+  - {fileID: 996117105}
+  - {fileID: 865697524}
+  - {fileID: 725439358}
+  - {fileID: 676634464}
+  - {fileID: 654833525}
+  - {fileID: 495072601}
+  - {fileID: 282273545}
+  - {fileID: 80614345}
 --- !u!43 &1588402987
 Mesh:
   m_ObjectHideFlags: 0
@@ -71595,6 +72070,7 @@ GameObject:
   - component: {fileID: 1704218911}
   - component: {fileID: 1704218910}
   - component: {fileID: 1704218909}
+  - component: {fileID: 1704218914}
   m_Layer: 0
   m_Name: enemy (11)
   m_TagString: Untagged
@@ -71727,6 +72203,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1704218914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704218907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!1 &1719810485
 GameObject:
   m_ObjectHideFlags: 0
@@ -78028,6 +78523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: {fileID: 11400000, guid: c88190c6be38ada458b34b6c959b5d6c, type: 2}
+  player: {fileID: 1301545643}
 --- !u!43 &1794977784
 Mesh:
   m_ObjectHideFlags: 0
@@ -83301,6 +83797,7 @@ GameObject:
   - component: {fileID: 1819709604}
   - component: {fileID: 1819709603}
   - component: {fileID: 1819709602}
+  - component: {fileID: 1819709607}
   m_Layer: 0
   m_Name: enemy (14)
   m_TagString: Untagged
@@ -83433,6 +83930,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1819709607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819709600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!1 &1824788562
 GameObject:
   m_ObjectHideFlags: 0
@@ -84045,6 +84561,7 @@ GameObject:
   - component: {fileID: 1832888184}
   - component: {fileID: 1832888183}
   - component: {fileID: 1832888182}
+  - component: {fileID: 1832888187}
   m_Layer: 0
   m_Name: enemy (3)
   m_TagString: Untagged
@@ -84177,6 +84694,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1832888187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832888180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!1 &1838354305
 GameObject:
   m_ObjectHideFlags: 0
@@ -91703,6 +92239,7 @@ GameObject:
   - component: {fileID: 1998333369}
   - component: {fileID: 1998333368}
   - component: {fileID: 1998333367}
+  - component: {fileID: 1998333372}
   m_Layer: 0
   m_Name: enemy (4)
   m_TagString: Untagged
@@ -91835,6 +92372,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1998333372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998333365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!43 &1999160039
 Mesh:
   m_ObjectHideFlags: 0
@@ -92366,6 +92922,7 @@ GameObject:
   - component: {fileID: 2013429101}
   - component: {fileID: 2013429100}
   - component: {fileID: 2013429104}
+  - component: {fileID: 2013429105}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -92498,6 +93055,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 8419302337040558293}
   agent: {fileID: 2013429099}
+--- !u!114 &2013429105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013429098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d856e8ef6e44d19bbc89d9da5f22218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityData>k__BackingField: {fileID: 11400000, guid: 8b5af296223a00d4e97a6ae61b0192f0, type: 2}
+  <BulletSpawnPoint>k__BackingField: {fileID: 2013429103}
+  <Weapons>k__BackingField:
+  - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 1
+  <Cost>k__BackingField: 5
 --- !u!1 &2016629098
 GameObject:
   m_ObjectHideFlags: 0
@@ -100596,6 +101172,7 @@ Transform:
   - {fileID: 1794585935}
   - {fileID: 1573621198}
   - {fileID: 1617962779}
+  - {fileID: 714146756}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8419302337040558291
