@@ -2,6 +2,7 @@
 using LTX.Editor;
 using UnityEditor;
 #endif
+using DeadLink.Cameras;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -14,7 +15,8 @@ namespace DeadLink.Ammunitions.Data
         [field : SerializeField] public float Damage { get; private set; }
         
         [field: Header("VFX")]
-        [field : SerializeField] public VisualEffect HitVFX { get; private set; }
+        [field : SerializeField] public ParticleSystem HitVFX { get; private set; }
+        [field : SerializeField] public CameraShakeComposite CameraShake { get; private set; }
         
         [field: Header("Prefab")]
         [field : SerializeField] public Bullet BulletPrefab { get; private set; }
