@@ -1,3 +1,4 @@
+using DeadLink.Gravity;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace RogueLike.Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, IGravityReceiver
     {
         public bool IsGrounded { get; private set; }
         public Vector3 InputDirection { get; private set; }
@@ -13,6 +14,7 @@ namespace RogueLike.Player
         public Vector3 StateVelocity => CurrentVelocity.GetValue(stateChannelKey);
         public MovementState CurrentState { get; private set; }
         public InfluencedProperty<Vector3> CurrentVelocity { get; private set; }
+        public Vector3 Position => rb.position;
         public PrioritisedProperty<Vector3> Gravity { get; private set; }
         
         [Header("Movement States")]
@@ -46,6 +48,7 @@ namespace RogueLike.Player
         
         [Header("Gravity")]
         [SerializeField] private float gravityScale = 1;
+        [SerializeField] private float gravityAlignSpeed = 5;
         
         [Header("Coyote")]
         [SerializeField] private int coyoteTime = 10;
@@ -58,7 +61,10 @@ namespace RogueLike.Player
 
         public bool RunInput { get; private set; }
         public bool CrouchInput { get; private set; }
-        public bool WantsToWallrun => IsWalled && CurrentWall != null && !exitWallrun && DistanceFromGround > wallrunMinHeight;
+        public bool WantsToWallrun => IsWalled && 
+                                      CurrentWall != null 
+                                      && !exitWallrun 
+                                      && DistanceFromGround > wallrunMinHeight;
 
         private int jumpInput;
         public bool WantsToJump => jumpInput > 0;
@@ -111,6 +117,7 @@ namespace RogueLike.Player
             
             HandleGroundDetection();
             HandleWallDetection();
+            HandleGravityOrientation();
 
             //Set Buffers
             if (jumpInput > 0)
@@ -126,6 +133,17 @@ namespace RogueLike.Player
             
             MovePlayer();
             HandleStateChange();
+        }
+
+        private void HandleGravityOrientation()
+        {
+            Vector3 targetUp = -Gravity.Value.normalized;
+            Vector3 currentUp = transform.up;
+
+            Vector3 newUp = Vector3.Slerp(currentUp, targetUp, gravityAlignSpeed * Time.fixedDeltaTime);
+
+            transform.up = newUp;
+            //rb.MoveRotation(targetRotation);
         }
 
         private void MovePlayer()

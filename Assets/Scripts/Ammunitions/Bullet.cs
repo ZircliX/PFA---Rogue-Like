@@ -38,7 +38,7 @@ namespace DeadLink.Ammunitions
             }
         }
         */
-
+        
         protected virtual void FixedUpdate()
         {
             Vector3 currentPosition = transform.position;
