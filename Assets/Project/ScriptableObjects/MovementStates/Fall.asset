@@ -65,4 +65,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   decelerationDuration: 1
-  deceleration: 50
+  deceleration: 5

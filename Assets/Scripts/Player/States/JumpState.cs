@@ -27,13 +27,13 @@ namespace RogueLike.Player.States
             currentJumpTime = 0;
         }
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime)
+        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
             float normTime = currentJumpTime / jumpDuration;
 
             float jumpModifier = jumpCurve.Evaluate(normTime);
 
-            Vector3 baseVelocity = base.GetVelocity(movement, deltaTime);
+            Vector3 baseVelocity = base.GetVelocity(movement, deltaTime, ref gravityScale);
             Vector3 gravityNormal = GetProjectionPlaneNormal(movement);
 
             if (currentJumpTime <= 0)
@@ -47,7 +47,7 @@ namespace RogueLike.Player.States
             if (currentJumpTime >= jumpDuration)
                 movement.SetMovementState(MovementState.Falling);
 
-            Vector3 finalVelocity = movement.ApplyGravity(gravityNormal * (jumpModifier * jumpForce) + baseVelocity);
+            Vector3 finalVelocity = gravityNormal * (jumpModifier * jumpForce) + baseVelocity;
 
             // Debug.Log($"{count++} | {baseVelocity.y} => {finalVelocity.y}");
 

@@ -1,7 +1,10 @@
+using System;
 using DeadLink.Ammunitions;
 using DeadLink.Ammunitions.Data;
+using DeadLink.Cameras;
 using DeadLink.Entities;
 using DeadLink.Weapons.Data;
+using LTX.ChanneledProperties;
 using UnityEngine;
 
 namespace DeadLink.Weapons
@@ -10,11 +13,24 @@ namespace DeadLink.Weapons
     {
         [field : SerializeField] public WeaponData WeaponData { get; private set; }
         [field : SerializeField] public BulletData BulletData { get; private set; }
+        
+        private void Awake()
+        {
+            CameraController.Instance.CameraShakeProperty.AddPriority(this, PriorityTags.Small);
+        }
 
+        private void OnDestroy()
+        {
+            if (CameraController.HasInstance)
+            {
+                CameraController.Instance.CameraShakeProperty.RemovePriority(this);
+            }
+        }
 
         public virtual void Fire(Entity entity, Vector3 direction)
         {
-            Debug.Log($"Instantiating bullet {BulletData.name} from {entity.name}");
+            //Debug.Log($"Instantiating bullet {BulletData.name} from {entity.name}");
+            CameraController.Instance.CameraShakeProperty.Write(this, WeaponData.CameraShake);
             
             Bullet bullet = Instantiate(
                 BulletData.BulletPrefab, 

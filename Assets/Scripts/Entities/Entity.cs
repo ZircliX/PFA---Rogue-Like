@@ -93,7 +93,6 @@ namespace DeadLink.Entities
             if (CurrentWeapon != null)
             {
                 Vector3 direction = BulletSpawnPoint.position - transform.position;
-                Camera cam = Camera.main;
                 
                 CurrentWeapon.Fire(this, direction);
             }
