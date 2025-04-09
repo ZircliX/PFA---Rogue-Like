@@ -138,12 +138,12 @@ namespace RogueLike.Player
         private void HandleGravityOrientation()
         {
             Vector3 targetUp = -Gravity.Value.normalized;
-            Vector3 currentUp = transform.up;
+            Vector3 right = Camera.transform.right;
+            Vector3 forward = Vector3.Cross(right, targetUp);
 
-            Vector3 newUp = Vector3.Slerp(currentUp, targetUp, gravityAlignSpeed * Time.fixedDeltaTime);
+            Quaternion rotation = Quaternion.LookRotation(forward, targetUp);
 
-            transform.up = newUp;
-            //rb.MoveRotation(targetRotation);
+            rb.MoveRotation(Quaternion.Slerp(rb.rotation, rotation, gravityAlignSpeed * Time.deltaTime));
         }
 
         private void MovePlayer()
