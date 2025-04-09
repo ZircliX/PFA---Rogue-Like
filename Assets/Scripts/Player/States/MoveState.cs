@@ -46,7 +46,7 @@ namespace RogueLike.Player.States
             currentDeceleration = 0;
         }
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime)
+        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
             Vector3 lastVelocity = movement.StateVelocity;
 
@@ -71,10 +71,11 @@ namespace RogueLike.Player.States
             {
                 if (movement.IsGrounded && Vector3.Dot(otherVelocity, movement.Gravity) > 0)
                 {
+                    gravityScale = 0f;
                     return targetSpeed;
                 }
 
-                return movement.ApplyGravity(targetSpeed + otherVelocity, deltaTime);
+                return targetSpeed + otherVelocity;
             }
 
             float modifier;
@@ -99,12 +100,13 @@ namespace RogueLike.Player.States
 
             if (movement.IsGrounded)
             {
+                gravityScale = 0f;
                 return finalVelocity;
             }
 
             finalVelocity += otherVelocity;
 
-            return movement.ApplyGravity(finalVelocity, deltaTime);
+            return finalVelocity;
         }
     }
 }

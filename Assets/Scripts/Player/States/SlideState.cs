@@ -46,7 +46,7 @@ namespace RogueLike.Player.States
             currentSlideTime = 0;
         }
         
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime)
+        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
             Vector3 velocity = Vector3.zero;
             Vector3 projectionPlaneNormal = GetProjectionPlaneNormal(movement);
@@ -74,7 +74,7 @@ namespace RogueLike.Player.States
             }
 
             currentSlideTime += deltaTime;
-            return movement.ApplyGravity(velocity);
+            return velocity;
         }
 
         public override MovementState GetNextState(PlayerMovement movement)

@@ -8,12 +8,7 @@ namespace DeadLink.Gravity.Implementations
     {
         [SerializeField, Self] private SphereCollider sc;
 
-        private void OnValidate()
-        {
-            this.ValidateRefs();
-        }
-
-        protected override Vector3 GetGravityForReceiver(IGravityReceiver receiver)
+        protected override Vector3 GetGravityForReceiver(GravityReceiver receiver)
         {
             return transform.position + sc.center - receiver.Position;
         }

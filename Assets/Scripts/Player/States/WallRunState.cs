@@ -53,7 +53,7 @@ namespace RogueLike.Player.States
             currentDeceleration = 0;
         }
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime)
+        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
             Vector3 lastVelocity = movement.StateVelocity;
             

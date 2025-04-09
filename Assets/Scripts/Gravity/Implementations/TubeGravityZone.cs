@@ -7,13 +7,8 @@ namespace DeadLink.Gravity.Implementations
     public class TubeGravityZone : GravityZone
     {
         [SerializeField, Self] private MeshCollider mc;
-
-        private void OnValidate()
-        {
-            this.ValidateRefs();
-        }
         
-        protected override Vector3 GetGravityForReceiver(IGravityReceiver receiver)
+        protected override Vector3 GetGravityForReceiver(GravityReceiver receiver)
         {
             Vector3 A = transform.position + transform.up;
             Vector3 B = transform.position - transform.up;

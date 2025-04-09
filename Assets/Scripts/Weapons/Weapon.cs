@@ -21,7 +21,10 @@ namespace DeadLink.Weapons
 
         private void OnDestroy()
         {
-            CameraController.Instance.CameraShakeProperty.RemovePriority(this);
+            if (CameraController.HasInstance)
+            {
+                CameraController.Instance.CameraShakeProperty.RemovePriority(this);
+            }
         }
 
         public virtual void Fire(Entity entity, Vector3 direction)

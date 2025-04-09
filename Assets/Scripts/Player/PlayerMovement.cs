@@ -1,4 +1,3 @@
-using DeadLink.Gravity;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace RogueLike.Player
 {
-    public class PlayerMovement : MonoBehaviour, IGravityReceiver
+    public class PlayerMovement : MonoBehaviour
     {
         public bool IsGrounded { get; private set; }
         public Vector3 InputDirection { get; private set; }
@@ -54,7 +53,6 @@ namespace RogueLike.Player
         [SerializeField] private int coyoteTime = 10;
         
         [Header("References")]
-        [field: SerializeField] public Transform Head { get; private set; }
         [field: SerializeField] public Camera Camera { get; private set; }
         [field: SerializeField, Self, Space] public Rigidbody rb { get; private set; }
         [SerializeField, Child] private CapsuleCollider cc;
@@ -117,7 +115,6 @@ namespace RogueLike.Player
             
             HandleGroundDetection();
             HandleWallDetection();
-            HandleGravityOrientation();
 
             //Set Buffers
             if (jumpInput > 0)
@@ -126,12 +123,16 @@ namespace RogueLike.Player
                 slideInput --;
 
             float deltaTime = Time.fixedDeltaTime;
+            float stateGravityScale = 1;
             
             MovementStateBehavior state = movementStates[currentStateIndex];
-            Vector3 stateVelocity = state.GetVelocity(this, deltaTime);
+            Vector3 stateVelocity = state.GetVelocity(this, deltaTime, ref stateGravityScale);
+            stateVelocity += Gravity.Value * (stateGravityScale * gravityScale * deltaTime);
+            
             CurrentVelocity.Write(stateChannelKey, stateVelocity);
             
             MovePlayer();
+            HandleGravityOrientation();
             HandleStateChange();
         }
 
@@ -148,27 +149,64 @@ namespace RogueLike.Player
 
         private void MovePlayer()
         {
-            Vector3 velocity = CurrentVelocity.Value;
-            
-            /* //Check for incoming collision to prevent player from getting blocked
-            Vector3 stateVelocity = StateVelocity;
-            if (rb.SweepTest(velocity, out RaycastHit hit, velocity.magnitude * Time.deltaTime))
+            /*
+            if (rb.isKinematic)
             {
-                CurrentVelocity.Write(stateChannelKey, hit.distance / Time.deltaTime * stateVelocity.normalized);
+                float deltaTime = Time.deltaTime;
+                Vector3 p1 = rb.position + cc.center + transform.up * (cc.height * 0.25f);
+                Vector3 p2 = p1 + transform.up * cc.height;
+
+                RaycastHit[] raycastHits = new RaycastHit[16];
+                Vector3 collisionOffset = Vector3.zero;
+
+                for (int i = 0; i < maxPenetrationCount; i++)
+                {
+                    Vector3 nextPosition = rb.position + collisionOffset + velocity * deltaTime;
+                    int count = Physics.CapsuleCastNonAlloc(p1, p2, cc.radius - MIN_THRESHOLD, velocity.normalized, raycastHits, velocity.magnitude);
+
+                    if (count > 0)
+                    {
+                        for (int j = 0; j < count; j++)
+                        {
+                            RaycastHit hit = raycastHits[j];
+                            Collider hitCollider = hit.collider;
+
+                            if (hit.collider.attachedRigidbody == rb)
+                                continue;
+
+                            if (Physics.GetIgnoreLayerCollision(hit.collider.gameObject.layer, cc.gameObject.layer))
+                                continue;
+
+                            if (Physics.GetIgnoreCollision(hit.collider, cc))
+                                continue;
+
+                            Vector3 otherPosition = hitCollider.transform.position;
+                            Quaternion otherRotation = hitCollider.transform.rotation;
+
+                            if (Physics.ComputePenetration(
+                                    cc, nextPosition, rb.rotation,
+                                    hitCollider, otherPosition, otherRotation,
+                                    out Vector3 direction, out float distance))
+                            {
+                                Vector3 offset = direction * distance;
+                                Debug.DrawLine(rb.position + collisionOffset, rb.position + collisionOffset + offset, Color.red);
+                                collisionOffset += offset;
+                            }
+                        }
+                    }
+                }
+
+                rb.MovePosition(rb.position + velocity * deltaTime + collisionOffset);
+            }
+            else
+            {
+                Vector3 velocity = CurrentVelocity.Value;
+                rb.linearVelocity = velocity;
             }
             */
-                     
+            
+            Vector3 velocity = CurrentVelocity.Value;
             rb.linearVelocity = velocity;
-        }
-        
-        public Vector3 ApplyGravity(Vector3 baseVelocity)
-        {
-            return ApplyGravity(baseVelocity, Time.deltaTime);
-        }
-
-        public Vector3 ApplyGravity(Vector3 baseVelocity, float deltaTime)
-        {
-            return baseVelocity + Gravity.Value * (gravityScale * deltaTime);
         }
 
         private void HandleStateChange()

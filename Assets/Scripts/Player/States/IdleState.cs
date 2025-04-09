@@ -24,7 +24,7 @@ namespace RogueLike.Player.States
         {
         }
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime)
+        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
             return Vector3.zero;
         }

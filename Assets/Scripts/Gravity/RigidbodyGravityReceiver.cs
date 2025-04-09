@@ -1,25 +1,18 @@
 using KBCore.Refs;
-using LTX.ChanneledProperties;
 using UnityEngine;
 
 namespace DeadLink.Gravity
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class RigidbodyGravityReceiver : MonoBehaviour, IGravityReceiver
+    public class RigidbodyGravityReceiver : GravityReceiver
     {
         [SerializeField, Self] private Rigidbody rb;
-        
-        public Vector3 Position => rb.position;
-        public PrioritisedProperty<Vector3> Gravity { get; private set; }
+
+        public override Vector3 Position => rb.position;
         
         private void OnValidate()
         {
             this.ValidateRefs();
-        }
-        
-        private void Awake()
-        {
-            Gravity = new PrioritisedProperty<Vector3>(Vector3.zero);
         }
 
         private void FixedUpdate()

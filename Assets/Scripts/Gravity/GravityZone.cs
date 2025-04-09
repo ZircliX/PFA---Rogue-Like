@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using KBCore.Refs;
 using UnityEngine;
 
 namespace DeadLink.Gravity
@@ -6,10 +8,17 @@ namespace DeadLink.Gravity
     [RequireComponent(typeof(Collider))]
     public abstract class GravityZone : MonoBehaviour
     {
-        [SerializeField] private float gravityStrength = 9.81f;
+        [SerializeField] private float gravityStrength = 1f;
         [SerializeField, Range(10, 50)] private int priority;
-        private List<IGravityReceiver> gravityReceivers;
+        private List<GravityReceiver> gravityReceivers;
         
+        [SerializeField, Self] protected Collider myCollider;
+
+        protected virtual void OnValidate()
+        {
+            this.ValidateRefs();
+        }
+
         protected virtual void OnEnable()
         {
             GravityManager.Instance.RegisterGravityZone(this);
@@ -22,12 +31,12 @@ namespace DeadLink.Gravity
 
         protected void Awake()
         {
-            gravityReceivers = new List<IGravityReceiver>();
+            gravityReceivers = new List<GravityReceiver>();
         }
 
         protected virtual void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out IGravityReceiver gravityReceiver))
+            if (other.TryGetComponent(out GravityReceiver gravityReceiver))
             {
                 Debug.Log($"Entered {other.name} into {name}");
                 gravityReceivers.Add(gravityReceiver);
@@ -37,7 +46,7 @@ namespace DeadLink.Gravity
         
         protected virtual void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(out IGravityReceiver gravityReceiver))
+            if (other.TryGetComponent(out GravityReceiver gravityReceiver))
             {
                 Debug.Log($"Exited {other.name} into {name}");
                 gravityReceivers.Remove(gravityReceiver);
@@ -47,13 +56,13 @@ namespace DeadLink.Gravity
         
         internal virtual void OnFixedUpdate()
         {
-            foreach (IGravityReceiver receiver in gravityReceivers)
+            foreach (GravityReceiver receiver in gravityReceivers)
             {
                 Vector3 gravityForReceiver = GetGravityForReceiver(receiver).normalized;
                 receiver.Gravity.Write(this, gravityForReceiver * gravityStrength);
             }
         }
         
-        protected abstract Vector3 GetGravityForReceiver(IGravityReceiver receiver);
+        protected abstract Vector3 GetGravityForReceiver(GravityReceiver receiver);
     }
 }
