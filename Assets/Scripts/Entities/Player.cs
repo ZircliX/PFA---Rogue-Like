@@ -39,5 +39,12 @@ namespace RogueLike.Player
                 Shoot();
             }
         }
+
+        public override void Die()
+        {
+            base.Die();
+            
+            
+        }
     }
 }
