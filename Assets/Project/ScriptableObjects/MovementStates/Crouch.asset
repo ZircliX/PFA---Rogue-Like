@@ -66,4 +66,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   decelerationDuration: 1
   deceleration: 50
-  playerCrouchHeight: 0.5
+  maxStepHeight: 0
+  headPositionOffset: 0.5
+  colliderHightOffset: 0.5

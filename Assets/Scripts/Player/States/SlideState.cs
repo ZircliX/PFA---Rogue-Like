@@ -43,18 +43,22 @@ namespace RogueLike.Player.States
             currentSlideTime = 0;
             direction = GetCameraDirection(movement, Vector2.up);
             
+            /*
             movement.Head.position -= Vector3.up * headPositionOffset;
             movement.CapsuleCollider.height -= colliderHightOffset;
             movement.CapsuleCollider.center -= Vector3.up * colliderHightOffset;
+            */
         }
 
         public override void Exit(PlayerMovement movement)
         {
             currentSlideTime = 0;
             
+            /*
             movement.Head.position += Vector3.up * headPositionOffset;
             movement.CapsuleCollider.height += colliderHightOffset;
             movement.CapsuleCollider.center += Vector3.up * colliderHightOffset;
+            */
         }
         
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)

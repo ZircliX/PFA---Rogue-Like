@@ -4,7 +4,6 @@ using UnityEditor;
 #endif
 using DeadLink.Cameras;
 using UnityEngine;
-using UnityEngine.VFX;
 
 namespace DeadLink.Ammunitions.Data
 {
@@ -13,6 +12,7 @@ namespace DeadLink.Ammunitions.Data
         [field: Header("Base Stats")]
         [field : SerializeField] public float BulletSpeed { get; private set; }
         [field : SerializeField] public float Damage { get; private set; }
+        [field : SerializeField] public float MaxLifeCycle { get; private set; }
         
         [field: Header("VFX")]
         [field : SerializeField] public ParticleSystem HitVFX { get; private set; }
