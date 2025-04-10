@@ -54,8 +54,9 @@ namespace RogueLike.Player
         
         [Header("References")]
         [field: SerializeField] public Camera Camera { get; private set; }
+        [field: SerializeField] public Transform Head { get; private set; }
+        [field: SerializeField, Child] public CapsuleCollider CapsuleCollider { get; private set; }
         [field: SerializeField, Self, Space] public Rigidbody rb { get; private set; }
-        [SerializeField, Child] private CapsuleCollider cc;
 
         public bool RunInput { get; private set; }
         public bool CrouchInput { get; private set; }
@@ -250,10 +251,10 @@ namespace RogueLike.Player
                 Vector3 direction = rotation * castDirection;
                 Debug.DrawRay(transform.position, direction * wallCastDistance, Color.yellow);
 
-                Vector3 p1 = rb.position + cc.center + transform.up * -cc.height * 0.25f;
-                Vector3 p2 = p1 + transform.up * cc.height;
+                Vector3 p1 = rb.position + CapsuleCollider.center + transform.up * -CapsuleCollider.height * 0.25f;
+                Vector3 p2 = p1 + transform.up * CapsuleCollider.height;
                 
-                if (Physics.CapsuleCast(p1, p2, cc.radius - MIN_THRESHOLD, direction, out RaycastHit hit, wallCastDistance, WallLayer))
+                if (Physics.CapsuleCast(p1, p2, CapsuleCollider.radius - MIN_THRESHOLD, direction, out RaycastHit hit, wallCastDistance, WallLayer))
                 {
                     Debug.DrawRay(hit.point, hit.normal * 10, Color.magenta);
                     
@@ -284,7 +285,7 @@ namespace RogueLike.Player
             
             Vector3 gravityNormalized = Gravity.Value.normalized;
 
-            bool distanceResult = Physics.SphereCast(rb.position, cc.radius, gravityNormalized, out RaycastHit hit, Mathf.Infinity, GroundLayer);
+            bool distanceResult = Physics.SphereCast(rb.position, CapsuleCollider.radius, gravityNormalized, out RaycastHit hit, Mathf.Infinity, GroundLayer);
             if (distanceResult)
             {
                 DistanceFromGround = Vector3.Distance(hit.point, rb.position);
@@ -294,7 +295,7 @@ namespace RogueLike.Player
                 DistanceFromGround = Mathf.Infinity;
             }
             
-            bool result = Physics.SphereCast(rb.position, cc.radius, gravityNormalized, out hit, groundCheckDistance + cc.height * 0.5f - cc.radius, GroundLayer);
+            bool result = Physics.SphereCast(rb.position, CapsuleCollider.radius, gravityNormalized, out hit, groundCheckDistance + CapsuleCollider.height * 0.5f - CapsuleCollider.radius, GroundLayer);
             //Debug.DrawRay(rb.position, gravityNormalized * (groundCheckDistance + cc.height * 0.5f), Color.red);
 
             if (result)

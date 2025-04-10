@@ -96,7 +96,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.5
+  m_Radius: 0.95
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3000591483809483146
 GameObject:
@@ -490,13 +490,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   <IsWalled>k__BackingField: 0
-  gravityScale: 2
+  gravityScale: 2.75
   gravityAlignSpeed: 5
   coyoteTime: 10
-  maxPenetrationCount: 5
   <Camera>k__BackingField: {fileID: 818597675296926653}
+  <Head>k__BackingField: {fileID: 2065021886003205984}
+  <CapsuleCollider>k__BackingField: {fileID: 2649105432247018214}
   <rb>k__BackingField: {fileID: 7362595536518079642}
-  cc: {fileID: 2649105432247018214}
 --- !u!114 &3643170854386174536
 MonoBehaviour:
   m_ObjectHideFlags: 0
