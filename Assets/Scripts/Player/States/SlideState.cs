@@ -13,14 +13,17 @@ namespace RogueLike.Player.States
         [SerializeField] private float decelerationStrength;
         [SerializeField] private float decelerationThreshold;
 
-        [Header("Slopes")] 
+        [Header("Slopes")]
         [SerializeField] private AnimationCurve slopeCurve;
         [SerializeField] private float slopeModifier;
         [SerializeField, Range(0, 1)] private float minSlopeAngle;
         
         [Header("Sliding")]
-        [SerializeField] private float playerSlideHeight = 0.5f;
         [SerializeField] private float maxSlideTime = 1.5f;
+
+        [Header("Height")]
+        [SerializeField] private float headPositionOffset = 0.5f;
+        [SerializeField] private float colliderHightOffset = 0.5f;
         
         private float currentSlideTime;
         private Vector3 direction;
@@ -39,11 +42,19 @@ namespace RogueLike.Player.States
         {
             currentSlideTime = 0;
             direction = GetCameraDirection(movement, Vector2.up);
+            
+            movement.Head.position -= Vector3.up * headPositionOffset;
+            movement.CapsuleCollider.height -= colliderHightOffset;
+            movement.CapsuleCollider.center -= Vector3.up * colliderHightOffset;
         }
 
         public override void Exit(PlayerMovement movement)
         {
             currentSlideTime = 0;
+            
+            movement.Head.position += Vector3.up * headPositionOffset;
+            movement.CapsuleCollider.height += colliderHightOffset;
+            movement.CapsuleCollider.center += Vector3.up * colliderHightOffset;
         }
         
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
