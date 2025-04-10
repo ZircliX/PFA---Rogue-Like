@@ -5,6 +5,12 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Fall")]
     public class FallState : MoveState
     {
+        public override void Enter(PlayerMovement movement)
+        {
+            base.Enter(movement);
+            movement.PlayerHeight.Write(this, (movement.BaseCapsuleHeight, movement.BaseHeadHeight));
+        }
+
         public override MovementState GetNextState(PlayerMovement movement)
         {
             if (movement.IsGrounded)

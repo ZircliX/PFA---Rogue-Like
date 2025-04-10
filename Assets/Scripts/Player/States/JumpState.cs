@@ -19,6 +19,8 @@ namespace RogueLike.Player.States
 
             count = 0;
             currentJumpTime = 0;
+            
+            movement.PlayerHeight.Write(this, (movement.BaseCapsuleHeight, movement.BaseHeadHeight));
         }
 
         public override void Exit(PlayerMovement movement)

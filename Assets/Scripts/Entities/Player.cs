@@ -20,8 +20,6 @@ namespace RogueLike.Player
             
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
             Strength.AddInfluence(difficultyData, difficultyData.PlayerStrengthMultiplier, Influence.Multiply);
-            
-            SetFullHealth();
         }
         
         public void ChangeWeapon(InputAction.CallbackContext context)
@@ -36,7 +34,12 @@ namespace RogueLike.Player
         {
             if (context.performed)
             {
-                Shoot();
+                isShooting = true;
+                currentShootTime = CurrentWeapon.WeaponData.ShootRate;
+            }
+            else
+            {
+                isShooting = false;
             }
         }
 

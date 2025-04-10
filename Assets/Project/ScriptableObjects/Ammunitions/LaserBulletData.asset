@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <BulletSpeed>k__BackingField: 1000
   <Damage>k__BackingField: 5
+  <MaxLifeCycle>k__BackingField: 5
   <HitVFX>k__BackingField: {fileID: 2708598583397607910, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}
   <CameraShake>k__BackingField:
     Delay: 0

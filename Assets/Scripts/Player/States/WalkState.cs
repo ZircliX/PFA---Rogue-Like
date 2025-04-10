@@ -16,7 +16,12 @@ namespace RogueLike.Player.States
             
             return velocity;
         }
-
+        
+        public override void Enter(PlayerMovement movement)
+        {
+            movement.PlayerHeight.Write(this, (movement.BaseCapsuleHeight, movement.BaseHeadHeight));
+        }
+        
         public override MovementState GetNextState(PlayerMovement movement)
         {
             if (!movement.IsGrounded)
