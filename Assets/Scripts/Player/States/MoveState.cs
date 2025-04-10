@@ -19,6 +19,9 @@ namespace RogueLike.Player.States
         [SerializeField] private float decelerationDuration;
         [SerializeField] private float deceleration;
         private float currentDeceleration;
+        
+        [Header("STEPSSSSSSSSSSSSSSSSSSSSSSSS")]
+        [SerializeField] private float maxStepHeight;
 
         private Vector3 direction;
         private Camera cam;
@@ -49,7 +52,6 @@ namespace RogueLike.Player.States
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
             Vector3 lastVelocity = movement.StateVelocity;
-
             Vector3 worldInputs = GetWorldInputs(movement);
 
             Vector3 projectionPlaneNormal = GetProjectionPlaneNormal(movement);
@@ -97,14 +99,21 @@ namespace RogueLike.Player.States
             }
 
             Vector3 finalVelocity = Vector3.Lerp(planeVelocity, targetSpeed, modifier * deltaTime);
-
-            if (movement.IsGrounded)
-            {
-                gravityScale = 0f;
-                return finalVelocity;
-            }
-
             finalVelocity += otherVelocity;
+            
+            //Les escaliers mon pire enemi
+            Vector3 up = -movement.Gravity.Value.normalized;
+            Vector3 playerBasePosition = movement.Position - movement.CapsuleCollider.height * 0.5f * up;
+            Vector3 stepPoint =  playerBasePosition + up * maxStepHeight + Vector3.ProjectOnPlane(finalVelocity, projectionPlaneNormal).normalized * movement.CapsuleCollider.radius;
+            
+            if (Physics.Raycast(stepPoint, -projectionPlaneNormal, out RaycastHit hit, maxStepHeight,
+                    movement.GroundLayer))
+            {
+                float stepHeight = maxStepHeight - hit.distance;
+                movement.rb.position += projectionPlaneNormal * stepHeight;
+            }
+            
+            //Debug.DrawRay(stepPoint, -projectionPlaneNormal * maxStepHeight, Color.magenta);
 
             return finalVelocity;
         }

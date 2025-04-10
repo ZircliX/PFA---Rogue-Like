@@ -12,18 +12,22 @@ namespace RogueLike.Player.States
         {
             base.Enter(movement);
             
+            /*
             movement.Head.position -= Vector3.up * headPositionOffset;
             movement.CapsuleCollider.height -= colliderHightOffset;
             movement.CapsuleCollider.center -= Vector3.up * colliderHightOffset;
+            */
         }
 
         public override void Exit(PlayerMovement movement)
         {
             base.Exit(movement);
             
+            /*
             movement.Head.position += Vector3.up * headPositionOffset;
             movement.CapsuleCollider.height += colliderHightOffset;
             movement.CapsuleCollider.center += Vector3.up * colliderHightOffset;
+            */
         }
 
         public override MovementState GetNextState(PlayerMovement movement)

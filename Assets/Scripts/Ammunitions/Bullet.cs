@@ -1,8 +1,7 @@
+using System;
 using DeadLink.Ammunitions.Data;
-using DeadLink.Cameras;
 using DeadLink.Entities;
 using KBCore.Refs;
-using LTX.ChanneledProperties;
 using UnityEngine;
 
 namespace DeadLink.Ammunitions
@@ -13,31 +12,14 @@ namespace DeadLink.Ammunitions
         [field: SerializeField] public BulletData BulletData { get; private set; }
         [SerializeField, Self] private Rigidbody rb;
         
+        public event Action<Bullet> OnBulletHit;
+        public event Action<Bullet> OnBulletDestroy;
+        
         private float damage;
         private Vector3 lastPosition;
+        private float currentLifeCycle;
 
         private void OnValidate() => this.ValidateRefs();
-        
-        private void Awake()
-        {
-            CameraController.Instance.CameraShakeProperty.AddPriority(this, PriorityTags.Default);
-        }
-        
-        /*
-        protected virtual void OnTriggerEnter(Collider other)
-        {
-            if (other.TryGetComponent(out Entity entity))
-            {
-                Debug.Log("Hit an entity");
-                HitEntity(entity);
-            }
-            else
-            {
-                Debug.Log("Hit something else");
-                Hit();
-            }
-        }
-        */
         
         protected virtual void FixedUpdate()
         {
@@ -65,6 +47,11 @@ namespace DeadLink.Ammunitions
                 else
                 {
                     Debug.Log("Didn't hit anything");
+                    currentLifeCycle += Time.deltaTime;
+                    if (currentLifeCycle >= BulletData.MaxLifeCycle)
+                    {
+                        
+                    }
                 }
             }
             
@@ -86,10 +73,15 @@ namespace DeadLink.Ammunitions
 
         protected virtual void Hit(RaycastHit hit)
         {
-            CameraController.Instance.CameraShakeProperty.Write(this, BulletData.CameraShake);
             Instantiate(BulletData.HitVFX, hit.point, Quaternion.identity);
-            
-            CameraController.Instance.CameraShakeProperty.RemovePriority(this);
+
+            OnBulletHit?.Invoke(this);
+            DestroyBullet();
+        }
+
+        protected virtual void DestroyBullet()
+        {
+            OnBulletDestroy?.Invoke(this);
             Destroy(gameObject);
         }
     }

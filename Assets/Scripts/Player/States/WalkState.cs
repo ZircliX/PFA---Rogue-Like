@@ -5,6 +5,18 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Walk")]
     public class WalkState : MoveState
     {
+        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
+        {
+            gravityScale = 0;
+            Vector3 velocity = base.GetVelocity(movement, deltaTime, ref gravityScale);
+
+            const float snapForce = 2;
+
+            velocity += movement.Gravity.Value.normalized * snapForce * deltaTime;
+            
+            return velocity;
+        }
+
         public override MovementState GetNextState(PlayerMovement movement)
         {
             if (!movement.IsGrounded)

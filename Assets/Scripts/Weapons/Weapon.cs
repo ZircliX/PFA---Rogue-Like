@@ -1,4 +1,3 @@
-using System;
 using DeadLink.Ammunitions;
 using DeadLink.Ammunitions.Data;
 using DeadLink.Cameras;
@@ -13,6 +12,8 @@ namespace DeadLink.Weapons
     {
         [field : SerializeField] public WeaponData WeaponData { get; private set; }
         [field : SerializeField] public BulletData BulletData { get; private set; }
+
+        private int currentMunitions;
         
         private void Awake()
         {
@@ -36,6 +37,9 @@ namespace DeadLink.Weapons
                 BulletData.BulletPrefab, 
                 entity.BulletSpawnPoint.position, 
                 BulletData.BulletPrefab.transform.rotation);
+
+            bullet.OnBulletHit += BulletHit;
+            bullet.OnBulletDestroy += BulletDestroy;
             
             bullet.Shoot(entity.Strength, entity.BulletSpawnPoint.transform.forward);
         }
@@ -43,6 +47,17 @@ namespace DeadLink.Weapons
         public virtual void Reload()
         {
             
+        }
+
+        private void BulletHit(Bullet bullet)
+        {
+            CameraController.Instance.CameraShakeProperty.Write(this, bullet.BulletData.CameraShake);
+        }
+
+        private void BulletDestroy(Bullet bullet)
+        {
+            bullet.OnBulletHit -= BulletHit;
+            bullet.OnBulletDestroy -= BulletDestroy;
         }
     }
 }

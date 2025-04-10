@@ -49,14 +49,16 @@ namespace RogueLike.Player.States
 
             Vector3 finalVelocity = gravityNormal * (jumpModifier * jumpForce) + baseVelocity;
 
-            // Debug.Log($"{count++} | {baseVelocity.y} => {finalVelocity.y}");
+            //Debug.Log($"{count++} | {baseVelocity.y} => {finalVelocity.magnitude}");
 
             return finalVelocity;
         }
 
         public override MovementState GetNextState(PlayerMovement movement)
         {
-            if (movement.CurrentVelocity.Value.y < -0.2f)
+            float dot = Vector3.Dot(movement.CurrentVelocity.Value.normalized, movement.Gravity.Value.normalized);
+            //Debug.Log(dot);
+            if (dot > 0f)
             {
                 return MovementState.Falling;
             }

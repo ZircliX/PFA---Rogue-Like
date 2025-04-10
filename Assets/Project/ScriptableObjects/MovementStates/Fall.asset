@@ -66,3 +66,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   decelerationDuration: 1
   deceleration: 5
+  maxStepHeight: 0
