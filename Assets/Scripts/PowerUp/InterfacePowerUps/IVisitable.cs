@@ -1,4 +1,4 @@
-namespace DeadLink.PowerUp.InterfacePowerUps
+namespace DeadLink.PowerUp
 {
     public interface IVisitable
     {

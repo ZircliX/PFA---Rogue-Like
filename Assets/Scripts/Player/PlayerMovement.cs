@@ -1,3 +1,4 @@
+using DeadLink.PowerUp;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using UnityEngine;

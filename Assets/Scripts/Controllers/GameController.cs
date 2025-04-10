@@ -82,10 +82,10 @@ namespace RogueLike.Controllers
             TimeScale = new PrioritisedProperty<float>(1f);
             TimeScale.AddOnValueChangeCallback(UpdateTimeScale, true);
 
-            CursorLockMode = new PrioritisedProperty<CursorLockMode>(UnityEngine.CursorLockMode.Locked);
+            CursorLockMode = new PrioritisedProperty<CursorLockMode>(UnityEngine.CursorLockMode.None);
             CursorLockMode.AddOnValueChangeCallback(UpdateCursorLockMode, true);
             
-            CursorVisibility = new PrioritisedProperty<bool>(false);
+            CursorVisibility = new PrioritisedProperty<bool>(true);
             CursorVisibility.AddOnValueChangeCallback(UpdateCursorVisibility, true);
         }
 
