@@ -493,6 +493,9 @@ MonoBehaviour:
   gravityScale: 2.75
   gravityAlignSpeed: 5
   coyoteTime: 10
+  <BaseCapsuleHeight>k__BackingField: 2
+  <BaseHeadHeight>k__BackingField: 0.5
+  <ColliderCenterOffset>k__BackingField: {x: 0, y: -0.5, z: 0}
   <Camera>k__BackingField: {fileID: 818597675296926653}
   <Head>k__BackingField: {fileID: 2065021886003205984}
   <CapsuleCollider>k__BackingField: {fileID: 2649105432247018214}

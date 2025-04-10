@@ -38,6 +38,7 @@ namespace RogueLike.Player.States
 
         public override void Dispose(PlayerMovement movement)
         {
+            
         }
 
         public override void Enter(PlayerMovement movement)
@@ -45,7 +46,6 @@ namespace RogueLike.Player.States
             currentSlideTime = 0;
             direction = GetCameraDirection(movement, Vector2.up);
             
-            movement.PlayerHeight.Write(this, (crouchCapsuleHeight, crouchHeadHeight));
         }
 
         public override void Exit(PlayerMovement movement)
@@ -104,6 +104,11 @@ namespace RogueLike.Player.States
             }
 
             return State;
+        }
+        
+        public override (float, float) GetHeight(PlayerMovement movement)
+        {
+            return (crouchCapsuleHeight, crouchHeadHeight);
         }
 
         public override MovementState State => MovementState.Sliding;
