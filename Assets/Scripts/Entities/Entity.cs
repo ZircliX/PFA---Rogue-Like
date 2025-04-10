@@ -16,6 +16,8 @@ namespace DeadLink.Entities
         [field: SerializeField] public Transform BulletSpawnPoint { get; private set; }
         [field: SerializeField] public Weapon[] Weapons { get; private set; }
         public Weapon CurrentWeapon { get; private set; }
+        protected bool isShooting;
+        protected float currentShootTime;
 
         public int Health { get; private set; }
         public InfluencedProperty<float> Strength { get; private set; }
@@ -99,6 +101,24 @@ namespace DeadLink.Entities
             else
             {
                 Debug.LogError($"No equipped weapon for {gameObject.name}");
+            }
+        }
+
+        protected virtual void Update()
+        {
+            if (isShooting)
+            {
+                if (currentShootTime >= CurrentWeapon.WeaponData.ShootRate)
+                {
+                    Shoot();
+                }
+                
+                currentShootTime -= Time.deltaTime;
+
+                if (currentShootTime <= 0)
+                {
+                    currentShootTime = CurrentWeapon.WeaponData.ShootRate;
+                }
             }
         }
     }

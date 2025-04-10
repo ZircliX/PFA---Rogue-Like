@@ -49,12 +49,12 @@ namespace DeadLink.Weapons
             
         }
 
-        private void BulletHit(Bullet bullet)
+        protected virtual void BulletHit(Bullet bullet)
         {
             CameraController.Instance.CameraShakeProperty.Write(this, bullet.BulletData.CameraShake);
         }
 
-        private void BulletDestroy(Bullet bullet)
+        protected virtual void BulletDestroy(Bullet bullet)
         {
             bullet.OnBulletHit -= BulletHit;
             bullet.OnBulletDestroy -= BulletDestroy;

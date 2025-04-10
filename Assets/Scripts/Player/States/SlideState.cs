@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace RogueLike.Player.States
 {
@@ -21,9 +22,10 @@ namespace RogueLike.Player.States
         [Header("Sliding")]
         [SerializeField] private float maxSlideTime = 1.5f;
 
+        [FormerlySerializedAs("CrouchCapsuleHeight")]
         [Header("Height")]
-        [SerializeField] private float headPositionOffset = 0.5f;
-        [SerializeField] private float colliderHightOffset = 0.5f;
+        [SerializeField] private float crouchCapsuleHeight = 0.5f;
+        [SerializeField] private  float crouchHeadHeight = 0f;
         
         private float currentSlideTime;
         private Vector3 direction;
@@ -43,22 +45,12 @@ namespace RogueLike.Player.States
             currentSlideTime = 0;
             direction = GetCameraDirection(movement, Vector2.up);
             
-            /*
-            movement.Head.position -= Vector3.up * headPositionOffset;
-            movement.CapsuleCollider.height -= colliderHightOffset;
-            movement.CapsuleCollider.center -= Vector3.up * colliderHightOffset;
-            */
+            movement.PlayerHeight.Write(this, (crouchCapsuleHeight, crouchHeadHeight));
         }
 
         public override void Exit(PlayerMovement movement)
         {
             currentSlideTime = 0;
-            
-            /*
-            movement.Head.position += Vector3.up * headPositionOffset;
-            movement.CapsuleCollider.height += colliderHightOffset;
-            movement.CapsuleCollider.center += Vector3.up * colliderHightOffset;
-            */
         }
         
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)

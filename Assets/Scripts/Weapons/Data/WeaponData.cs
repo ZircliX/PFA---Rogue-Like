@@ -14,6 +14,10 @@ namespace DeadLink.Weapons.Data
         [field : SerializeField] public VisualEffect ShootVFX { get; private set; }
         [field : SerializeField] public CameraShakeComposite CameraShake { get; private set; }
         
+        [field: Header("Shoot Stats")]
+        [field : SerializeField] public float ShootRate { get; private set; }
+        
+        
         [field: Header("Prefab")]
         [field : SerializeField] public Weapon WeaponPrefab { get; private set; }
         

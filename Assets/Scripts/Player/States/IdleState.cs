@@ -18,6 +18,7 @@ namespace RogueLike.Player.States
 
         public override void Enter(PlayerMovement movement)
         {
+            movement.PlayerHeight.Write(this, (movement.BaseCapsuleHeight, movement.BaseHeadHeight));
         }
 
         public override void Exit(PlayerMovement movement)

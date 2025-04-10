@@ -30,27 +30,27 @@ namespace DeadLink.Ammunitions
             if (distance > 0)
             {
                 Ray ray = new Ray(lastPosition, direction.normalized);
-
+                
                 if (Physics.Raycast(ray, out RaycastHit hit, distance))
                 {
                     if (hit.collider.TryGetComponent(out Entity entity))
                     {
-                        Debug.Log($"Hit Entity {entity.name}");
+                        //Debug.Log($"Hit Entity {entity.name}");
                         HitEntity(entity, hit);
                     }
                     else if (hit.collider.gameObject.GetInstanceID() != gameObject.GetInstanceID())
                     {
-                        Debug.Log($"Hit object {hit.collider.name}");
+                        //Debug.Log($"Hit object {hit.collider.name}");
                         Hit(hit);
                     }
-                }
-                else
-                {
-                    Debug.Log("Didn't hit anything");
-                    currentLifeCycle += Time.deltaTime;
-                    if (currentLifeCycle >= BulletData.MaxLifeCycle)
+                    
+                    else if (hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())
                     {
-                        
+                        currentLifeCycle += Time.deltaTime;
+                        if (currentLifeCycle >= BulletData.MaxLifeCycle)
+                        {
+                            DestroyBullet();
+                        }
                     }
                 }
             }

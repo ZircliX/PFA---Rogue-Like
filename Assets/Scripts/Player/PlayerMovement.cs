@@ -53,11 +53,16 @@ namespace RogueLike.Player
         [Header("Coyote")]
         [SerializeField] private int coyoteTime = 10;
         
-        [Header("References")]
+        [field: Header("Height")]
+        [field: SerializeField] public float BaseCapsuleHeight { get; private set; } = 2;
+        [field: SerializeField] public float BaseHeadHeight { get; private set; } = 0.5f;
+        public PrioritisedProperty<(float, float)> PlayerHeight { get; private set; }
+        
+        [field: Header("References")]
         [field: SerializeField] public Camera Camera { get; private set; }
         [field: SerializeField] public Transform Head { get; private set; }
         [field: SerializeField, Child] public CapsuleCollider CapsuleCollider { get; private set; }
-        [field: SerializeField, Self, Space] public Rigidbody rb { get; private set; }
+        [field: SerializeField, Self] public Rigidbody rb { get; private set; }
 
         public bool RunInput { get; private set; }
         public bool CrouchInput { get; private set; }
@@ -82,6 +87,13 @@ namespace RogueLike.Player
             CurrentVelocity = new InfluencedProperty<Vector3>(Vector3.zero);
             stateChannelKey = ChannelKey.GetUniqueChannelKey();
             CurrentVelocity.AddInfluence(stateChannelKey, Influence.Add, 1, 0);
+            
+            PlayerHeight = new PrioritisedProperty<(float, float)>((BaseCapsuleHeight, BaseHeadHeight));
+            PlayerHeight.AddPriority(stateChannelKey, PriorityTags.Default);
+            PlayerHeight.AddOnValueChangeCallback(ctx =>
+            {
+                SetPlayerHeight(ctx.Item1, ctx.Item2);
+            }, true);
 
             Gravity = new PrioritisedProperty<Vector3>(Vector3.down * 9.81f);
 
@@ -100,6 +112,7 @@ namespace RogueLike.Player
         private void OnDestroy()
         {
             CurrentVelocity.RemoveInfluence(stateChannelKey);
+            PlayerHeight.RemovePriority(stateChannelKey);
 
             for (int i = 0; i < movementStates.Length; i++)
             {
@@ -333,6 +346,13 @@ namespace RogueLike.Player
                     return;
                 }
             }
+        }
+
+        private void SetPlayerHeight(float newCapsuleHeight, float newHeadHeight)
+        {
+            Debug.Log($"Changing height to {newCapsuleHeight} and {newHeadHeight}");
+            CapsuleCollider.height = newCapsuleHeight;
+            Head.localPosition = new Vector3(Head.localPosition.x, newHeadHeight, Head.localPosition.z);
         }
 
         #region Inputs

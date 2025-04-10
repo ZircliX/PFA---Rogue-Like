@@ -42,6 +42,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  <ShootRate>k__BackingField: 0.1
   <WeaponPrefab>k__BackingField: {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
   <FireRate>k__BackingField: 0.25
   <ReloadDuration>k__BackingField: 1

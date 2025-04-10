@@ -6,28 +6,18 @@ namespace RogueLike.Player.States
     public class CrouchState : MoveState
     {
         [Header("Height")]
-        [SerializeField] private float headPositionOffset = 0.5f;
-        [SerializeField] private float colliderHightOffset = 0.5f;
+        [SerializeField] private float crouchCapsuleHeight = 0.5f;
+        [SerializeField] private  float crouchHeadHeight = 0f;
         public override void Enter(PlayerMovement movement)
         {
             base.Enter(movement);
-            
-            /*
-            movement.Head.position -= Vector3.up * headPositionOffset;
-            movement.CapsuleCollider.height -= colliderHightOffset;
-            movement.CapsuleCollider.center -= Vector3.up * colliderHightOffset;
-            */
+
+            movement.PlayerHeight.Write(this, (crouchCapsuleHeight, crouchHeadHeight));
         }
 
         public override void Exit(PlayerMovement movement)
         {
             base.Exit(movement);
-            
-            /*
-            movement.Head.position += Vector3.up * headPositionOffset;
-            movement.CapsuleCollider.height += colliderHightOffset;
-            movement.CapsuleCollider.center += Vector3.up * colliderHightOffset;
-            */
         }
 
         public override MovementState GetNextState(PlayerMovement movement)
