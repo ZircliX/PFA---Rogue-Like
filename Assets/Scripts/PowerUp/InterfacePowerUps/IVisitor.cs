@@ -1,26 +1,11 @@
-using UnityEngine;
+using DeadLink.PowerUp.Components;
+using RogueLike.Player;
 
-namespace DeadLink.PowerUp.InterfacePowerUps
+namespace DeadLink.PowerUp
 {
     public interface IVisitor
     {
-        public void Visit(DoubleDashComponent component);
-        public void Visit(DoubleJumpComponent component);
-    }
-
-    public class PowerUp : ScriptableObject, IVisitor
-    {
-        public int JumpBonus = 1;
-        public int DashBonus = 1;
+        public void Visit(VisitableComponent visitable);
         
-        public void Visit(DoubleDashComponent component)
-        {
-            component.doubleDash += DashBonus;
-        }
-
-        public void Visit(DoubleJumpComponent component)
-        {
-            component.doubleJump += JumpBonus;
-        }
     }
 }
