@@ -8,17 +8,6 @@ namespace RogueLike.Player.States
         [Header("Height")]
         [SerializeField] private float crouchCapsuleHeight = 0.5f;
         [SerializeField] private  float crouchHeadHeight = 0f;
-        public override void Enter(PlayerMovement movement)
-        {
-            base.Enter(movement);
-
-            movement.PlayerHeight.Write(this, (crouchCapsuleHeight, crouchHeadHeight));
-        }
-
-        public override void Exit(PlayerMovement movement)
-        {
-            base.Exit(movement);
-        }
 
         public override MovementState GetNextState(PlayerMovement movement)
         {
@@ -32,6 +21,11 @@ namespace RogueLike.Player.States
             }
 
             return State;
+        }
+        
+        public override (float, float) GetHeight(PlayerMovement movement)
+        {
+            return (crouchCapsuleHeight, crouchHeadHeight);
         }
 
         public override MovementState State => MovementState.Crouching;

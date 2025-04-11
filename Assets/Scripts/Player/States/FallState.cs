@@ -5,12 +5,6 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Fall")]
     public class FallState : MoveState
     {
-        public override void Enter(PlayerMovement movement)
-        {
-            base.Enter(movement);
-            movement.PlayerHeight.Write(this, (movement.BaseCapsuleHeight, movement.BaseHeadHeight));
-        }
-
         public override MovementState GetNextState(PlayerMovement movement)
         {
             if (movement.IsGrounded)
@@ -32,6 +26,11 @@ namespace RogueLike.Player.States
             }
             
             return State;
+        }
+
+        public override (float, float) GetHeight(PlayerMovement movement)
+        {
+            return (movement.BaseCapsuleHeight, movement.BaseHeadHeight);
         }
 
         protected override Vector3 GetProjectionPlaneNormal(PlayerMovement movement)

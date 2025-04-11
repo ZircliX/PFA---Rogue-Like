@@ -8,10 +8,12 @@
       "hash": "51505097662373070f9e68a83d2dd5b59c82a8e2"
     },
     "com.ltx.channeled-properties": {
-      "version": "1.0.3",
+      "version": "1.1.1",
       "depth": 0,
       "source": "registry",
-      "dependencies": {},
+      "dependencies": {
+        "com.ltx.tools": "1.1.1"
+      },
       "url": "https://helteix-verdaccio.euvtgm.easypanel.host"
     },
     "com.ltx.save-system": {
@@ -29,7 +31,7 @@
       "url": "https://helteix-verdaccio.euvtgm.easypanel.host"
     },
     "com.ltx.tools": {
-      "version": "1.0.9",
+      "version": "1.1.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {},

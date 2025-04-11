@@ -54,6 +54,11 @@ namespace RogueLike.Player.States
             return State;
         }
 
+        public override (float, float) GetHeight(PlayerMovement movement)
+        {
+            return (movement.BaseCapsuleHeight, movement.BaseHeadHeight);
+        }
+
         public override MovementState State => MovementState.Idle;
     }
 }

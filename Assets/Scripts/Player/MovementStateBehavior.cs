@@ -13,6 +13,8 @@ namespace RogueLike.Player
 
         public abstract MovementState GetNextState(PlayerMovement movement);
 
+        public abstract (float, float) GetHeight(PlayerMovement movement);
+
         protected virtual Vector3 GetCameraDirection(PlayerMovement movement, Vector2 direction)
         {
             Camera movementCamera = movement.Camera;

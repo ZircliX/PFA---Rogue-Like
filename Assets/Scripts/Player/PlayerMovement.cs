@@ -56,6 +56,7 @@ namespace RogueLike.Player
         [field: Header("Height")]
         [field: SerializeField] public float BaseCapsuleHeight { get; private set; } = 2;
         [field: SerializeField] public float BaseHeadHeight { get; private set; } = 0.5f;
+        [field: SerializeField] public Vector3 ColliderCenterOffset { get; private set; } = new Vector3(0, -0.5f, 0);
         public PrioritisedProperty<(float, float)> PlayerHeight { get; private set; }
         
         [field: Header("References")]
@@ -140,10 +141,10 @@ namespace RogueLike.Player
             float deltaTime = Time.fixedDeltaTime;
             float stateGravityScale = 1;
             
+            //Manage States Values
             MovementStateBehavior state = movementStates[currentStateIndex];
             Vector3 stateVelocity = state.GetVelocity(this, deltaTime, ref stateGravityScale);
             stateVelocity += Gravity.Value * (stateGravityScale * gravityScale * deltaTime);
-            
             CurrentVelocity.Write(stateChannelKey, stateVelocity);
             
             MovePlayer();
@@ -308,9 +309,10 @@ namespace RogueLike.Player
             {
                 DistanceFromGround = Mathf.Infinity;
             }
-            
-            bool result = Physics.SphereCast(rb.position, CapsuleCollider.radius, gravityNormalized, out hit, groundCheckDistance + CapsuleCollider.height * 0.5f - CapsuleCollider.radius, GroundLayer);
-            //Debug.DrawRay(rb.position, gravityNormalized * (groundCheckDistance + cc.height * 0.5f), Color.red);
+
+            Vector3 ccPos = transform.TransformPoint(CapsuleCollider.center);
+            bool result = Physics.SphereCast(ccPos, CapsuleCollider.radius, gravityNormalized, out hit, groundCheckDistance + CapsuleCollider.height * 0.5f + MIN_THRESHOLD, GroundLayer);
+            Debug.DrawRay(ccPos, gravityNormalized * (groundCheckDistance + CapsuleCollider.height * 0.5f + MIN_THRESHOLD), Color.red);
 
             if (result)
             {
@@ -342,7 +344,10 @@ namespace RogueLike.Player
                     CurrentState = state;
                     currentStateIndex = i;
                     
-                    movementStates[currentStateIndex].Enter(this);
+                    movementStateBehavior.Enter(this);
+                    
+                    (float newCapsuleHeight, float newHeadHeight) = movementStateBehavior.GetHeight(this);
+                    PlayerHeight.Write(stateChannelKey, (newCapsuleHeight, newHeadHeight));
                     return;
                 }
             }
@@ -350,8 +355,8 @@ namespace RogueLike.Player
 
         private void SetPlayerHeight(float newCapsuleHeight, float newHeadHeight)
         {
-            Debug.Log($"Changing height to {newCapsuleHeight} and {newHeadHeight}");
             CapsuleCollider.height = newCapsuleHeight;
+            CapsuleCollider.center = Mathf.Approximately(newCapsuleHeight, BaseCapsuleHeight) ? new Vector3(0, 0, 0) : ColliderCenterOffset;
             Head.localPosition = new Vector3(Head.localPosition.x, newHeadHeight, Head.localPosition.z);
         }
 
