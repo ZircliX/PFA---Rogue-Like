@@ -37,8 +37,7 @@ namespace DeadLink.Entities
         {
             //Imobiliser le mob
             GameController.VFXManager.VFX(enemyKilled.VFXToSpawn, enemyKilled.transform.position, enemyKilled.DelayAfterDestroyVFX);
-            Destroy(enemyKilled.gameObject);
+            Destroy(enemyKilled.gameObject, 2f);
         }
-
     }
 }
