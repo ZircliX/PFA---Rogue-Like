@@ -4,11 +4,22 @@ namespace DeadLink.PowerUp.Components
 {
     public class HealthComponent: VisitableComponent
     {
+        public int healthBarCount = 3;
         public int health = 300;
 
-        public override void Accept(IVisitor visitor)
+        public override void Unlock(IVisitor visitor)
         {
-            visitor.Visit(this);
+            visitor.OnBeUnlocked(this);
+        }
+
+        public override void Use(IVisitor visitor)
+        {
+            visitor.OnBeUsed(this);
+        }
+
+        public void UseInstantHeal()
+        {
+            
         }
     }
 }

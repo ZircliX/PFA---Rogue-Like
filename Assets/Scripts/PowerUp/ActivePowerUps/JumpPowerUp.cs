@@ -8,13 +8,25 @@ namespace DeadLink.PowerUp.ActivePowerUps
     {
         [field: SerializeField] public int BonusJumpCount { get; private set; } = 1;
         
-        public override void Visit(VisitableComponent visitable)
+        public override void OnBeUnlocked(VisitableComponent visitable)
+        {
+            isUnlocked = true;
+        }
+
+        public override void OnBeUsed(VisitableComponent visitable)
         {
             JumpComponent jumpComponent = visitable as JumpComponent;
             if (jumpComponent != null)
             {
-                jumpComponent.RemainingJump += BonusJumpCount;
-                Debug.Log("Visitor accepted in JumpComponent");
+                if (isUnlocked)
+                {
+                    jumpComponent.RemainingJump += BonusJumpCount;
+                    Debug.Log("Visitor accepted in JumpComponent");
+                }   
+                else
+                {
+                    Debug.Log("PowerUp is not unlocked");
+                }
             }
         }
     }
