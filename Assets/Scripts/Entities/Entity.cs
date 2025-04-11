@@ -33,6 +33,7 @@ namespace DeadLink.Entities
             Speed = new InfluencedProperty<float>(EntityData.BaseSpeed);
 
             CurrentWeapon = Weapons[0];
+            transform.position = SpawnPosition;
 
             SetFullHealth();
         }
