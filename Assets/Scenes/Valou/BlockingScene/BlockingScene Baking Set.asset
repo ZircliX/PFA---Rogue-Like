@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockingScene Baking Set
   m_EditorClassIdentifier: 
   singleSceneMode: 1
-  dialogNoProbeVolumeInSetShown: 0
+  dialogNoProbeVolumeInSetShown: 1
   settings:
     m_Version: 1
     dilationSettings:
@@ -87,7 +87,7 @@ MonoBehaviour:
     y: 0
     z: 0
     w: 0
-  maxSHChunkCount: 326
+  maxSHChunkCount: 329
   L0ChunkSize: 65536
   L1ChunkSize: 32768
   L2TextureChunkSize: 32768
