@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdf870fed234952a77aa0036142d86c, type: 3}
   m_Name: GameMetrics
   m_EditorClassIdentifier: 
+  <MainMenuScene>k__BackingField:
+    m_SceneAsset: {fileID: 102900000, guid: 8bc2888afa7440644bd7f6b05b451767, type: 3}
+    m_IsDirty: 0
+    m_ScenePath: Assets/Scenes/ZircliX/ZircliX.unity
+  <LevelScene>k__BackingField:
+    m_SceneAsset: {fileID: 102900000, guid: 8bc2888afa7440644bd7f6b05b451767, type: 3}
+    m_IsDirty: 0
+    m_ScenePath: Assets/Scenes/ZircliX/ZircliX.unity
   <test>k__BackingField:
     Guid:
       Data1: -790836542
@@ -19,4 +27,3 @@ MonoBehaviour:
       Data3: -1599217255
       Data4: 1041057648
     Path: event:/Blablabla
-  <PlayerBaseSpeed>k__BackingField: 10
