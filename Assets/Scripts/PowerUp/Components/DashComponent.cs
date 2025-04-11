@@ -4,11 +4,15 @@ namespace DeadLink.PowerUp.Components
 {
     public class DashComponent : VisitableComponent
     {
-        public int RemainingDash = 1;
+        public int remainingDash = 1;
         
-        public override void Accept(IVisitor visitor)
+        public override void Unlock(IVisitor visitor)
         {
-            visitor.Visit(this);
+            visitor.OnBeUnlocked(this);
+        }
+
+        public override void Use(IVisitor visitor)
+        {
         }
     }
 }

@@ -11,7 +11,7 @@ namespace DeadLink.PowerUp
         public void PickUp()
         {
             Debug.Log("Click jump");
-            visitableComponent.Accept(powerUp);
+            visitableComponent.Unlock(powerUp);
         }
     }
 }

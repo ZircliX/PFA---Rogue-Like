@@ -6,10 +6,14 @@ namespace DeadLink.PowerUp.Components
     {
         public int RemainingJump = 1;
 
-        public override void Accept(IVisitor visitor)
+        public override void Unlock(IVisitor visitor)
         {
             Debug.Log("Accepting visitor in JumpComponent");
-            visitor.Visit(this);
+            visitor.OnBeUnlocked(this);
+        }
+
+        public override void Use(IVisitor visitor)
+        {
         }
     }
 }

@@ -5,6 +5,9 @@ namespace DeadLink.PowerUp
 {
     public abstract class PowerUp : ScriptableObject, IVisitor
     {
-        public abstract void Visit(VisitableComponent visitable);
+        public bool isUnlocked;
+
+        public abstract void OnBeUnlocked(VisitableComponent visitable);
+        public abstract void OnBeUsed(VisitableComponent visitable);
     }
 }
