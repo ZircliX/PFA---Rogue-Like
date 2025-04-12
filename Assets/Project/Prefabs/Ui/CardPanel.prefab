@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c42d5f4e95e4a8e99ffa0834c6be80b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUp: {fileID: 11400000, guid: ceb77fe0efdeddb4598b180ef481ea4f, type: 2}
+  powerUp: {fileID: 11400000, guid: a8ab6b92f8a65ee46bd07cc43767df47, type: 2}
   visitableComponent: {fileID: 0}
 --- !u!1 &3656472164462722122
 GameObject:
