@@ -1,3 +1,4 @@
+using LTX.ChanneledProperties;
 using RogueLike;
 using RogueLike.Controllers;
 using UnityEngine;
@@ -11,8 +12,12 @@ namespace DeadLink.Menus.Implementation
             return new PauseMenuContext()
             {
                 GameObject = gameObject,
+                Priority = PriorityTags.Default,
                 CursorLockMode = CursorLockMode.None,
-                CursorVisibility = true
+                CursorVisibility = true,
+                TimeScale = 0f,
+                CanClose = true,
+                CanStack = true,
             };
         }
 

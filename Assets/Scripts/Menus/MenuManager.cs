@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using DeadLink.Menus.Interfaces;
-using KBCore.Refs;
-using LTX.ChanneledProperties;
 using LTX.Singletons;
 using RogueLike.Controllers;
 using UnityEngine;
@@ -17,9 +15,10 @@ namespace DeadLink.Menus
         
         private Stack<IMenuRunner> menuRunners;
         private IMenuRunner currentMenuRunner;
+        private MenuHandler<IMenuContext> currentMenuHandler;
         
         public Dictionary<string, MenuHandler<IMenuContext>> Menus { get; private set; }
-        [SerializeField, Scene] private MenuHandler<IMenuContext>[] menus; 
+        [SerializeField] private MenuHandler<IMenuContext>[] menus; 
         
         protected override void Awake()
         {
@@ -31,8 +30,8 @@ namespace DeadLink.Menus
                 MenuHandler<IMenuContext> menuHandler = menus[i];
                 Menus.Add(menuHandler.name, menuHandler);
                 
-                GameController.CursorVisibility.AddPriority(menuHandler, PriorityTags.Highest, false);
-                GameController.CursorLockMode.AddPriority(menuHandler, PriorityTags.Highest, CursorLockMode.Locked);
+                GameController.CursorVisibility.AddPriority(menuHandler, menuHandler.GetContext().Priority, false);
+                GameController.CursorLockMode.AddPriority(menuHandler, menuHandler.GetContext().Priority, CursorLockMode.Locked);
                 GameController.TimeScale.AddPriority(menuHandler, menuHandler.GetContext().Priority, 1f);
             }
         }
@@ -40,16 +39,18 @@ namespace DeadLink.Menus
         public void OpenMenu<T>(Menu<T> menu, MenuHandler<T> handler)
             where T : IMenuContext
         {
-            GameController.CursorVisibility.Write(handler, handler.GetContext().CursorVisibility);
-            GameController.CursorLockMode.Write(handler, handler.GetContext().CursorLockMode);
-            GameController.TimeScale.Write(handler, handler.GetContext().TimeScale);
-
             MenuRunner<T> menuRunner = new MenuRunner<T>(menu, handler);
             
             menuRunners.Push(menuRunner);
             menuRunner.Open();
             
             currentMenuRunner = menuRunner;
+            currentMenuHandler = handler as MenuHandler<IMenuContext>;
+            
+            GameController.CursorVisibility.Write(currentMenuHandler, handler.GetContext().CursorVisibility);
+            GameController.CursorLockMode.Write(currentMenuHandler, handler.GetContext().CursorLockMode);
+            GameController.TimeScale.Write(currentMenuHandler, handler.GetContext().TimeScale);
+            
             OnMenuOpen?.Invoke(menuRunner);
         }
 
@@ -75,8 +76,9 @@ namespace DeadLink.Menus
                 
                 if (menuRunners.Count == 0)
                 {
-                    GameController.CursorVisibility.Write(this, false);
-                    GameController.CursorLockMode.Write(this, CursorLockMode.Locked);
+                    GameController.CursorVisibility.Write(currentMenuHandler, false);
+                    GameController.CursorLockMode.Write(currentMenuHandler, CursorLockMode.Locked);
+                    GameController.TimeScale.Write(currentMenuHandler, 1f);
                 }
             }
             else
