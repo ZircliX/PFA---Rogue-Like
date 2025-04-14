@@ -9,6 +9,8 @@ namespace DeadLink.Entities.Data
         [field: SerializeField]
         public int BaseHealth { get; private set; }
         [field: SerializeField]
+        public int BaseHealthBarAmount { get; private set; }
+        [field: SerializeField]
         public float BaseSpeed { get; private set; }
         [field: SerializeField]
         public int BaseStrength { get; private set; }

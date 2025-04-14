@@ -1,4 +1,5 @@
 using DeadLink.PowerUp.Components;
+using RogueLike.Entities;
 using UnityEngine;
 
 namespace DeadLink.PowerUp.ActivePowerUps
@@ -10,10 +11,17 @@ namespace DeadLink.PowerUp.ActivePowerUps
 
         public override void OnBeUnlocked(VisitableComponent visitable)
         {
-            HealthComponent healthComponent = visitable as HealthComponent;
-            if (healthComponent != null)
+            Player player = visitable as Player;
+            if (player != null)
             {
-                healthComponent.healthBarCount += BonusHealthBarCount;
+                if (player.healthBarCount >= 3)
+                {
+                    player.health = 100;
+                }
+                else
+                {
+                    player.healthBarCount += BonusHealthBarCount;
+                }
                 Debug.Log("Visitor accepted in HealthComponent");
             }
         }

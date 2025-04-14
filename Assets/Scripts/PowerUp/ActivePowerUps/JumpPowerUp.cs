@@ -1,4 +1,5 @@
 using DeadLink.PowerUp.Components;
+using RogueLike.Player;
 using UnityEngine;
 
 namespace DeadLink.PowerUp.ActivePowerUps
@@ -11,16 +12,17 @@ namespace DeadLink.PowerUp.ActivePowerUps
         public override void OnBeUnlocked(VisitableComponent visitable)
         {
             isUnlocked = true;
+            OnBeUsed(visitable);
         }
 
         public override void OnBeUsed(VisitableComponent visitable)
         {
-            JumpComponent jumpComponent = visitable as JumpComponent;
-            if (jumpComponent != null)
+            PlayerMovement playerMovement = visitable as PlayerMovement;
+            if (playerMovement != null)
             {
                 if (isUnlocked)
                 {
-                    jumpComponent.RemainingJump += BonusJumpCount;
+                    playerMovement.AddBonusJump(BonusJumpCount);
                     Debug.Log("Visitor accepted in JumpComponent");
                 }   
                 else

@@ -1,4 +1,5 @@
 using DeadLink.PowerUp;
+using DeadLink.PowerUp.Components;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace RogueLike.Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : VisitableComponent
     {
         public bool IsGrounded { get; private set; }
         public Vector3 InputDirection { get; private set; }
@@ -39,6 +40,23 @@ namespace RogueLike.Player
         {
             exitWallrun = true;
             currentWallrunExitTime = wallrunExitTime;
+        }
+        #region Power ups
+        [Header("Power Up Properties")]
+        private int remainingJump;
+        private int remainingDash;
+        public void AddBonusJump(int value) => remainingJump += value;
+        public void AddBonusDash(int value) => remainingDash += value;
+        
+        #endregion
+        public override void Unlock(IVisitor visitor)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void Use(IVisitor visitor)
+        {
+            throw new System.NotImplementedException();
         }
 
         [field: SerializeField] public LayerMask WallLayer { get; private set; }
@@ -403,5 +421,7 @@ namespace RogueLike.Player
         }
 
         #endregion
+
+        
     }
 }

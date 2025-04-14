@@ -9,7 +9,7 @@ namespace RogueLike.Managers
     public class LevelManager : MonoSingleton<LevelManager>
     {
         [SerializeField] private DifficultyData difficulty;
-        [SerializeField] private Player.Player player;
+        [SerializeField] private Entities.Player player;
 
         private void OnEnable()
         {

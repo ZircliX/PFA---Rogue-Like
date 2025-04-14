@@ -12,7 +12,9 @@ namespace Enemy
         
         [field : SerializeField]
         public float PlayerStrengthMultiplier { get; private set; }
-            
+        
+        [field : SerializeField]
+        public float PlayerHealthBarAmountMultiplier { get; private set; }
         #endregion
         
         #region Enemy

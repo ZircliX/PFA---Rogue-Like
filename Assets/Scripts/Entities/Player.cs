@@ -1,12 +1,13 @@
 using System;
 using DeadLink.Entities;
 using DeadLink.Entities.Data;
+using DeadLink.PowerUp;
 using Enemy;
 using LTX.ChanneledProperties;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace RogueLike.Player
+namespace RogueLike.Entities
 {
     public class Player : Entity
     {
@@ -17,7 +18,7 @@ namespace RogueLike.Player
         public override void Spawn(EntityData data, DifficultyData difficultyData, Vector3 spawnPoint)
         {
             base.Spawn(data, difficultyData, spawnPoint);
-            
+            HealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarAmountMultiplier, Influence.Multiply);
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
             Strength.AddInfluence(difficultyData, difficultyData.PlayerStrengthMultiplier, Influence.Multiply);
         }
@@ -48,6 +49,16 @@ namespace RogueLike.Player
             base.Die();
             
             
+        }
+
+        public override void Unlock(IVisitor visitor)
+        {
+            visitor.OnBeUnlocked(this);
+        }
+
+        public override void Use(IVisitor visitor)
+        {
+            throw new NotImplementedException();
         }
     }
 }
