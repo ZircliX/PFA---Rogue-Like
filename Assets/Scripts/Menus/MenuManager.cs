@@ -10,75 +10,61 @@ namespace DeadLink.Menus
 {
     public class MenuManager : MonoSingleton<MenuManager>
     {
+        public event Action<MenuType> OnWantsToChangeMenu;
         public event Action<IMenuRunner> OnMenuOpen;
         public event Action<IMenuRunner> OnMenuClose;
-        
+
         private Stack<IMenuRunner> menuRunners;
         private IMenuRunner currentMenuRunner;
-        private MenuHandler<IMenuContext> currentMenuHandler;
-        
-        public Dictionary<string, MenuHandler<IMenuContext>> Menus { get; private set; }
-        [SerializeField] private MenuHandler<IMenuContext>[] menus; 
-        
+
         protected override void Awake()
         {
             base.Awake();
-            
-            Menus = new Dictionary<string, MenuHandler<IMenuContext>>();
-            for (int i = 0; i < menus.Length; i++)
-            {
-                MenuHandler<IMenuContext> menuHandler = menus[i];
-                Menus.Add(menuHandler.name, menuHandler);
-                
-                GameController.CursorVisibility.AddPriority(menuHandler, menuHandler.GetContext().Priority, false);
-                GameController.CursorLockMode.AddPriority(menuHandler, menuHandler.GetContext().Priority, CursorLockMode.Locked);
-                GameController.TimeScale.AddPriority(menuHandler, menuHandler.GetContext().Priority, 1f);
-            }
+            menuRunners = new Stack<IMenuRunner>();
         }
 
         public void OpenMenu<T>(Menu<T> menu, MenuHandler<T> handler)
             where T : IMenuContext
         {
             MenuRunner<T> menuRunner = new MenuRunner<T>(menu, handler);
-            
+
             menuRunners.Push(menuRunner);
             menuRunner.Open();
-            
+
             currentMenuRunner = menuRunner;
-            currentMenuHandler = handler as MenuHandler<IMenuContext>;
-            
-            GameController.CursorVisibility.Write(currentMenuHandler, handler.GetContext().CursorVisibility);
-            GameController.CursorLockMode.Write(currentMenuHandler, handler.GetContext().CursorLockMode);
-            GameController.TimeScale.Write(currentMenuHandler, handler.GetContext().TimeScale);
-            
+
+            GameController.CursorVisibility.Write(handler.MenuType, handler.GetContext().CursorVisibility);
+            GameController.CursorLockMode.Write(handler.MenuType, handler.GetContext().CursorLockMode);
+            GameController.TimeScale.Write(handler.MenuType, handler.GetContext().TimeScale);
+
             OnMenuOpen?.Invoke(menuRunner);
         }
 
-        public void ChangeMenu(MenuHandler<IMenuContext> handler)
+        public void ChangeMenu(MenuType menu)
         {
-            OpenMenu(handler.GetMenu(), handler);
+            OnWantsToChangeMenu?.Invoke(menu);
         }
-        
-        public void CloseMenu()
+
+        public void CloseMenu(MenuType type)
         {
             if (menuRunners.Count > 0)
             {
-                IMenuRunner menu = menuRunners.Pop();
-
-                if (!currentMenuRunner.GetContext().CanClose)
+                if (currentMenuRunner.GetContext().CanClose)
                 {
                     currentMenuRunner.Close();
+                    currentMenuRunner = null;
+                    menuRunners.Pop();
                 }
                 else
                 {
                     Debug.Log("Cannot close menu, it is blocked");
                 }
-                
+
                 if (menuRunners.Count == 0)
                 {
-                    GameController.CursorVisibility.Write(currentMenuHandler, false);
-                    GameController.CursorLockMode.Write(currentMenuHandler, CursorLockMode.Locked);
-                    GameController.TimeScale.Write(currentMenuHandler, 1f);
+                    GameController.CursorVisibility.Write(type, false);
+                    GameController.CursorLockMode.Write(type, CursorLockMode.Locked);
+                    GameController.TimeScale.Write(type, 1f);
                 }
             }
             else
@@ -93,23 +79,17 @@ namespace DeadLink.Menus
         {
             if (context.performed)
             {
-                var menuHandler = Menus["Pause"];
-                var menu = menuHandler.GetMenu();
-                
                 if (currentMenuRunner != null)
                 {
-                    if (currentMenuRunner.GetContext().CanStack)
+                    if (currentMenuRunner.GetContext().CanClose)
                     {
-                        OpenMenu(menu, menuHandler);
-                    }
-                    else
-                    {
-                        CloseMenu();
+                        CloseMenu(currentMenuRunner.GetContext().MenuType);
                     }
                 }
                 else
                 {
-                    OpenMenu(menu, menuHandler);
+                    //Debug.Log("no menu to close, opening pause menu");
+                    ChangeMenu(MenuType.Pause);
                 }
             }
         }

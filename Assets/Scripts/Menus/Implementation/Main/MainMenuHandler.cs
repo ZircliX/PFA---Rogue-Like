@@ -6,6 +6,28 @@ namespace DeadLink.Menus.Implementation
 {
     public class MainMenuHandler : MenuHandler<MainMenuContext>
     {
+        [field: SerializeField] protected override bool baseState { get; set; }
+
+        public override MenuType MenuType => MenuType.Main;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            GameController.CursorVisibility.AddPriority(GameMetrics.Global.Main, this.GetContext().Priority, false);
+            GameController.CursorLockMode.AddPriority(GameMetrics.Global.Main, this.GetContext().Priority,
+                CursorLockMode.Locked);
+            GameController.TimeScale.AddPriority(GameMetrics.Global.Main, this.GetContext().Priority, 1f);
+        }
+
+        protected override void CheckMenuType(MenuType type)
+        {
+            if (type == GameMetrics.Global.Main)
+            {
+                MainMenu menu = new MainMenu();
+                MenuManager.Instance.OpenMenu(menu, this);
+            }
+        }
+
         public override MainMenuContext GetContext()
         {
             return new MainMenuContext()
@@ -20,7 +42,7 @@ namespace DeadLink.Menus.Implementation
         {
             return new MainMenu();
         }
-        
+
         public void Play()
         {
             SceneController.Global.ChangeScene(GameMetrics.Global.LevelScene);
@@ -33,7 +55,7 @@ namespace DeadLink.Menus.Implementation
 
         public void Settings()
         {
-            MenuManager.Instance.ChangeMenu(MenuManager.Instance.Menus["Settings"]);
+            MenuManager.Instance.ChangeMenu(GameMetrics.Global.Settings);
         }
     }
 }
