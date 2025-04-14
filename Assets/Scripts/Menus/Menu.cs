@@ -2,7 +2,7 @@ using DeadLink.Menus.Interfaces;
 
 namespace DeadLink.Menus
 {
-    public abstract class Menu<T> : IMenu 
+    public abstract class Menu<T> : IMenu
         where T : IMenuContext
     {
         public virtual void OnOpen(ref T context)
@@ -14,7 +14,7 @@ namespace DeadLink.Menus
 
         public virtual void OnClose(ref T context)
         {
-            context.GameObject.SetActive(true);
+            context.GameObject.SetActive(false);
         }
     }
 }

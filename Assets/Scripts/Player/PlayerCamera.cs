@@ -10,7 +10,7 @@ namespace RogueLike.Player
         private Vector2 targetCamVelocity;
         private Vector2 camRotation;
 
-        [SerializeField] private float speed;
+        [SerializeField] private float speed = 150;
         [SerializeField] private float gravityAlignSpeed;
         [SerializeField, Range(0,1)] private float xModifier = 1;
         [SerializeField, Range(0,1)] private float yModifier = 1;
@@ -24,8 +24,8 @@ namespace RogueLike.Player
 
         private void Update()
         {
-            camRotation.x -= targetCamVelocity.x * speed;
-            camRotation.y += targetCamVelocity.y * speed;
+            camRotation.x -= targetCamVelocity.x * speed * Time.deltaTime;
+            camRotation.y += targetCamVelocity.y * speed * Time.deltaTime;
             camRotation.x = Mathf.Clamp(camRotation.x, -yRange, yRange);
 
             // --- Calculate Gravity Alignment ---

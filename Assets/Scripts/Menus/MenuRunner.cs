@@ -9,13 +9,13 @@ namespace DeadLink.Menus
 
         private readonly Menu<T> menu;
         private readonly MenuHandler<T> menuHandler;
-        
+
         public MenuRunner(Menu<T> menu, MenuHandler<T> menuHandler)
         {
             this.menu = menu;
             this.menuHandler = menuHandler;
         }
-        
+
         public void Open()
         {
             T context = menuHandler.GetContext();
