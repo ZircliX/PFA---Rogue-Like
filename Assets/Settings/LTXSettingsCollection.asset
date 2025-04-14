@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LTXSettingsCollection
   m_EditorClassIdentifier: 
   settingsAssets:
-  - {fileID: 5669411353338909902}
---- !u!114 &5669411353338909902
+  - {fileID: 8166591330016168893}
+--- !u!114 &8166591330016168893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

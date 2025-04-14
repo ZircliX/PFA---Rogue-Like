@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using DeadLink.Menus.Interfaces;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using LTX.Singletons;
@@ -10,70 +12,68 @@ namespace DeadLink.Menus
 {
     public class MenuManager : MonoSingleton<MenuManager>
     {
-        private class MenuData
-        {
-            public readonly bool CanStack;
-            public readonly bool Blocked;
-            public readonly Menu Menu;
-            
-            public MenuData(Menu menu, bool canStack = true, bool blocked = false)
-            {
-                Menu = menu;
-                Blocked = blocked;
-                CanStack = canStack;
-            }
-        }
-
-        [SerializeField, Scene] private Menu[] menus; 
-        private Stack<MenuData> openedMenus;
-        private MenuData currentMenu;
-        public Dictionary<string, Menu> Menus { get; private set; }
+        public event Action<IMenuRunner> OnMenuOpen;
+        public event Action<IMenuRunner> OnMenuClose;
+        
+        private Stack<IMenuRunner> menuRunners;
+        private IMenuRunner currentMenuRunner;
+        
+        public Dictionary<string, MenuHandler<IMenuContext>> Menus { get; private set; }
+        [SerializeField, Scene] private MenuHandler<IMenuContext>[] menus; 
         
         protected override void Awake()
         {
             base.Awake();
-            GameController.CursorVisibility.AddPriority(this, PriorityTags.Highest, false);
-            GameController.CursorLockMode.AddPriority(this, PriorityTags.Highest, CursorLockMode.Locked);
-
-            openedMenus = new Stack<MenuData>(8);
             
-            Menus = new Dictionary<string, Menu>();
+            Menus = new Dictionary<string, MenuHandler<IMenuContext>>();
             for (int i = 0; i < menus.Length; i++)
             {
-                Menu menu = menus[i];
-                Menus.Add(menu.MenuName, menu);
+                MenuHandler<IMenuContext> menuHandler = menus[i];
+                Menus.Add(menuHandler.name, menuHandler);
+                
+                GameController.CursorVisibility.AddPriority(menuHandler, PriorityTags.Highest, false);
+                GameController.CursorLockMode.AddPriority(menuHandler, PriorityTags.Highest, CursorLockMode.Locked);
+                GameController.TimeScale.AddPriority(menuHandler, menuHandler.GetContext().Priority, 1f);
             }
         }
 
-        public void OpenMenu(Menu menu, bool blocked = false)
+        public void OpenMenu<T>(Menu<T> menu, MenuHandler<T> handler)
+            where T : IMenuContext
         {
-            GameController.CursorVisibility.Write(this, true);
-            GameController.CursorLockMode.Write(this, CursorLockMode.None);
+            GameController.CursorVisibility.Write(handler, handler.GetContext().CursorVisibility);
+            GameController.CursorLockMode.Write(handler, handler.GetContext().CursorLockMode);
+            GameController.TimeScale.Write(handler, handler.GetContext().TimeScale);
 
-            MenuData menuData = new MenuData(menu, blocked);
-            currentMenu = menuData;
+            MenuRunner<T> menuRunner = new MenuRunner<T>(menu, handler);
             
-            openedMenus.Push(currentMenu);
-            menu.OnOpen();
+            menuRunners.Push(menuRunner);
+            menuRunner.Open();
+            
+            currentMenuRunner = menuRunner;
+            OnMenuOpen?.Invoke(menuRunner);
+        }
 
+        public void ChangeMenu(MenuHandler<IMenuContext> handler)
+        {
+            OpenMenu(handler.GetMenu(), handler);
         }
         
         public void CloseMenu()
         {
-            if (openedMenus.Count > 0)
+            if (menuRunners.Count > 0)
             {
-                MenuData menu = openedMenus.Pop();
+                IMenuRunner menu = menuRunners.Pop();
 
-                if (!menu.Blocked && menu.Menu.CanClose)
+                if (!currentMenuRunner.GetContext().CanClose)
                 {
-                    menu.Menu.OnClose();
+                    currentMenuRunner.Close();
                 }
                 else
                 {
                     Debug.Log("Cannot close menu, it is blocked");
                 }
                 
-                if (openedMenus.Count == 0)
+                if (menuRunners.Count == 0)
                 {
                     GameController.CursorVisibility.Write(this, false);
                     GameController.CursorLockMode.Write(this, CursorLockMode.Locked);
@@ -91,11 +91,14 @@ namespace DeadLink.Menus
         {
             if (context.performed)
             {
-                if (currentMenu != null)
+                var menuHandler = Menus["Pause"];
+                var menu = menuHandler.GetMenu();
+                
+                if (currentMenuRunner != null)
                 {
-                    if (currentMenu.CanStack)
+                    if (currentMenuRunner.GetContext().CanStack)
                     {
-                        OpenMenu(Menus["Pause"]);
+                        OpenMenu(menu, menuHandler);
                     }
                     else
                     {
@@ -104,7 +107,7 @@ namespace DeadLink.Menus
                 }
                 else
                 {
-                    OpenMenu(Menus["Pause"]);
+                    OpenMenu(menu, menuHandler);
                 }
             }
         }

@@ -12,8 +12,6 @@ namespace DeadLink.Entities
     [RequireComponent(typeof(RayfireRigid))]
     public abstract class Enemy : Entity
     {
-        [field: SerializeField] public VisualEffect VFXToSpawn { get; private set; }
-        [field: SerializeField] public float DelayAfterDestroyVFX { get; private set; }
         [field: SerializeField] public int Cost { get; private set; }
         
         [SerializeField, Self] private RayfireRigid rayfireRigid;

@@ -1,20 +1,20 @@
-using UnityEngine;
+using DeadLink.Menus.Interfaces;
 
 namespace DeadLink.Menus
 {
-    public abstract class Menu : MonoBehaviour
+    public abstract class Menu<T> : IMenu 
+        where T : IMenuContext
     {
-        public string MenuName => gameObject.name;
-        public abstract bool CanClose { get; protected set; }
-        
-        public virtual void OnOpen()
+        public virtual void OnOpen(ref T context)
         {
-            gameObject.SetActive(true);
+            context.GameObject.SetActive(true);
         }
 
-        public virtual void OnClose()
+        public abstract void OnRefresh(ref T context);
+
+        public virtual void OnClose(ref T context)
         {
-            gameObject.SetActive(false);
+            context.GameObject.SetActive(true);
         }
     }
 }
