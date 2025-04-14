@@ -4,6 +4,9 @@ namespace DeadLink.Menus
 {
     public abstract class Menu : MonoBehaviour
     {
+        public string MenuName => gameObject.name;
+        public abstract bool CanClose { get; protected set; }
+        
         public virtual void OnOpen()
         {
             gameObject.SetActive(true);
