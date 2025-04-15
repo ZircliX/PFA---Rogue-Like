@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using DeadLink.PowerUp;
+using DeadLink.PowerUp.Components;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using UnityEngine;
@@ -6,7 +8,7 @@ using UnityEngine.InputSystem;
 
 namespace RogueLike.Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : VisitableComponent
     {
         public bool IsGrounded { get; private set; }
         public Vector3 InputDirection { get; private set; }
@@ -40,6 +42,26 @@ namespace RogueLike.Player
             exitWallrun = true;
             currentWallrunExitTime = wallrunExitTime;
         }
+        #region Power ups
+        [Header("Power Up Properties")]
+        private Dictionary<string, IVisitor> unlockedPowerUps;
+
+        private int remainingJump;
+        private int remainingDash;
+        public void AddBonusJump(int value) => remainingJump += value;
+        public void AddBonusDash(int value) => remainingDash += value;
+        
+        public override void Unlock(IVisitor visitor)
+        {
+            visitor.OnBeUnlocked(this);
+            unlockedPowerUps.Add(visitor.Name, visitor);
+        }
+        public override void Use(string name)
+        {
+            unlockedPowerUps[name].OnBeUsed(this);
+        }
+        #endregion
+
 
         [field: SerializeField] public LayerMask WallLayer { get; private set; }
         [field: SerializeField] public bool IsWalled { get; private set; }
@@ -85,6 +107,7 @@ namespace RogueLike.Player
 
         private void Awake()
         {
+            unlockedPowerUps = new Dictionary<string, IVisitor>();
             CurrentVelocity = new InfluencedProperty<Vector3>(Vector3.zero);
             stateChannelKey = ChannelKey.GetUniqueChannelKey();
             CurrentVelocity.AddInfluence(stateChannelKey, Influence.Add, 1, 0);
@@ -403,5 +426,7 @@ namespace RogueLike.Player
         }
 
         #endregion
+
+        
     }
 }

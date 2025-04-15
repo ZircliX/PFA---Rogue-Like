@@ -1,4 +1,5 @@
 using DeadLink.Entities.Data;
+using DeadLink.PowerUp.Components;
 using DeadLink.Weapons;
 using Enemy;
 using LTX.ChanneledProperties;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace DeadLink.Entities
 {
-    public abstract class Entity : MonoBehaviour
+    public abstract class Entity : VisitableComponent
     {
         [Header("Datas")]
         [field: SerializeField]
@@ -18,8 +19,9 @@ namespace DeadLink.Entities
         public Weapon CurrentWeapon { get; private set; }
         protected bool isShooting;
         protected float currentShootTime;
-
+        
         public int Health { get; private set; }
+        public InfluencedProperty<int> HealthBarCount { get; private set; }
         public InfluencedProperty<float> Strength { get; private set; }
         public InfluencedProperty<float> Speed { get; private set; }
         public InfluencedProperty<float> MaxHealth { get; private set; }
@@ -31,6 +33,7 @@ namespace DeadLink.Entities
             MaxHealth = new InfluencedProperty<float>(EntityData.BaseHealth);
             Strength = new InfluencedProperty<float>(EntityData.BaseStrength);
             Speed = new InfluencedProperty<float>(EntityData.BaseSpeed);
+            HealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
 
             CurrentWeapon = Weapons[0];
             transform.position = SpawnPosition;
@@ -77,6 +80,16 @@ namespace DeadLink.Entities
         public virtual void SetFullHealth()
         {
             Health = Mathf.CeilToInt(MaxHealth.Value);
+        }
+        
+        public virtual void SetBonusHealthBarCount(int bonusHealthBarCount)
+        {
+            HealthBarCount.AddInfluence(this, bonusHealthBarCount, Influence.Add);
+        }
+        
+        public virtual void SetInstantHeal(int instantHealAmount)
+        {
+            Health += instantHealAmount;
         }
 
         protected virtual void ChangeWeapon(int direction)

@@ -1,4 +1,5 @@
 using DeadLink.PowerUp.Components;
+using RogueLike.Entities;
 using UnityEngine;
 
 namespace DeadLink.PowerUp.ActivePowerUps
@@ -8,20 +9,23 @@ namespace DeadLink.PowerUp.ActivePowerUps
     public class InstantHealPowerUp : PowerUp
     {
         [field: SerializeField] public int InstantHealBonus { get; private set; } = 40;
+        public override string Name { get; set; } = "InstantHeal";
+
 
         public override void OnBeUnlocked(VisitableComponent visitable)
         {
             isUnlocked = true;
+            // 
         }
 
         public override void OnBeUsed(VisitableComponent visitable)
         {
-            HealthComponent healthComponent = visitable as HealthComponent;
-            if (healthComponent != null)
+            Player player = visitable as Player;
+            if (player != null)
             {
                 if (isUnlocked)
                 {
-                    healthComponent.health += InstantHealBonus;
+                    player.SetInstantHeal(InstantHealBonus);
                     Debug.Log("Visitor accepted in HealthComponent");
                 }
                 else
