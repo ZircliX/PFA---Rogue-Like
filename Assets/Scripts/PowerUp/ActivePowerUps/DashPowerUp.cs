@@ -1,4 +1,5 @@
 using DeadLink.PowerUp.Components;
+using RogueLike.Player;
 using UnityEngine;
 
 namespace DeadLink.PowerUp.ActivePowerUps
@@ -8,20 +9,21 @@ namespace DeadLink.PowerUp.ActivePowerUps
     public class DashPowerUp : PowerUp
     {
         [field: SerializeField] public int BonusDashCount { get; private set; } = 1;
+        public override string Name { get; set; } = "DashPowerUp";
+
 
         public override void OnBeUnlocked(VisitableComponent visitable)
         {
-            DashComponent dashComponent = visitable as DashComponent;
-            if (dashComponent != null)
+            PlayerMovement playerMovement = visitable as PlayerMovement;
+            if (playerMovement != null)
             {
-                dashComponent.remainingDash += BonusDashCount;
+                playerMovement.AddBonusDash(BonusDashCount);
                 Debug.Log("Visitor accepted in DeshComponent");
             }
         }
 
         public override void OnBeUsed(VisitableComponent visitable)
         {
-            throw new System.NotImplementedException();
         }
     }
 }

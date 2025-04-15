@@ -81,6 +81,16 @@ namespace DeadLink.Entities
         {
             Health = Mathf.CeilToInt(MaxHealth.Value);
         }
+        
+        public virtual void SetBonusHealthBarCount(int bonusHealthBarCount)
+        {
+            HealthBarCount.AddInfluence(this, bonusHealthBarCount, Influence.Add);
+        }
+        
+        public virtual void SetInstantHeal(int instantHealAmount)
+        {
+            Health += instantHealAmount;
+        }
 
         protected virtual void ChangeWeapon(int direction)
         {

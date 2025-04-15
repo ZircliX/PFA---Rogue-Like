@@ -8,7 +8,7 @@ namespace DeadLink.Entities.Enemies
         {
         }
 
-        public override void Use(IVisitor visitor)
+        public override void Use(string name)
         {
         }
     }

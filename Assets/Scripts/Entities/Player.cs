@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DeadLink.Entities;
 using DeadLink.Entities.Data;
 using DeadLink.PowerUp;
@@ -12,15 +13,17 @@ namespace RogueLike.Entities
     public class Player : Entity
     {
         [field : SerializeField] public Transform SpawnPosition { get; private set; }
-        
+        private Dictionary<string, IVisitor> unlockedPowerUps;
         public int Kills { get; private set; }
         
         public override void Spawn(EntityData data, DifficultyData difficultyData, Vector3 spawnPoint)
         {
             base.Spawn(data, difficultyData, spawnPoint);
-            HealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarAmountMultiplier, Influence.Multiply);
+            HealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarAmountMultiplier, Influence.Add);
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
             Strength.AddInfluence(difficultyData, difficultyData.PlayerStrengthMultiplier, Influence.Multiply);
+            
+            unlockedPowerUps = new Dictionary<string, IVisitor>();
         }
         
         public void ChangeWeapon(InputAction.CallbackContext context)
@@ -54,11 +57,12 @@ namespace RogueLike.Entities
         public override void Unlock(IVisitor visitor)
         {
             visitor.OnBeUnlocked(this);
+            unlockedPowerUps.Add(visitor.Name, visitor);
         }
 
-        public override void Use(IVisitor visitor)
+        public override void Use(string name)
         {
-            throw new NotImplementedException();
+            unlockedPowerUps[name].OnBeUsed(this);
         }
     }
 }

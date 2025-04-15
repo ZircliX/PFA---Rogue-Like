@@ -8,6 +8,8 @@ namespace DeadLink.PowerUp.ActivePowerUps
     public class JumpPowerUp : PowerUp
     {
         [field: SerializeField] public int BonusJumpCount { get; private set; } = 1;
+        public override string Name { get; set; } = "JumpPowerUp";
+
         
         public override void OnBeUnlocked(VisitableComponent visitable)
         {
