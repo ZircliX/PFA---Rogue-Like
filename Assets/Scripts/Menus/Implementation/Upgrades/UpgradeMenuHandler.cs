@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using RogueLike;
 using RogueLike.Controllers;
 using UnityEngine;
@@ -7,8 +8,9 @@ namespace DeadLink.Menus.Implementation
     public class UpgradeMenuHandler : MenuHandler<UpgradeMenuContext>
     {
         [field: SerializeField] protected override bool baseState { get; set; }
-        [field: SerializeField] public PowerUp.PowerUp[] PowerUps { get; private set; }
-
+        public PowerUp.PowerUp[] PowerUps { get; private set; }
+        private List<PowerUp.PowerUp> upgrades;
+        
         public override MenuType MenuType => MenuType.Upgrades;
 
         protected override void Awake()
@@ -18,8 +20,11 @@ namespace DeadLink.Menus.Implementation
             GameController.CursorLockMode.AddPriority(GameMetrics.Global.Upgrades, this.GetContext().Priority,
                 CursorLockMode.Locked);
             GameController.TimeScale.AddPriority(GameMetrics.Global.Upgrades, this.GetContext().Priority, 1f);
+            
+            GetPowerUps();
+            SetPowerUps();
         }
-
+        
         protected override void CheckMenuType(MenuType type)
         {
             if (type == GameMetrics.Global.Upgrades)
@@ -44,9 +49,30 @@ namespace DeadLink.Menus.Implementation
             return new UpgradeMenu();
         }
 
+        private void GetPowerUps()
+        {
+            PowerUps = Resources.LoadAll<PowerUp.PowerUp>("PowerUps");
+        }
+        
+        public void SetPowerUps()
+        {
+            upgrades.Clear();
+            
+            while (upgrades.Count < 3)
+            {
+                int index = Random.Range(0, PowerUps.Length);
+                if (!upgrades.Contains(PowerUps[index]))
+                {
+                    upgrades.Add(PowerUps[index]);
+                }
+            }
+        }
+        
         public void UseUpgrade(int index)
         {
-            //PowerUps[index].Visit();
+            //TODO: Get Visitable Component and pass the power up
+            //var comp;
+            //upgrades[index].OnBeUnlocked(comp);
         }
     }
 }
