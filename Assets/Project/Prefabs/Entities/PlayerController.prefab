@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 1719148578036721596}
   m_Layer: 15
   m_Name: GravityHurtbox
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 2065021886003205984}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 604647174449740348}
   m_Layer: 0
   m_Name: CinemachineUp
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aceb76db0bd646738b79931a465c5629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.5
+  speed: 150
   gravityAlignSpeed: 5
   xModifier: 0.2
   yModifier: 0.2
@@ -311,7 +311,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 2649105432247018214}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 2643648427546800899}
   m_Layer: 0
   m_Name: PlayerController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -838,7 +838,7 @@ GameObject:
   - component: {fileID: 5017909342088804793}
   m_Layer: 0
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -926,7 +926,7 @@ GameObject:
   - component: {fileID: 2116268018863381272}
   m_Layer: 0
   m_Name: CinemachineCamera
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1051,7 +1051,7 @@ GameObject:
   - component: {fileID: 8873217921136611669}
   m_Layer: 0
   m_Name: Shoulders
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1128,6 +1128,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 836eec5fbc776214f83d55a867ec3b12, type: 3}
       propertyPath: m_Name
       value: main droite
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 836eec5fbc776214f83d55a867ec3b12, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1416,6 +1420,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 27b849885e9047f4cba3ec267c93d1d5, type: 3}
       propertyPath: m_Name
       value: main gauche
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 27b849885e9047f4cba3ec267c93d1d5, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

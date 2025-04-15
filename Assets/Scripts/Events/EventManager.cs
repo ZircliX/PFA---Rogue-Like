@@ -12,7 +12,6 @@ namespace RogueLike.Events
         public void GameStart()
         {
             Time.timeScale = 1;
-            GameController.SaveListener.Reset();
             OnGameStart?.Invoke();
             GameController.Play();
         }

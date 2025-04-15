@@ -9,10 +9,9 @@ namespace DeadLink.Gravity
 
         protected override void Awake()
         {
-            DontDestroyOnLoad(this);
+            //DontDestroyOnLoad(this); // Pourquoi Lupeni a fait ça ?
             base.Awake();
             GravityZones = new List<GravityZone>(64);
-            
         }
 
         private void FixedUpdate()

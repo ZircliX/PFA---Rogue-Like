@@ -1,6 +1,7 @@
 using DeadLink.Entities;
 using Enemy;
 using LTX.Singletons;
+using RogueLike.Controllers;
 using RogueLike.Timer;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ namespace RogueLike.Managers
         {
             //Debug.Log("Start Level");
             //EnemyManager.Instance.SpawnEnemies(difficulty);
-            EnemyManager.Instance.ActivateEnemies(difficulty);
+            EnemyManager.Instance.ActivateEnemies(difficulty); //Only for testing
             player.Spawn(player.EntityData, difficulty, player.SpawnPosition.position);
             
             TimerManager.Instance.StartTimer();
@@ -50,8 +51,7 @@ namespace RogueLike.Managers
         public void FinishLevel()
         {
             TimerManager.Instance.PauseTimer();
-            //TODO finir le level (avec affichage des 3 powers-up puis le chemin que le joueur peux prendre, ect...
-            
+            SceneController.Global.ChangeScene(GameMetrics.Global.ShopScene);
         }
     }
 }

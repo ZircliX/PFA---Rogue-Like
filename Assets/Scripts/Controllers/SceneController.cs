@@ -1,4 +1,5 @@
 using DevLocker.Utils;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace RogueLike.Controllers
@@ -6,20 +7,25 @@ namespace RogueLike.Controllers
     public class SceneController
     {
         public static SceneController Global => GameController.SceneController;
+        public string previousScene { get; private set; } = "";
         
-        public void ChangeScene(string scene)
+        public void ChangeScene(int sceneIndex)
         {
-            SceneManager.LoadScene(scene);
+            previousScene = SceneManager.GetActiveScene().path;
+            SceneManager.LoadScene(sceneIndex);
+        }
+        
+        public void ChangeScene(string sceneName)
+        {
+            previousScene = SceneManager.GetActiveScene().path;
+            SceneManager.LoadScene(sceneName);
         }
         
         public void ChangeScene(SceneReference scene)
         {
-            SceneManager.LoadScene(scene.BuildIndex);
-        }
-        
-        public void ChangeScene(int scene)
-        {
-            SceneManager.LoadScene(scene);
+            previousScene = SceneManager.GetActiveScene().path;
+            
+            SceneLoader.LoadScenes(scene);
         }
     }
 }

@@ -10,9 +10,12 @@ namespace RogueLike
     {
         public static GameMetrics Global => GameController.Metrics;
         
+        [field : SerializeField] public SceneLoader SceneLoader { get; private set; }
+        
         [field: Header("Scenes")]
         [field: SerializeField] public SceneReference MainMenuScene { get; private set; }
-        [field: SerializeField] public SceneReference LevelScene { get; private set; }
+        [field: SerializeField] public SceneReference ShopScene { get; private set; }
+        [field: SerializeField] public SceneReference LevelOne { get; private set; }
         
         [field: Header("Menus")]
         [field: SerializeField] public MenuType HUD { get; private set; }
