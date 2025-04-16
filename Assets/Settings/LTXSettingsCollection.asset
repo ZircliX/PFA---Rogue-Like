@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50613948527c4eceb01859c55c7237b8, type: 3}
   m_Name: LTXSettingsCollection
   m_EditorClassIdentifier: 
-  settingsAssets: []
+  settingsAssets:
+  - {fileID: 8732969913512661634}
 --- !u!114 &8732969913512661634
 MonoBehaviour:
   m_ObjectHideFlags: 0

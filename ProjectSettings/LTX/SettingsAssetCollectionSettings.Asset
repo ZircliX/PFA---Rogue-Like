@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd790a1bc9d8493ab418d543f642b342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CollectionAssetPath>k__BackingField: Assets/Settings/LTXSettingsCollection.asset
+  <Collection>k__BackingField: {fileID: 11400000, guid: 4a7237288b68a44469f5b0b5c77a45b2, type: 2}
