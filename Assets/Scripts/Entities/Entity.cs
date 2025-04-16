@@ -120,7 +120,7 @@ namespace DeadLink.Entities
 
         protected virtual void Update()
         {
-            if (isShooting)
+            if (isShooting && CurrentWeapon != null)
             {
                 if (currentShootTime >= CurrentWeapon.WeaponData.ShootRate)
                 {
