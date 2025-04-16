@@ -14,7 +14,7 @@ namespace DeadLink.PowerUp.ActivePowerUps
 
         public override void OnBeUnlocked(VisitableComponent visitable)
         {
-            Player player = visitable as Player;
+            RogueLike.Entities.Player player = visitable as RogueLike.Entities.Player;
             if (player != null)
             {
                 if (player.HealthBarCount >= 3)

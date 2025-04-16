@@ -31,7 +31,7 @@ namespace RogueLike.Managers
         {
             //Debug.Log("Start Level");
             //EnemyManager.Instance.SpawnEnemies(difficulty);
-            EnemyManager.Instance.ActivateEnemies(difficulty); //Only for testing
+            //EnemyManager.Instance.ActivateEnemies(difficulty); //Only for testing
             player.Spawn(player.EntityData, difficulty, player.SpawnPosition.position);
             
             TimerManager.Instance.StartTimer();

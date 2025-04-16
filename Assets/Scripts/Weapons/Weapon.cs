@@ -1,3 +1,4 @@
+using System;
 using DeadLink.Ammunitions;
 using DeadLink.Ammunitions.Data;
 using DeadLink.Cameras;
@@ -15,9 +16,14 @@ namespace DeadLink.Weapons
 
         private int currentMunitions;
         
-        private void Awake()
+        private void OnEnable()
         {
-            CameraController.Instance.CameraShakeProperty.AddPriority(this, PriorityTags.Small);
+            CameraController.Instance.CameraShakeProperty.AddPriority(this, PriorityTags.Default);
+        }
+
+        private void OnDisable()
+        {
+            CameraController.Instance.CameraShakeProperty.RemovePriority(this);
         }
 
         private void OnDestroy()
@@ -52,6 +58,7 @@ namespace DeadLink.Weapons
         protected virtual void BulletHit(Bullet bullet)
         {
             CameraController.Instance.CameraShakeProperty.Write(this, bullet.BulletData.CameraShake);
+            //Debug.Log($"Called Camera Shake from {name} with {bullet.name}");
         }
 
         protected virtual void BulletDestroy(Bullet bullet)

@@ -17,7 +17,6 @@ namespace DeadLink.Cameras
         public PrioritisedProperty<CameraShakeComposite> CameraShakeProperty { get; private set; }
 
         private CameraShakeComposite currentComposite;
-        private float currentShakeTime;
         private Vector3 originalOffset;
         private Coroutine shakeCoroutine;
         
@@ -27,15 +26,10 @@ namespace DeadLink.Cameras
         {
             base.Awake();
             
-            CameraShakeProperty = new PrioritisedProperty<CameraShakeComposite>(new CameraShakeComposite(0, 0, 0));
+            CameraShakeProperty = new PrioritisedProperty<CameraShakeComposite>();
             CameraShakeProperty.AddOnValueChangeCallback(ShakeCamera, true);
+            
             originalOffset = camFollow.FollowOffset;
-        }
-
-        protected override void OnDestroy()
-        {
-            CameraShakeProperty.RemovePriority(this);
-            base.OnDestroy();
         }
         
         private IEnumerator ShakeRoutine()
@@ -44,7 +38,8 @@ namespace DeadLink.Cameras
             float shakeInterval = 1f / Mathf.Max(currentComposite.Frequency, 0.01f);
             float shakeTimer = 0f;
 
-            Vector3 randomOffset = Vector3.zero;
+            Vector3 targetOffset = Vector3.zero;
+            Vector3 currentOffset = Vector3.zero;
 
             while (timer < currentComposite.Duration)
             {
@@ -55,12 +50,12 @@ namespace DeadLink.Cameras
                 if (shakeTimer >= shakeInterval)
                 {
                     shakeTimer = 0f;
-                    randomOffset = Random.insideUnitSphere * currentComposite.Amplitude;
-                    //Debug.Log($"Shake camera with offset: {randomOffset}");
+                    targetOffset = Random.insideUnitSphere * currentComposite.Amplitude;
                 }
 
-                camFollow.FollowOffset = originalOffset + randomOffset;
-
+                currentOffset = Vector3.Lerp(currentOffset, targetOffset, 0.5f);
+                camFollow.FollowOffset = originalOffset + currentOffset;
+                
                 yield return null;
             }
 
@@ -69,7 +64,8 @@ namespace DeadLink.Cameras
         
         private void ShakeCamera(CameraShakeComposite composite)
         {
-            currentShakeTime = composite.Duration;
+            if (!camFollow.isActiveAndEnabled) return;
+            
             currentComposite = composite;
 
             if (shakeCoroutine != null)
@@ -78,7 +74,7 @@ namespace DeadLink.Cameras
             }
 
             shakeCoroutine = StartCoroutine(ShakeRoutine());
-            Debug.Log($"Started camera shake with composite: {composite}");
+            //Debug.Log($"Started camera shake with composite: {composite}");
         }
     }
 }
