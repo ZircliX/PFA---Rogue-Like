@@ -35,7 +35,7 @@ namespace DeadLink.Entities
             Speed = new InfluencedProperty<float>(EntityData.BaseSpeed);
             HealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
 
-            CurrentWeapon = Weapons[0];
+            ChangeWeapon(0);
             transform.position = SpawnPosition;
 
             SetFullHealth();
@@ -94,6 +94,9 @@ namespace DeadLink.Entities
 
         protected virtual void ChangeWeapon(int direction)
         {
+            if (CurrentWeapon != null)
+                CurrentWeapon.gameObject.SetActive(false);
+            
             int currentIndex = System.Array.IndexOf(Weapons, CurrentWeapon);
             int newIndex = (currentIndex + direction) % Weapons.Length;
             if (newIndex < 0)
@@ -102,6 +105,7 @@ namespace DeadLink.Entities
             }
 
             CurrentWeapon = Weapons[newIndex];
+            CurrentWeapon.gameObject.SetActive(true);
         }
         
         protected virtual void Shoot()
@@ -120,7 +124,7 @@ namespace DeadLink.Entities
 
         protected virtual void Update()
         {
-            if (isShooting)
+            if (isShooting && CurrentWeapon != null)
             {
                 if (currentShootTime >= CurrentWeapon.WeaponData.ShootRate)
                 {

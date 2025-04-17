@@ -17,11 +17,9 @@ namespace RogueLike.Player
         [SerializeField] private int yRange = 70;
         [SerializeField] private PlayerMovement pm;
 
-        [SerializeField, Child]
-        private CinemachineCamera cinemachineCamera;
-
-        private void OnValidate() => this.ValidateRefs();
-
+        [SerializeField] private Transform cameraRoot;
+        [SerializeField] private Transform cameraPitch;
+        
         private void Update()
         {
             camRotation.x -= targetCamVelocity.x * speed * Time.deltaTime;
@@ -39,7 +37,8 @@ namespace RogueLike.Player
             transform.rotation = Quaternion.Slerp(transform.rotation, look, gravityAlignSpeed * Time.deltaTime);
 
             Quaternion rot = localYaw * localPitch;
-            cinemachineCamera.transform.localRotation = rot;
+            cameraRoot.localRotation = localYaw;
+            cameraPitch.localRotation = localPitch;
         }
 
         public void OnLookX(InputAction.CallbackContext context)

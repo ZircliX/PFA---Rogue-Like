@@ -36,7 +36,7 @@ namespace RogueLike.Entities
         
         public void Shoot(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.performed && CurrentWeapon != null)
             {
                 isShooting = true;
                 currentShootTime = CurrentWeapon.WeaponData.ShootRate;

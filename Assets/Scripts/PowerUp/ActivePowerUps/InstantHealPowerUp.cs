@@ -20,7 +20,7 @@ namespace DeadLink.PowerUp.ActivePowerUps
 
         public override void OnBeUsed(VisitableComponent visitable)
         {
-            Player player = visitable as Player;
+            RogueLike.Entities.Player player = visitable as RogueLike.Entities.Player;
             if (player != null)
             {
                 if (isUnlocked)

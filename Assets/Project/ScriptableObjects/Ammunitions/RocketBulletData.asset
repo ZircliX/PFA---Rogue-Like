@@ -17,33 +17,8 @@ MonoBehaviour:
   <MaxLifeCycle>k__BackingField: 5
   <HitVFX>k__BackingField: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
   <CameraShake>k__BackingField:
-    Delay: 0
-    Amplitude: 10
-    Frequency: 1
-    Duration: 0.25
-    Curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+    Amplitude: 0.25
+    Frequency: 100
+    Duration: 0.5
   <BulletPrefab>k__BackingField: {fileID: 823650544950753790, guid: b073d1e73ee252b438e4d0ddda20578a, type: 3}
   <ExplosionRadius>k__BackingField: 5

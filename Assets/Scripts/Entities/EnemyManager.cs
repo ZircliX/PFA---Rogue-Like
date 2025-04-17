@@ -11,12 +11,13 @@ namespace DeadLink.Entities
         [SerializeField] private Enemy[] enemyPrefabs;
         [SerializeField] private Transform[] SpawnPositions;
 
-        [SerializeField, Scene] private Enemy[] enemies;
+        //[SerializeField, Scene] private Enemy[] enemies;
         
-        private void OnValidate() => this.ValidateRefs();
+        //private void OnValidate() => this.ValidateRefs();
         
         public void SpawnEnemies(DifficultyData difficultyData)
         {
+            if (enemyPrefabs == null) return;
             for (var i = 0; i < enemyPrefabs.Length; i++)
             {
                 Enemy spawnedEnemy = Instantiate(enemyPrefabs[i], SpawnPositions[i].position, Quaternion.identity);
@@ -24,14 +25,17 @@ namespace DeadLink.Entities
             }
         }
         
+        /*
         public void ActivateEnemies(DifficultyData difficulty)
         {
+            if (enemies == null) return;
             for (var i = 0; i < enemies.Length; i++)
             {
                 Enemy enemy = enemies[i];
                 enemy.Spawn(enemy.EntityData, difficulty , transform.position);
             }
         }
+        */
         
         public void EnemyKilled(Enemy enemyKilled)
         {

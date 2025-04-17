@@ -14,34 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ShootVFX>k__BackingField: {fileID: 0}
   <CameraShake>k__BackingField:
-    Delay: 0
     Amplitude: 10
     Frequency: 1
-    Duration: 0.25
-    Curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+    Duration: 1
   <ShootRate>k__BackingField: 0.75
   <WeaponPrefab>k__BackingField: {fileID: 981379142398410939, guid: b75167882f7662043be1985a9590356d, type: 3}
   <FireRate>k__BackingField: 0.25
