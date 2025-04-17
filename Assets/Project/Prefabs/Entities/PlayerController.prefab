@@ -852,8 +852,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 5539a887-fb2a-4448-9e55-81a621ab1a90
-    m_ActionName: 'UI/Pause[/Keyboard/escape]'
+    m_ActionId: 5f894750-e638-43dc-aaa3-f8adcfa8d833
+    m_ActionName: 'Player/Pause[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard and Mouse
   m_DefaultActionMap: Player
