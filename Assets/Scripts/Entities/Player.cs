@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using DeadLink.Entities;
 using DeadLink.Entities.Data;
-using DeadLink.PowerUp;
+using DeadLink.PowerUpSystem;
+using DeadLink.PowerUpSystem.InterfacePowerUps;
 using Enemy;
 using LTX.ChanneledProperties;
 using UnityEngine;
@@ -19,13 +20,25 @@ namespace RogueLike.Entities
         public override void Spawn(EntityData data, DifficultyData difficultyData, Vector3 spawnPoint)
         {
             base.Spawn(data, difficultyData, spawnPoint);
+            
+            
             HealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarAmountMultiplier, Influence.Add);
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
             Strength.AddInfluence(difficultyData, difficultyData.PlayerStrengthMultiplier, Influence.Multiply);
             
             unlockedPowerUps = new Dictionary<string, IVisitor>();
         }
-        
+
+        private void OnEnable()
+        {
+            VisitableReferenceManager.Instance.RegisterComponent(GameMetrics.Global.PlayerVisitableType, this);
+        }
+
+        private void OnDisable()
+        {
+            VisitableReferenceManager.Instance.UnregisterComponent(GameMetrics.Global.PlayerVisitableType);
+        }
+
         public void ChangeWeapon(InputAction.CallbackContext context)
         {
             if (context.performed)

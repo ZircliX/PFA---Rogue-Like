@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DeadLink.PowerUpSystem;
 using DG.Tweening;
 using RogueLike;
 using RogueLike.Controllers;
@@ -11,8 +12,8 @@ namespace DeadLink.Menus.Implementation
         [field: SerializeField] protected override bool baseState { get; set; }
         [SerializeField] private UpgradePrefab upgradePrefab;
         [SerializeField] private Transform targetUpgradePanel;
-        public PowerUp.PowerUp[] PowerUps { get; private set; }
-        private List<PowerUp.PowerUp> upgrades;
+        public PowerUp[] PowerUps { get; private set; }
+        private List<PowerUp> upgrades;
         private List<UpgradePrefab> upgradeUIs;
         
         public override MenuType MenuType => MenuType.Upgrades;
@@ -55,7 +56,7 @@ namespace DeadLink.Menus.Implementation
 
         private void GetPowerUps()
         {
-            PowerUps = Resources.LoadAll<PowerUp.PowerUp>("PowerUps");
+            PowerUps = Resources.LoadAll<PowerUp>("PowerUps");
         }
         
         public void SetPowerUps()
@@ -65,7 +66,7 @@ namespace DeadLink.Menus.Implementation
             while (upgrades.Count < 3)
             {
                 int index = Random.Range(0, PowerUps.Length);
-                PowerUp.PowerUp powerUp = PowerUps[index];
+                PowerUp powerUp = PowerUps[index];
                 
                 if (!upgrades.Contains(powerUp))
                 {

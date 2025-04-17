@@ -1,8 +1,8 @@
-using DeadLink.PowerUp.Components;
+using DeadLink.PowerUpSystem.InterfacePowerUps;
 using RogueLike.Player;
 using UnityEngine;
 
-namespace DeadLink.PowerUp.ActivePowerUps
+namespace DeadLink.PowerUpSystem.ActivePowerUps
 {
     [CreateAssetMenu(menuName = "PowerUp/DashPowerUp", fileName = "DashPowerUp")]
 
@@ -12,7 +12,7 @@ namespace DeadLink.PowerUp.ActivePowerUps
         public override string Name { get; set; } = "DashPowerUp";
 
 
-        public override void OnBeUnlocked(VisitableComponent visitable)
+        public override void OnBeUnlocked(IVisitable visitable)
         {
             PlayerMovement playerMovement = visitable as PlayerMovement;
             if (playerMovement != null)
@@ -22,7 +22,7 @@ namespace DeadLink.PowerUp.ActivePowerUps
             }
         }
 
-        public override void OnBeUsed(VisitableComponent visitable)
+        public override void OnBeUsed(IVisitable visitable)
         {
         }
     }
