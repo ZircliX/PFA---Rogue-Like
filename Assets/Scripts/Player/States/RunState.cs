@@ -7,6 +7,9 @@ namespace RogueLike.Player.States
     {
         public override MovementState GetNextState(PlayerMovement movement)
         {
+            Debug.Log(movement.WantsToSlide);
+            Debug.Log($"grounded = {movement.IsGrounded}");
+            
             if (!movement.IsGrounded)
             {
                 return MovementState.Falling;

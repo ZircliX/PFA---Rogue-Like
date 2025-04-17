@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DeadLink.Menus.Interfaces;
+using LTX.ChanneledProperties;
 using LTX.Singletons;
 using RogueLike.Controllers;
 using UnityEngine;
@@ -10,17 +11,28 @@ namespace DeadLink.Menus
 {
     public class MenuManager : MonoSingleton<MenuManager>
     {
+        private struct MenuInfoCarryMoi
+        {
+            public IMenuRunner Runner;
+            public IMenuContext Context;
+        }
+        
         public event Action<MenuType> OnWantsToChangeMenu;
         public event Action<IMenuRunner> OnMenuOpen;
         public event Action<IMenuRunner> OnMenuClose;
 
-        private Stack<IMenuRunner> menuRunners;
+        private Stack<MenuInfoCarryMoi> menuRunners;
         private IMenuRunner currentMenuRunner;
 
         protected override void Awake()
         {
             base.Awake();
-            menuRunners = new Stack<IMenuRunner>();
+
+            GameController.CursorVisibility.AddPriority(this, PriorityTags.None);
+            GameController.CursorLockMode.AddPriority(this, PriorityTags.None);
+            GameController.TimeScale.AddPriority(this, PriorityTags.None);
+            
+            menuRunners = new Stack<MenuInfoCarryMoi>();
         }
 
         public void OpenMenu<T>(Menu<T> menu, MenuHandler<T> handler)
@@ -28,14 +40,24 @@ namespace DeadLink.Menus
         {
             MenuRunner<T> menuRunner = new MenuRunner<T>(menu, handler);
 
-            menuRunners.Push(menuRunner);
+            menuRunners.Push(new MenuInfoCarryMoi()
+            {
+                Runner = menuRunner,
+                Context = handler.GetContext()
+            });
             menuRunner.Open();
 
             currentMenuRunner = menuRunner;
 
-            GameController.CursorVisibility.Write(handler.MenuType, handler.GetContext().CursorVisibility);
-            GameController.CursorLockMode.Write(handler.MenuType, handler.GetContext().CursorLockMode);
-            GameController.TimeScale.Write(handler.MenuType, handler.GetContext().TimeScale);
+            T menuContext = handler.GetContext();
+            
+            GameController.CursorVisibility.ChangeChannelPriority(this, menuContext.Priority);
+            GameController.CursorLockMode.ChangeChannelPriority(this, menuContext.Priority);
+            GameController.TimeScale.ChangeChannelPriority(this, menuContext.Priority);
+            
+            GameController.CursorVisibility.Write(this, menuContext.CursorVisibility);
+            GameController.CursorLockMode.Write(this, menuContext.CursorLockMode);
+            GameController.TimeScale.Write(this, menuContext.TimeScale);
 
             OnMenuOpen?.Invoke(menuRunner);
         }
@@ -45,31 +67,47 @@ namespace DeadLink.Menus
             OnWantsToChangeMenu?.Invoke(menu);
         }
 
-        public void CloseMenu(MenuType type)
+        public void CloseMenu()
         {
             if (menuRunners.Count > 0)
             {
                 if (currentMenuRunner.GetContext().CanClose)
                 {
                     currentMenuRunner.Close();
-                    currentMenuRunner = null;
                     menuRunners.Pop();
+
+                    if (menuRunners.TryPeek(out MenuInfoCarryMoi info))
+                    {
+                        currentMenuRunner = info.Runner;
+                    }
+                    else
+                    {
+                        currentMenuRunner = null;
+                    }
                 }
                 else
                 {
                     Debug.Log("Cannot close menu, it is blocked");
                 }
-
-                if (menuRunners.Count == 0)
-                {
-                    GameController.CursorVisibility.Write(type, false);
-                    GameController.CursorLockMode.Write(type, CursorLockMode.Locked);
-                    GameController.TimeScale.Write(type, 1f);
-                }
             }
-            else
+            
+            if (menuRunners.Count == 0)
             {
-                Debug.Log("No menu to close");
+                GameController.CursorVisibility.ChangeChannelPriority(this, PriorityTags.None);
+                GameController.CursorLockMode.ChangeChannelPriority(this, PriorityTags.None);
+                GameController.TimeScale.ChangeChannelPriority(this, PriorityTags.None);
+            }
+            else if (menuRunners.TryPeek(out MenuInfoCarryMoi info))
+            {
+                IMenuContext menuContext = info.Context;
+
+                GameController.CursorVisibility.ChangeChannelPriority(this, menuContext.Priority);
+                GameController.CursorLockMode.ChangeChannelPriority(this, menuContext.Priority);
+                GameController.TimeScale.ChangeChannelPriority(this, menuContext.Priority);
+            
+                GameController.CursorVisibility.Write(this, menuContext.CursorVisibility);
+                GameController.CursorLockMode.Write(this, menuContext.CursorLockMode);
+                GameController.TimeScale.Write(this, menuContext.TimeScale);
             }
         }
 
@@ -83,7 +121,7 @@ namespace DeadLink.Menus
                 {
                     if (currentMenuRunner.GetContext().CanClose)
                     {
-                        CloseMenu(currentMenuRunner.GetContext().MenuType);
+                        CloseMenu();
                     }
                 }
                 else
