@@ -1,8 +1,7 @@
-using DeadLink.PowerUp.Components;
-using RogueLike.Entities;
+using DeadLink.PowerUpSystem.InterfacePowerUps;
 using UnityEngine;
 
-namespace DeadLink.PowerUp.ActivePowerUps
+namespace DeadLink.PowerUpSystem.ActivePowerUps
 {
     [CreateAssetMenu(menuName = "PowerUp/InstantHealPowerUp", fileName = "InstantHealPowerUp")]
 
@@ -12,18 +11,18 @@ namespace DeadLink.PowerUp.ActivePowerUps
         public override string Name { get; set; } = "InstantHeal";
 
 
-        public override void OnBeUnlocked(VisitableComponent visitable)
+        public override void OnBeUnlocked(IVisitable visitable)
         {
-            isUnlocked = true;
+            IsUnlocked = true;
             // 
         }
 
-        public override void OnBeUsed(VisitableComponent visitable)
+        public override void OnBeUsed(IVisitable visitable)
         {
             RogueLike.Entities.Player player = visitable as RogueLike.Entities.Player;
             if (player != null)
             {
-                if (isUnlocked)
+                if (IsUnlocked)
                 {
                     player.SetInstantHeal(InstantHealBonus);
                     Debug.Log("Visitor accepted in HealthComponent");

@@ -1,4 +1,4 @@
-using DeadLink.PowerUp;
+using DeadLink.PowerUpSystem.InterfacePowerUps;
 
 namespace DeadLink.Entities.Enemies
 {

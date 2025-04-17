@@ -1,5 +1,5 @@
 using DeadLink.Entities.Data;
-using DeadLink.PowerUp.Components;
+using DeadLink.PowerUpSystem.InterfacePowerUps;
 using DeadLink.Weapons;
 using Enemy;
 using LTX.ChanneledProperties;
@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DeadLink.Entities
 {
-    public abstract class Entity : VisitableComponent
+    public abstract class Entity : MonoBehaviour, IVisitable
     {
         [Header("Datas")]
         [field: SerializeField]
@@ -139,5 +139,8 @@ namespace DeadLink.Entities
                 }
             }
         }
+
+        public abstract void Unlock(IVisitor visitor);
+        public abstract void Use(string powerUpName);
     }
 }

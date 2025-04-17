@@ -1,4 +1,5 @@
 using DeadLink.Menus;
+using DeadLink.PowerUpSystem;
 using DevLocker.Utils;
 using RogueLike.Controllers;
 using UnityEngine;
@@ -23,5 +24,10 @@ namespace RogueLike
         [field: SerializeField] public MenuType Pause { get; private set; }
         [field: SerializeField] public MenuType Settings { get; private set; }
         [field: SerializeField] public MenuType Upgrades { get; private set; }
+        
+        [field: Header("VisitableComponents")]
+        
+        [field: SerializeField] public VisitableType PlayerVisitableType { get; private set; }
+        [field: SerializeField] public VisitableType PlayerMovementVisitableType { get; private set; }
     }
 }
