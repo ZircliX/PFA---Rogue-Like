@@ -11,7 +11,7 @@ namespace DeadLink.Cameras
     {
         [Header("References")]
         [SerializeField, Self] private CinemachineCamera cam;
-        [SerializeField, Self] private CinemachineFollow camFollow;
+        [SerializeField, Self] private CinemachineCameraOffset camFollow;
         
         [Header("Camera Shake")]
         public PrioritisedProperty<CameraShakeComposite> CameraShakeProperty { get; private set; }
@@ -29,7 +29,7 @@ namespace DeadLink.Cameras
             CameraShakeProperty = new PrioritisedProperty<CameraShakeComposite>();
             CameraShakeProperty.AddOnValueChangeCallback(ShakeCamera, true);
             
-            originalOffset = camFollow.FollowOffset;
+            originalOffset = camFollow.Offset;
         }
         
         private IEnumerator ShakeRoutine()
@@ -54,12 +54,12 @@ namespace DeadLink.Cameras
                 }
 
                 currentOffset = Vector3.Lerp(currentOffset, targetOffset, 0.5f);
-                camFollow.FollowOffset = originalOffset + currentOffset;
+                camFollow.Offset = originalOffset + currentOffset;
                 
                 yield return null;
             }
 
-            camFollow.FollowOffset = originalOffset;
+            camFollow.Offset = originalOffset;
         }
         
         private void ShakeCamera(CameraShakeComposite composite)

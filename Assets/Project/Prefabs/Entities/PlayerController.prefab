@@ -955,9 +955,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1853930067422575411}
   - component: {fileID: 7880227904453035219}
-  - component: {fileID: 4457067496557624961}
   - component: {fileID: 2116268018863381272}
   - component: {fileID: 3883945405582393277}
+  - component: {fileID: 4507630780164737054}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Player
@@ -1023,25 +1023,6 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
---- !u!114 &4457067496557624961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8831171802724599823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TrackerSettings:
-    BindingMode: 4
-    PositionDamping: {x: 0, y: 0, z: 0}
-    AngularDampingMode: 0
-    RotationDamping: {x: 1, y: 1, z: 1}
-    QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &2116268018863381272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1074,7 +1055,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 7880227904453035219}
-  camFollow: {fileID: 4457067496557624961}
+  camFollow: {fileID: 4507630780164737054}
+--- !u!114 &4507630780164737054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8831171802724599823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Offset: {x: 0, y: 0, z: 0}
+  ApplyAfter: 1
+  PreserveComposition: 0
 --- !u!1 &9143841166902319844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,7 +1081,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8873217921136611669}
   - component: {fileID: 8629144720513069406}
-  - component: {fileID: 7652999825694485125}
   m_Layer: 0
   m_Name: Shoulders
   m_TagString: Player
@@ -1122,29 +1117,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64914c71e9454ffba3bfbf986bc3cfee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handsRoot: {fileID: 8873217921136611669}
   cameraTransform: {fileID: 1853930067422575411}
+  headTransform: {fileID: 2065021886003205984}
+  armOffset: 0.2
   followPitch: 1
---- !u!1818360608 &7652999825694485125
-PositionConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9143841166902319844}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Weight: 1
-  m_TranslationAtRest: {x: 0, y: 0.20000005, z: 0}
-  m_TranslationOffset: {x: 0, y: -0.29999995, z: 0}
-  m_AffectTranslationX: 1
-  m_AffectTranslationY: 1
-  m_AffectTranslationZ: 1
-  m_Active: 1
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 2065021886003205984}
-    weight: 1
 --- !u!1001 &1000093656304823968
 PrefabInstance:
   m_ObjectHideFlags: 0

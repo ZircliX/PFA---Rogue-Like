@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using RogueLike;
 using RogueLike.Controllers;
 using UnityEngine;
@@ -8,8 +9,11 @@ namespace DeadLink.Menus.Implementation
     public class UpgradeMenuHandler : MenuHandler<UpgradeMenuContext>
     {
         [field: SerializeField] protected override bool baseState { get; set; }
+        [SerializeField] private UpgradePrefab upgradePrefab;
+        [SerializeField] private Transform targetUpgradePanel;
         public PowerUp.PowerUp[] PowerUps { get; private set; }
         private List<PowerUp.PowerUp> upgrades;
+        private List<UpgradePrefab> upgradeUIs;
         
         public override MenuType MenuType => MenuType.Upgrades;
 
@@ -61,9 +65,15 @@ namespace DeadLink.Menus.Implementation
             while (upgrades.Count < 3)
             {
                 int index = Random.Range(0, PowerUps.Length);
-                if (!upgrades.Contains(PowerUps[index]))
+                PowerUp.PowerUp powerUp = PowerUps[index];
+                
+                if (!upgrades.Contains(powerUp))
                 {
-                    upgrades.Add(PowerUps[index]);
+                    UpgradePrefab upgradeUI = Instantiate(upgradePrefab, targetUpgradePanel);
+                    upgradeUI.Initialize(powerUp.Name, powerUp.Name, null);
+
+                    upgradeUIs.Add(upgradeUI);
+                    upgrades.Add(powerUp);
                 }
             }
         }
@@ -73,6 +83,30 @@ namespace DeadLink.Menus.Implementation
             //TODO: Get Visitable Component and pass the power up
             //var comp;
             //upgrades[index].OnBeUnlocked(comp);
+
+            for (int i = upgradeUIs.Count - 1; i >= 0; i--)
+            {
+                UpgradePrefab ui = upgradeUIs[i];
+
+                if (i != index)
+                {
+                    ui.transform.DOMoveY(50, 0.5f).OnComplete(() =>
+                    {
+                        Destroy(ui.gameObject);
+                        upgradeUIs.RemoveAt(i);
+                        upgrades.RemoveAt(i);
+                    });
+                }
+                else
+                {
+                    ui.transform.DOMoveY(-50, 0.5f).OnComplete(() =>
+                    {
+                        Destroy(ui.gameObject);
+                        upgradeUIs.RemoveAt(i);
+                        upgrades.RemoveAt(i);
+                    });
+                }
+            }
         }
     }
 }

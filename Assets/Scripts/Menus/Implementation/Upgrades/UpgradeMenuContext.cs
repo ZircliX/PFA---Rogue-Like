@@ -15,6 +15,6 @@ namespace DeadLink.Menus.Implementation
         public bool CanClose { get; set; }
         public bool CanStack { get; set; }
         
-        public PowerUp.PowerUp[] PowerUps { get; set; }
+        public Transform[] PowerUps { get; set; }
     }
 }

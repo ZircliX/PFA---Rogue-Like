@@ -25,15 +25,7 @@ namespace DeadLink.Weapons
         {
             CameraController.Instance.CameraShakeProperty.RemovePriority(this);
         }
-
-        private void OnDestroy()
-        {
-            if (CameraController.HasInstance)
-            {
-                CameraController.Instance.CameraShakeProperty.RemovePriority(this);
-            }
-        }
-
+        
         public virtual void Fire(Entity entity, Vector3 direction)
         {
             //Debug.Log($"Instantiating bullet {BulletData.name} from {entity.name}");
