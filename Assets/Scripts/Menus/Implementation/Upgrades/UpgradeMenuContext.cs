@@ -14,7 +14,8 @@ namespace DeadLink.Menus.Implementation
         public float TimeScale { get; set; }
         public bool CanClose { get; set; }
         public bool CanStack { get; set; }
-        
+        public UpgradeMenuHandler handler { get; set; }
+
         public Transform[] PowerUps { get; set; }
     }
 }

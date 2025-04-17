@@ -6,7 +6,8 @@ namespace DeadLink.Menus.Implementation
     {
         public override void OnOpen(ref UpgradeMenuContext context)
         {
-            
+            context.GameObject.SetActive(true);
+            context.handler.SetPowerUps();
         }
 
         public override void OnRefresh(ref UpgradeMenuContext context)

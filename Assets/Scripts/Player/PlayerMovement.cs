@@ -439,6 +439,8 @@ namespace RogueLike.Player
 
     public void ReadInputSlide(InputAction.CallbackContext context)
     {
+        Debug.Log("SLIDE");
+        
         if (context.performed)
         {
             slideInput = coyoteTime;
@@ -450,7 +452,6 @@ namespace RogueLike.Player
     }
 
     #endregion
-
-
+    
     }
 }

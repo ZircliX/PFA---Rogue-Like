@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "5f894750-e638-43dc-aaa3-f8adcfa8d833",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -254,7 +263,7 @@
                 {
                     "name": "",
                     "id": "2fd28f98-514b-48bd-aefd-9887f7e12d48",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard and Mouse",
@@ -448,27 +457,10 @@
                     "action": "ChangeWeapon",
                     "isComposite": false,
                     "isPartOfComposite": true
-                }
-            ]
-        },
-        {
-            "name": "UI",
-            "id": "a95122cc-8ec6-4eb8-9af2-ce1d7a4c7566",
-            "actions": [
-                {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "5539a887-fb2a-4448-9e55-81a621ab1a90",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "f0831df8-84fc-4942-aa0b-6e45b6483883",
+                    "id": "a19a6051-0b20-4497-904a-8c1a202162bc",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
@@ -479,7 +471,7 @@
                 },
                 {
                     "name": "",
-                    "id": "2715a593-a319-4fb3-a6c3-37909f0d8477",
+                    "id": "a8557339-7250-4571-b08d-622f5fd357eb",
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",

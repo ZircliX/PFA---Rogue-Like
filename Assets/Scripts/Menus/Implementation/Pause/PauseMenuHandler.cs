@@ -14,10 +14,6 @@ namespace DeadLink.Menus.Implementation
         protected override void Awake()
         {
             base.Awake();
-            GameController.CursorVisibility.AddPriority(GameMetrics.Global.Pause, this.GetContext().Priority, false);
-            GameController.CursorLockMode.AddPriority(GameMetrics.Global.Pause, this.GetContext().Priority,
-                CursorLockMode.Locked);
-            GameController.TimeScale.AddPriority(GameMetrics.Global.Pause, this.GetContext().Priority, 1f);
         }
 
         protected override void CheckMenuType(MenuType type)
@@ -51,7 +47,7 @@ namespace DeadLink.Menus.Implementation
 
         public void Resume()
         {
-            MenuManager.Instance.CloseMenu(MenuType.Pause);
+            MenuManager.Instance.CloseMenu();
         }
 
         public void Settings()

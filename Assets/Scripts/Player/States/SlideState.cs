@@ -44,8 +44,7 @@ namespace RogueLike.Player.States
         public override void Enter(PlayerMovement movement)
         {
             currentSlideTime = 0;
-            direction = GetCameraDirection(movement, Vector2.up);
-            
+            direction = GetWorldInputs(movement);
         }
 
         public override void Exit(PlayerMovement movement)

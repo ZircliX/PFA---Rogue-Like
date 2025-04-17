@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using DeadLink.PowerUpSystem;
 using DG.Tweening;
+using LTX.ChanneledProperties;
 using RogueLike;
-using RogueLike.Controllers;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace DeadLink.Menus.Implementation
 {
@@ -13,7 +14,6 @@ namespace DeadLink.Menus.Implementation
         [SerializeField] private UpgradePrefab upgradePrefab;
         [SerializeField] private Transform targetUpgradePanel;
         public PowerUp[] PowerUps { get; private set; }
-        private List<PowerUp> upgrades;
         private List<UpgradePrefab> upgradeUIs;
         
         public override MenuType MenuType => MenuType.Upgrades;
@@ -21,13 +21,7 @@ namespace DeadLink.Menus.Implementation
         protected override void Awake()
         {
             base.Awake();
-            GameController.CursorVisibility.AddPriority(GameMetrics.Global.Upgrades, this.GetContext().Priority, false);
-            GameController.CursorLockMode.AddPriority(GameMetrics.Global.Upgrades, this.GetContext().Priority,
-                CursorLockMode.Locked);
-            GameController.TimeScale.AddPriority(GameMetrics.Global.Upgrades, this.GetContext().Priority, 1f);
-            
-            GetPowerUps();
-            SetPowerUps();
+            upgradeUIs = new List<UpgradePrefab>();
         }
         
         protected override void CheckMenuType(MenuType type)
@@ -45,7 +39,13 @@ namespace DeadLink.Menus.Implementation
             {
                 GameObject = gameObject,
                 CursorLockMode = CursorLockMode.None,
-                CursorVisibility = true
+                CursorVisibility = true,
+                TimeScale = 0f,
+                Priority = PriorityTags.VeryHigh,
+                CanClose = false,
+                CanStack = false,
+                
+                handler = this,
             };
         }
 
@@ -61,33 +61,33 @@ namespace DeadLink.Menus.Implementation
         
         public void SetPowerUps()
         {
-            upgrades.Clear();
+            GetPowerUps();
             
-            while (upgrades.Count < 3)
+            using (ListPool<PowerUp>.Get(out List<PowerUp> pow))
             {
-                int index = Random.Range(0, PowerUps.Length);
-                PowerUp powerUp = PowerUps[index];
+                pow.AddRange(PowerUps);
+                int count = pow.Count >= 3 ? 3 : pow.Count;
                 
-                if (!upgrades.Contains(powerUp))
+                for (int i = 0; i < count; i++)
                 {
+                    int index = Random.Range(0, pow.Count);
+                    PowerUp powerUp = pow[index];
+                    pow.RemoveAt(index);
+                    
                     UpgradePrefab upgradeUI = Instantiate(upgradePrefab, targetUpgradePanel);
-                    upgradeUI.Initialize(powerUp.Name, powerUp.Name, null);
+                    upgradeUI.Initialize(powerUp.Name, powerUp.Name, null, powerUp);
 
                     upgradeUIs.Add(upgradeUI);
-                    upgrades.Add(powerUp);
                 }
             }
         }
         
         public void UseUpgrade(int index)
         {
-            //TODO: Get Visitable Component and pass the power up
-            //var comp;
-            //upgrades[index].OnBeUnlocked(comp);
-
             for (int i = upgradeUIs.Count - 1; i >= 0; i--)
             {
                 UpgradePrefab ui = upgradeUIs[i];
+                
 
                 if (i != index)
                 {
@@ -95,19 +95,24 @@ namespace DeadLink.Menus.Implementation
                     {
                         Destroy(ui.gameObject);
                         upgradeUIs.RemoveAt(i);
-                        upgrades.RemoveAt(i);
                     });
                 }
                 else
                 {
                     ui.transform.DOMoveY(-50, 0.5f).OnComplete(() =>
                     {
+                        //ui.powerUp.OnBeUnlocked(ui.powerUp.GetComponent());
+                        
                         Destroy(ui.gameObject);
                         upgradeUIs.RemoveAt(i);
-                        upgrades.RemoveAt(i);
                     });
                 }
             }
+        }
+
+        public void OpenMenu()
+        {
+            MenuManager.Instance.ChangeMenu(MenuType.Upgrades);
         }
     }
 }

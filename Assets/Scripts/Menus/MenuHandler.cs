@@ -12,11 +12,7 @@ namespace DeadLink.Menus
         protected virtual void Awake()
         {
             MenuManager.Instance.OnWantsToChangeMenu += CheckMenuType;
-
-            if (!baseState)
-            {
-                gameObject.SetActive(false);
-            }
+            gameObject.SetActive(baseState);
         }
 
         protected abstract void CheckMenuType(MenuType type);
