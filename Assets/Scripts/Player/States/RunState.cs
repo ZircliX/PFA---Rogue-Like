@@ -7,8 +7,8 @@ namespace RogueLike.Player.States
     {
         public override MovementState GetNextState(PlayerMovement movement)
         {
-            Debug.Log(movement.WantsToSlide);
-            Debug.Log($"grounded = {movement.IsGrounded}");
+            //Debug.Log(movement.WantsToSlide);
+            //Debug.Log($"grounded = {movement.IsGrounded}");
             
             if (!movement.IsGrounded)
             {
@@ -22,12 +22,10 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Sliding;
             }
-            /*
-            if (movement.IsWalled && movement.CurrentWall != null)
+            if (movement.WantsToDash)
             {
-                return MovementState.WallRunning;
+                return MovementState.Dashing;
             }
-            */
             if (movement.InputDirection.sqrMagnitude < PlayerMovement.MIN_THRESHOLD)
             {
                 return MovementState.Idle;

@@ -26,6 +26,7 @@ namespace DeadLink.Gravity
 
         protected virtual void OnDisable()
         {
+            if (!GravityManager.HasInstance) return;
             GravityManager.Instance.UnregisterGravityZone(this);
         }
 

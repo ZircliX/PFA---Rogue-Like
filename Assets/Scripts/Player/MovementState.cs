@@ -10,6 +10,7 @@ namespace RogueLike.Player
         Walking,
         Running,
         Sliding,
+        Dashing,
         WallRunning
     }
 }

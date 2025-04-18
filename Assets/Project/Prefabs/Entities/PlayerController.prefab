@@ -182,7 +182,7 @@ MonoBehaviour:
   yRange: 75
   pm: {fileID: 7673975130547769438}
   cameraRoot: {fileID: 2193368421882999979}
-  cameraPitch: {fileID: 1477597775340241623}
+  cameraRotations: {fileID: 1477597775340241623}
 --- !u!1818360608 &604647174449740348
 PositionConstraint:
   m_ObjectHideFlags: 0
@@ -389,7 +389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1477597775340241623}
   m_Layer: 0
-  m_Name: CameraPitch
+  m_Name: CameraRotations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -501,6 +501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementStates:
   - {fileID: 11400000, guid: 5e4bcd4b83c261443b9414fe80298e6b, type: 2}
+  - {fileID: 11400000, guid: e28da9b0a8db01542a3770b3e1a28e1c, type: 2}
   - {fileID: 11400000, guid: be1dcc172ba00724ea9b156b06ecc9da, type: 2}
   - {fileID: 11400000, guid: 9d3d4af720a56e642b1fdbd0543cb6e0, type: 2}
   - {fileID: 11400000, guid: 1584499b6b911c740bb388239cf6a091, type: 2}
@@ -854,6 +855,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5f894750-e638-43dc-aaa3-f8adcfa8d833
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7673975130547769438}
+        m_TargetAssemblyTypeName: RogueLike.Player.PlayerMovement, DeadLink
+        m_MethodName: ReadInputDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 771cf6b3-0d6b-4faf-910b-697a2711a33f
+    m_ActionName: 'Player/Dash[/Keyboard/capsLock]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard and Mouse
   m_DefaultActionMap: Player
@@ -1117,10 +1134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64914c71e9454ffba3bfbf986bc3cfee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 1853930067422575411}
+  cameraRotations: {fileID: 1477597775340241623}
+  cameraRoot: {fileID: 2193368421882999979}
+  followPitch: 1
   headTransform: {fileID: 2065021886003205984}
   armOffset: -0.25
-  followPitch: 1
 --- !u!1001 &1000093656304823968
 PrefabInstance:
   m_ObjectHideFlags: 0

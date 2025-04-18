@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SceneLoader>k__BackingField: {fileID: 3979984848490167843, guid: a39c2f37b5967cf42a360df5d75d8c96, type: 3}
   <MainMenuScene>k__BackingField:
-    m_SceneAsset: {fileID: 102900000, guid: 8bc2888afa7440644bd7f6b05b451767, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: 29a5aee83d2e2224480ebced603fc37e, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/ZircliX/ZircliX.unity
+    m_ScenePath: Assets/Scenes/ZCX/ZircliX_New.unity
   <ShopScene>k__BackingField:
     m_SceneAsset: {fileID: 102900000, guid: df803c7c2336e7d419630f1fe8cc9bca, type: 3}
     m_IsDirty: 0
@@ -25,11 +25,13 @@ MonoBehaviour:
     m_SceneAsset: {fileID: 102900000, guid: 8bc2888afa7440644bd7f6b05b451767, type: 3}
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/ZircliX/ZircliX.unity
-  <HUD>k__BackingField: {fileID: 11400000, guid: dbea5b65fb6d5fa4192af463fff236f1, type: 2}
-  <Main>k__BackingField: {fileID: 11400000, guid: 8c73c9023678ccb4b86a4422c2f32837, type: 2}
-  <Pause>k__BackingField: {fileID: 11400000, guid: 97638f9619455f64b97d7c00e144f118, type: 2}
-  <Settings>k__BackingField: {fileID: 11400000, guid: 61e8a13d4abad89418df7511ed34ef5f, type: 2}
-  <Upgrades>k__BackingField: {fileID: 11400000, guid: 7949dcdc7f87fbb4b9d31c6865dcc52e, type: 2}
+  <HUDMenu>k__BackingField: {fileID: 11400000, guid: dbea5b65fb6d5fa4192af463fff236f1, type: 2}
+  <MainMenu>k__BackingField: {fileID: 11400000, guid: 8c73c9023678ccb4b86a4422c2f32837, type: 2}
+  <PauseMenu>k__BackingField: {fileID: 11400000, guid: 97638f9619455f64b97d7c00e144f118, type: 2}
+  <SettingsMenu>k__BackingField: {fileID: 11400000, guid: 61e8a13d4abad89418df7511ed34ef5f, type: 2}
+  <UpgradesMenu>k__BackingField: {fileID: 11400000, guid: 7949dcdc7f87fbb4b9d31c6865dcc52e, type: 2}
+  <PlayerVisitableType>k__BackingField: {fileID: 11400000, guid: 3d13c3099bcdef7438515d882b4ff2f8, type: 2}
+  <PlayerMovementVisitableType>k__BackingField: {fileID: 11400000, guid: 1211457f350d77c41ab7032f639a3553, type: 2}
   <test>k__BackingField:
     Guid:
       Data1: -790836542

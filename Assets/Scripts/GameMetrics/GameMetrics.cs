@@ -19,11 +19,11 @@ namespace RogueLike
         [field: SerializeField] public SceneReference LevelOne { get; private set; }
         
         [field: Header("Menus")]
-        [field: SerializeField] public MenuType HUD { get; private set; }
-        [field: SerializeField] public MenuType Main { get; private set; }
-        [field: SerializeField] public MenuType Pause { get; private set; }
-        [field: SerializeField] public MenuType Settings { get; private set; }
-        [field: SerializeField] public MenuType Upgrades { get; private set; }
+        [field: SerializeField] public MenuType HUDMenu { get; private set; }
+        [field: SerializeField] public MenuType MainMenu { get; private set; }
+        [field: SerializeField] public MenuType PauseMenu { get; private set; }
+        [field: SerializeField] public MenuType SettingsMenu { get; private set; }
+        [field: SerializeField] public MenuType UpgradesMenu { get; private set; }
         
         [field: Header("VisitableComponents")]
         

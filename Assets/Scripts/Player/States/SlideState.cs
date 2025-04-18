@@ -22,9 +22,8 @@ namespace RogueLike.Player.States
         [Header("Sliding")]
         [SerializeField] private float maxSlideTime = 1.5f;
 
-        [FormerlySerializedAs("CrouchCapsuleHeight")]
         [Header("Height")]
-        [SerializeField] private float crouchCapsuleHeight = 0.5f;
+        [SerializeField] private float crouchCapsuleHeight = 1f;
         [SerializeField] private  float crouchHeadHeight = 0f;
         
         private float currentSlideTime;
@@ -33,7 +32,7 @@ namespace RogueLike.Player.States
 
         public override void Initialize(PlayerMovement movement)
         {
-            cam = Camera.main;
+            cam = movement.Camera;
         }
 
         public override void Dispose(PlayerMovement movement)

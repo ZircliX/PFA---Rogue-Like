@@ -9,7 +9,7 @@ namespace RogueLike.Player.States
         
         public override void Initialize(PlayerMovement movement)
         {
-            cam = Camera.main;
+            cam = movement.Camera;
         }
 
         public override void Dispose(PlayerMovement movement)
@@ -36,6 +36,10 @@ namespace RogueLike.Player.States
             if (!movement.IsGrounded)
             {
                 return MovementState.Falling;
+            }
+            if (movement.WantsToDash)
+            {
+                return MovementState.Dashing;
             }
             if (movement.WantsToJump)
             {

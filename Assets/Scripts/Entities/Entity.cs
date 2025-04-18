@@ -124,19 +124,15 @@ namespace DeadLink.Entities
 
         protected virtual void Update()
         {
-            if (isShooting && CurrentWeapon != null)
-            {
-                if (currentShootTime >= CurrentWeapon.WeaponData.ShootRate)
-                {
-                    Shoot();
-                }
-                
+            if (CurrentWeapon == null) return;
+
+            if (currentShootTime > 0f)
                 currentShootTime -= Time.deltaTime;
 
-                if (currentShootTime <= 0)
-                {
-                    currentShootTime = CurrentWeapon.WeaponData.ShootRate;
-                }
+            if (isShooting && currentShootTime <= 0f)
+            {
+                Shoot();
+                currentShootTime = CurrentWeapon.WeaponData.ShootRate;
             }
         }
 

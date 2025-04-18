@@ -32,7 +32,7 @@ namespace RogueLike.Player.States
         
         public override void Initialize(PlayerMovement movement)
         {
-            cam = Camera.main;
+            cam = movement.Camera;
         }
 
         public override void Dispose(PlayerMovement movement)
@@ -59,13 +59,13 @@ namespace RogueLike.Player.States
             
             //Calculate wallrun direction
             Vector3 wallNormal = movement.WallNormal;
-            Vector3 ulongWallDirection = Vector3.Cross(wallNormal, movement.Gravity).normalized;
+            Vector3 longWallDirection = Vector3.Cross(wallNormal, movement.Gravity).normalized;
             
-            float angle = Vector3.Dot(ulongWallDirection, lastVelocity);
+            float angle = Vector3.Dot(longWallDirection, lastVelocity);
             if (angle < 0)
             {
                 //invert direction
-                ulongWallDirection = -ulongWallDirection;
+                longWallDirection = -longWallDirection;
             }
             
             //For inputs based movement
@@ -79,7 +79,7 @@ namespace RogueLike.Player.States
             //Velocities calculation
             Vector3 wallPullForce = wallPull * -wallNormal;
             Vector3 wallVelocity = lastVelocity.ProjectOntoPlane(wallNormal) + wallPullForce;
-            Vector3 targetSpeed = ulongWallDirection * wallrunSpeed;
+            Vector3 targetSpeed = longWallDirection * wallrunSpeed;
 
             //Sqr Magnitudes
             float wallVelocitySqrMagnitude = wallVelocity.sqrMagnitude;
@@ -88,7 +88,11 @@ namespace RogueLike.Player.States
             //Wanted speed
             if (Mathf.Approximately(directionSqrMagnitude, wallVelocitySqrMagnitude))
             {
-                targetSpeed = targetSpeed.ProjectOntoPlane(movement.Gravity.Value.normalized);
+                if (targetSpeed.y <= 0)
+                {
+                    targetSpeed = targetSpeed.ProjectOntoPlane(movement.Gravity.Value.normalized);
+                }
+                
                 return targetSpeed;
             }
             //Accelerate
@@ -108,7 +112,10 @@ namespace RogueLike.Player.States
             }
 
             Vector3 finalVelocity = Vector3.Lerp(wallVelocity, targetSpeed, modifier * deltaTime);
-            finalVelocity = finalVelocity.ProjectOntoPlane(movement.Gravity.Value.normalized);
+            if (finalVelocity.y <= 0)
+            {
+                finalVelocity = finalVelocity.ProjectOntoPlane(movement.Gravity.Value.normalized);
+            }
 
             return finalVelocity;
         }

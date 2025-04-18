@@ -17,7 +17,7 @@ namespace DeadLink.Menus.Implementation
 
         protected override void CheckMenuType(MenuType type)
         {
-            if (type == GameMetrics.Global.HUD)
+            if (type == GameMetrics.Global.HUDMenu)
             {
                 HUDMenu menu = new HUDMenu();
                 MenuManager.Instance.OpenMenu(menu, this);

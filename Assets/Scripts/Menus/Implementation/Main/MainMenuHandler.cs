@@ -17,7 +17,7 @@ namespace DeadLink.Menus.Implementation
 
         protected override void CheckMenuType(MenuType type)
         {
-            if (type == GameMetrics.Global.Main)
+            if (type == GameMetrics.Global.MainMenu)
             {
                 MainMenu menu = new MainMenu();
                 MenuManager.Instance.OpenMenu(menu, this);
@@ -51,7 +51,7 @@ namespace DeadLink.Menus.Implementation
 
         public void Settings()
         {
-            MenuManager.Instance.ChangeMenu(GameMetrics.Global.Settings);
+            MenuManager.Instance.ChangeMenu(GameMetrics.Global.SettingsMenu);
         }
     }
 }

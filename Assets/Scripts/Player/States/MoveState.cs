@@ -28,7 +28,7 @@ namespace RogueLike.Player.States
 
         public override void Initialize(PlayerMovement movement)
         {
-            cam = Camera.main;
+            cam = movement.Camera;
         }
 
         public override void Dispose(PlayerMovement movement)
