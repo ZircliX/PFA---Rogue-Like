@@ -26,7 +26,7 @@ namespace DeadLink.Menus.Implementation
         
         protected override void CheckMenuType(MenuType type)
         {
-            if (type == GameMetrics.Global.Upgrades)
+            if (type == GameMetrics.Global.UpgradesMenu)
             {
                 UpgradeMenu menu = new UpgradeMenu();
                 MenuManager.Instance.OpenMenu(menu, this);
