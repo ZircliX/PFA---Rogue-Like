@@ -40,12 +40,10 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Running;
             }
-            /*
-            if (movement.IsWalled && movement.CurrentWall != null)
+            if (movement.WantsToDash)
             {
-                return MovementState.WallRunning;
+                return MovementState.Dashing;
             }
-            */
             if (movement.InputDirection.sqrMagnitude < PlayerMovement.MIN_THRESHOLD)
             {
                 //Debug.Log("HAAAAAAA");

@@ -36,6 +36,7 @@ namespace RogueLike.Entities
 
         private void OnDisable()
         {
+            if (!VisitableReferenceManager.HasInstance) return;
             VisitableReferenceManager.Instance.UnregisterComponent(GameMetrics.Global.PlayerVisitableType);
         }
 

@@ -68,6 +68,10 @@ namespace RogueLike.Player.States
             {
                 return MovementState.WallRunning;
             }
+            if (movement.WantsToDash)
+            {
+                return MovementState.Dashing;
+            }
 
             return State;
         }

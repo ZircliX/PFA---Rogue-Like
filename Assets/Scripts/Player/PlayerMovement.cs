@@ -58,7 +58,7 @@ namespace RogueLike.Player
         private Dictionary<string, IVisitor> unlockedPowerUps;
 
         private int remainingJump;
-        private int remainingDash;
+        private int remainingDash = 1;
         public void AddBonusJump(int value) => remainingJump += value;
         public void AddBonusDash(int value) => remainingDash += value;
 
@@ -120,6 +120,9 @@ namespace RogueLike.Player
         public bool WantsToJump => jumpInput > 0;
         private int slideInput;
         public bool WantsToSlide => slideInput > 0;
+
+        private bool dashInput;
+        public bool WantsToDash => remainingDash > 0 && dashInput;
         
         #endregion
 
@@ -153,7 +156,11 @@ namespace RogueLike.Player
 
         private void OnEnable() => VisitableReferenceManager.Instance.RegisterComponent(GameMetrics.Global.PlayerMovementVisitableType, this);
 
-        private void OnDisable() => VisitableReferenceManager.Instance.UnregisterComponent(GameMetrics.Global.PlayerMovementVisitableType);
+        private void OnDisable()
+        {
+            if (!VisitableReferenceManager.HasInstance) return;
+            VisitableReferenceManager.Instance.UnregisterComponent(GameMetrics.Global.PlayerMovementVisitableType);
+        }
 
         private void Start() => SetMovementState(MovementState.Walking);
 
@@ -475,7 +482,20 @@ namespace RogueLike.Player
             }
         }
 
+        public void ReadInputDash(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                //Debug.Log("Dash = true");
+                dashInput = true;
+            }
+            else if (context.canceled)
+            {
+                dashInput = false;
+            }
+        }
+
         #endregion
-        
+
     }
 }
