@@ -52,19 +52,12 @@ namespace RogueLike.Entities
             if (context.performed && CurrentWeapon != null)
             {
                 isShooting = true;
-                currentShootTime = CurrentWeapon.WeaponData.ShootRate;
             }
-            else
+
+            if (context.canceled)
             {
                 isShooting = false;
             }
-        }
-
-        public override void Die()
-        {
-            base.Die();
-            
-            
         }
 
         public override void Unlock(IVisitor visitor)
@@ -73,9 +66,9 @@ namespace RogueLike.Entities
             unlockedPowerUps.Add(visitor.Name, visitor);
         }
 
-        public override void Use(string name)
+        public override void Use(string powerUpName)
         {
-            unlockedPowerUps[name].OnBeUsed(this);
+            unlockedPowerUps[powerUpName].OnBeUsed(this);
         }
     }
 }

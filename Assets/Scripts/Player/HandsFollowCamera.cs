@@ -4,11 +4,14 @@ namespace DeadLink.Player
 {
     public class HandsFollowCamera : MonoBehaviour
     {
+        [Header("Follow Rotation")]
         [SerializeField] private Transform cameraRotations;
         [SerializeField] private Transform cameraRoot;
+        [SerializeField] private bool followPitch = true;
+        
+        [Header("Follow Position")]
         [SerializeField] private Transform headTransform;
         [SerializeField] private float armOffset = -0.25f;
-        [SerializeField] private bool followPitch = true;
 
         private void LateUpdate()
         {
