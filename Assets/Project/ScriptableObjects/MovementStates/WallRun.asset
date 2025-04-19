@@ -68,4 +68,4 @@ MonoBehaviour:
   decelerationDuration: 0.5
   deceleration: 2
   decelerationThreshold: 0.5
-  wallPull: 0.25
+  wallPull: 1

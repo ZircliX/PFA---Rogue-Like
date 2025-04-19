@@ -514,15 +514,14 @@ MonoBehaviour:
   <GroundLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 128
-  wallCastSample: 5
-  wallCastDistance: 1.25
-  wallCastAngle: 50
+  wallCastSample: 30
+  wallCastDistance: 1.5
+  wallCastAngle: 75
   wallrunExitTime: 1
   wallrunMinHeight: 2.25
   <WallLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 512
-  <IsWalled>k__BackingField: 0
   gravityScale: 2.75
   gravityAlignSpeed: 5
   coyoteTime: 10
@@ -1073,6 +1072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 7880227904453035219}
   camFollow: {fileID: 4507630780164737054}
+  camRecomposer: {fileID: 2116268018863381272}
 --- !u!114 &4507630780164737054
 MonoBehaviour:
   m_ObjectHideFlags: 0

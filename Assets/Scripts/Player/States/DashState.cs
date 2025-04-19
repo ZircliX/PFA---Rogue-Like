@@ -29,13 +29,13 @@ namespace RogueLike.Player.States
             currentDashTime = 0;
             direction = GetCameraDirection(movement, Vector2.up);
             
-            Debug.Log("Enter Dash");
+            //Debug.Log("Enter Dash");
         }
 
         public override void Exit(PlayerMovement movement)
         {
             currentDashTime = 0;
-            Debug.Log("Exit Dash");
+            //Debug.Log("Exit Dash");
         }
 
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)

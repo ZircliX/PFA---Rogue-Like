@@ -1,3 +1,5 @@
+using DeadLink.Cameras;
+using LTX.ChanneledProperties;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -28,8 +30,9 @@ namespace RogueLike.Player.States
         [SerializeField] private float wallPull;
         
         private Vector3 direction;
+        private Vector3 wallNormal;
         private Camera cam;
-        
+
         public override void Initialize(PlayerMovement movement)
         {
             cam = movement.Camera;
@@ -42,15 +45,26 @@ namespace RogueLike.Player.States
         public override void Enter(PlayerMovement movement)
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
+            wallNormal = movement.WallNormal;
             
             currentAcceleration = 0;
             currentDeceleration = 0;
+            
+            CameraController.Instance.CameraEffectProperty.AddPriority(this, PriorityTags.Highest);
+
+            Vector3 cross = Vector3.Cross(wallNormal, movement.Gravity.Value.normalized);
+            float dot = Vector3.Dot(cross, movement.CurrentVelocity.Value.normalized);
+            CameraEffectComposite cameraEffectComposite = new CameraEffectComposite(dot > 0 ? 20 : -20, 1.15f, 0.35f);
+            CameraController.Instance.CameraEffectProperty.Write(this, cameraEffectComposite);
         }
 
         public override void Exit(PlayerMovement movement)
         {
             currentAcceleration = 0;
             currentDeceleration = 0;
+            
+            CameraController.Instance.CameraEffectProperty.Write(this, CameraEffectComposite.Default);
+            CameraController.Instance.CameraEffectProperty.RemovePriority(this);
         }
 
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
@@ -58,14 +72,13 @@ namespace RogueLike.Player.States
             Vector3 lastVelocity = movement.StateVelocity;
             
             //Calculate wallrun direction
-            Vector3 wallNormal = movement.WallNormal;
-            Vector3 longWallDirection = Vector3.Cross(wallNormal, movement.Gravity).normalized;
+            Vector3 alongWallDirection = Vector3.Cross(wallNormal, movement.Gravity).normalized;
             
-            float angle = Vector3.Dot(longWallDirection, lastVelocity);
+            float angle = Vector3.Dot(alongWallDirection, lastVelocity);
             if (angle < 0)
             {
                 //invert direction
-                longWallDirection = -longWallDirection;
+                alongWallDirection = -alongWallDirection;
             }
             
             //For inputs based movement
@@ -79,7 +92,7 @@ namespace RogueLike.Player.States
             //Velocities calculation
             Vector3 wallPullForce = wallPull * -wallNormal;
             Vector3 wallVelocity = lastVelocity.ProjectOntoPlane(wallNormal) + wallPullForce;
-            Vector3 targetSpeed = longWallDirection * wallrunSpeed;
+            Vector3 targetSpeed = alongWallDirection * wallrunSpeed;
 
             //Sqr Magnitudes
             float wallVelocitySqrMagnitude = wallVelocity.sqrMagnitude;

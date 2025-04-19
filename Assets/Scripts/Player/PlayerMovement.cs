@@ -45,7 +45,7 @@ namespace RogueLike.Player
         [SerializeField] private float wallrunExitTime = 1;
         [SerializeField] private float wallrunMinHeight = 1.5f;
         [field: SerializeField] public LayerMask WallLayer { get; private set; }
-        [field: SerializeField] public bool IsWalled { get; private set; }
+        public bool IsWalled { get; private set; }
         public Vector3 WallNormal { get; private set; }
         public Collider CurrentWall { get; private set; }
         private float currentWallrunExitTime;
