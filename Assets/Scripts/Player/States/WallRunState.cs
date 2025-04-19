@@ -1,5 +1,5 @@
 using DeadLink.Cameras;
-using LTX.ChanneledProperties;
+using DeadLink.Cameras.Data;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -8,6 +8,9 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/WallRun")]
     public class WallRunState : MovementStateBehavior
     {
+        [field: Header("Camera Effects")]
+        [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
+        
         [Header("Speed")] 
         [SerializeField] private float wallrunSpeed;
         [SerializeField] private float minWallrunSpeed;
@@ -49,22 +52,26 @@ namespace RogueLike.Player.States
             
             currentAcceleration = 0;
             currentDeceleration = 0;
-            
-            CameraController.Instance.CameraEffectProperty.AddPriority(this, PriorityTags.Highest);
-
-            Vector3 cross = Vector3.Cross(wallNormal, movement.Gravity.Value.normalized);
-            float dot = Vector3.Dot(cross, movement.CurrentVelocity.Value.normalized);
-            CameraEffectComposite cameraEffectComposite = new CameraEffectComposite(dot > 0 ? 20 : -20, 1.15f, 0.35f);
-            CameraController.Instance.CameraEffectProperty.Write(this, cameraEffectComposite);
         }
 
         public override void Exit(PlayerMovement movement)
         {
             currentAcceleration = 0;
             currentDeceleration = 0;
+        }
+
+        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        {
+            Vector3 cross = Vector3.Cross(wallNormal, movement.Gravity.Value.normalized);
+            float dot = Vector3.Dot(cross, movement.CurrentVelocity.Value.normalized);
+
+            CameraEffectComposite comp = CameraEffectData.CameraEffectComposite;
+            CameraEffectComposite cameraEffectComposite = new CameraEffectComposite(
+                dot > 0 ? comp.Dutch : -comp.Dutch, 
+                comp.FovScale, 
+                comp.Speed);
             
-            CameraController.Instance.CameraEffectProperty.Write(this, CameraEffectComposite.Default);
-            CameraController.Instance.CameraEffectProperty.RemovePriority(this);
+            return cameraEffectComposite;
         }
 
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)

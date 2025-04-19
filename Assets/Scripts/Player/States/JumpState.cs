@@ -1,3 +1,4 @@
+using DeadLink.Cameras;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -74,6 +75,11 @@ namespace RogueLike.Player.States
             }
 
             return State;
+        }
+        
+        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        {
+            return CameraEffectData.CameraEffectComposite;
         }
 
         public override MovementState State => MovementState.Jumping;

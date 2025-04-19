@@ -1,3 +1,5 @@
+using DeadLink.Cameras;
+using DeadLink.Cameras.Data;
 using UnityEngine;
 
 namespace RogueLike.Player
@@ -14,6 +16,8 @@ namespace RogueLike.Player
         public abstract MovementState GetNextState(PlayerMovement movement);
 
         public abstract (float, float) GetHeight(PlayerMovement movement);
+
+        public abstract CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime);
 
         protected virtual Vector3 GetCameraDirection(PlayerMovement movement, Vector2 direction)
         {

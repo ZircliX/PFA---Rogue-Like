@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03bc9683992043719978b6c8fe2b74a1, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: 
+  <CameraEffectData>k__BackingField: {fileID: 11400000, guid: c65ff503361b3aa49acc875004a41978, type: 2}
   dashSpeed: 27.5
   accelerationCurve:
     serializedVersion: 2

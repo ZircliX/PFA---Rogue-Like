@@ -44,7 +44,7 @@ namespace DeadLink
             }
             if (Input.GetKeyDown(KeyCode.Keypad7))
             {
-                Teleport(teleports[7]);
+                //Teleport(teleports[7]);
             }
             if (Input.GetKeyDown(KeyCode.Keypad8))
             {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DeadLink.Cameras;
 using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using KBCore.Refs;
@@ -137,6 +138,7 @@ namespace RogueLike.Player
             CurrentVelocity = new InfluencedProperty<Vector3>(Vector3.zero);
             stateChannelKey = ChannelKey.GetUniqueChannelKey();
             CurrentVelocity.AddInfluence(stateChannelKey, Influence.Add, 1, 0);
+            CameraController.Instance.CameraEffectProperty.AddPriority(stateChannelKey, PriorityTags.High);
 
             PlayerHeight = new PrioritisedProperty<(float, float)>((BaseCapsuleHeight, BaseHeadHeight));
             PlayerHeight.AddPriority(stateChannelKey, PriorityTags.Default);
@@ -200,6 +202,8 @@ namespace RogueLike.Player
             Vector3 stateVelocity = state.GetVelocity(this, deltaTime, ref stateGravityScale);
             stateVelocity += Gravity.Value * (stateGravityScale * gravityScale * deltaTime);
             CurrentVelocity.Write(stateChannelKey, stateVelocity);
+            CameraController.Instance.CameraEffectProperty.Write(stateChannelKey,
+                state.GetCameraEffects(this, Time.deltaTime));
 
             MovePlayer();
             HandleGravityOrientation();

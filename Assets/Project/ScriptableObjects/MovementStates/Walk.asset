@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0342c04d4235429ca0e0d9fdef82def4, type: 3}
   m_Name: Walk
   m_EditorClassIdentifier: 
+  <CameraEffectData>k__BackingField: {fileID: 11400000, guid: 868c4dcec8d35de4ca89c896fd1a3935, type: 2}
   maxSpeed: 6
   directionControl: 20
   accelerationCurve:

@@ -237,8 +237,6 @@ MonoBehaviour:
   <BulletSpawnPoint>k__BackingField: {fileID: 4920110872866301380}
   <Weapons>k__BackingField:
   - {fileID: 0}
-  <VFXToSpawn>k__BackingField: {fileID: 0}
-  <DelayAfterDestroyVFX>k__BackingField: 2
   <Cost>k__BackingField: 0
   rayfireRigid: {fileID: 1613652779611018671}
 --- !u!114 &-3199065032243081750
@@ -292,7 +290,7 @@ MonoBehaviour:
   initialization: 0
   simTp: 0
   objTp: 0
-  dmlTp: 0
+  dmlTp: 1
   physics:
     mt: 4
     ma: {fileID: 0}
