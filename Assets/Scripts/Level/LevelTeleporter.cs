@@ -14,45 +14,16 @@ namespace DeadLink
         
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Keypad0))
+            for (int i = 0; i <= 9; i++)
             {
-                Teleport(teleports[0]);
-            }
-            if (Input.GetKeyDown(KeyCode.Keypad1))
-            {
-                Teleport(teleports[1]);
-            }
-            if (Input.GetKeyDown(KeyCode.Keypad2))
-            {
-                Teleport(teleports[2]);
-            }
-            if (Input.GetKeyDown(KeyCode.Keypad3))
-            {
-                Teleport(teleports[3]);
-            }
-            if (Input.GetKeyDown(KeyCode.Keypad4))
-            {
-                Teleport(teleports[4]);
-            }
-            if (Input.GetKeyDown(KeyCode.Keypad5))
-            {
-                Teleport(teleports[5]);
-            }
-            if (Input.GetKeyDown(KeyCode.Keypad6))
-            {
-                Teleport(teleports[6]);
-            }
-            if (Input.GetKeyDown(KeyCode.Keypad7))
-            {
-                //Teleport(teleports[7]);
-            }
-            if (Input.GetKeyDown(KeyCode.Keypad8))
-            {
-                Teleport(teleports[8]);
-            }
-            if (Input.GetKeyDown(KeyCode.Keypad9))
-            {
-                Teleport(teleports[9]);
+                if (Input.GetKeyDown(KeyCode.Keypad0 + i))
+                {
+                    if (i < teleports.Length)
+                    {
+                        Teleport(teleports[i]);
+                    }
+                    break;
+                }
             }
         }
 

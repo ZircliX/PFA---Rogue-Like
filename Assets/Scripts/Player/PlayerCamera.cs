@@ -19,6 +19,8 @@ namespace RogueLike.Player
 
         [SerializeField] private Transform cameraRoot;
         [SerializeField] private Transform cameraRotations;
+        [SerializeField] private Transform shouldersRoot;
+        [SerializeField] private Transform armsRotation;
         
         private void Update()
         {
@@ -35,9 +37,11 @@ namespace RogueLike.Player
 
             Quaternion look = Quaternion.LookRotation(forward, up);
             cameraRoot.rotation = Quaternion.Slerp(cameraRoot.rotation, look, gravityAlignSpeed * Time.deltaTime);
-
+            shouldersRoot.rotation = Quaternion.Slerp(shouldersRoot.rotation, look, gravityAlignSpeed * Time.deltaTime);
+            
             Quaternion rot = localYaw * localPitch;
             cameraRotations.localRotation = rot;
+            armsRotation.localRotation = rot;
         }
 
         public void OnLookX(InputAction.CallbackContext context)

@@ -9,13 +9,6 @@ namespace RogueLike.Player.States
     {
         [field: Header("Camera Effects")]
         [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
-        
-        private Camera cam;
-        
-        public override void Initialize(PlayerMovement movement)
-        {
-            cam = movement.Camera;
-        }
 
         public override void Dispose(PlayerMovement movement)
         {

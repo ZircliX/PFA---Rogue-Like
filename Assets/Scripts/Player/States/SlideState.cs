@@ -33,12 +33,6 @@ namespace RogueLike.Player.States
         
         private float currentSlideTime;
         private Vector3 direction;
-        private Camera cam;
-
-        public override void Initialize(PlayerMovement movement)
-        {
-            cam = movement.Camera;
-        }
 
         public override void Dispose(PlayerMovement movement)
         {

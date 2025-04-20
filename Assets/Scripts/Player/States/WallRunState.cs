@@ -34,12 +34,6 @@ namespace RogueLike.Player.States
         
         private Vector3 direction;
         private Vector3 wallNormal;
-        private Camera cam;
-
-        public override void Initialize(PlayerMovement movement)
-        {
-            cam = movement.Camera;
-        }
 
         public override void Dispose(PlayerMovement movement)
         {

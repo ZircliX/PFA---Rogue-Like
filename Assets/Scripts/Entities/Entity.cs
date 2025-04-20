@@ -1,4 +1,6 @@
 using DeadLink.Entities.Data;
+using DeadLink.Menus;
+using DeadLink.Menus.Implementation;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using DeadLink.Weapons;
 using Enemy;
@@ -35,7 +37,7 @@ namespace DeadLink.Entities
             Speed = new InfluencedProperty<float>(EntityData.BaseSpeed);
             HealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
 
-            ChangeWeapon(0);
+            ChangeWeapon(1);
             transform.position = SpawnPosition;
 
             SetFullHealth();
@@ -104,6 +106,15 @@ namespace DeadLink.Entities
                 newIndex += Weapons.Length;
             }
 
+            if (MenuManager.TryGetMenuHandler<HUDMenuHandler, HUDMenuContext>(out HUDMenuHandler menu))
+            {
+                menu.SetCrossHair(newIndex);
+            }
+            else
+            {
+                Debug.LogWarning("Cannot find HUDMenuHandler");
+            }
+            
             CurrentWeapon = Weapons[newIndex];
             CurrentWeapon.gameObject.SetActive(true);
         }
