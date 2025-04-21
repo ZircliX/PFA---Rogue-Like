@@ -9,8 +9,6 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
     public class DashPowerUp : PowerUp
     {
         [field: SerializeField] public int BonusDashCount { get; private set; } = 1;
-        public override string Name { get; set; } = "DashPowerUp";
-
 
         public override void OnBeUnlocked(IVisitable visitable)
         {
