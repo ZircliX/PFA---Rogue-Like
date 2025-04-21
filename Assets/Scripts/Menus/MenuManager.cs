@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DeadLink.Menus.Implementation;
 using DeadLink.Menus.Interfaces;
 using LTX.ChanneledProperties;
 using LTX.Singletons;
@@ -35,16 +36,33 @@ namespace DeadLink.Menus
             menuRunners = new Stack<MenuInfoCarryMoi>();
         }
 
+        public static bool TryGetMenuHandler<THandler, TContext>(out THandler handler)
+            where THandler : MenuHandler<TContext>
+            where TContext : IMenuContext
+        {
+            THandler menuObj = FindAnyObjectByType<THandler>();
+            
+            if (menuObj != null)
+            {
+                handler = menuObj;
+                return true;
+            }
+
+            handler = null;
+            return false;
+        }
+        
         public void OpenMenu<T>(Menu<T> menu, MenuHandler<T> handler)
             where T : IMenuContext
         {
             MenuRunner<T> menuRunner = new MenuRunner<T>(menu, handler);
 
-            menuRunners.Push(new MenuInfoCarryMoi()
+            MenuInfoCarryMoi menuInfos = new MenuInfoCarryMoi()
             {
                 Runner = menuRunner,
-                Context = handler.GetContext()
-            });
+                Context = handler.GetContext(),
+            };
+            menuRunners.Push(menuInfos);
             menuRunner.Open();
 
             currentMenuRunner = menuRunner;

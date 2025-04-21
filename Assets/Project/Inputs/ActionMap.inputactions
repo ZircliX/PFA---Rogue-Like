@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Run",
+                    "name": "Walk",
                     "type": "Button",
                     "id": "742891ed-3345-4251-b289-da8e9bc08864",
                     "expectedControlType": "",
@@ -108,6 +108,15 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "5f894750-e638-43dc-aaa3-f8adcfa8d833",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "28aeb271-3226-487d-a8eb-d8e2b9ef65b1",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -254,7 +263,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Controller",
-                    "action": "Run",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -265,14 +274,14 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard and Mouse",
-                    "action": "Run",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "2fd28f98-514b-48bd-aefd-9887f7e12d48",
-                    "path": "<Keyboard>/g",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard and Mouse",
@@ -360,7 +369,7 @@
                 {
                     "name": "",
                     "id": "f140b947-df84-4873-9f7c-b3bb8bc87146",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/t",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard and Mouse",
@@ -495,7 +504,7 @@
                     "path": "<Keyboard>/capsLock",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard and Mouse",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -506,8 +515,30 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Controller",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "74d10075-2a28-4e52-ac44-89c68578d63b",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard and Mouse",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "caef158d-1c77-4ca1-b8f7-4000e9b9910a",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Controller",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

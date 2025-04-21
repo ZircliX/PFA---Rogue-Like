@@ -24,12 +24,6 @@ namespace RogueLike.Player.States
         [SerializeField] private float maxStepHeight;
 
         private Vector3 direction;
-        private Camera cam;
-
-        public override void Initialize(PlayerMovement movement)
-        {
-            cam = movement.Camera;
-        }
 
         public override void Dispose(PlayerMovement movement)
         {

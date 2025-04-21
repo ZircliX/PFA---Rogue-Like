@@ -16,6 +16,7 @@ namespace DeadLink.Weapons.Data
         
         [field: Header("Shoot Stats")]
         [field : SerializeField] public float ShootRate { get; private set; }
+        [field : SerializeField] public int MaxAmmunition { get; private set; }
         
         
         [field: Header("Prefab")]

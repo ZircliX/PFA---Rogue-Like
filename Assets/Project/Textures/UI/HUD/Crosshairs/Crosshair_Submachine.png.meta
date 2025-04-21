@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
@@ -108,7 +108,117 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Crosshair_Submachine_0
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 84
+        width: 8
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2622b8efc59af124689c60b6cc732203
+      internalID: 843661316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Crosshair_Submachine_1
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 60
+        width: 41
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 085c06e66e543ac458dd4bfd8e01cd3c
+      internalID: -643974457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Crosshair_Submachine_2
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 60
+        width: 41
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4ea328179584fa4cbed9cf2ec5b4999
+      internalID: -1277093028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Crosshair_Submachine_3
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 3
+        width: 8
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99dfbb919de648d4ba0c18fe50fb9925
+      internalID: -1410438114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Crosshair_Submachine_4
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 58
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 534529ed24f12fb45814df0812045014
+      internalID: -2130168949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -122,7 +232,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Crosshair_Submachine_0: 843661316
+      Crosshair_Submachine_1: -643974457
+      Crosshair_Submachine_2: -1277093028
+      Crosshair_Submachine_3: -1410438114
+      Crosshair_Submachine_4: -2130168949
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

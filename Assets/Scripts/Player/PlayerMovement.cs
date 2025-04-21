@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DeadLink.Cameras;
 using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using KBCore.Refs;
@@ -45,7 +46,7 @@ namespace RogueLike.Player
         [SerializeField] private float wallrunExitTime = 1;
         [SerializeField] private float wallrunMinHeight = 1.5f;
         [field: SerializeField] public LayerMask WallLayer { get; private set; }
-        [field: SerializeField] public bool IsWalled { get; private set; }
+        public bool IsWalled { get; private set; }
         public Vector3 WallNormal { get; private set; }
         public Collider CurrentWall { get; private set; }
         private float currentWallrunExitTime;
@@ -108,7 +109,7 @@ namespace RogueLike.Player
 
         #region Movement Inputs
         
-        public bool RunInput { get; private set; }
+        public bool WalkInput { get; private set; }
         public bool CrouchInput { get; private set; }
 
         public bool WantsToWallrun => IsWalled &&
@@ -137,6 +138,7 @@ namespace RogueLike.Player
             CurrentVelocity = new InfluencedProperty<Vector3>(Vector3.zero);
             stateChannelKey = ChannelKey.GetUniqueChannelKey();
             CurrentVelocity.AddInfluence(stateChannelKey, Influence.Add, 1, 0);
+            CameraController.Instance.CameraEffectProperty.AddPriority(stateChannelKey, PriorityTags.High);
 
             PlayerHeight = new PrioritisedProperty<(float, float)>((BaseCapsuleHeight, BaseHeadHeight));
             PlayerHeight.AddPriority(stateChannelKey, PriorityTags.Default);
@@ -200,6 +202,8 @@ namespace RogueLike.Player
             Vector3 stateVelocity = state.GetVelocity(this, deltaTime, ref stateGravityScale);
             stateVelocity += Gravity.Value * (stateGravityScale * gravityScale * deltaTime);
             CurrentVelocity.Write(stateChannelKey, stateVelocity);
+            CameraController.Instance.CameraEffectProperty.Write(stateChannelKey,
+                state.GetCameraEffects(this, Time.deltaTime));
 
             MovePlayer();
             HandleGravityOrientation();
@@ -288,6 +292,7 @@ namespace RogueLike.Player
 
             if (nextState != CurrentState)
             {
+                //Debug.Log($"Current State: {CurrentState} => Next State: {nextState}");
                 SetMovementState(nextState);
             }
         }
@@ -460,7 +465,7 @@ namespace RogueLike.Player
 
         public void ReadInputRun(InputAction.CallbackContext context)
         {
-            RunInput = context.performed;
+            WalkInput = context.performed;
         }
 
         public void ReadInputCrouch(InputAction.CallbackContext context)

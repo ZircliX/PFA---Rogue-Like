@@ -9,10 +9,6 @@ namespace DeadLink.Weapons.WeaponsClass
         {
             base.Fire(entity, direction);
         }
-
-        public override void Reload()
-        {
-            
-        }
+        
     }
 }

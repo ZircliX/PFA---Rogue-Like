@@ -1,3 +1,5 @@
+using DeadLink.Cameras;
+using DeadLink.Cameras.Data;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -5,6 +7,9 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Dash")]
     public class DashState : MovementStateBehavior
     {
+        [field: Header("Camera Effects")]
+        [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
+        
         [Header("Speed")]
         [SerializeField] private float dashSpeed;
         [SerializeField] private AnimationCurve accelerationCurve;
@@ -12,13 +17,7 @@ namespace RogueLike.Player.States
         
         private float currentDashTime;
         private Vector3 direction;
-        private Camera cam;
         
-        public override void Initialize(PlayerMovement movement)
-        {
-            cam = movement.Camera;
-        }
-
         public override void Dispose(PlayerMovement movement)
         {
             
@@ -29,13 +28,13 @@ namespace RogueLike.Player.States
             currentDashTime = 0;
             direction = GetCameraDirection(movement, Vector2.up);
             
-            Debug.Log("Enter Dash");
+            //Debug.Log("Enter Dash");
         }
 
         public override void Exit(PlayerMovement movement)
         {
             currentDashTime = 0;
-            Debug.Log("Exit Dash");
+            //Debug.Log("Exit Dash");
         }
 
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
@@ -53,6 +52,11 @@ namespace RogueLike.Player.States
 
             currentDashTime += deltaTime;
             return targetVelocity;
+        }
+        
+        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        {
+            return CameraEffectData.CameraEffectComposite;
         }
 
         public override MovementState GetNextState(PlayerMovement movement)

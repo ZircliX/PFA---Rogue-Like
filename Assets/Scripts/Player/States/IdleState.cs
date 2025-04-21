@@ -1,3 +1,5 @@
+using DeadLink.Cameras;
+using DeadLink.Cameras.Data;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -5,12 +7,8 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Idle")]
     public class IdleState : MovementStateBehavior
     {
-        private Camera cam;
-        
-        public override void Initialize(PlayerMovement movement)
-        {
-            cam = movement.Camera;
-        }
+        [field: Header("Camera Effects")]
+        [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
 
         public override void Dispose(PlayerMovement movement)
         {
@@ -51,8 +49,7 @@ namespace RogueLike.Player.States
             }
             if (movement.InputDirection.sqrMagnitude > PlayerMovement.MIN_THRESHOLD)
             {
-                //Debug.Log("WHUTTTTT");
-                return MovementState.Walking;
+                return MovementState.Running;
             }
 
             return State;
@@ -61,6 +58,11 @@ namespace RogueLike.Player.States
         public override (float, float) GetHeight(PlayerMovement movement)
         {
             return (movement.BaseCapsuleHeight, movement.BaseHeadHeight);
+        }
+
+        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        {
+            return CameraEffectData.CameraEffectComposite;
         }
 
         public override MovementState State => MovementState.Idle;

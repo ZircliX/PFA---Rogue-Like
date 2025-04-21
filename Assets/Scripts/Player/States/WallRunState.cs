@@ -1,3 +1,5 @@
+using DeadLink.Cameras;
+using DeadLink.Cameras.Data;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -6,6 +8,9 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/WallRun")]
     public class WallRunState : MovementStateBehavior
     {
+        [field: Header("Camera Effects")]
+        [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
+        
         [Header("Speed")] 
         [SerializeField] private float wallrunSpeed;
         [SerializeField] private float minWallrunSpeed;
@@ -28,12 +33,7 @@ namespace RogueLike.Player.States
         [SerializeField] private float wallPull;
         
         private Vector3 direction;
-        private Camera cam;
-        
-        public override void Initialize(PlayerMovement movement)
-        {
-            cam = movement.Camera;
-        }
+        private Vector3 wallNormal;
 
         public override void Dispose(PlayerMovement movement)
         {
@@ -42,6 +42,7 @@ namespace RogueLike.Player.States
         public override void Enter(PlayerMovement movement)
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
+            wallNormal = movement.WallNormal;
             
             currentAcceleration = 0;
             currentDeceleration = 0;
@@ -53,19 +54,32 @@ namespace RogueLike.Player.States
             currentDeceleration = 0;
         }
 
+        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        {
+            Vector3 cross = Vector3.Cross(wallNormal, movement.Gravity.Value.normalized);
+            float dot = Vector3.Dot(cross, movement.CurrentVelocity.Value.normalized);
+
+            CameraEffectComposite comp = CameraEffectData.CameraEffectComposite;
+            CameraEffectComposite cameraEffectComposite = new CameraEffectComposite(
+                dot > 0 ? comp.Dutch : -comp.Dutch, 
+                comp.FovScale, 
+                comp.Speed);
+            
+            return cameraEffectComposite;
+        }
+
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
             Vector3 lastVelocity = movement.StateVelocity;
             
             //Calculate wallrun direction
-            Vector3 wallNormal = movement.WallNormal;
-            Vector3 longWallDirection = Vector3.Cross(wallNormal, movement.Gravity).normalized;
+            Vector3 alongWallDirection = Vector3.Cross(wallNormal, movement.Gravity).normalized;
             
-            float angle = Vector3.Dot(longWallDirection, lastVelocity);
+            float angle = Vector3.Dot(alongWallDirection, lastVelocity);
             if (angle < 0)
             {
                 //invert direction
-                longWallDirection = -longWallDirection;
+                alongWallDirection = -alongWallDirection;
             }
             
             //For inputs based movement
@@ -79,7 +93,7 @@ namespace RogueLike.Player.States
             //Velocities calculation
             Vector3 wallPullForce = wallPull * -wallNormal;
             Vector3 wallVelocity = lastVelocity.ProjectOntoPlane(wallNormal) + wallPullForce;
-            Vector3 targetSpeed = longWallDirection * wallrunSpeed;
+            Vector3 targetSpeed = alongWallDirection * wallrunSpeed;
 
             //Sqr Magnitudes
             float wallVelocitySqrMagnitude = wallVelocity.sqrMagnitude;
@@ -131,6 +145,12 @@ namespace RogueLike.Player.States
             {
                 movement.ExitWallrun();
                 return MovementState.Falling;
+            }
+
+            if (movement.WantsToDash)
+            {
+                movement.ExitWallrun();
+                return MovementState.Dashing;
             }
 
             Vector3 wallNormal = movement.WallNormal;

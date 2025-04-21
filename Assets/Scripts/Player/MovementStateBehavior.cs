@@ -1,10 +1,16 @@
+using DeadLink.Cameras;
 using UnityEngine;
 
 namespace RogueLike.Player
 {
     public abstract class MovementStateBehavior : ScriptableObject
     {
-        public abstract void Initialize(PlayerMovement movement);
+        protected Camera cam;
+
+        public virtual void Initialize(PlayerMovement movement)
+        {
+            cam = movement.Camera;
+        }
         public abstract void Dispose(PlayerMovement movement);
 
         public abstract void Enter(PlayerMovement movement);
@@ -15,18 +21,18 @@ namespace RogueLike.Player
 
         public abstract (float, float) GetHeight(PlayerMovement movement);
 
+        public abstract CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime);
+
         protected virtual Vector3 GetCameraDirection(PlayerMovement movement, Vector2 direction)
         {
-            Camera movementCamera = movement.Camera;
-            
-            Vector3 worldInputs = movementCamera.transform.right * direction.x;
-            float cameraDotProduct = Vector3.Dot(movementCamera.transform.forward, -movement.Gravity.Value.normalized);
+            Vector3 worldInputs = cam.transform.right * direction.x;
+            float cameraDotProduct = Vector3.Dot(cam.transform.forward, -movement.Gravity.Value.normalized);
             
             worldInputs += cameraDotProduct switch
             {
-                < -0.8f => movementCamera.transform.up,
-                > 0.8f => -movementCamera.transform.up,
-                _ => movementCamera.transform.forward
+                < -0.8f => cam.transform.up,
+                > 0.8f => -cam.transform.up,
+                _ => cam.transform.forward
             } * direction.y;
             
             return worldInputs;

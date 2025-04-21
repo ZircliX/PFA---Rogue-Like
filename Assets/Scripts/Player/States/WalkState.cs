@@ -1,3 +1,5 @@
+using DeadLink.Cameras;
+using DeadLink.Cameras.Data;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -5,6 +7,9 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Walk")]
     public class WalkState : MoveState
     {
+        [field: Header("Camera Effects")]
+        [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
+        
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
             gravityScale = 0;
@@ -36,7 +41,7 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Crouching;
             }
-            if (movement.RunInput)
+            if (!movement.WalkInput)
             {
                 return MovementState.Running;
             }
@@ -56,6 +61,11 @@ namespace RogueLike.Player.States
         public override (float, float) GetHeight(PlayerMovement movement)
         {
             return (movement.BaseCapsuleHeight, movement.BaseHeadHeight);
+        }
+        
+        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        {
+            return CameraEffectData.CameraEffectComposite;
         }
 
         public override MovementState State => MovementState.Walking;

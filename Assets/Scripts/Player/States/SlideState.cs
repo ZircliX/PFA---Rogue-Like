@@ -1,3 +1,5 @@
+using DeadLink.Cameras;
+using DeadLink.Cameras.Data;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -6,6 +8,9 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Slide")]
     public class SlideState : MovementStateBehavior
     {
+        [field: Header("Camera Effects")]
+        [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
+        
         [Header("Speed")]
         [SerializeField] private float slideSpeed;
         [SerializeField] private float slideMinSpeed;
@@ -28,12 +33,6 @@ namespace RogueLike.Player.States
         
         private float currentSlideTime;
         private Vector3 direction;
-        private Camera cam;
-
-        public override void Initialize(PlayerMovement movement)
-        {
-            cam = movement.Camera;
-        }
 
         public override void Dispose(PlayerMovement movement)
         {
@@ -107,6 +106,11 @@ namespace RogueLike.Player.States
         public override (float, float) GetHeight(PlayerMovement movement)
         {
             return (crouchCapsuleHeight, crouchHeadHeight);
+        }
+        
+        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        {
+            return CameraEffectData.CameraEffectComposite;
         }
 
         public override MovementState State => MovementState.Sliding;

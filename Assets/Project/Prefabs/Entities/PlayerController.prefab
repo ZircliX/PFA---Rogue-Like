@@ -183,6 +183,8 @@ MonoBehaviour:
   pm: {fileID: 7673975130547769438}
   cameraRoot: {fileID: 2193368421882999979}
   cameraRotations: {fileID: 1477597775340241623}
+  shouldersRoot: {fileID: 8873217921136611669}
+  armsRotation: {fileID: 6196413422865120863}
 --- !u!1818360608 &604647174449740348
 PositionConstraint:
   m_ObjectHideFlags: 0
@@ -203,6 +205,39 @@ PositionConstraint:
   m_Sources:
   - sourceTransform: {fileID: 2065021886003205984}
     weight: 1
+--- !u!1 &4159961591698411576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6196413422865120863}
+  m_Layer: 0
+  m_Name: Arms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6196413422865120863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4159961591698411576}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 750890149337286987}
+  - {fileID: 7902027825683353494}
+  m_Father: {fileID: 8873217921136611669}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4586079106163108224
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,15 +549,14 @@ MonoBehaviour:
   <GroundLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 128
-  wallCastSample: 5
-  wallCastDistance: 1.25
-  wallCastAngle: 50
+  wallCastSample: 30
+  wallCastDistance: 1.5
+  wallCastAngle: 75
   wallrunExitTime: 1
   wallrunMinHeight: 2.25
   <WallLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 512
-  <IsWalled>k__BackingField: 0
   gravityScale: 2.75
   gravityAlignSpeed: 5
   coyoteTime: 10
@@ -871,6 +905,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 771cf6b3-0d6b-4faf-910b-697a2711a33f
     m_ActionName: 'Player/Dash[/Keyboard/capsLock]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5095986187323191965}
+        m_TargetAssemblyTypeName: RogueLike.Entities.Player, DeadLink
+        m_MethodName: Reload
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 28aeb271-3226-487d-a8eb-d8e2b9ef65b1
+    m_ActionName: 'Player/Reload[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard and Mouse
   m_DefaultActionMap: Player
@@ -1073,6 +1123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 7880227904453035219}
   camFollow: {fileID: 4507630780164737054}
+  camRecomposer: {fileID: 2116268018863381272}
 --- !u!114 &4507630780164737054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1118,8 +1169,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 750890149337286987}
-  - {fileID: 7902027825683353494}
+  - {fileID: 6196413422865120863}
   m_Father: {fileID: 8406938040259338861}
   m_LocalEulerAnglesHint: {x: -0.654, y: 0, z: 0}
 --- !u!114 &8629144720513069406
@@ -1135,8 +1185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRotations: {fileID: 1477597775340241623}
-  cameraRoot: {fileID: 2193368421882999979}
-  followPitch: 1
   headTransform: {fileID: 2065021886003205984}
   armOffset: -0.25
 --- !u!1001 &1000093656304823968
@@ -1145,7 +1193,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8873217921136611669}
+    m_TransformParent: {fileID: 6196413422865120863}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 836eec5fbc776214f83d55a867ec3b12, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1153,7 +1201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 836eec5fbc776214f83d55a867ec3b12, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.088
+      value: -0.08800006
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 836eec5fbc776214f83d55a867ec3b12, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1449,7 +1497,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8873217921136611669}
+    m_TransformParent: {fileID: 6196413422865120863}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 27b849885e9047f4cba3ec267c93d1d5, type: 3}
       propertyPath: m_LocalPosition.x

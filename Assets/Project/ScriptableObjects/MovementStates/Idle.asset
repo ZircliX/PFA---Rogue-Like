@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7585eb37693f4ca8961eb25ae6ab7813, type: 3}
   m_Name: Idle
   m_EditorClassIdentifier: 
+  <CameraEffectData>k__BackingField: {fileID: 11400000, guid: 117037cd1b10f1e40adc184ed0ac0da7, type: 2}

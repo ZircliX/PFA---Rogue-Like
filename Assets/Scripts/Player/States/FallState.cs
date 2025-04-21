@@ -1,3 +1,5 @@
+using DeadLink.Cameras;
+using DeadLink.Cameras.Data;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -5,6 +7,20 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Fall")]
     public class FallState : MoveState
     {
+        [field: Header("Camera Effects")]
+        [field: SerializeField] public FallCameraEffectData CameraEffectData { get; protected set; }
+        private float fovModifier;
+
+        public override void Enter(PlayerMovement movement)
+        {
+            fovModifier = 0;
+        }
+
+        public override void Exit(PlayerMovement movement)
+        {
+            fovModifier = 0;
+        }
+
         public override MovementState GetNextState(PlayerMovement movement)
         {
             if (movement.IsGrounded)
@@ -15,7 +31,7 @@ namespace RogueLike.Player.States
                     nextState = MovementState.Crouching;
                 else if (movement.InputDirection.sqrMagnitude > PlayerMovement.MIN_THRESHOLD)
                 {
-                    nextState = movement.RunInput ? MovementState.Running : MovementState.Walking;
+                    nextState = movement.WalkInput ? MovementState.Walking : MovementState.Running;
                 }
 
                 return nextState;
@@ -36,6 +52,19 @@ namespace RogueLike.Player.States
         public override (float, float) GetHeight(PlayerMovement movement)
         {
             return (movement.BaseCapsuleHeight, movement.BaseHeadHeight);
+        }
+
+        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        {
+            CameraEffectComposite composite = CameraEffectData.CameraEffectComposite;
+
+            fovModifier = Mathf.Min(
+                fovModifier + deltaTime * CameraEffectData.FovMultiplier,
+                CameraEffectData.MaxFov - composite.FovScale
+            );
+
+            composite.FovScale += fovModifier;
+            return composite;
         }
 
         protected override Vector3 GetProjectionPlaneNormal(PlayerMovement movement)

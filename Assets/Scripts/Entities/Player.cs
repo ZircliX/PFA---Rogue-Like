@@ -21,7 +21,6 @@ namespace RogueLike.Entities
         {
             base.Spawn(data, difficultyData, spawnPoint);
             
-            
             HealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarAmountMultiplier, Influence.Add);
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
             Strength.AddInfluence(difficultyData, difficultyData.PlayerStrengthMultiplier, Influence.Multiply);
@@ -58,6 +57,15 @@ namespace RogueLike.Entities
             if (context.canceled)
             {
                 isShooting = false;
+            }
+        }
+        
+        public void Reload(InputAction.CallbackContext context)
+        {
+            if (context.performed && CurrentWeapon != null)
+            {
+                Debug.Log("Reloading input");
+                Reload();
             }
         }
 

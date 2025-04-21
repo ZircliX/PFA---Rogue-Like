@@ -3,8 +3,11 @@ using DeadLink.Ammunitions;
 using DeadLink.Ammunitions.Data;
 using DeadLink.Cameras;
 using DeadLink.Entities;
+using DeadLink.Menus;
+using DeadLink.Menus.Implementation;
 using DeadLink.Weapons.Data;
 using LTX.ChanneledProperties;
+using RogueLike.Managers;
 using UnityEngine;
 
 namespace DeadLink.Weapons
@@ -14,8 +17,8 @@ namespace DeadLink.Weapons
         [field : SerializeField] public WeaponData WeaponData { get; private set; }
         [field : SerializeField] public BulletData BulletData { get; private set; }
 
-        private int currentMunitions;
-        
+        public int CurrentMunitions { get; private set; }
+
         private void OnEnable()
         {
             CameraController.Instance.CameraShakeProperty.AddPriority(this, PriorityTags.Default);
@@ -25,9 +28,26 @@ namespace DeadLink.Weapons
         {
             CameraController.Instance.CameraShakeProperty.RemovePriority(this);
         }
+
+        private void Awake()
+        {
+            SetMaxBullets();
+            gameObject.SetActive(false);
+        }
+
+        private void SetMaxBullets()
+        {
+            CurrentMunitions = WeaponData.MaxAmmunition;
+        }
         
         public virtual void Fire(Entity entity, Vector3 direction)
         {
+            if (CurrentMunitions <= 0)
+            {
+                //play sound
+                return;
+            }
+            
             //Debug.Log($"Instantiating bullet {BulletData.name} from {entity.name}");
             CameraController.Instance.CameraShakeProperty.Write(this, WeaponData.CameraShake);
             
@@ -39,12 +59,19 @@ namespace DeadLink.Weapons
             bullet.OnBulletHit += BulletHit;
             bullet.OnBulletDestroy += BulletDestroy;
             
-            bullet.Shoot(entity.Strength, entity.BulletSpawnPoint.transform.forward);
+            bullet.Shoot(entity.Strength, direction);
+
+            CurrentMunitions--;
+            
+            LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
+            LevelManager.Instance.HUDMenuHandler.SetCrosshairOffset();
         }
 
         public virtual void Reload()
         {
-            
+            Debug.Log($"Reloading weapon {WeaponData.name}");
+            SetMaxBullets();
+            LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
         }
 
         protected virtual void BulletHit(Bullet bullet)
