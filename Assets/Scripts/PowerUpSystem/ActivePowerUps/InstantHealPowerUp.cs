@@ -12,7 +12,6 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         public override void OnBeUnlocked(IVisitable visitable)
         {
             IsUnlocked = true;
-            // 
         }
 
         public override void OnBeUsed(IVisitable visitable)

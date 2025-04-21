@@ -1,4 +1,5 @@
 using DeadLink.PowerUpSystem.InterfacePowerUps;
+using UnityEngine.InputSystem;
 
 namespace DeadLink.Entities.Enemies
 {
@@ -8,7 +9,7 @@ namespace DeadLink.Entities.Enemies
         {
         }
 
-        public override void Use(string name)
+        public override void UsePowerUp(InputAction.CallbackContext context)
         {
         }
     }
