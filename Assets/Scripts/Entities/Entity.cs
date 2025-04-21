@@ -7,6 +7,7 @@ using Enemy;
 using LTX.ChanneledProperties;
 using RogueLike.Managers;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace DeadLink.Entities
 {
@@ -169,6 +170,6 @@ namespace DeadLink.Entities
         }
 
         public abstract void Unlock(IVisitor visitor);
-        public abstract void Use(string powerUpName);
+        public abstract void UsePowerUp(InputAction.CallbackContext context);
     }
 }

@@ -7,7 +7,7 @@ namespace DeadLink.PowerUpSystem
 {
     public class VisitableReferenceManager : MonoSingleton<VisitableReferenceManager>
     {
-        private Dictionary<VisitableType, IVisitable> Components;
+        public Dictionary<VisitableType, IVisitable> Components;
 
         protected override void Awake()
         {

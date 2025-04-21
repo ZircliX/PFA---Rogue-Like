@@ -58,7 +58,7 @@ namespace RogueLike.Player
 
         private Dictionary<string, IVisitor> unlockedPowerUps;
 
-        private int remainingJump;
+        private int remainingJump = 1;
         private int remainingDash = 1;
         public void AddBonusJump(int value) => remainingJump += value;
         public void AddBonusDash(int value) => remainingDash += value;
@@ -69,11 +69,14 @@ namespace RogueLike.Player
             unlockedPowerUps.Add(visitor.Name, visitor);
         }
 
+        public void UsePowerUp(InputAction.CallbackContext context)
+        {
+        }
+
         public void Use(string powerUpName)
         {
             unlockedPowerUps[powerUpName].OnBeUsed(this);
         }
-
         #endregion
 
         #region Gravity

@@ -32,6 +32,8 @@ MonoBehaviour:
   <UpgradesMenu>k__BackingField: {fileID: 11400000, guid: 7949dcdc7f87fbb4b9d31c6865dcc52e, type: 2}
   <PlayerVisitableType>k__BackingField: {fileID: 11400000, guid: 3d13c3099bcdef7438515d882b4ff2f8, type: 2}
   <PlayerMovementVisitableType>k__BackingField: {fileID: 11400000, guid: 1211457f350d77c41ab7032f639a3553, type: 2}
+  <InstantHealPowerUp>k__BackingField: {fileID: 11400000, guid: e1db99738f1d7814aa59297b9ee754fc, type: 2}
+  <WallHackPowerUp>k__BackingField: {fileID: 0}
   <test>k__BackingField:
     Guid:
       Data1: -790836542

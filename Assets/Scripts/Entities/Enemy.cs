@@ -4,6 +4,7 @@ using Enemy;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using RayFire;
+using RogueLike.Controllers;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -28,12 +29,15 @@ namespace DeadLink.Entities
             Strength.AddInfluence(difficultyData, difficultyData.EnemyStrengthMultiplier, Influence.Multiply);
             Speed.AddInfluence(difficultyData, difficultyData.EnemyStrengthMultiplier, Influence.Multiply);
             
+            OutlinerManager.Instance.AddOutline(gameObject);
+            
             SetFullHealth();
         }
 
         public override void Die()
         {
             rayfireRigid.Demolish();
+            OutlinerManager.Instance.RemoveOutline(gameObject);
             EnemyManager.Instance.EnemyKilled(this);
         }
     }

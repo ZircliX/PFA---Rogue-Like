@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7712258612710592766}
   - component: {fileID: 242348557971742318}
   - component: {fileID: 7890005501115292482}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: -3199065032243081750}
   - component: {fileID: 8456653338856521825}
   - component: {fileID: 1613652779611018671}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MeleeEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,6 +179,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 7a0d9e7ac0d04fa4c834511cec182074, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
