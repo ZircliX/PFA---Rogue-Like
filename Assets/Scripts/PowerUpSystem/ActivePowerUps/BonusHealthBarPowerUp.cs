@@ -9,9 +9,6 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
     {
         [field: SerializeField] public int BonusHealthBarCount { get; private set; } = 1;
 
-        public override string Name { get; set; } = "BonusHealthBar";
-        
-
         public override void OnBeUnlocked(IVisitable visitable)
         {
             RogueLike.Entities.Player player = visitable as RogueLike.Entities.Player;

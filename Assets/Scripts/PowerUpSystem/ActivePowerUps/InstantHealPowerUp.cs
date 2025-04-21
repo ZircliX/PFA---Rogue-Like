@@ -8,8 +8,6 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
     public class InstantHealPowerUp : PowerUp
     {
         [field: SerializeField] public int InstantHealBonus { get; private set; } = 40;
-        public override string Name { get; set; } = "InstantHeal";
-
 
         public override void OnBeUnlocked(IVisitable visitable)
         {
