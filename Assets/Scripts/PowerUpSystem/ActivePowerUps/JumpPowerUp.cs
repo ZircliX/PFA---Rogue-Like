@@ -1,4 +1,3 @@
-using DeadLink.PowerUpSystem.InterfacePowerUps;
 using RogueLike.Player;
 using UnityEngine;
 
@@ -8,27 +7,23 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
     public class JumpPowerUp : PowerUp
     {
         [field: SerializeField] public int BonusJumpCount { get; private set; } = 1;
-        
-        public override void OnBeUnlocked(IVisitable visitable)
+
+        public override void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
             IsUnlocked = true;
-            OnBeUsed(visitable);
+            OnBeUsed(player, playerMovement);
         }
 
-        public override void OnBeUsed(IVisitable visitable)
+        public override void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
-            PlayerMovement playerMovement = visitable as PlayerMovement;
-            if (playerMovement != null)
+            if (IsUnlocked)
             {
-                if (IsUnlocked)
-                {
-                    playerMovement.AddBonusJump(BonusJumpCount);
-                    Debug.Log("Visitor accepted in JumpComponent");
-                }   
-                else
-                {
-                    Debug.Log("PowerUp is not unlocked");
-                }
+                playerMovement.AddBonusJump(BonusJumpCount);
+                Debug.Log("Visitor accepted in JumpComponent");
+            }
+            else
+            {
+                Debug.Log("PowerUp is not unlocked");
             }
         }
     }

@@ -1,34 +1,29 @@
-using DeadLink.PowerUpSystem.InterfacePowerUps;
+using RogueLike.Player;
 using UnityEngine;
 
 namespace DeadLink.PowerUpSystem.ActivePowerUps
 {
     [CreateAssetMenu(menuName = "PowerUp/BonusHealthBarPowerUp", fileName = "BonusHealthBarPowerUp")]
-
     public class BonusHealthBarPowerUp : PowerUp
     {
         [field: SerializeField] public int BonusHealthBarCount { get; private set; } = 1;
 
-        public override void OnBeUnlocked(IVisitable visitable)
+        public override void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
-            RogueLike.Entities.Player player = visitable as RogueLike.Entities.Player;
-            if (player != null)
+            if (player.HealthBarCount >= 3)
             {
-                if (player.HealthBarCount >= 3)
-                {
-                    player.SetFullHealth();
-                }
-                else
-                {
-                    player.SetBonusHealthBarCount(BonusHealthBarCount);
-                }
-                Debug.Log("Visitor accepted in HealthComponent");
+                player.SetFullHealth();
             }
+            else
+            {
+                player.SetBonusHealthBarCount(BonusHealthBarCount);
+            }
+
+            Debug.Log("Visitor accepted in HealthComponent");
         }
 
-        public override void OnBeUsed(IVisitable visitable)
+        public override void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
-            
         }
     }
 }
