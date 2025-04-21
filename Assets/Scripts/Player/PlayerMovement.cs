@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 
 namespace RogueLike.Player
 {
-    public class PlayerMovement : MonoBehaviour, IVisitable
+    public class PlayerMovement : MonoBehaviour
     {
         #region Public Properties
         public bool IsGrounded { get; private set; }
@@ -55,28 +55,12 @@ namespace RogueLike.Player
         #endregion
         
         #region Power ups
-
-        private Dictionary<string, IVisitor> unlockedPowerUps;
-
+        
         private int remainingJump = 1;
         private int remainingDash = 1;
         public void AddBonusJump(int value) => remainingJump += value;
         public void AddBonusDash(int value) => remainingDash += value;
-
-        public void Unlock(IVisitor visitor)
-        {
-            visitor.OnBeUnlocked(this);
-            unlockedPowerUps.Add(visitor.Name, visitor);
-        }
-
-        public void UsePowerUp(InputAction.CallbackContext context)
-        {
-        }
-
-        public void Use(string powerUpName)
-        {
-            unlockedPowerUps[powerUpName].OnBeUsed(this);
-        }
+        
         #endregion
 
         #region Gravity
@@ -137,7 +121,6 @@ namespace RogueLike.Player
 
         private void Awake()
         {
-            unlockedPowerUps = new Dictionary<string, IVisitor>();
             CurrentVelocity = new InfluencedProperty<Vector3>(Vector3.zero);
             stateChannelKey = ChannelKey.GetUniqueChannelKey();
             CurrentVelocity.AddInfluence(stateChannelKey, Influence.Add, 1, 0);
@@ -157,14 +140,6 @@ namespace RogueLike.Player
                 MovementStateBehavior state = movementStates[i];
                 state.Initialize(this);
             }
-        }
-
-        private void OnEnable() => VisitableReferenceManager.Instance.RegisterComponent(GameMetrics.Global.PlayerMovementVisitableType, this);
-
-        private void OnDisable()
-        {
-            if (!VisitableReferenceManager.HasInstance) return;
-            VisitableReferenceManager.Instance.UnregisterComponent(GameMetrics.Global.PlayerMovementVisitableType);
         }
 
         private void Start() => SetMovementState(MovementState.Walking);

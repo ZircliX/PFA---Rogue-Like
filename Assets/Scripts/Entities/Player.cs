@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using DeadLink.Entities;
 using DeadLink.Entities.Data;
-using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using Enemy;
 using KBCore.Refs;
@@ -39,25 +37,12 @@ namespace RogueLike.Entities
         {
             base.Spawn(data, difficultyData, spawnPoint);
             
-            VisitableReferenceManager.Instance.RegisterComponent(VisitableType.Player, this);
-            
             HealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarAmountMultiplier, Influence.Add);
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
             Strength.AddInfluence(difficultyData, difficultyData.PlayerStrengthMultiplier, Influence.Multiply);
             
             unlockedPowerUps = new Dictionary<string, IVisitor>();
             inputToPowerUpName = new Dictionary<string, string>();
-        }
-
-        private void OnEnable()
-        {
-            VisitableReferenceManager.Instance.RegisterComponent(GameMetrics.Global.PlayerVisitableType, this);
-        }
-
-        private void OnDisable()
-        {
-            if (!VisitableReferenceManager.HasInstance) return;
-            VisitableReferenceManager.Instance.UnregisterComponent(GameMetrics.Global.PlayerVisitableType);
         }
 
         public void ChangeWeapon(InputAction.CallbackContext context)
@@ -99,23 +84,14 @@ namespace RogueLike.Entities
             {
                 if (unlockedPowerUps.TryGetValue(powerUpName, out IVisitor powerUp))
                 {
-                    //TODO: c'est de la D (à rework)
-                    if (VisitableReferenceManager.Instance.Components.TryGetValue(VisitableType.Player, out var pvisitable))
-                    {
-                        powerUp.OnBeUsed(pvisitable);
-                    }
-                    else if (VisitableReferenceManager.Instance.Components.TryGetValue(VisitableType.PlayerMovement, out var pmvisitable))
-                    {
-                        powerUp.OnBeUsed(pmvisitable);
-                    }
-                    
+                    powerUp.OnBeUsed(this, pm);
                 }
             }
         }
 
         public override void Unlock(IVisitor visitor)
         {
-            visitor.OnBeUnlocked(this);
+            visitor.OnBeUnlocked(this, pm);
             unlockedPowerUps.Add(visitor.Name, visitor);
         }
     }

@@ -29,12 +29,6 @@ namespace RogueLike
         [field: SerializeField] public MenuType UpgradesMenu { get; private set; }
         #endregion
         
-        #region VisitableComponents
-        [field: Header("VisitableComponents")]
-        [field: SerializeField] public VisitableType PlayerVisitableType { get; private set; }
-        [field: SerializeField] public VisitableType PlayerMovementVisitableType { get; private set; }
-        #endregion
-        
         #region PowerUps
         [field: Header("PowerUps")]
         [field: SerializeField] public PowerUp InstantHealPowerUp { get; private set; }

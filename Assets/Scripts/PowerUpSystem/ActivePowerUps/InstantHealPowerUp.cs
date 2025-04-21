@@ -1,35 +1,29 @@
-using DeadLink.PowerUpSystem.InterfacePowerUps;
+using RogueLike.Player;
 using UnityEngine;
 
 namespace DeadLink.PowerUpSystem.ActivePowerUps
 {
     [CreateAssetMenu(menuName = "PowerUp/InstantHealPowerUp", fileName = "InstantHealPowerUp")]
-
     public class InstantHealPowerUp : PowerUp
     {
         [field: SerializeField] public int InstantHealBonus { get; private set; } = 40;
 
-        public override void OnBeUnlocked(IVisitable visitable)
+        public override void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
             IsUnlocked = true;
         }
 
-        public override void OnBeUsed(IVisitable visitable)
+        public override void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
-            RogueLike.Entities.Player player = visitable as RogueLike.Entities.Player;
-            if (player != null)
+            if (IsUnlocked)
             {
-                if (IsUnlocked)
-                {
-                    player.SetInstantHeal(InstantHealBonus);
-                    Debug.Log("Visitor accepted in HealthComponent");
-                }
-                else
-                {
-                    Debug.Log("PowerUp is not unlocked");
-                }
+                player.SetInstantHeal(InstantHealBonus);
+                Debug.Log("Visitor accepted in HealthComponent");
             }
-            
+            else
+            {
+                Debug.Log("PowerUp is not unlocked");
+            }
         }
     }
 }
