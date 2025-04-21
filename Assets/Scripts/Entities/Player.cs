@@ -30,6 +30,14 @@ namespace RogueLike.Entities
             {
                 { PowerUpsInputName[0], GameMetrics.Global.InstantHealPowerUp.Name },
                 { PowerUpsInputName[1], GameMetrics.Global.WallHackPowerUp.Name },
+                { PowerUpsInputName[2], GameMetrics.Global.SlowMotionPowerUp.Name },
+                { PowerUpsInputName[3], GameMetrics.Global.GrapplingHookPowerUp.Name },
+                { PowerUpsInputName[4], GameMetrics.Global.InvisibilityPowerUp.Name },
+                { PowerUpsInputName[5], GameMetrics.Global.ShockWavePowerUp.Name },
+                { PowerUpsInputName[6], GameMetrics.Global.FastFallPowerUp.Name },
+                { PowerUpsInputName[7], GameMetrics.Global.AdrenalineShotPowerUp.Name },
+                { PowerUpsInputName[8], GameMetrics.Global.ContinuousFirePowerUp.Name }
+                
             };
         }
 
@@ -82,8 +90,12 @@ namespace RogueLike.Entities
             
             if (inputToPowerUpName.TryGetValue(actionName, out string powerUpName))
             {
+                Debug.Log($"Touched {powerUpName} found powerUp named {powerUpName}");
+                
                 if (unlockedPowerUps.TryGetValue(powerUpName, out IVisitor powerUp))
                 {
+                    Debug.Log($"Entry {powerUpName} found powerUp named {powerUp}");
+
                     powerUp.OnBeUsed(this, pm);
                 }
             }
@@ -91,8 +103,13 @@ namespace RogueLike.Entities
 
         public override void Unlock(IVisitor visitor)
         {
-            visitor.OnBeUnlocked(this, pm);
+            if (!unlockedPowerUps.TryAdd(visitor.Name, visitor))
+            {
+                Debug.Log("already unlocked");
+                return;
+            }
             unlockedPowerUps.Add(visitor.Name, visitor);
+            visitor.OnBeUnlocked(this, pm);
         }
     }
 }
