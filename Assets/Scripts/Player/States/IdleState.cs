@@ -49,8 +49,7 @@ namespace RogueLike.Player.States
             }
             if (movement.InputDirection.sqrMagnitude > PlayerMovement.MIN_THRESHOLD)
             {
-                //Debug.Log("WHUTTTTT");
-                return MovementState.Walking;
+                return MovementState.Running;
             }
 
             return State;

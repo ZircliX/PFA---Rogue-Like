@@ -1,4 +1,6 @@
+using System;
 using DeadLink.Entities;
+using DeadLink.Menus.Implementation;
 using Enemy;
 using LTX.Singletons;
 using RogueLike.Controllers;
@@ -11,6 +13,8 @@ namespace RogueLike.Managers
     {
         [SerializeField] private DifficultyData difficulty;
         [SerializeField] private Entities.Player player;
+        
+        [field: SerializeField] public HUDMenuHandler HUDMenuHandler { get; private set; }
 
         private void OnEnable()
         {
@@ -22,12 +26,12 @@ namespace RogueLike.Managers
             WaveManager.Instance.OnAllEnemiesDie -= EndWaveMode;
         }
 
-        private void Start()
+        protected void Start()
         {
             StartLevel();
         }
         
-        public void StartLevel()
+        private void StartLevel()
         {
             //Debug.Log("Start Level");
             //EnemyManager.Instance.SpawnEnemies(difficulty);

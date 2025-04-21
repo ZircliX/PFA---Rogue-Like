@@ -41,7 +41,7 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Crouching;
             }
-            if (movement.RunInput)
+            if (!movement.WalkInput)
             {
                 return MovementState.Running;
             }

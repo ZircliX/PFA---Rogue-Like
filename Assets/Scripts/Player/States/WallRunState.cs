@@ -147,6 +147,12 @@ namespace RogueLike.Player.States
                 return MovementState.Falling;
             }
 
+            if (movement.WantsToDash)
+            {
+                movement.ExitWallrun();
+                return MovementState.Dashing;
+            }
+
             Vector3 wallNormal = movement.WallNormal;
             Vector3 projectOnPlane = Vector3.ProjectOnPlane(movement.StateVelocity, wallNormal);
 

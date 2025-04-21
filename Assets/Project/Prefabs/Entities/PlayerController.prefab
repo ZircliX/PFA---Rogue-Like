@@ -905,6 +905,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 771cf6b3-0d6b-4faf-910b-697a2711a33f
     m_ActionName: 'Player/Dash[/Keyboard/capsLock]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5095986187323191965}
+        m_TargetAssemblyTypeName: RogueLike.Entities.Player, DeadLink
+        m_MethodName: Reload
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 28aeb271-3226-487d-a8eb-d8e2b9ef65b1
+    m_ActionName: 'Player/Reload[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard and Mouse
   m_DefaultActionMap: Player
@@ -1169,8 +1185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRotations: {fileID: 1477597775340241623}
-  cameraRoot: {fileID: 2193368421882999979}
-  followPitch: 1
   headTransform: {fileID: 2065021886003205984}
   armOffset: -0.25
 --- !u!1001 &1000093656304823968

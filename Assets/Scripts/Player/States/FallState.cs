@@ -31,7 +31,7 @@ namespace RogueLike.Player.States
                     nextState = MovementState.Crouching;
                 else if (movement.InputDirection.sqrMagnitude > PlayerMovement.MIN_THRESHOLD)
                 {
-                    nextState = movement.RunInput ? MovementState.Running : MovementState.Walking;
+                    nextState = movement.WalkInput ? MovementState.Walking : MovementState.Running;
                 }
 
                 return nextState;

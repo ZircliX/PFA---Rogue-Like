@@ -109,7 +109,7 @@ namespace RogueLike.Player
 
         #region Movement Inputs
         
-        public bool RunInput { get; private set; }
+        public bool WalkInput { get; private set; }
         public bool CrouchInput { get; private set; }
 
         public bool WantsToWallrun => IsWalled &&
@@ -292,6 +292,7 @@ namespace RogueLike.Player
 
             if (nextState != CurrentState)
             {
+                //Debug.Log($"Current State: {CurrentState} => Next State: {nextState}");
                 SetMovementState(nextState);
             }
         }
@@ -464,7 +465,7 @@ namespace RogueLike.Player
 
         public void ReadInputRun(InputAction.CallbackContext context)
         {
-            RunInput = context.performed;
+            WalkInput = context.performed;
         }
 
         public void ReadInputCrouch(InputAction.CallbackContext context)
