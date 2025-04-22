@@ -2,6 +2,7 @@ using System;
 using DeadLink.Ammunitions.Data;
 using DeadLink.Entities;
 using KBCore.Refs;
+using Unity.VisualScripting.YamlDotNet.Serialization.NamingConventions;
 using UnityEngine;
 
 namespace DeadLink.Ammunitions
@@ -9,15 +10,15 @@ namespace DeadLink.Ammunitions
     [RequireComponent(typeof(Rigidbody))]
     public abstract class Bullet : MonoBehaviour
     {
-        [field: SerializeField] public BulletData BulletData { get; private set; }
+        public abstract BulletData BulletData { get; }
         [SerializeField, Self] private Rigidbody rb;
         
         public event Action<Bullet> OnBulletHit;
         public event Action<Bullet> OnBulletDestroy;
         
-        private float damage;
-        private Vector3 lastPosition;
-        private float currentLifeCycle;
+        protected float damage;
+        protected Vector3 lastPosition;
+        protected float currentLifeCycle;
 
         private void OnValidate() => this.ValidateRefs();
         
@@ -36,7 +37,7 @@ namespace DeadLink.Ammunitions
                     if (hit.collider.TryGetComponent(out Entity entity))
                     {
                         //Debug.Log($"Hit Entity {entity.name}");
-                        HitEntity(entity, hit);
+                        Hit(hit, entity);
                     }
                     else if (hit.collider.gameObject.GetInstanceID() != gameObject.GetInstanceID())
                     {
@@ -64,17 +65,17 @@ namespace DeadLink.Ammunitions
             lastPosition = transform.position;
             rb.AddForce(direction * BulletData.BulletSpeed, ForceMode.Impulse);
         }
-        
-        protected virtual void HitEntity(Entity entity, RaycastHit hit)
-        {
-            entity.TakeDamage(damage);
-            Hit(hit);
-        }
 
-        protected virtual void Hit(RaycastHit hit)
+        protected virtual void Hit(RaycastHit hit, params Entity[] entities)
         {
+            entities ??= Array.Empty<Entity>();
+            for (int i = 0; i < entities.Length; i++)
+            {
+                entities[i].TakeDamage(damage);
+            }
+            
             Instantiate(BulletData.HitVFX, hit.point, Quaternion.identity);
-
+            
             OnBulletHit?.Invoke(this);
             DestroyBullet();
         }

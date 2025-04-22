@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DeadLink.Entities.Data;
 using Enemy;
 using KBCore.Refs;
@@ -6,7 +7,6 @@ using LTX.ChanneledProperties;
 using RayFire;
 using RogueLike.Controllers;
 using UnityEngine;
-using UnityEngine.VFX;
 
 namespace DeadLink.Entities
 {
@@ -18,7 +18,6 @@ namespace DeadLink.Entities
         [SerializeField, Self] private RayfireRigid rayfireRigid;
 
         private void OnValidate() => this.ValidateRefs();
-        
 
         public override void Spawn(EntityData entityData, DifficultyData difficultyData, Vector3 SpawnPosition)
         {
@@ -30,8 +29,34 @@ namespace DeadLink.Entities
             Speed.AddInfluence(difficultyData, difficultyData.EnemyStrengthMultiplier, Influence.Multiply);
             
             OutlinerManager.Instance.AddOutline(gameObject);
+        }
+
+        float currentTime = 0;
+        float maxTime = 0.5f;
+        
+        protected override void Update()
+        {
+            base.Update();
             
-            SetFullHealth();
+            if (currentTime >= maxTime)
+            {
+                currentTime = 0;
+                
+                Ray ray = new Ray(transform.position, transform.forward);
+                RaycastHit[] raycast = Physics.SphereCastAll(ray, 3, 3);
+                
+                for (int i = 0; i < raycast.Length; i++)
+                {
+                    if (raycast[i].transform.TryGetComponent(out RogueLike.Entities.Player player))
+                    {
+                        player.TakeDamage(1);
+                    }
+                }
+            }
+            else
+            {
+                currentTime += Time.deltaTime;
+            }
         }
 
         public override void Die()
@@ -39,6 +64,7 @@ namespace DeadLink.Entities
             rayfireRigid.Demolish();
             OutlinerManager.Instance.RemoveOutline(gameObject);
             EnemyManager.Instance.EnemyKilled(this);
+            Destroy(gameObject);
         }
     }
 }

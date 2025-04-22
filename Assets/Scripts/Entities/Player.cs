@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using DeadLink.Entities;
 using DeadLink.Entities.Data;
+using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using Enemy;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
+using RogueLike.Managers;
 using RogueLike.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,31 +28,47 @@ namespace RogueLike.Entities
         
         private void Start()
         {
-            inputToPowerUpName = new Dictionary<string, string>()
+            if (PowerUpsInputName.Count < 9) return;
+
+            inputToPowerUpName = new Dictionary<string, string>();
+            for (int i = 0; i < GameMetrics.Global.PowerUps.Length; i++)
             {
-                { PowerUpsInputName[0], GameMetrics.Global.InstantHealPowerUp.Name },
-                { PowerUpsInputName[1], GameMetrics.Global.WallHackPowerUp.Name },
-                { PowerUpsInputName[2], GameMetrics.Global.SlowMotionPowerUp.Name },
-                { PowerUpsInputName[3], GameMetrics.Global.GrapplingHookPowerUp.Name },
-                { PowerUpsInputName[4], GameMetrics.Global.InvisibilityPowerUp.Name },
-                { PowerUpsInputName[5], GameMetrics.Global.ShockWavePowerUp.Name },
-                { PowerUpsInputName[6], GameMetrics.Global.FastFallPowerUp.Name },
-                { PowerUpsInputName[7], GameMetrics.Global.AdrenalineShotPowerUp.Name },
-                { PowerUpsInputName[8], GameMetrics.Global.ContinuousFirePowerUp.Name }
-                
-            };
+                PowerUp powerUp = GameMetrics.Global.PowerUps[i];
+                string inputName = PowerUpsInputName[i];
+
+                inputToPowerUpName.Add(inputName, powerUp.Name);
+            }
         }
 
         public override void Spawn(EntityData data, DifficultyData difficultyData, Vector3 spawnPoint)
         {
             base.Spawn(data, difficultyData, spawnPoint);
             
-            HealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarAmountMultiplier, Influence.Add);
+            HealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarCount, Influence.Add);
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
             Strength.AddInfluence(difficultyData, difficultyData.PlayerStrengthMultiplier, Influence.Multiply);
             
             unlockedPowerUps = new Dictionary<string, IVisitor>();
             inputToPowerUpName = new Dictionary<string, string>();
+        }
+
+        protected override void ChangeWeapon(int direction)
+        {
+            base.ChangeWeapon(direction);
+            
+            LevelManager.Instance.HUDMenuHandler.ChangeWeapon(currentWeaponIndex);
+            LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentWeapon.CurrentMunitions, CurrentWeapon.WeaponData.MaxAmmunition);
+        }
+
+        public override void TakeDamage(int damage)
+        {
+            base.TakeDamage(damage);
+            LevelManager.Instance.HUDMenuHandler.UpdateHealth(Health, MaxHealth.Value, HealthBarCount.Value);
+        }
+
+        public override void Die()
+        {
+
         }
 
         public void ChangeWeapon(InputAction.CallbackContext context)
@@ -78,7 +96,6 @@ namespace RogueLike.Entities
         {
             if (context.performed && CurrentWeapon != null)
             {
-                Debug.Log("Reloading input");
                 Reload();
             }
         }

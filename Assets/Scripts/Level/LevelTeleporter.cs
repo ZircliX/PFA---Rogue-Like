@@ -18,6 +18,8 @@ namespace DeadLink
             {
                 if (Input.GetKeyDown(KeyCode.Keypad0 + i))
                 {
+                    //if (i is 7 or 9) continue;
+                    
                     if (i < teleports.Length)
                     {
                         Teleport(teleports[i]);

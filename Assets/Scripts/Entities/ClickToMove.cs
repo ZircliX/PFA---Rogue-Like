@@ -1,4 +1,5 @@
 using KBCore.Refs;
+using RogueLike.Managers;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +13,11 @@ namespace DeadLink.Entities
         
         private void Update() 
         {
+            if (player == null)
+            {
+                player = LevelManager.Instance.player.transform;
+            }
+            
             agent.destination = player.position;
         }
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RocketBulletData
   m_EditorClassIdentifier: 
   <BulletSpeed>k__BackingField: 1000
-  <Damage>k__BackingField: 10
+  <Damage>k__BackingField: 50
   <MaxLifeCycle>k__BackingField: 5
   <HitVFX>k__BackingField: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
   <CameraShake>k__BackingField:

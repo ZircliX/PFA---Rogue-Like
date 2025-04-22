@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ClassicBulletData
   m_EditorClassIdentifier: 
   <BulletSpeed>k__BackingField: 1000
-  <Damage>k__BackingField: 5
+  <Damage>k__BackingField: 25
   <MaxLifeCycle>k__BackingField: 5
   <HitVFX>k__BackingField: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
   <CameraShake>k__BackingField:

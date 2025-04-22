@@ -1,7 +1,3 @@
-#if UNITY_EDITOR
-using LTX.Editor;
-using UnityEditor;
-#endif
 using DeadLink.Cameras;
 using UnityEngine;
 
@@ -20,22 +16,5 @@ namespace DeadLink.Ammunitions.Data
         
         [field: Header("Prefab")]
         [field : SerializeField] public Bullet BulletPrefab { get; private set; }
-        
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (BulletPrefab && !Application.isPlaying)
-            {
-                using (SerializedObject serializedObject = new SerializedObject(BulletPrefab))
-                {
-                    SerializedProperty dataProperty =
-                        serializedObject.FindBackingFieldProperty(nameof(Bullet.BulletData));
-                    dataProperty.objectReferenceValue = this;
-                    
-                    serializedObject.ApplyModifiedProperties();
-                }
-            }
-        }
-#endif
     }
 }

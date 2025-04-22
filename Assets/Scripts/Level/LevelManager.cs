@@ -11,8 +11,8 @@ namespace RogueLike.Managers
 {
     public class LevelManager : MonoSingleton<LevelManager>
     {
-        [SerializeField] private DifficultyData difficulty;
-        [SerializeField] private Entities.Player player;
+        [field: SerializeField] public DifficultyData difficulty { get; private set; }
+        [field: SerializeField] public Entities.Player player { get; private set; }
         
         [field: SerializeField] public HUDMenuHandler HUDMenuHandler { get; private set; }
 
@@ -35,7 +35,7 @@ namespace RogueLike.Managers
         {
             //Debug.Log("Start Level");
             //EnemyManager.Instance.SpawnEnemies(difficulty);
-            //EnemyManager.Instance.ActivateEnemies(difficulty); //Only for testing
+            EnemyManager.Instance.ActivateEnemies(difficulty); //Only for testing
             player.Spawn(player.EntityData, difficulty, player.SpawnPosition.position);
             
             TimerManager.Instance.StartTimer();

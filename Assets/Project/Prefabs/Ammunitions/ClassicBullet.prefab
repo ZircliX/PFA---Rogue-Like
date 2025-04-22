@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9a4a8f1296046269f44243359e87100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <BulletData>k__BackingField: {fileID: 11400000, guid: 18811df65cd1b4843ad1f4618f9bed6d, type: 2}
   rb: {fileID: 5862556122322197362}
+  bulletData: {fileID: 11400000, guid: 18811df65cd1b4843ad1f4618f9bed6d, type: 2}
 --- !u!54 &5862556122322197362
 Rigidbody:
   m_ObjectHideFlags: 0
