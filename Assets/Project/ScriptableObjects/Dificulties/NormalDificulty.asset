@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e6cc8c51cf43dbb5b5ba46a807dd1e, type: 3}
   m_Name: NormalDificulty
   m_EditorClassIdentifier: 
-  <PlayerHealthMultiplier>k__BackingField: 0.75
-  <PlayerStrengthMultiplier>k__BackingField: 0.75
-  <EnemyHealthMultiplier>k__BackingField: 1.25
-  <EnemyStrengthMultiplier>k__BackingField: 1.25
+  <PlayerHealthMultiplier>k__BackingField: 1
+  <PlayerStrengthMultiplier>k__BackingField: 1
+  <PlayerHealthBarAmountMultiplier>k__BackingField: 0
+  <WaveBalanceMultiplier>k__BackingField: 0
+  <EnemyStrengthMultiplier>k__BackingField: 1
+  <EnemyHealthMultiplier>k__BackingField: 1

@@ -31,6 +31,8 @@ namespace RogueLike
         
         #region PowerUps
         [field: Header("PowerUps")]
+        [field: SerializeField] public PowerUp[] PowerUps { get; private set; }
+        /*
         [field: SerializeField] public PowerUp InstantHealPowerUp { get; private set; }
         [field: SerializeField] public PowerUp WallHackPowerUp { get; private set; }
         
@@ -47,6 +49,22 @@ namespace RogueLike
         [field: SerializeField] public PowerUp AdrenalineShotPowerUp { get; private set; }
         
         [field: SerializeField] public PowerUp ContinuousFirePowerUp { get; private set; }
+        */
+        
+        public PowerUp GetPowerUp(string targetName)
+        {
+            for (int index = 0; index < PowerUps.Length; index++)
+            {
+                PowerUp powerUp = PowerUps[index];
+                if (powerUp.Name == targetName)
+                {
+                    return powerUp;
+                }
+            }
+
+            Debug.LogError($"PowerUp with name {targetName} not found.");
+            return null;
+        }
         #endregion
     }
 }

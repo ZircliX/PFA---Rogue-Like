@@ -504,6 +504,8 @@ MonoBehaviour:
   - {fileID: 1105781393924151091}
   - {fileID: 7682103927050320968}
   <SpawnPosition>k__BackingField: {fileID: 8406938040259338861}
+  <PowerUpsInputName>k__BackingField: []
+  pm: {fileID: 7673975130547769438}
 --- !u!114 &3016530247966428140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1274,7 +1276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 987012949149177518, guid: a57a81dc5c1b63341b5414eaf1cff674, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8814941284365064230, guid: a57a81dc5c1b63341b5414eaf1cff674, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1391,7 +1393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7803852159165682288, guid: b718e74461952984b93c265396036d67, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1428,7 +1430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 378251948988226530, guid: b75167882f7662043be1985a9590356d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 656258585915542846, guid: b75167882f7662043be1985a9590356d, type: 3}
       propertyPath: m_LocalPosition.x

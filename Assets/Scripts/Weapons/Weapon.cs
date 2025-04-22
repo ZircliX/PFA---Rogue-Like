@@ -69,7 +69,6 @@ namespace DeadLink.Weapons
 
         public virtual void Reload()
         {
-            Debug.Log($"Reloading weapon {WeaponData.name}");
             SetMaxBullets();
             LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
         }

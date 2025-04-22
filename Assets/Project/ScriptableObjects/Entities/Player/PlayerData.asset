@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e6f52f9df9426ab6fd7c0396669b97, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  <BaseHealth>k__BackingField: 200
-  <BaseSpeed>k__BackingField: 10
-  <BaseStrength>k__BackingField: 10
+  <BaseHealth>k__BackingField: 100
+  <BaseHealthBarAmount>k__BackingField: 3
+  <BaseSpeed>k__BackingField: 1
+  <BaseStrength>k__BackingField: 1
+  <VFXToSpawn>k__BackingField: {fileID: 0}
+  <DelayAfterDestroyVFX>k__BackingField: 0

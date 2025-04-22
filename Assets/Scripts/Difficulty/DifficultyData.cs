@@ -14,17 +14,19 @@ namespace Enemy
         public float PlayerStrengthMultiplier { get; private set; }
         
         [field : SerializeField]
-        public int PlayerHealthBarAmountMultiplier { get; private set; }
+        public int PlayerHealthBarCount { get; private set; }
         #endregion
         
         #region Enemy
         
         [field : SerializeField]
         public int WaveBalanceMultiplier { get; private set; }
-        public float EnemyHealthMultiplier { get; private set; }
         
         [field : SerializeField]
         public float EnemyStrengthMultiplier { get; private set; }
+        
+        [field : SerializeField]
+        public float EnemyHealthMultiplier { get; private set; }
         
         #endregion 
     }

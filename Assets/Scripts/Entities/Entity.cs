@@ -1,11 +1,9 @@
+using System;
 using DeadLink.Entities.Data;
-using DeadLink.Menus;
-using DeadLink.Menus.Implementation;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using DeadLink.Weapons;
 using Enemy;
 using LTX.ChanneledProperties;
-using RogueLike.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,12 +19,14 @@ namespace DeadLink.Entities
         [field: SerializeField] public Transform BulletSpawnPoint { get; private set; }
         [field: SerializeField] public Weapon[] Weapons { get; private set; }
         public Weapon CurrentWeapon { get; private set; }
+        protected int currentWeaponIndex;
         protected bool isShooting;
         protected float currentShootTime;
 
         protected bool canShoot => isShooting && currentShootTime <= 0f;
         
         public int Health { get; private set; }
+        private int removedHealthBar;
         public InfluencedProperty<int> HealthBarCount { get; private set; }
         public InfluencedProperty<float> Strength { get; private set; }
         public InfluencedProperty<float> Speed { get; private set; }
@@ -40,17 +40,16 @@ namespace DeadLink.Entities
             Strength = new InfluencedProperty<float>(EntityData.BaseStrength);
             Speed = new InfluencedProperty<float>(EntityData.BaseSpeed);
             HealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
-
+            HealthBarCount.AddInfluence(this, Influence.Subtract);
+            
             ChangeWeapon(1);
             transform.position = SpawnPosition;
 
             SetFullHealth();
+            //Debug.Log("Spawn entity " + gameObject.name);
         }
 
-        public virtual void Die()
-        {
-
-        }
+        public abstract void Die();
 
         public virtual void TakeDamage(float damage)
         {
@@ -60,11 +59,27 @@ namespace DeadLink.Entities
         public virtual void TakeDamage(int damage)
         {
             Health -= damage;
+            
             if (Health <= 0)
             {
-                Health = 0;
-                Die();
+                removedHealthBar++;
+                HealthBarCount.Write(this, removedHealthBar);
+                
+                //Debug.Log("Removing health bar, remaining health bar count : " + HealthBarCount.Value);
+                //Debug.Log($"Current health bar count : {HealthBarCount.Value}");
+                
+                int remainingDamages = Mathf.Abs(Health);
+                if (HealthBarCount.Value <= 0)
+                {
+                    Die();
+                    return;
+                }
+                
+                SetFullHealth();
+                Health -= remainingDamages;
             }
+            
+            //Debug.Log($"entity {gameObject.name} take {damage} damage, health : {Health}");
         }
 
         public virtual void Heal(float heal)
@@ -103,18 +118,16 @@ namespace DeadLink.Entities
             if (CurrentWeapon != null)
                 CurrentWeapon.gameObject.SetActive(false);
             
-            int currentIndex = System.Array.IndexOf(Weapons, CurrentWeapon);
+            int currentIndex = Array.IndexOf(Weapons, CurrentWeapon);
             int newIndex = (currentIndex + direction) % Weapons.Length;
             if (newIndex < 0)
             {
                 newIndex += Weapons.Length;
             }
-            
+
+            currentWeaponIndex = newIndex;
             CurrentWeapon = Weapons[newIndex];
             CurrentWeapon.gameObject.SetActive(true);
-            
-            LevelManager.Instance.HUDMenuHandler.ChangeWeapon(newIndex);
-            LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentWeapon.CurrentMunitions, CurrentWeapon.WeaponData.MaxAmmunition);
         }
         
         protected virtual void Shoot()
@@ -151,7 +164,6 @@ namespace DeadLink.Entities
         {
             if (CurrentWeapon == null) return;
             
-            Debug.Log("Reloading");
             CurrentWeapon.Reload();
         }
         

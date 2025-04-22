@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b74eb81eec0c4b07ba9b8a709fcbca97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <BulletData>k__BackingField: {fileID: 11400000, guid: 113f1131ae0aaf846ae4864f373a4e3f, type: 2}
   rb: {fileID: 706688346307426691}
+  rocketBulletData: {fileID: 11400000, guid: 113f1131ae0aaf846ae4864f373a4e3f, type: 2}
 --- !u!54 &706688346307426691
 Rigidbody:
   m_ObjectHideFlags: 0
