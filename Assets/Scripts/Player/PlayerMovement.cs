@@ -1,7 +1,5 @@
-using System.Collections.Generic;
+using System;
 using DeadLink.Cameras;
-using DeadLink.PowerUpSystem;
-using DeadLink.PowerUpSystem.InterfacePowerUps;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using UnityEngine;
@@ -101,7 +99,6 @@ namespace RogueLike.Player
 
         public bool WantsToWallrun => IsWalled &&
                                       CurrentWall != null
-                                      && !exitWallrun
                                       && DistanceFromGround > wallrunMinHeight;
 
         private int jumpInput;
@@ -143,7 +140,7 @@ namespace RogueLike.Player
         }
 
         private void Start() => SetMovementState(MovementState.Walking);
-
+        
         private void OnDestroy()
         {
             CurrentVelocity.RemoveInfluence(stateChannelKey);
@@ -158,11 +155,8 @@ namespace RogueLike.Player
 
         private void FixedUpdate()
         {
-            if (currentStateIndex == -1)
-            {
-                currentStateIndex = 0;
-            }
-
+            currentStateIndex = currentStateIndex == -1 ? 0 : currentStateIndex;
+            
             HandleGroundDetection();
             HandleWallDetection();
 
@@ -177,9 +171,11 @@ namespace RogueLike.Player
 
             //Manage States Values
             MovementStateBehavior state = movementStates[currentStateIndex];
+            
             Vector3 stateVelocity = state.GetVelocity(this, deltaTime, ref stateGravityScale);
             stateVelocity += Gravity.Value * (stateGravityScale * gravityScale * deltaTime);
             CurrentVelocity.Write(stateChannelKey, stateVelocity);
+            
             CameraController.Instance.CameraEffectProperty.Write(stateChannelKey,
                 state.GetCameraEffects(this, Time.deltaTime));
 
@@ -307,8 +303,6 @@ namespace RogueLike.Player
         {
             if (exitWallrun)
             {
-                exitWallrun = false;
-
                 currentWallrunExitTime -= Time.deltaTime;
 
                 if (currentWallrunExitTime <= 0)
@@ -339,8 +333,6 @@ namespace RogueLike.Player
                 if (Physics.CapsuleCast(p1, p2, CapsuleCollider.radius - MIN_THRESHOLD, direction, out RaycastHit hit,
                         wallCastDistance, WallLayer))
                 {
-                    Debug.DrawRay(hit.point, hit.normal * 10, Color.magenta);
-
                     float angle = Vector3.Angle(hit.normal, up);
                     if (angle > groundCheckMaxAngle)
                     {

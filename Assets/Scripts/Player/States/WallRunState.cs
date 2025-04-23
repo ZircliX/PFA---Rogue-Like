@@ -46,6 +46,8 @@ namespace RogueLike.Player.States
             
             currentAcceleration = 0;
             currentDeceleration = 0;
+            
+            Debug.Log($"Entering {State}");
         }
 
         public override void Exit(PlayerMovement movement)
@@ -70,6 +72,8 @@ namespace RogueLike.Player.States
 
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
+            //Debug.Log($"IsWalled {movement.IsWalled} CurrentWall != null {movement.CurrentWall != null} DistanceFromGround > wallrunMinHeight {movement.DistanceFromGround > 2}");
+
             Vector3 lastVelocity = movement.StateVelocity;
             
             //Calculate wallrun direction
@@ -139,10 +143,11 @@ namespace RogueLike.Player.States
             if (movement.WantsToJump)
             {
                 movement.ExitWallrun();
-                return MovementState.Jumping;
+                return MovementState.WallJumping;
             }
             if (!movement.WantsToWallrun)
             {
+                Debug.Log("Don't want to wallrun");
                 movement.ExitWallrun();
                 return MovementState.Falling;
             }
@@ -153,11 +158,11 @@ namespace RogueLike.Player.States
                 return MovementState.Dashing;
             }
 
-            Vector3 wallNormal = movement.WallNormal;
             Vector3 projectOnPlane = Vector3.ProjectOnPlane(movement.StateVelocity, wallNormal);
 
             if (projectOnPlane.sqrMagnitude < minWallrunSpeed * minWallrunSpeed + decelerationThreshold)
             {
+                Debug.Log("Too slowwwwwww");
                 movement.ExitWallrun();
                 return MovementState.Falling;
             }

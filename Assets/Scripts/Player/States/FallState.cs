@@ -14,6 +14,8 @@ namespace RogueLike.Player.States
         public override void Enter(PlayerMovement movement)
         {
             fovModifier = 0;
+            Debug.Log($"Entering {State}");
+
         }
 
         public override void Exit(PlayerMovement movement)

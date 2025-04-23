@@ -74,7 +74,7 @@ namespace DeadLink.Ammunitions
                 entities[i].TakeDamage(damage);
             }
             
-            Instantiate(BulletData.HitVFX, hit.point, Quaternion.identity);
+            Instantiate(BulletData.HitVFX, hit.point + hit.normal * 0.5f, Quaternion.identity);
             
             OnBulletHit?.Invoke(this);
             DestroyBullet();

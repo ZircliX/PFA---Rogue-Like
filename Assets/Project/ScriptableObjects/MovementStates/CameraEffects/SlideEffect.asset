@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SlideEffect
   m_EditorClassIdentifier: 
   <CameraEffectComposite>k__BackingField:
-    Dutch: 8
+    Dutch: 5
     FovScale: 1.2
     Speed: 0.35
