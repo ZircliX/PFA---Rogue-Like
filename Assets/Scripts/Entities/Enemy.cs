@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using DeadLink.Entities.Data;
 using Enemy;
-using KBCore.Refs;
 using LTX.ChanneledProperties;
 using RayFire;
 using RogueLike.Controllers;
@@ -10,14 +7,13 @@ using UnityEngine;
 
 namespace DeadLink.Entities
 {
-    [RequireComponent(typeof(RayfireRigid))]
     public abstract class Enemy : Entity
     {
         [field: SerializeField] public int Cost { get; private set; }
+        [field: SerializeField] public EnemyUI enemyUI { get; private set; }
         
-        [SerializeField, Self] private RayfireRigid rayfireRigid;
-
-        private void OnValidate() => this.ValidateRefs();
+        [SerializeField] private RayfireRigid rayfireRigid;
+        
 
         public override void Spawn(EntityData entityData, DifficultyData difficultyData, Vector3 SpawnPosition)
         {
@@ -57,6 +53,12 @@ namespace DeadLink.Entities
             {
                 currentTime += Time.deltaTime;
             }
+        }
+
+        public override void TakeDamage(float damage)
+        {
+            base.TakeDamage(damage);
+            enemyUI.UpdateHealthBar(Health, MaxHealth.Value);
         }
 
         public override void Die()
