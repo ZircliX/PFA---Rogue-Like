@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5269a4f3e96f476d8c19ca117c3175f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <WeaponData>k__BackingField: {fileID: 11400000, guid: 95bc11bf4463cce42beebaa9298a2039, type: 2}
   <BulletData>k__BackingField: {fileID: 11400000, guid: bdaefd8c49d86494297788e7d5725a1c, type: 2}
+  laserWeaponData: {fileID: 11400000, guid: 95bc11bf4463cce42beebaa9298a2039, type: 2}

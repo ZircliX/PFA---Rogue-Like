@@ -115,8 +115,10 @@ namespace DeadLink.Entities
 
         protected virtual void ChangeWeapon(int direction)
         {
+            /*
             if (CurrentWeapon != null)
                 CurrentWeapon.gameObject.SetActive(false);
+                */
             
             int currentIndex = Array.IndexOf(Weapons, CurrentWeapon);
             int newIndex = (currentIndex + direction) % Weapons.Length;
@@ -127,7 +129,7 @@ namespace DeadLink.Entities
 
             currentWeaponIndex = newIndex;
             CurrentWeapon = Weapons[newIndex];
-            CurrentWeapon.gameObject.SetActive(true);
+            //CurrentWeapon.gameObject.SetActive(true);
         }
         
         protected virtual void Shoot()
@@ -164,7 +166,7 @@ namespace DeadLink.Entities
         {
             if (CurrentWeapon == null) return;
             
-            CurrentWeapon.Reload();
+            StartCoroutine(CurrentWeapon.Reload());
         }
         
         protected virtual void Update()
@@ -179,6 +181,8 @@ namespace DeadLink.Entities
                 Shoot();
                 currentShootTime = CurrentWeapon.WeaponData.ShootRate;
             }
+
+            CurrentWeapon.SetShootingState(isShooting);
         }
 
         public abstract void Unlock(IVisitor visitor);

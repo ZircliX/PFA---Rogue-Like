@@ -4,9 +4,13 @@ namespace DeadLink.Weapons.Data
 {
     public abstract class ProjectileWeaponData : WeaponData
     {
-        [field: Header("Stats")]
-        [field : SerializeField] public float FireRate { get; private set; }
-        [field : SerializeField] public float ReloadDuration { get; private set; }
-        [field : SerializeField] public int MagCapacity { get; private set; }
+        [field: Header("Shoot Stats")]
+        [SerializeField] private float shootRate;
+        public override float ShootRate => shootRate;
+        [SerializeField] private int maxAmmunition;
+        public override int MaxAmmunition => maxAmmunition;
+
+        [SerializeField] private float reloadDuration;
+        public override float ReloadTime => reloadDuration;
     }
 }

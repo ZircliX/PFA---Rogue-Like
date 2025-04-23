@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f286d1c6f8d44246ba0a5e603c8fc24f, type: 3}
   m_Name: RocketBulletData
   m_EditorClassIdentifier: 
-  <BulletSpeed>k__BackingField: 1000
+  <BulletSpeed>k__BackingField: 500
   <Damage>k__BackingField: 50
   <MaxLifeCycle>k__BackingField: 5
   <HitVFX>k__BackingField: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
