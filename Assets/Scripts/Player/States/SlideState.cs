@@ -53,7 +53,7 @@ namespace RogueLike.Player.States
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
             Vector3 velocity = Vector3.zero;
-            Vector3 projectionPlaneNormal = GetProjectionPlaneNormal(movement);
+            Vector3 projectionPlaneNormal = GetGroundNormal(movement);
             
             //Acceleration
             if (currentSlideTime < accelerationDuration)
@@ -92,7 +92,7 @@ namespace RogueLike.Player.States
                 return MovementState.Jumping;
             }
             
-            Vector3 projectionPlaneNormal = GetProjectionPlaneNormal(movement);
+            Vector3 projectionPlaneNormal = GetGroundNormal(movement);
             Vector3 projectOnPlane = Vector3.ProjectOnPlane(movement.StateVelocity, projectionPlaneNormal);
             
             if (projectOnPlane.sqrMagnitude < slideMinSpeed * slideMinSpeed + decelerationThreshold)

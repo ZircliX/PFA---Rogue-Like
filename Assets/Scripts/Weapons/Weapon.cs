@@ -51,9 +51,6 @@ namespace DeadLink.Weapons
                 return;
             }
             
-            //Debug.Log($"Instantiating bullet {BulletData.name} from {entity.name}");
-            CameraController.Instance.CameraShakeProperty.Write(this, WeaponData.CameraShake);
-            
             Bullet bullet = Instantiate(
                 BulletData.BulletPrefab, 
                 entity.BulletSpawnPoint.position, 
@@ -63,6 +60,9 @@ namespace DeadLink.Weapons
             bullet.OnBulletDestroy += BulletDestroy;
             
             bullet.Shoot(entity.Strength, direction);
+            
+            WeaponRecoilSettings recoilData = WeaponData.WeaponRecoilSettings;
+            CameraController.Instance.RecoilFire(recoilData.GetRecoil(), recoilData.Snappiness, recoilData.ReturnSpeed);
 
             CurrentMunitions--;
             
@@ -78,20 +78,15 @@ namespace DeadLink.Weapons
         public virtual IEnumerator Reload()
         {
             CurrentReloadTime = 0;
+            int previousMunitions = CurrentMunitions;
 
             while (CurrentReloadTime < WeaponData.ReloadTime)
             {
                 CurrentReloadTime += Time.deltaTime;
-                
-                int previousMunitions = CurrentMunitions;
-
                 float reloadProgress = CurrentReloadTime / WeaponData.ReloadTime;
-                reloadProgress = Mathf.Clamp01(reloadProgress);
-
                 CurrentMunitions = Mathf.FloorToInt(Mathf.Lerp(previousMunitions, WeaponData.MaxAmmunition, reloadProgress));
                 
                 LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
-                
                 yield return null;
             }
 

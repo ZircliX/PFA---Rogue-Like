@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: LaserWeaponData
   m_EditorClassIdentifier: 
   <ShootVFX>k__BackingField: {fileID: 0}
-  <CameraShake>k__BackingField:
-    Amplitude: 10
-    Frequency: 1
-    Duration: 1
+  <WeaponRecoilSettings>k__BackingField: {fileID: 11400000, guid: 64228bf9f53cbcf43909115d7c2081d5, type: 2}
   <WeaponPrefab>k__BackingField: {fileID: 1995800014038543991, guid: a57a81dc5c1b63341b5414eaf1cff674, type: 3}
   shootRate: 0.05
   maxAmmunition: 100

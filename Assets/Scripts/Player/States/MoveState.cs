@@ -48,7 +48,7 @@ namespace RogueLike.Player.States
             Vector3 lastVelocity = movement.StateVelocity;
             Vector3 worldInputs = GetWorldInputs(movement);
 
-            Vector3 projectionPlaneNormal = GetProjectionPlaneNormal(movement);
+            Vector3 projectionPlaneNormal = GetGroundNormal(movement);
             Vector3 projectedInputs = worldInputs.ProjectOntoPlane(projectionPlaneNormal).normalized;
             Vector3 projectedLastDirection = direction.ProjectOntoPlane(projectionPlaneNormal).normalized;
 

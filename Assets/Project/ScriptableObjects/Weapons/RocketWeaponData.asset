@@ -13,11 +13,8 @@ MonoBehaviour:
   m_Name: RocketWeaponData
   m_EditorClassIdentifier: 
   <ShootVFX>k__BackingField: {fileID: 0}
-  <CameraShake>k__BackingField:
-    Amplitude: 10
-    Frequency: 1
-    Duration: 1
+  <WeaponRecoilSettings>k__BackingField: {fileID: 11400000, guid: d2dfd74154000374288e6836c0ef6e82, type: 2}
   <WeaponPrefab>k__BackingField: {fileID: 981379142398410939, guid: b75167882f7662043be1985a9590356d, type: 3}
-  shootRate: 1
+  shootRate: 2
   maxAmmunition: 2
   reloadDuration: 2

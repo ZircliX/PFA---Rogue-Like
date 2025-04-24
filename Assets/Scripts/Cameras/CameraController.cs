@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Data;
 using DG.Tweening;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
@@ -116,6 +115,25 @@ namespace DeadLink.Cameras
             }
             
             effectCoroutine = StartCoroutine(IEffectCoroutine());
+        }
+
+        private Vector3 _targetRotation;
+        private Vector3 currentRotation;
+        private float _snap;
+        private float _returnSpeed;
+        
+        private void Update()
+        {
+            _targetRotation = Vector3.Lerp(_targetRotation, Vector3.zero, _returnSpeed * Time.deltaTime);
+            currentRotation = Vector3.Slerp(currentRotation, _targetRotation, _snap * Time.fixedDeltaTime);
+            transform.localRotation = Quaternion.Euler(currentRotation);
+        }
+
+        public void RecoilFire(Vector3 targetRotation, float snap, float returnSpeed)
+        {
+            _targetRotation = targetRotation;
+            _snap = snap;
+            _returnSpeed = returnSpeed;
         }
     }
 }

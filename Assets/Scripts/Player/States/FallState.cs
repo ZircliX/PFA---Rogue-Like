@@ -14,7 +14,7 @@ namespace RogueLike.Player.States
         public override void Enter(PlayerMovement movement)
         {
             fovModifier = 0;
-            Debug.Log($"Entering {State}");
+            //Debug.Log($"Entering {State}");
 
         }
 
@@ -69,7 +69,7 @@ namespace RogueLike.Player.States
             return composite;
         }
 
-        protected override Vector3 GetProjectionPlaneNormal(PlayerMovement movement)
+        protected override Vector3 GetGroundNormal(PlayerMovement movement)
         {
             return -movement.Gravity.Value.normalized;
         }

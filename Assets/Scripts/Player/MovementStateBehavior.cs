@@ -43,7 +43,7 @@ namespace RogueLike.Player
             return GetCameraDirection(movement, new Vector2(movement.InputDirection.x, movement.InputDirection.z));
         }
         
-        protected virtual Vector3 GetProjectionPlaneNormal(PlayerMovement movement)
+        protected virtual Vector3 GetGroundNormal(PlayerMovement movement)
         {
             return movement.GroundNormal;
         }

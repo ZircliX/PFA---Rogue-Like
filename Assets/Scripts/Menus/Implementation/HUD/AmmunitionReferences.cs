@@ -19,7 +19,7 @@ namespace DeadLink.Menus.Implementation
                 () => AmmoFill.fillAmount,
                 x => AmmoFill.fillAmount = x,
                 (float)current / max,
-                0.5f).SetEase(Ease.OutSine);
+                0.25f).SetEase(Ease.Linear);
         }
     }
 }

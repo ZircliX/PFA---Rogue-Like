@@ -16,7 +16,7 @@ namespace RogueLike.Player.States
             float jumpModifier = jumpCurve.Evaluate(normTime);
 
             Vector3 baseVelocity = base.GetVelocity(movement, deltaTime, ref gravityScale);
-            Vector3 gravityNormal = GetProjectionPlaneNormal(movement);
+            Vector3 gravityNormal = GetGroundNormal(movement);
 
             if (currentJumpTime <= 0)
             {

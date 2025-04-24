@@ -36,6 +36,10 @@ namespace RogueLike.Player
         #endregion
 
         #region Walls Detection
+        
+        [Header("Dash Settings")]
+        [SerializeField] private float dashCooldown = 2.5f;
+        
 
         [Header("Walls Detection")] 
         [SerializeField] private int wallCastSample = 15;
@@ -47,8 +51,6 @@ namespace RogueLike.Player
         public bool IsWalled { get; private set; }
         public Vector3 WallNormal { get; private set; }
         public Collider CurrentWall { get; private set; }
-        private float currentWallrunExitTime;
-        private bool exitWallrun;
 
         #endregion
         
@@ -97,9 +99,11 @@ namespace RogueLike.Player
         public bool WalkInput { get; private set; }
         public bool CrouchInput { get; private set; }
 
-        public bool WantsToWallrun => IsWalled &&
-                                      CurrentWall != null
+        public bool WantsToWallrun => IsWalled 
+                                      && CurrentWall != null
+                                      && currentWallrunExitTime <= 0
                                       && DistanceFromGround > wallrunMinHeight;
+        private float currentWallrunExitTime;
 
         private int jumpInput;
         public bool WantsToJump => jumpInput > 0;
@@ -107,7 +111,10 @@ namespace RogueLike.Player
         public bool WantsToSlide => slideInput > 0;
 
         private bool dashInput;
-        public bool WantsToDash => remainingDash > 0 && dashInput;
+        public bool WantsToDash => remainingDash > 0 
+                                   && dashInput 
+                                   && currentDashCooldown <= 0;
+        private float currentDashCooldown;
         
         #endregion
 
@@ -151,6 +158,21 @@ namespace RogueLike.Player
                 MovementStateBehavior state = movementStates[i];
                 state.Dispose(this);
             }
+        }
+        
+        private void Update()
+        {
+            //Wallrun Cooldown
+            if (currentWallrunExitTime > 0)
+                currentWallrunExitTime -= Time.deltaTime;
+            else
+                currentWallrunExitTime = 0;
+
+            //Dash Cooldown
+            if (currentDashCooldown > 0)
+                currentDashCooldown -= Time.deltaTime;
+            else
+                currentDashCooldown = 0;
         }
 
         private void FixedUpdate()
@@ -301,15 +323,8 @@ namespace RogueLike.Player
 
         private void HandleWallDetection()
         {
-            if (exitWallrun)
+            if (currentWallrunExitTime > 0)
             {
-                currentWallrunExitTime -= Time.deltaTime;
-
-                if (currentWallrunExitTime <= 0)
-                {
-                    exitWallrun = false;
-                }
-
                 IsWalled = false;
                 WallNormal = Vector3.zero;
                 CurrentWall = null;
@@ -407,8 +422,12 @@ namespace RogueLike.Player
         
         public void ExitWallrun()
         {
-            exitWallrun = true;
             currentWallrunExitTime = wallrunExitTime;
+        }
+
+        public void DashCooldown()
+        {
+            currentDashCooldown = dashCooldown;
         }
         
         #endregion

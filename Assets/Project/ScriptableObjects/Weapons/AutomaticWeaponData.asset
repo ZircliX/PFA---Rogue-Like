@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: AutomaticWeaponData
   m_EditorClassIdentifier: 
   <ShootVFX>k__BackingField: {fileID: 0}
-  <CameraShake>k__BackingField:
-    Amplitude: 10
-    Frequency: 1
-    Duration: 1
+  <WeaponRecoilSettings>k__BackingField: {fileID: 11400000, guid: dec6c8d5b0beb58448fd0d84861ad905, type: 2}
   <WeaponPrefab>k__BackingField: {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
   shootRate: 0.1
   maxAmmunition: 30

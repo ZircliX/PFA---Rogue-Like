@@ -8,7 +8,7 @@ namespace DeadLink.Weapons.Data
     {
         [field: Header("VFX")]
         [field : SerializeField] public VisualEffect ShootVFX { get; private set; }
-        [field : SerializeField] public CameraShakeComposite CameraShake { get; private set; }
+        [field : SerializeField] public WeaponRecoilSettings WeaponRecoilSettings { get; private set; }
         
         public abstract float ShootRate { get; }
         public abstract int MaxAmmunition { get; }
