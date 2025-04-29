@@ -68,8 +68,8 @@ MonoBehaviour:
   deceleration: 5
   maxStepHeight: 1
   <CameraEffectData>k__BackingField: {fileID: 11400000, guid: 0f1db437089b6bb4baf913036019b043, type: 2}
-  jumpForce: 3.25
-  jumpDuration: 0.175
+  jumpForce: 2
+  jumpDuration: 0.3
   jumpCurve:
     serializedVersion: 2
     m_Curve:
@@ -112,4 +112,46 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  diagonalJumpForce: 5
+  diagonalJumpForce: 2
+  diagonalCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -2.115386
+      outSlope: -2.115386
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3309445
+      value: 0.2999246
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49265242
+      value: 0.093156755
+      inSlope: -0.44828063
+      outSlope: -0.44828063
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

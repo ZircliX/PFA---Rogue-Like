@@ -17,4 +17,4 @@ MonoBehaviour:
   <WeaponPrefab>k__BackingField: {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
   shootRate: 0.1
   maxAmmunition: 30
-  reloadDuration: 1
+  reloadDuration: 0.8

@@ -33,7 +33,7 @@ namespace DeadLink.Ammunitions
             {
                 Ray ray = new Ray(lastPosition, direction.normalized);
                 
-                if (Physics.Raycast(ray, out RaycastHit hit, distance))
+                if (Physics.Raycast(ray, out RaycastHit hit, distance, ~0, QueryTriggerInteraction.Ignore))
                 {
                     if (hit.collider.TryGetComponent(out Entity entity))
                     {
@@ -81,7 +81,7 @@ namespace DeadLink.Ammunitions
 
         protected virtual void HitObject(RaycastHit hit)
         {
-            Debug.Log($"Author Result {hit.collider.CompareTag(AuthorTag)}, Hit Result {hit.collider.gameObject.name}");
+            //Debug.Log($"Author Result {hit.collider.CompareTag(AuthorTag)}, Hit Result {hit.collider.gameObject.name}");
             if (hit.collider.CompareTag(AuthorTag)) return;
             
             //+ hit.normal * 0.5f

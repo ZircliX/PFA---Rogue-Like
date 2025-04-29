@@ -14,6 +14,10 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Falling;
             }
+            if (movement.CrouchInput)
+            {
+                return MovementState.Crouching;
+            }
             if (movement.WantsToJump)
             {
                 return MovementState.Jumping;

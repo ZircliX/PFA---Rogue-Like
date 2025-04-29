@@ -8,30 +8,33 @@ namespace RogueLike.Player.States
     {
         [Header("Wall Jump")]
         [SerializeField] private float diagonalJumpForce;
+        [SerializeField] private AnimationCurve diagonalCurve;
 
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
             float normTime = currentJumpTime / jumpDuration;
 
             float jumpModifier = jumpCurve.Evaluate(normTime);
+            float diagonalJumpModifier = diagonalCurve.Evaluate(normTime);
 
             Vector3 baseVelocity = base.GetVelocity(movement, deltaTime, ref gravityScale);
             Vector3 gravityNormal = GetGroundNormal(movement);
 
             if (currentJumpTime <= 0)
             {
-                //Debug.Log($"before : {baseVelocity} ");
                 baseVelocity = Vector3.ProjectOnPlane(baseVelocity, gravityNormal);
-                //Debug.Log($"after : {baseVelocity} ");
             }
 
             currentJumpTime += deltaTime;
             if (currentJumpTime >= jumpDuration)
+            {
                 movement.SetMovementState(MovementState.Falling);
+                Debug.LogError("wut");
+            }
 
-            Vector3 finalVelocity = gravityNormal * (jumpModifier * jumpForce) + movement.WallNormal * (jumpModifier * diagonalJumpForce) + baseVelocity;
-
-            //Debug.Log($"{count++} | {baseVelocity.y} => {finalVelocity.magnitude}");
+            Vector3 finalVelocity = gravityNormal * (jumpModifier * jumpForce) +
+                                    movement.LastKnownWallNormal * (diagonalJumpModifier * diagonalJumpForce) + baseVelocity;
+            Debug.DrawRay(movement.rb.position, finalVelocity, Color.cyan, 2);
 
             return finalVelocity;
         }

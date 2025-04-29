@@ -33,7 +33,8 @@ namespace RogueLike.Managers
         
         private void StartLevel()
         {
-            EnemyManager.Instance.SpawnEnemies(difficulty);
+            if (GameMetrics.Global.SpawnEnemies)
+                EnemyManager.Instance.SpawnEnemies(difficulty);
             player.Spawn(player.EntityData, difficulty, player.SpawnPosition.position);
             
             TimerManager.Instance.StartTimer();

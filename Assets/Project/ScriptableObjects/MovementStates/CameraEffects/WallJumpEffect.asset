@@ -15,6 +15,6 @@ MonoBehaviour:
   <CameraEffectComposite>k__BackingField:
     Dutch: 15
     FovScale: 1.15
-    Speed: 0.35
+    Speed: 0.5
   <FovMultiplier>k__BackingField: 0
   <MaxFov>k__BackingField: 1.15

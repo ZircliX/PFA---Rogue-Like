@@ -1,5 +1,5 @@
-using System;
 using DeadLink.Cameras;
+using DG.Tweening;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using UnityEngine;
@@ -29,9 +29,19 @@ namespace RogueLike.Player
 
         [Header("Ground Check")] 
         [SerializeField] private float groundCheckDistance = 0.1f;
+        [SerializeField] private float groundCrouchCheckDistance = 0.1f;
         [SerializeField] private float groundCheckMaxAngle = 50;
         [field: SerializeField] public LayerMask GroundLayer { get; private set; }
         public float DistanceFromGround { get; private set; }
+
+        #endregion
+
+        #region Ceiling Check
+
+        [Header("Ceiling Check")] 
+        [SerializeField] private float ceilingCheckDistance = 0.1f;
+        [SerializeField] private float ceilingCrouchCheckDistance = 0.1f;
+        public bool IsTouchingCeiling { get; private set; }
 
         #endregion
 
@@ -44,12 +54,14 @@ namespace RogueLike.Player
         [Header("Walls Detection")] 
         [SerializeField] private int wallCastSample = 15;
         [SerializeField] private float wallCastDistance = 1.5f;
+        [SerializeField] private float wallRunCastExpension = 1.5f;
         [SerializeField] private int wallCastAngle = 60;
         [SerializeField] private float wallrunExitTime = 1;
         [SerializeField] private float wallrunMinHeight = 1.5f;
         [field: SerializeField] public LayerMask WallLayer { get; private set; }
         public bool IsWalled { get; private set; }
         public Vector3 WallNormal { get; private set; }
+        public Vector3 LastKnownWallNormal { get; private set; }
         public Collider CurrentWall { get; private set; }
 
         #endregion
@@ -78,6 +90,7 @@ namespace RogueLike.Player
 
         [field: Header("Height")]
         [field: SerializeField] public float BaseCapsuleHeight { get; private set; } = 2;
+        [field: SerializeField] public float CrouchCapsuleHeight { get; private set; } = 0.5f;
         [field: SerializeField] public float BaseHeadHeight { get; private set; } = 0.5f;
         [field: SerializeField] public Vector3 ColliderCenterOffset { get; private set; } = new Vector3(0, -0.5f, 0);
         public PrioritisedProperty<(float, float)> PlayerHeight { get; private set; }
@@ -173,14 +186,15 @@ namespace RogueLike.Player
                 currentDashCooldown -= Time.deltaTime;
             else
                 currentDashCooldown = 0;
+            
+            HandleGroundDetection();
+            HandleCeilingDetection();
+            HandleWallDetection();
         }
 
         private void FixedUpdate()
         {
             currentStateIndex = currentStateIndex == -1 ? 0 : currentStateIndex;
-            
-            HandleGroundDetection();
-            HandleWallDetection();
 
             //Set Buffers
             if (jumpInput > 0)
@@ -340,20 +354,35 @@ namespace RogueLike.Player
                 Quaternion rotation = Quaternion.AngleAxis(Mathf.Lerp(-wallCastAngle, wallCastAngle, lerp), up);
 
                 Vector3 direction = rotation * castDirection;
-                Debug.DrawRay(transform.position, direction * wallCastDistance, Color.yellow);
 
                 Vector3 p1 = rb.position + CapsuleCollider.center + transform.up * -CapsuleCollider.height * 0.25f;
                 Vector3 p2 = p1 + transform.up * CapsuleCollider.height;
 
+                float dist = CurrentState == MovementState.WallRunning
+                    ? wallCastDistance + wallRunCastExpension
+                    : wallCastDistance;
+                
+                Debug.DrawRay(transform.position, direction * dist, Color.yellow);
                 if (Physics.CapsuleCast(p1, p2, CapsuleCollider.radius - MIN_THRESHOLD, direction, out RaycastHit hit,
-                        wallCastDistance, WallLayer))
+                        dist, WallLayer))
                 {
+                    
+                    
                     float angle = Vector3.Angle(hit.normal, up);
                     if (angle > groundCheckMaxAngle)
                     {
+                        if (Vector3.Dot(hit.normal, WallNormal) < 0.6f && WallNormal != Vector3.zero)
+                        {
+                            IsWalled = false;
+                            WallNormal = Vector3.zero;
+                            CurrentWall = null;
+                            return;
+                        }
+                        
                         IsWalled = true;
                         WallNormal = hit.normal;
                         CurrentWall = hit.collider;
+                        LastKnownWallNormal = WallNormal;
                         return;
                     }
                 }
@@ -362,6 +391,32 @@ namespace RogueLike.Player
             IsWalled = false;
             WallNormal = Vector3.zero;
             CurrentWall = null;
+        }
+        
+        private void HandleCeilingDetection()
+        {
+            Vector3 upDirection = -Gravity.Value.normalized;
+            Vector3 ccPos = transform.TransformPoint(CapsuleCollider.center);
+            
+            bool result;
+            if (CurrentState is MovementState.Crouching or MovementState.Sliding)
+            {
+                result = Physics.SphereCast(ccPos, CapsuleCollider.radius, upDirection, out RaycastHit hit,
+                    ceilingCrouchCheckDistance + MIN_THRESHOLD);
+                
+                Debug.DrawRay(ccPos, upDirection * (ceilingCrouchCheckDistance + MIN_THRESHOLD),
+                    Color.blue);
+            }
+            else
+            {
+                result = Physics.SphereCast(ccPos, CapsuleCollider.radius, upDirection, out RaycastHit hit,
+                    ceilingCheckDistance + MIN_THRESHOLD);
+                
+                Debug.DrawRay(ccPos, upDirection * (ceilingCheckDistance + MIN_THRESHOLD),
+                    Color.blue);
+            }
+
+            IsTouchingCeiling = result;
         }
 
         private void HandleGroundDetection()
@@ -373,9 +428,13 @@ namespace RogueLike.Player
                 return;
             }
 
-            Vector3 gravityNormalized = Gravity.Value.normalized;
+            Vector3 rayDirection = Gravity.Value.normalized;
+            
+            float crouchProgress = Mathf.InverseLerp(BaseCapsuleHeight, CrouchCapsuleHeight, CapsuleCollider.height);
+            float dynamicGroundCheckDistance = Mathf.Lerp(groundCheckDistance, groundCrouchCheckDistance, crouchProgress);
 
-            bool distanceResult = Physics.SphereCast(rb.position, CapsuleCollider.radius, gravityNormalized,
+            //Ground Distance
+            bool distanceResult = Physics.SphereCast(rb.position, CapsuleCollider.radius, rayDirection,
                 out RaycastHit hit, Mathf.Infinity, GroundLayer);
             if (distanceResult)
             {
@@ -386,15 +445,39 @@ namespace RogueLike.Player
                 DistanceFromGround = Mathf.Infinity;
             }
 
+            //Ground Check
             Vector3 ccPos = transform.TransformPoint(CapsuleCollider.center);
-            bool result = Physics.SphereCast(ccPos, CapsuleCollider.radius, gravityNormalized, out hit,
-                groundCheckDistance + CapsuleCollider.height * 0.5f + MIN_THRESHOLD, GroundLayer);
-            Debug.DrawRay(ccPos, gravityNormalized * (groundCheckDistance + CapsuleCollider.height * 0.5f + MIN_THRESHOLD),
-                Color.red);
+
+            bool result;
+            /*
+            //Crouching
+            if (CurrentState is MovementState.Crouching or MovementState.Sliding)
+            {
+                result = Physics.SphereCast(ccPos, CapsuleCollider.radius, gravityNormalized, out hit,
+                    groundCrouchCheckDistance + MIN_THRESHOLD, GroundLayer);
+                
+                Debug.DrawRay(ccPos, gravityNormalized * (groundCrouchCheckDistance + MIN_THRESHOLD),
+                    Color.red);
+            }
+            //Standing
+            else
+            {
+                result = Physics.SphereCast(ccPos, CapsuleCollider.radius, gravityNormalized, out hit,
+                    groundCheckDistance + MIN_THRESHOLD, GroundLayer);
+                
+                Debug.DrawRay(ccPos, gravityNormalized * (groundCheckDistance + MIN_THRESHOLD),
+                    Color.red);
+            }
+            */
+            
+            result = Physics.SphereCast(ccPos, CapsuleCollider.radius, rayDirection, out hit,
+                dynamicGroundCheckDistance + MIN_THRESHOLD, GroundLayer);
+
+            Debug.DrawRay(ccPos, rayDirection * (dynamicGroundCheckDistance + MIN_THRESHOLD), Color.red);
 
             if (result)
             {
-                float angle = Vector3.Angle(hit.normal, -gravityNormalized);
+                float angle = Vector3.Angle(hit.normal, -rayDirection);
                 if (angle < groundCheckMaxAngle)
                 {
                     GroundNormal = hit.normal;
@@ -413,11 +496,28 @@ namespace RogueLike.Player
         
         private void SetPlayerHeight(float newCapsuleHeight, float newHeadHeight)
         {
-            CapsuleCollider.height = newCapsuleHeight;
-            CapsuleCollider.center = Mathf.Approximately(newCapsuleHeight, BaseCapsuleHeight)
+            Vector3 targetCenter = Mathf.Approximately(newCapsuleHeight, BaseCapsuleHeight)
                 ? new Vector3(0, 0, 0)
                 : ColliderCenterOffset;
-            Head.localPosition = new Vector3(Head.localPosition.x, newHeadHeight, Head.localPosition.z);
+            DOTween.To(
+                () => CapsuleCollider.center,
+                x => CapsuleCollider.center = x,
+                targetCenter, 0.1f);
+            
+            DOTween.To(
+                () => CapsuleCollider.height,
+                x => CapsuleCollider.height = x,
+                newCapsuleHeight, 0.25f);
+            
+            
+            Vector3 targetHead = new Vector3(Head.localPosition.x, newHeadHeight, Head.localPosition.z);
+            Head.DOLocalMove(targetHead, 0.25f).SetEase(Ease.OutCubic);
+            
+            //CapsuleCollider.height = newCapsuleHeight;
+            // CapsuleCollider.center = Mathf.Approximately(newCapsuleHeight, BaseCapsuleHeight)
+            //     ? new Vector3(0, 0, 0)
+            //     : ColliderCenterOffset;
+            //Head.localPosition = new Vector3(Head.localPosition.x, newHeadHeight, Head.localPosition.z);
         }
         
         public void ExitWallrun()

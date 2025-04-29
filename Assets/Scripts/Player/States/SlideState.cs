@@ -87,7 +87,7 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Falling;
             }
-            if (movement.WantsToJump)
+            if (movement.WantsToJump && !movement.IsTouchingCeiling)
             {
                 return MovementState.Jumping;
             }
@@ -97,7 +97,10 @@ namespace RogueLike.Player.States
             
             if (projectOnPlane.sqrMagnitude < slideMinSpeed * slideMinSpeed + decelerationThreshold)
             {
-                return MovementState.Running;
+                if (!movement.IsTouchingCeiling)
+                    return MovementState.Running;
+                else
+                    return MovementState.Crouching;
             }
 
             return State;

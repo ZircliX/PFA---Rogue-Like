@@ -14,13 +14,29 @@ namespace RogueLike.Player.States
         [SerializeField] private float crouchCapsuleHeight = 0.5f;
         [SerializeField] private  float crouchHeadHeight = 0f;
 
+        public override void Enter(PlayerMovement movement)
+        {
+            base.Enter(movement);
+        }
+
+        public override void Exit(PlayerMovement movement)
+        {
+            base.Exit(movement);
+        }
+
+        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
+        {
+            gravityScale = 0;
+            return base.GetVelocity(movement, deltaTime, ref gravityScale);
+        }
+
         public override MovementState GetNextState(PlayerMovement movement)
         {
             if (!movement.IsGrounded)
             {
                 return MovementState.Falling;
             }
-            if (!movement.CrouchInput)
+            if (!movement.CrouchInput && !movement.IsTouchingCeiling)
             {
                 return MovementState.Idle;
             }
