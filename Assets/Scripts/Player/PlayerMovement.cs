@@ -355,15 +355,19 @@ namespace RogueLike.Player
 
                 Vector3 direction = rotation * castDirection;
 
-                Vector3 p1 = rb.position + CapsuleCollider.center + transform.up * -CapsuleCollider.height * 0.25f;
-                Vector3 p2 = p1 + transform.up * CapsuleCollider.height;
+                float halfHeight = CapsuleCollider.height * 0.25f;
+                float radius = CapsuleCollider.radius;
+
+                Vector3 center = transform.position + CapsuleCollider.center;
+                Vector3 p1 = center + transform.up * -halfHeight;
+                Vector3 p2 = center + transform.up * halfHeight;
 
                 float dist = CurrentState == MovementState.WallRunning
                     ? wallCastDistance + wallRunCastExpension
                     : wallCastDistance;
                 
                 Debug.DrawRay(transform.position, direction * dist, Color.yellow);
-                if (Physics.CapsuleCast(p1, p2, CapsuleCollider.radius - MIN_THRESHOLD, direction, out RaycastHit hit,
+                if (Physics.CapsuleCast(p1, p2, radius - MIN_THRESHOLD, direction, out RaycastHit hit,
                         dist, WallLayer))
                 {
                     

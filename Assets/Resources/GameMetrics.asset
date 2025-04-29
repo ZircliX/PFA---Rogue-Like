@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdf870fed234952a77aa0036142d86c, type: 3}
   m_Name: GameMetrics
   m_EditorClassIdentifier: 
+  <SpawnEnemies>k__BackingField: 1
   <SceneLoader>k__BackingField: {fileID: 3979984848490167843, guid: a39c2f37b5967cf42a360df5d75d8c96, type: 3}
   <MainMenuScene>k__BackingField:
     m_SceneAsset: {fileID: 102900000, guid: 29a5aee83d2e2224480ebced603fc37e, type: 3}
@@ -30,10 +31,7 @@ MonoBehaviour:
   <PauseMenu>k__BackingField: {fileID: 11400000, guid: 97638f9619455f64b97d7c00e144f118, type: 2}
   <SettingsMenu>k__BackingField: {fileID: 11400000, guid: 61e8a13d4abad89418df7511ed34ef5f, type: 2}
   <UpgradesMenu>k__BackingField: {fileID: 11400000, guid: 7949dcdc7f87fbb4b9d31c6865dcc52e, type: 2}
-  <PlayerVisitableType>k__BackingField: {fileID: 11400000, guid: 3d13c3099bcdef7438515d882b4ff2f8, type: 2}
-  <PlayerMovementVisitableType>k__BackingField: {fileID: 11400000, guid: 1211457f350d77c41ab7032f639a3553, type: 2}
-  <InstantHealPowerUp>k__BackingField: {fileID: 11400000, guid: e1db99738f1d7814aa59297b9ee754fc, type: 2}
-  <WallHackPowerUp>k__BackingField: {fileID: 0}
+  <PowerUps>k__BackingField: []
   <test>k__BackingField:
     Guid:
       Data1: -790836542

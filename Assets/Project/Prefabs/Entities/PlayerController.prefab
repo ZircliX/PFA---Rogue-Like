@@ -558,8 +558,8 @@ MonoBehaviour:
   wallCastSample: 20
   wallCastDistance: 1
   wallRunCastExpension: 1
-  wallCastAngle: 50
-  wallrunExitTime: 1
+  wallCastAngle: 40
+  wallrunExitTime: 0.5
   wallrunMinHeight: 2
   <WallLayer>k__BackingField:
     serializedVersion: 2

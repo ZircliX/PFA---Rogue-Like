@@ -29,7 +29,6 @@ namespace RogueLike.Player.States
             if (currentJumpTime >= jumpDuration)
             {
                 movement.SetMovementState(MovementState.Falling);
-                Debug.LogError("wut");
             }
 
             Vector3 finalVelocity = gravityNormal * (jumpModifier * jumpForce) +
