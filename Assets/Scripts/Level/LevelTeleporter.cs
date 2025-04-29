@@ -1,4 +1,4 @@
-using DG.Tweening;
+using DeadLink.Extensions;
 using KBCore.Refs;
 using RogueLike.Player;
 using UnityEngine;
@@ -22,20 +22,11 @@ namespace DeadLink
                     
                     if (i < teleports.Length)
                     {
-                        Teleport(teleports[i]);
+                        player.TeleportPlayer(teleports[i]);
                     }
                     break;
                 }
             }
-        }
-
-        private void Teleport(Transform teleport)
-        {
-            player.rb.isKinematic = true;
-            player.transform.DOMove(teleport.position, 0.25f).OnComplete(() =>
-            {
-                player.rb.isKinematic = false;
-            });
         }
     }
 }

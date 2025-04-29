@@ -1,5 +1,6 @@
 using System;
 using DeadLink.Cameras;
+using DeadLink.Extensions;
 using DG.Tweening;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
@@ -85,6 +86,7 @@ namespace RogueLike.Player
 
         [Header("Coyote")] 
         [SerializeField] private int coyoteTime = 10;
+        [SerializeField] private float maxYPosition = -35;
 
         #region Height Parameters
 
@@ -131,6 +133,7 @@ namespace RogueLike.Player
         
         #endregion
 
+        private Vector3 lastSafePosition;
         private ChannelKey stateChannelKey;
         public const float MIN_THRESHOLD = 0.001f;
 
@@ -218,6 +221,21 @@ namespace RogueLike.Player
             MovePlayer();
             HandleGravityOrientation();
             HandleStateChange();
+            
+            HandleVoidDetection();
+        }
+
+        private void HandleVoidDetection()
+        {
+            if (Position.y < - Mathf.Abs(maxYPosition))
+            {
+                this.TeleportPlayer(lastSafePosition, 1, 2);
+            }
+
+            if (IsGrounded)
+            {
+                lastSafePosition = Position;
+            }
         }
 
         private void HandleGravityOrientation()

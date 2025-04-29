@@ -2,7 +2,6 @@ using System;
 using DeadLink.Ammunitions.Data;
 using DeadLink.Entities;
 using KBCore.Refs;
-using Unity.VisualScripting.YamlDotNet.Serialization.NamingConventions;
 using UnityEngine;
 
 namespace DeadLink.Ammunitions

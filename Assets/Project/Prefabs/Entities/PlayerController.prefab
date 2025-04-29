@@ -177,8 +177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 100
   gravityAlignSpeed: 5
-  xModifier: 0.2
-  yModifier: 0.2
+  xModifier: 0.5
+  yModifier: 0.5
   yRange: 75
   pm: {fileID: 7673975130547769438}
   cameraRoot: {fileID: 2193368421882999979}
@@ -566,6 +566,7 @@ MonoBehaviour:
   gravityScale: 2.75
   gravityAlignSpeed: 5
   coyoteTime: 10
+  maxYPosition: 35
   <BaseCapsuleHeight>k__BackingField: 2
   <CrouchCapsuleHeight>k__BackingField: 0.5
   <BaseHeadHeight>k__BackingField: 0.5
