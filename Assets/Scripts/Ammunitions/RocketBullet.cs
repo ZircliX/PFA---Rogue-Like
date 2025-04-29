@@ -11,9 +11,7 @@ namespace DeadLink.Ammunitions
     {
         [SerializeField] private RocketBulletData rocketBulletData;
         public override BulletData BulletData => rocketBulletData;
-        
-        private RaycastHit? lastHit;
-        private RaycastHit[] lastExplosionHits;
+        public override string AuthorTag { get; set; } = "Player";
 
         protected override void FixedUpdate()
         {
@@ -41,10 +39,8 @@ namespace DeadLink.Ammunitions
                             }
                         }
                         
-                        lastHit = hit;
-                        lastExplosionHits = sphereCastAll;
-                        
-                        Hit(hit, entities.AsValueEnumerable().ToArray());
+                        ApplyDamage(entities.AsValueEnumerable().ToArray());
+                        HitObject(hit);
                     }
                     
                     else if (hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())
@@ -60,25 +56,5 @@ namespace DeadLink.Ammunitions
             
             lastPosition = currentPosition;
         }
-        
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            if (!lastHit.HasValue) return;
-
-            Debug.Log("arjneuifhqlifyuliuSHEFLiyusdgFliyuqsgFliyqzygflizyqflieyqfgqli");
-            
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(lastHit.Value.point, rocketBulletData.ExplosionRadius);
-
-            if (lastExplosionHits != null)
-            {
-                foreach (var hit in lastExplosionHits)
-                {
-                    Gizmos.DrawLine(lastHit.Value.point, hit.point);
-                }
-            }
-        }
-#endif
     }
 }

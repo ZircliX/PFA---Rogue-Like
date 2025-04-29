@@ -12,6 +12,7 @@ namespace DeadLink.Ammunitions
     {
         public abstract BulletData BulletData { get; }
         [SerializeField, Self] private Rigidbody rb;
+        public abstract string AuthorTag { get; set; }
         
         public event Action<Bullet> OnBulletHit;
         public event Action<Bullet> OnBulletDestroy;
@@ -32,17 +33,18 @@ namespace DeadLink.Ammunitions
             {
                 Ray ray = new Ray(lastPosition, direction.normalized);
                 
-                if (Physics.Raycast(ray, out RaycastHit hit, distance))
+                if (Physics.Raycast(ray, out RaycastHit hit, distance, ~0, QueryTriggerInteraction.Ignore))
                 {
                     if (hit.collider.TryGetComponent(out Entity entity))
                     {
                         //Debug.Log($"Hit Entity {entity.name}");
-                        Hit(hit, entity);
+                        ApplyDamage(entity);
+                        HitObject(hit);
                     }
                     else if (hit.collider.gameObject.GetInstanceID() != gameObject.GetInstanceID())
                     {
                         //Debug.Log($"Hit object {hit.collider.name}");
-                        Hit(hit);
+                        HitObject(hit);
                     }
                     
                     else if (hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())
@@ -66,15 +68,24 @@ namespace DeadLink.Ammunitions
             rb.AddForce(direction * BulletData.BulletSpeed, ForceMode.Impulse);
         }
 
-        protected virtual void Hit(RaycastHit hit, params Entity[] entities)
+        protected virtual void ApplyDamage(params Entity[] entities)
         {
             entities ??= Array.Empty<Entity>();
             for (int i = 0; i < entities.Length; i++)
             {
-                entities[i].TakeDamage(damage);
+                Entity entity = entities[i];
+                if (entity.CompareTag(AuthorTag)) continue;
+                entity.TakeDamage(damage);
             }
+        }
+
+        protected virtual void HitObject(RaycastHit hit)
+        {
+            //Debug.Log($"Author Result {hit.collider.CompareTag(AuthorTag)}, Hit Result {hit.collider.gameObject.name}");
+            if (hit.collider.CompareTag(AuthorTag)) return;
             
-            Instantiate(BulletData.HitVFX, hit.point, Quaternion.identity);
+            //+ hit.normal * 0.5f
+            Instantiate(BulletData.HitVFX, hit.point , Quaternion.identity);
             
             OnBulletHit?.Invoke(this);
             DestroyBullet();

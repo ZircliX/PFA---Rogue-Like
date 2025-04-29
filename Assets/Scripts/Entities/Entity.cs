@@ -115,9 +115,6 @@ namespace DeadLink.Entities
 
         protected virtual void ChangeWeapon(int direction)
         {
-            if (CurrentWeapon != null)
-                CurrentWeapon.gameObject.SetActive(false);
-            
             int currentIndex = Array.IndexOf(Weapons, CurrentWeapon);
             int newIndex = (currentIndex + direction) % Weapons.Length;
             if (newIndex < 0)
@@ -127,7 +124,7 @@ namespace DeadLink.Entities
 
             currentWeaponIndex = newIndex;
             CurrentWeapon = Weapons[newIndex];
-            CurrentWeapon.gameObject.SetActive(true);
+            currentShootTime = 0;
         }
         
         protected virtual void Shoot()
@@ -137,8 +134,12 @@ namespace DeadLink.Entities
                 Vector3 direction;
                 Camera mainCam = Camera.main;
                 Ray ray = mainCam!.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+
+                bool raycast = Physics.Raycast(ray, out RaycastHit hit, 1000);
+                if (raycast && hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())
+                    raycast = false;
                 
-                if (Physics.Raycast(ray, out RaycastHit hit, 1000))
+                if (raycast)
                 {
                     // Calculate direction from bullet spawn to the hit point
                     direction = (hit.point - BulletSpawnPoint.position).normalized;
@@ -164,7 +165,7 @@ namespace DeadLink.Entities
         {
             if (CurrentWeapon == null) return;
             
-            CurrentWeapon.Reload();
+            StartCoroutine(CurrentWeapon.Reload());
         }
         
         protected virtual void Update()
@@ -179,6 +180,8 @@ namespace DeadLink.Entities
                 Shoot();
                 currentShootTime = CurrentWeapon.WeaponData.ShootRate;
             }
+
+            CurrentWeapon.SetShootingState(isShooting);
         }
 
         public abstract void Unlock(IVisitor visitor);

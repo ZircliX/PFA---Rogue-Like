@@ -11,6 +11,9 @@ namespace RogueLike
     {
         public static GameMetrics Global => GameController.Metrics;
         
+        [field: Header("Debug Settings")]
+        [field: SerializeField] public bool SpawnEnemies { get; private set; }
+        
         [field : SerializeField] public SceneLoader SceneLoader { get; private set; }
         
         #region Scenes

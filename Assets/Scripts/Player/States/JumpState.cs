@@ -7,16 +7,17 @@ namespace RogueLike.Player.States
     public class JumpState : FallState
     {
         [Header("Jump")]
-        [SerializeField] private float jumpForce;
-        [SerializeField] private float jumpDuration;
-        [SerializeField] private AnimationCurve jumpCurve;
+        [SerializeField] protected float jumpForce;
+        [SerializeField] protected float jumpDuration;
+        [SerializeField] protected AnimationCurve jumpCurve;
         
-        private float currentJumpTime;
+        protected float currentJumpTime;
         private int count;
         
         public override void Enter(PlayerMovement movement)
         {
             base.Enter(movement);
+            //Debug.Log($"Entering {State}");
 
             count = 0;
             currentJumpTime = 0;
@@ -37,7 +38,7 @@ namespace RogueLike.Player.States
             float jumpModifier = jumpCurve.Evaluate(normTime);
 
             Vector3 baseVelocity = base.GetVelocity(movement, deltaTime, ref gravityScale);
-            Vector3 gravityNormal = GetProjectionPlaneNormal(movement);
+            Vector3 gravityNormal = GetGroundNormal(movement);
 
             if (currentJumpTime <= 0)
             {
@@ -67,6 +68,7 @@ namespace RogueLike.Player.States
             }
             if (movement.WantsToWallrun)
             {
+                Debug.Log("Enter Wall run");
                 return MovementState.WallRunning;
             }
             if (movement.WantsToDash)

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2679084203729808382}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: BulletSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,13 +229,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4159961591698411576}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 750890149337286987}
-  - {fileID: 7902027825683353494}
+  - {fileID: 605377702698545526}
   m_Father: {fileID: 8873217921136611669}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4586079106163108224
@@ -304,7 +303,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 75
   orthographic: 0
@@ -321,7 +320,7 @@ Camera:
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!114 &6948168961954344921
@@ -546,16 +545,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1aa7a36b7dffb6c4cb38c3b598ac66a4, type: 2}
   - {fileID: 11400000, guid: 9a432f516a3ed30479c1ffd7ad841227, type: 2}
   - {fileID: 11400000, guid: fbab10ddc9204e24eb7857ef1f772720, type: 2}
-  groundCheckDistance: 0.1
+  - {fileID: 11400000, guid: 9c330759aaab57647ac2ccd06053627a, type: 2}
+  groundCheckDistance: 0.5
+  groundCrouchCheckDistance: 0.25
   groundCheckMaxAngle: 50
   <GroundLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 128
-  wallCastSample: 30
-  wallCastDistance: 1.5
-  wallCastAngle: 75
-  wallrunExitTime: 1
-  wallrunMinHeight: 2.25
+  ceilingCheckDistance: 0.5
+  ceilingCrouchCheckDistance: 0.75
+  dashCooldown: 2.5
+  wallCastSample: 20
+  wallCastDistance: 1
+  wallRunCastExpension: 1
+  wallCastAngle: 40
+  wallrunExitTime: 0.5
+  wallrunMinHeight: 2
   <WallLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 512
@@ -563,6 +568,7 @@ MonoBehaviour:
   gravityAlignSpeed: 5
   coyoteTime: 10
   <BaseCapsuleHeight>k__BackingField: 2
+  <CrouchCapsuleHeight>k__BackingField: 0.5
   <BaseHeadHeight>k__BackingField: 0.5
   <ColliderCenterOffset>k__BackingField: {x: 0, y: -0.5, z: 0}
   <Camera>k__BackingField: {fileID: 818597675296926653}
@@ -652,6 +658,39 @@ Transform:
   - {fileID: 7980081385642140002}
   - {fileID: 7933548434145866189}
   m_Father: {fileID: 8406938040259338861}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7412511514528855649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605377702698545526}
+  m_Layer: 0
+  m_Name: FireRecoil
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &605377702698545526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7412511514528855649}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 750890149337286987}
+  - {fileID: 7902027825683353494}
+  m_Father: {fileID: 6196413422865120863}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7771178899970783667
 GameObject:
@@ -1075,7 +1114,7 @@ MonoBehaviour:
   Lens:
     FieldOfView: 75
     OrthographicSize: 5
-    NearClipPlane: 0.3
+    NearClipPlane: 0.01
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -1123,6 +1162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c643449ae6a806d41aae5c86cb552ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldersRoot: {fileID: 605377702698545526}
   cam: {fileID: 7880227904453035219}
   camFollow: {fileID: 4507630780164737054}
   camRecomposer: {fileID: 2116268018863381272}
@@ -1195,7 +1235,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6196413422865120863}
+    m_TransformParent: {fileID: 605377702698545526}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 836eec5fbc776214f83d55a867ec3b12, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1244,6 +1284,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 836eec5fbc776214f83d55a867ec3b12, type: 3}
       propertyPath: m_Name
       value: main droite
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 836eec5fbc776214f83d55a867ec3b12, type: 3}
+      propertyPath: m_Layer
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 836eec5fbc776214f83d55a867ec3b12, type: 3}
       propertyPath: m_TagString
@@ -1499,7 +1543,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6196413422865120863}
+    m_TransformParent: {fileID: 605377702698545526}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 27b849885e9047f4cba3ec267c93d1d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1548,6 +1592,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 27b849885e9047f4cba3ec267c93d1d5, type: 3}
       propertyPath: m_Name
       value: main gauche
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 27b849885e9047f4cba3ec267c93d1d5, type: 3}
+      propertyPath: m_Layer
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 27b849885e9047f4cba3ec267c93d1d5, type: 3}
       propertyPath: m_TagString

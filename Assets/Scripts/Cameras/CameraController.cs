@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Data;
 using DG.Tweening;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
@@ -12,6 +11,7 @@ namespace DeadLink.Cameras
     public class CameraController : MonoSingleton<CameraController>
     {
         [Header("References")]
+        [SerializeField] private Transform shouldersRoot;
         [SerializeField, Self] private CinemachineCamera cam;
         [SerializeField, Self] private CinemachineCameraOffset camFollow;
         [SerializeField, Self] private CinemachineRecomposer camRecomposer;
@@ -88,20 +88,30 @@ namespace DeadLink.Cameras
 
         private IEnumerator IEffectCoroutine()
         {
-            DOTween.To(
-                () => camRecomposer.Dutch,
-                value => camRecomposer.Dutch = value,
-                CameraEffectProperty.Value.Dutch,
-                CameraEffectProperty.Value.Speed
-            );
-            DOTween.To(
-                () => camRecomposer.ZoomScale,
-                value => camRecomposer.ZoomScale = value,
-                CameraEffectProperty.Value.FovScale,
-                CameraEffectProperty.Value.Speed
-            );
+            float timer = 0f;
+            float duration = CameraEffectProperty.Value.Speed;
 
-            yield return null;
+            float startDutch = camRecomposer.Dutch;
+            float targetDutch = CameraEffectProperty.Value.Dutch;
+
+            float startZoom = camRecomposer.ZoomScale;
+            float targetZoom = CameraEffectProperty.Value.FovScale;
+
+            while (timer < duration)
+            {
+                timer += Time.deltaTime;
+                float t = Mathf.Clamp01(timer / duration);
+
+                // Smooth interpolation
+                camRecomposer.Dutch = Mathf.Lerp(startDutch, targetDutch, t);
+                camRecomposer.ZoomScale = Mathf.Lerp(startZoom, targetZoom, t);
+
+                yield return null;
+            }
+
+            // Ensure final values are perfectly set
+            camRecomposer.Dutch = targetDutch;
+            camRecomposer.ZoomScale = targetZoom;
         }
 
         private void ApplyCameraEffect(CameraEffectComposite composite)
@@ -116,6 +126,28 @@ namespace DeadLink.Cameras
             }
             
             effectCoroutine = StartCoroutine(IEffectCoroutine());
+        }
+
+        private Vector3 _targetRotation;
+        private Vector3 currentRotation;
+        private float _snap;
+        private float _returnSpeed;
+        
+        private void Update()
+        {
+            _targetRotation = Vector3.Lerp(_targetRotation, Vector3.zero, _returnSpeed * Time.deltaTime);
+            currentRotation = Vector3.Slerp(currentRotation, _targetRotation, _snap * Time.fixedDeltaTime);
+            Quaternion recoilRotation = Quaternion.Euler(currentRotation);
+            
+            transform.localRotation = recoilRotation;
+            shouldersRoot.localRotation = recoilRotation;
+        }
+
+        public void RecoilFire(Vector3 targetRotation, float snap, float returnSpeed)
+        {
+            _targetRotation = targetRotation;
+            _snap = snap;
+            _returnSpeed = returnSpeed;
         }
     }
 }

@@ -69,5 +69,5 @@ MonoBehaviour:
   slopeModifier: 50
   minSlopeAngle: 0.05
   maxSlideTime: 1
-  crouchCapsuleHeight: 1
+  crouchCapsuleHeight: 0.5
   crouchHeadHeight: 0

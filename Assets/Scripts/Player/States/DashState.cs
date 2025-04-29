@@ -27,24 +27,26 @@ namespace RogueLike.Player.States
         {
             currentDashTime = 0;
             direction = GetCameraDirection(movement, Vector2.up);
-            
+
             //Debug.Log("Enter Dash");
         }
 
         public override void Exit(PlayerMovement movement)
         {
             currentDashTime = 0;
+            movement.DashCooldown();
             //Debug.Log("Exit Dash");
         }
 
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
             Vector3 targetVelocity = Vector3.zero;
-            Vector3 projectionPlaneNormal = GetProjectionPlaneNormal(movement);
+            Vector3 gravityNormal = movement.Gravity.Value.normalized;
 
             if (currentDashTime < accelerationDuration)
             {
-                Vector3 projectOnPlane = Vector3.ProjectOnPlane(direction, projectionPlaneNormal);
+                Vector3 projectOnPlane = Vector3.ProjectOnPlane(direction, gravityNormal);
+                //Debug.DrawRay(movement.rb.position, projectOnPlane * 10, Color.green);
                 Vector3 newVelocity =
                     projectOnPlane * accelerationCurve.Evaluate(currentDashTime / accelerationDuration) * dashSpeed;
                 targetVelocity = newVelocity;

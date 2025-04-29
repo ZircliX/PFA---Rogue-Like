@@ -33,7 +33,6 @@ namespace RogueLike.Player.States
         [SerializeField] private float wallPull;
         
         private Vector3 direction;
-        private Vector3 wallNormal;
 
         public override void Dispose(PlayerMovement movement)
         {
@@ -42,7 +41,6 @@ namespace RogueLike.Player.States
         public override void Enter(PlayerMovement movement)
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
-            wallNormal = movement.WallNormal;
             
             currentAcceleration = 0;
             currentDeceleration = 0;
@@ -56,8 +54,9 @@ namespace RogueLike.Player.States
 
         public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
         {
-            Vector3 cross = Vector3.Cross(wallNormal, movement.Gravity.Value.normalized);
-            float dot = Vector3.Dot(cross, movement.CurrentVelocity.Value.normalized);
+            Vector3 cross = Vector3.Cross(movement.WallNormal, movement.Gravity.Value.normalized);
+            
+            float dot = Vector3.Dot(cross, cam.transform.forward);
 
             CameraEffectComposite comp = CameraEffectData.CameraEffectComposite;
             CameraEffectComposite cameraEffectComposite = new CameraEffectComposite(
@@ -70,11 +69,12 @@ namespace RogueLike.Player.States
 
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
+            direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
             Vector3 lastVelocity = movement.StateVelocity;
             
             //Calculate wallrun direction
-            Vector3 alongWallDirection = Vector3.Cross(wallNormal, movement.Gravity).normalized;
-            
+            Vector3 alongWallDirection = Vector3.Cross(movement.WallNormal, movement.Gravity).normalized;
+
             float angle = Vector3.Dot(alongWallDirection, lastVelocity);
             if (angle < 0)
             {
@@ -82,17 +82,19 @@ namespace RogueLike.Player.States
                 alongWallDirection = -alongWallDirection;
             }
             
+            Debug.DrawRay(movement.rb.position, alongWallDirection * 10, Color.green);
+            
             //For inputs based movement
             //Vector3 worldInput = GetWorldInputs(movement);
-            //Vector3 projectedInputsDirection = worldInput.ProjectOntoPlane(wallNormal).normalized;
+            //Vector3 projectedInputsDirection = worldInput.ProjectOntoPlane(movement.WallNormal).normalized;
             
-            //Vector3 projectedLastDirection = direction.ProjectOntoPlane(wallNormal);
+            //Vector3 projectedLastDirection = direction.ProjectOntoPlane(movement.WallNormal);
             //projectedLastDirection = Vector3.Lerp(projectedLastDirection, projectedInputsDirection, directionControl * deltaTime);
             //Vector3 targetSpeed = projectedLastDirection * wallrunSpeed;
             
             //Velocities calculation
-            Vector3 wallPullForce = wallPull * -wallNormal;
-            Vector3 wallVelocity = lastVelocity.ProjectOntoPlane(wallNormal) + wallPullForce;
+            Vector3 wallPullForce = wallPull * -movement.WallNormal;
+            Vector3 wallVelocity = lastVelocity.ProjectOntoPlane(movement.WallNormal) + wallPullForce;
             Vector3 targetSpeed = alongWallDirection * wallrunSpeed;
 
             //Sqr Magnitudes
@@ -139,22 +141,20 @@ namespace RogueLike.Player.States
             if (movement.WantsToJump)
             {
                 movement.ExitWallrun();
-                return MovementState.Jumping;
+                return MovementState.WallJumping;
             }
             if (!movement.WantsToWallrun)
             {
                 movement.ExitWallrun();
                 return MovementState.Falling;
             }
-
             if (movement.WantsToDash)
             {
                 movement.ExitWallrun();
                 return MovementState.Dashing;
             }
 
-            Vector3 wallNormal = movement.WallNormal;
-            Vector3 projectOnPlane = Vector3.ProjectOnPlane(movement.StateVelocity, wallNormal);
+            Vector3 projectOnPlane = Vector3.ProjectOnPlane(movement.StateVelocity, movement.WallNormal);
 
             if (projectOnPlane.sqrMagnitude < minWallrunSpeed * minWallrunSpeed + decelerationThreshold)
             {

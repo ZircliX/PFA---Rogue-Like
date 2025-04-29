@@ -33,13 +33,11 @@ namespace RogueLike.Managers
         
         private void StartLevel()
         {
-            //Debug.Log("Start Level");
-            //EnemyManager.Instance.SpawnEnemies(difficulty);
-            EnemyManager.Instance.ActivateEnemies(difficulty); //Only for testing
+            if (GameMetrics.Global.SpawnEnemies)
+                EnemyManager.Instance.SpawnEnemies(difficulty);
             player.Spawn(player.EntityData, difficulty, player.SpawnPosition.position);
             
             TimerManager.Instance.StartTimer();
-            // PlayerManager qui fait spawn le player? Ou c'est le LevelManager Qui fait spawn Le joueur ?
         }
 
         public void StartWaveMode()
