@@ -546,8 +546,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9a432f516a3ed30479c1ffd7ad841227, type: 2}
   - {fileID: 11400000, guid: fbab10ddc9204e24eb7857ef1f772720, type: 2}
   - {fileID: 11400000, guid: 9c330759aaab57647ac2ccd06053627a, type: 2}
-  groundCheckDistance: 0.5
-  groundCrouchCheckDistance: 0.25
+  groundCheckDistance: 0.2
   groundCheckMaxAngle: 50
   <GroundLayer>k__BackingField:
     serializedVersion: 2
@@ -557,7 +556,7 @@ MonoBehaviour:
   dashCooldown: 2.5
   wallCastSample: 20
   wallCastDistance: 1
-  wallRunCastExpension: 1
+  wallRunCastExpension: 2
   wallCastAngle: 40
   wallrunExitTime: 0.5
   wallrunMinHeight: 2

@@ -26,7 +26,7 @@ namespace RogueLike.Player.States
 
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
-            gravityScale = 0;
+            gravityScale = 1;
             return base.GetVelocity(movement, deltaTime, ref gravityScale);
         }
 
