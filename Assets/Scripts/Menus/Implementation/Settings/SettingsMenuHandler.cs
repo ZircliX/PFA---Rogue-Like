@@ -1,3 +1,4 @@
+using LTX.ChanneledProperties;
 using RogueLike;
 using RogueLike.Controllers;
 using UnityEngine;
@@ -29,8 +30,13 @@ namespace DeadLink.Menus.Implementation
             return new SettingsMenuContext
             {
                 GameObject = gameObject,
+                TimeScale = 0f,
                 CursorLockMode = CursorLockMode.None,
-                CursorVisibility = true
+                CursorVisibility = true,
+                CanClose = true,
+                CanStack = false,
+                Priority = PriorityTags.Default,
+                MenuType = MenuType,
             };
         }
 

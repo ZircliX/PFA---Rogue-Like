@@ -1,5 +1,3 @@
-using KBCore.Refs;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +12,7 @@ namespace RogueLike.Player
         [SerializeField] private float gravityAlignSpeed;
         [SerializeField, Range(0,1)] private float xModifier = 1;
         [SerializeField, Range(0,1)] private float yModifier = 1;
+        private float sens = 1f;
         [SerializeField] private int yRange = 70;
         [SerializeField] private PlayerMovement pm;
 
@@ -24,8 +23,8 @@ namespace RogueLike.Player
         
         private void Update()
         {
-            camRotation.x -= targetCamVelocity.x * speed * Time.deltaTime;
-            camRotation.y += targetCamVelocity.y * speed * Time.deltaTime;
+            camRotation.x -= targetCamVelocity.x * speed * Time.deltaTime * sens;
+            camRotation.y += targetCamVelocity.y * speed * Time.deltaTime * sens;
             camRotation.x = Mathf.Clamp(camRotation.x, -yRange, yRange);
 
             // --- Calculate Gravity Alignment ---
@@ -52,6 +51,11 @@ namespace RogueLike.Player
         public void OnLookY(InputAction.CallbackContext context)
         {
             targetCamVelocity.x = context.ReadValue<float>() * yModifier;
+        }
+        
+        public void SetSens(float value)
+        {
+            sens = value;
         }
     }
 }

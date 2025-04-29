@@ -1,6 +1,7 @@
 using LTX.ChanneledProperties;
 using RogueLike;
 using RogueLike.Controllers;
+using RogueLike.Managers;
 using UnityEngine;
 
 namespace DeadLink.Menus.Implementation
@@ -50,14 +51,24 @@ namespace DeadLink.Menus.Implementation
             MenuManager.Instance.CloseMenu();
         }
 
+        public void Retry()
+        {
+            LevelManager.Instance.RetryLevel();
+        }
+
         public void Settings()
         {
             MenuManager.Instance.ChangeMenu(GameMetrics.Global.SettingsMenu);
         }
 
-        public void Quit()
+        public void MainMenu()
         {
             SceneController.Global.ChangeScene(GameMetrics.Global.MainMenuScene);
+        }
+
+        public void Quit()
+        {
+            GameController.QuitGame();
         }
     }
 }

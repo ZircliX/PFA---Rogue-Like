@@ -67,7 +67,7 @@ namespace RogueLike.Player.States
             {
                 if (movement.IsGrounded && Vector3.Dot(otherVelocity, movement.Gravity) > 0)
                 {
-                    gravityScale = 0f;
+                    gravityScale = 1f;
                     return targetSpeed;
                 }
 

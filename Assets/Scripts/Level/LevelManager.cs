@@ -55,5 +55,10 @@ namespace RogueLike.Managers
             TimerManager.Instance.PauseTimer();
             SceneController.Global.ChangeScene(GameMetrics.Global.ShopScene);
         }
+
+        public void RetryLevel()
+        {
+            
+        }
     }
 }
