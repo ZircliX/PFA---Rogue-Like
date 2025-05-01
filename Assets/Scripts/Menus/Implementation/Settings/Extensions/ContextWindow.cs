@@ -14,7 +14,6 @@ namespace DeadLink.Menus.Implementation.Extensions
         {
             this.ValidateRefs();
             currentState = baseState;
-            canvasGroup.alpha = currentState ? 1 : 0;
             ChangeState(true);
         }
         
@@ -22,17 +21,8 @@ namespace DeadLink.Menus.Implementation.Extensions
         {
             if (!validate)
                 currentState = !currentState;
-
-            DOTween.To(
-                () => canvasGroup.alpha,
-                value => canvasGroup.alpha = value,
-                currentState ? 1 : 0,
-                0.25f).SetUpdate(true);
-        }
-
-        private Color GetColor()
-        {
-            return currentState ? new Color(0, 0, 0, 1) : new Color(0, 0, 0, 0.6f);
+            
+            canvasGroup.DOFade(currentState ? 1 : 0, 0.25f).SetUpdate(true);
         }
     }
 }

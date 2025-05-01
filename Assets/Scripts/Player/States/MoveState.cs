@@ -19,7 +19,7 @@ namespace RogueLike.Player.States
         [SerializeField] private float decelerationDuration;
         [SerializeField] private float deceleration;
         private float currentDeceleration;
-        
+
         [Header("STEPSSSSSSSSSSSSSSSSSSSSSSSS")]
         [SerializeField] private float maxStepHeight;
 
@@ -52,7 +52,7 @@ namespace RogueLike.Player.States
             Vector3 projectedInputs = worldInputs.ProjectOntoPlane(projectionPlaneNormal).normalized;
             Vector3 projectedLastDirection = direction.ProjectOntoPlane(projectionPlaneNormal).normalized;
 
-            direction = Vector3.Lerp(projectedLastDirection, projectedInputs, directionControl * deltaTime);
+            //direction = Vector3.Lerp(projectedLastDirection, projectedInputs, directionControl * deltaTime);
             direction = projectedInputs;
 
             Vector3 planeVelocity = lastVelocity.ProjectOntoPlane(projectionPlaneNormal);
@@ -60,18 +60,17 @@ namespace RogueLike.Player.States
 
             Vector3 targetSpeed = direction * maxSpeed;
 
-            float planeVelocitySqrMagnitude = planeVelocity.sqrMagnitude;
 
+            if (movement.IsGrounded && Vector3.Dot(otherVelocity, movement.Gravity) > 0)
+            {
+                gravityScale = 0f;
+            }
+
+            float planeVelocitySqrMagnitude = planeVelocity.sqrMagnitude;
             //Debug . Log(planeVelocitySqrMagnitude);
             if (Mathf.Approximately(direction.sqrMagnitude, planeVelocitySqrMagnitude))
             {
-                if (movement.IsGrounded && Vector3.Dot(otherVelocity, movement.Gravity) > 0)
-                {
-                    gravityScale = 1f;
-                    return targetSpeed;
-                }
-
-                return targetSpeed + otherVelocity;
+                return movement.IsGrounded ? targetSpeed : targetSpeed + otherVelocity;
             }
 
             float modifier;
@@ -93,20 +92,22 @@ namespace RogueLike.Player.States
             }
 
             Vector3 finalVelocity = Vector3.Lerp(planeVelocity, targetSpeed, modifier * deltaTime);
-            finalVelocity += otherVelocity;
-            
+            if (!movement.IsGrounded) finalVelocity += otherVelocity;
+
+
             //Les escaliers mon pire enemi
             Vector3 up = -movement.Gravity.Value.normalized;
             Vector3 playerBasePosition = movement.Position - movement.CapsuleCollider.height * 0.5f * up;
-            Vector3 stepPoint =  playerBasePosition + up * maxStepHeight + Vector3.ProjectOnPlane(finalVelocity, projectionPlaneNormal).normalized * movement.CapsuleCollider.radius;
-            
+
+            Vector3 stepPoint = movement.Foot.position + up * maxStepHeight + Vector3.ProjectOnPlane(finalVelocity, projectionPlaneNormal).normalized * movement.CapsuleCollider.radius;
+
             if (Physics.Raycast(stepPoint, -projectionPlaneNormal, out RaycastHit hit, maxStepHeight,
                     movement.GroundLayer))
             {
                 float stepHeight = maxStepHeight - hit.distance;
                 movement.rb.position += projectionPlaneNormal * stepHeight;
             }
-            
+
             //Debug.DrawRay(stepPoint, -projectionPlaneNormal * maxStepHeight, Color.magenta);
 
             return finalVelocity;

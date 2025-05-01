@@ -38,16 +38,17 @@ namespace RogueLike.Player.States
 
                 return nextState;
             }
-            if (movement.WantsToWallrun)
+            if (movement.CanWallRun())
             {
+                Debug.Log("Enter Wall run");
                 return MovementState.WallRunning;
             }
 
-            if (movement.WantsToDash)
+            if (movement.CanDash())
             {
                 return MovementState.Dashing;
             }
-            
+
             return State;
         }
 
@@ -73,7 +74,7 @@ namespace RogueLike.Player.States
         {
             return -movement.Gravity.Value.normalized;
         }
-        
+
         public override MovementState State => MovementState.Falling;
     }
 }

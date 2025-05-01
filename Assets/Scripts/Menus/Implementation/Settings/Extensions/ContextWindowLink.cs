@@ -17,19 +17,8 @@ namespace DeadLink.Menus.Implementation.Extensions
 
         public bool IsNull => Button == null && Window == null;
 
-        public bool Equals(ContextWindowLink other)
-        {
-            return Equals(Button, other.Button) && Equals(Window, other.Window);
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is ContextWindowLink other && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Button, Window);
-        }
+        public bool Equals(ContextWindowLink other) => Equals(Button, other.Button) && Equals(Window, other.Window);
+        public override bool Equals(object obj) => obj is ContextWindowLink other && Equals(other);
+        public override int GetHashCode() => HashCode.Combine(Button, Window);
     }
 }

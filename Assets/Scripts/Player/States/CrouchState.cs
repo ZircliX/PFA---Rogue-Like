@@ -9,7 +9,7 @@ namespace RogueLike.Player.States
     {
         [field: Header("Camera Effects")]
         [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
-        
+
         [Header("Height")]
         [SerializeField] private float crouchCapsuleHeight = 0.5f;
         [SerializeField] private  float crouchHeadHeight = 0f;
@@ -22,12 +22,6 @@ namespace RogueLike.Player.States
         public override void Exit(PlayerMovement movement)
         {
             base.Exit(movement);
-        }
-
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
-        {
-            gravityScale = 1;
-            return base.GetVelocity(movement, deltaTime, ref gravityScale);
         }
 
         public override MovementState GetNextState(PlayerMovement movement)
@@ -43,7 +37,7 @@ namespace RogueLike.Player.States
 
             return State;
         }
-        
+
         public override (float, float) GetHeight(PlayerMovement movement)
         {
             return (crouchCapsuleHeight, crouchHeadHeight);
