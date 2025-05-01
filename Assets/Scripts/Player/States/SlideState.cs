@@ -87,7 +87,7 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Falling;
             }
-            if (movement.WantsToJump && !movement.IsTouchingCeiling)
+            if (movement.CanJump() && !movement.IsTouchingCeiling)
             {
                 return MovementState.Jumping;
             }

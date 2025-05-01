@@ -46,12 +46,12 @@ namespace RogueLike.Player
         public bool IsTouchingCeiling { get; private set; }
 
         #endregion
-
-        #region Walls Detection
-
+        
         [Header("Dash Settings")]
         [SerializeField] private float dashCooldown = 2.5f;
 
+        #region Walls Detection
+        
         [Header("Walls Detection")]
         [SerializeField] private int wallCastSample = 15;
         [SerializeField] private float wallCastDistance = 1.5f;
@@ -116,21 +116,38 @@ namespace RogueLike.Player
         public bool WalkInput { get; private set; }
         public bool CrouchInput { get; private set; }
 
-        public bool WantsToWallrun => IsWalled
-                                      && CurrentWall != null
-                                      && DistanceFromGround > wallrunMinHeight;
         private float currentWallrunExitTime;
+        public bool CanWallRun()
+        {
+            bool highOnWall = CurrentWall != null && CurrentWall.bounds.min.y < GetCapsuleBottom().y - 0.25f;
+
+            //Debug.Log($" CanWallRun: {highOnWall} - {IsWalled} - {currentWallrunExitTime} - {DistanceFromGround > wallrunMinHeight}");
+            return highOnWall
+                   && IsWalled
+                   && currentWallrunExitTime <= 0
+                   && DistanceFromGround > wallrunMinHeight;
+        }
 
         private int jumpInput;
-        public bool WantsToJump => jumpInput > 0;
+        public bool CanJump()
+        {
+            return jumpInput > 0;
+        }
+        
         private int slideInput;
-        public bool WantsToSlide => slideInput > 0;
+        public bool CanSlide()
+        {
+            return slideInput > 0;
+        }
 
         private bool dashInput;
-        public bool WantsToDash => remainingDash > 0
-                                   && dashInput
-                                   && currentDashCooldown <= 0;
         private float currentDashCooldown;
+        public bool CanDash()
+        {
+            return remainingDash > 0
+                   && dashInput
+                   && currentDashCooldown <= 0;
+        }
 
         #endregion
 
@@ -228,20 +245,7 @@ namespace RogueLike.Player
 
             HandleVoidDetection();
         }
-
-        private void HandleVoidDetection()
-        {
-            if (Position.y < - Mathf.Abs(maxYPosition))
-            {
-                this.TeleportPlayer(lastSafePosition, 1, 2);
-            }
-
-            if (IsGrounded)
-            {
-                lastSafePosition = Position;
-            }
-        }
-
+        
         private void HandleGravityOrientation()
         {
             Vector3 targetUp = -Gravity.Value.normalized;
@@ -311,6 +315,19 @@ namespace RogueLike.Player
         #endregion
 
         #region Detections
+        
+        private void HandleVoidDetection()
+        {
+            if (Position.y < - Mathf.Abs(maxYPosition))
+            {
+                this.TeleportPlayer(lastSafePosition, 1, 2);
+            }
+
+            if (IsGrounded)
+            {
+                lastSafePosition = Position;
+            }
+        }
 
         private void HandleWallDetection()
         {

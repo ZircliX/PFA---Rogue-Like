@@ -42,7 +42,7 @@ namespace RogueLike.Player.States
         public override void Enter(PlayerMovement movement)
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
-
+            
             Debug.Log("Wallruning start");
             currentAcceleration = 0;
             currentDeceleration = 0;
@@ -142,17 +142,17 @@ namespace RogueLike.Player.States
 
         public override MovementState GetNextState(PlayerMovement movement)
         {
-            if (movement.WantsToJump)
+            if (movement.CanJump())
             {
                 movement.ExitWallrun();
                 return MovementState.WallJumping;
             }
-            if (!movement.WantsToWallrun)
+            if (!movement.CanWallRun())
             {
                 movement.ExitWallrun();
                 return MovementState.Falling;
             }
-            if (movement.WantsToDash)
+            if (movement.CanDash())
             {
                 movement.ExitWallrun();
                 return MovementState.Dashing;

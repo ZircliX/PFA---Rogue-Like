@@ -66,12 +66,12 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Falling;
             }
-            if (movement.WantsToWallrun)
+            if (movement.CanWallRun())
             {
                 Debug.Log("Enter Wall run");
                 return MovementState.WallRunning;
             }
-            if (movement.WantsToDash)
+            if (movement.CanDash())
             {
                 return MovementState.Dashing;
             }

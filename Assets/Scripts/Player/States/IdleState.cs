@@ -35,11 +35,11 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Falling;
             }
-            if (movement.WantsToDash)
+            if (movement.CanDash())
             {
                 return MovementState.Dashing;
             }
-            if (movement.WantsToJump)
+            if (movement.CanJump())
             {
                 return MovementState.Jumping;
             }

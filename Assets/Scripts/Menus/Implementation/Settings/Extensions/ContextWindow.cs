@@ -14,7 +14,6 @@ namespace DeadLink.Menus.Implementation.Extensions
         {
             this.ValidateRefs();
             currentState = baseState;
-            canvasGroup.alpha = currentState ? 1 : 0;
             ChangeState(true);
         }
         
