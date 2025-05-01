@@ -241,7 +241,7 @@ namespace RogueLike.Player
                 lastSafePosition = Position;
             }
         }
-        
+
         private void HandleGravityOrientation()
         {
             Vector3 targetUp = -Gravity.Value.normalized;

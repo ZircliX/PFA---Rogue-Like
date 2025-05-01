@@ -94,7 +94,7 @@ namespace RogueLike.Player.States
             Vector3 finalVelocity = Vector3.Lerp(planeVelocity, targetSpeed, modifier * deltaTime);
             if (!movement.IsGrounded) finalVelocity += otherVelocity;
 
-            /*
+
             //Les escaliers mon pire enemi
             Vector3 up = -movement.Gravity.Value.normalized;
             Vector3 playerBasePosition = movement.Position - movement.CapsuleCollider.height * 0.5f * up;
@@ -106,7 +106,7 @@ namespace RogueLike.Player.States
             {
                 float stepHeight = maxStepHeight - hit.distance;
                 movement.rb.position += projectionPlaneNormal * stepHeight;
-            }*/
+            }
 
             //Debug.DrawRay(stepPoint, -projectionPlaneNormal * maxStepHeight, Color.magenta);
 
