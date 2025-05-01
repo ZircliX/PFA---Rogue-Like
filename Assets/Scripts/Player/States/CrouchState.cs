@@ -24,12 +24,6 @@ namespace RogueLike.Player.States
             base.Exit(movement);
         }
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
-        {
-            gravityScale = 1;
-            return base.GetVelocity(movement, deltaTime, ref gravityScale);
-        }
-
         public override MovementState GetNextState(PlayerMovement movement)
         {
             if (!movement.IsGrounded)

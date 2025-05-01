@@ -31,6 +31,7 @@ namespace RogueLike.Player.States
 
         [Header("Wall")] 
         [SerializeField] private float wallPull;
+        [SerializeField] private float wallSnapDistance;
         
         private Vector3 direction;
 
@@ -83,18 +84,19 @@ namespace RogueLike.Player.States
             }
             
             Debug.DrawRay(movement.rb.position, alongWallDirection * 10, Color.green);
+            //Debug.Break();
             
-            //For inputs based movement
-            //Vector3 worldInput = GetWorldInputs(movement);
-            //Vector3 projectedInputsDirection = worldInput.ProjectOntoPlane(movement.WallNormal).normalized;
-            
-            //Vector3 projectedLastDirection = direction.ProjectOntoPlane(movement.WallNormal);
-            //projectedLastDirection = Vector3.Lerp(projectedLastDirection, projectedInputsDirection, directionControl * deltaTime);
-            //Vector3 targetSpeed = projectedLastDirection * wallrunSpeed;
+            //Snap to Wall
+            float distFromWall = (movement.Position - movement.WallContactPoint).sqrMagnitude - movement.CapsuleCollider.radius;
+            if (distFromWall > wallSnapDistance)
+            {
+                Vector3 snapDeltaMovement = -movement.WallNormal * (wallPull * deltaTime);
+                movement.rb.position += snapDeltaMovement;
+            }
             
             //Velocities calculation
             Vector3 wallPullForce = wallPull * -movement.WallNormal;
-            Vector3 wallVelocity = lastVelocity.ProjectOntoPlane(movement.WallNormal) + wallPullForce;
+            Vector3 wallVelocity = lastVelocity.ProjectOntoPlane(movement.WallNormal);
             Vector3 targetSpeed = alongWallDirection * wallrunSpeed;
 
             //Sqr Magnitudes
@@ -159,6 +161,7 @@ namespace RogueLike.Player.States
             if (projectOnPlane.sqrMagnitude < minWallrunSpeed * minWallrunSpeed + decelerationThreshold)
             {
                 movement.ExitWallrun();
+                Debug.Log("Plus de vitesse ?");
                 return MovementState.Falling;
             }
             

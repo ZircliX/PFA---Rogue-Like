@@ -69,4 +69,5 @@ MonoBehaviour:
   decelerationDuration: 0.5
   deceleration: 2
   decelerationThreshold: 0.5
-  wallPull: 0.5
+  wallPull: 6
+  wallSnapDistance: 0.75

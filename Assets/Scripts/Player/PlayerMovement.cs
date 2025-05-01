@@ -30,7 +30,7 @@ namespace RogueLike.Player
         #region Ground Check
 
         [Header("Ground Check")] 
-        [Obsolete][SerializeField] private float groundCheckDistance = 0.1f;
+        [SerializeField] private float groundCheckDistance = 0.1f;
         [SerializeField] private float groundCheckMaxAngle = 50;
         [field: SerializeField] public LayerMask GroundLayer { get; private set; }
         public float DistanceFromGround { get; private set; }
@@ -50,7 +50,6 @@ namespace RogueLike.Player
         
         [Header("Dash Settings")]
         [SerializeField] private float dashCooldown = 2.5f;
-        
 
         [Header("Walls Detection")] 
         [SerializeField] private int wallCastSample = 15;
@@ -63,6 +62,7 @@ namespace RogueLike.Player
         public bool IsWalled { get; private set; }
         public Vector3 WallNormal { get; private set; }
         public Vector3 LastKnownWallNormal { get; private set; }
+        public Vector3 WallContactPoint { get; private set; }
         public Collider CurrentWall { get; private set; }
 
         #endregion
@@ -104,6 +104,7 @@ namespace RogueLike.Player
         [field: Header("References")]
         [field: SerializeField] public Camera Camera { get; private set; }
         [field: SerializeField] public Transform Head { get; private set; }
+        [field: SerializeField] public Transform Foot { get; private set; }
         [field: SerializeField, Child] public CapsuleCollider CapsuleCollider { get; private set; }
         [field: SerializeField, Self] public Rigidbody rb { get; private set; }
 
@@ -116,7 +117,6 @@ namespace RogueLike.Player
 
         public bool WantsToWallrun => IsWalled 
                                       && CurrentWall != null
-                                      && currentWallrunExitTime <= 0
                                       && DistanceFromGround > wallrunMinHeight;
         private float currentWallrunExitTime;
 
@@ -136,7 +136,7 @@ namespace RogueLike.Player
         private Vector3 lastSafePosition;
         private ChannelKey stateChannelKey;
         public const float MIN_THRESHOLD = 0.001f;
-
+        
         private void OnValidate() => this.ValidateRefs();
 
         private void Awake()
@@ -299,6 +299,7 @@ namespace RogueLike.Player
 
         private void HandleWallDetection()
         {
+            /*
             if (currentWallrunExitTime > 0)
             {
                 IsWalled = false;
@@ -306,10 +307,14 @@ namespace RogueLike.Player
                 CurrentWall = null;
                 return;
             }
+            */
 
             Vector3 up = -Gravity.Value.normalized;
             Vector3 castDirection = Vector3.ProjectOnPlane(CurrentVelocity.Value, up).normalized;
 
+            RaycastHit closestHit = default;
+            Vector3 currentVelocityValue = CurrentVelocity.Value.normalized;
+            
             for (int i = 0; i < wallCastSample; i++)
             {
                 float lerp = Mathf.InverseLerp(0, wallCastSample - 1, i);
@@ -320,7 +325,7 @@ namespace RogueLike.Player
                 float halfHeight = CapsuleCollider.height * 0.25f;
                 float radius = CapsuleCollider.radius;
 
-                Vector3 center = transform.position + CapsuleCollider.center;
+                Vector3 center = Position + CapsuleCollider.center;
                 Vector3 p1 = center + transform.up * -halfHeight;
                 Vector3 p2 = center + transform.up * halfHeight;
 
@@ -332,27 +337,26 @@ namespace RogueLike.Player
                 if (Physics.CapsuleCast(p1, p2, radius - MIN_THRESHOLD, direction, out RaycastHit hit,
                         dist, WallLayer))
                 {
-                    
-                    
                     float angle = Vector3.Angle(hit.normal, up);
-                    if (angle > groundCheckMaxAngle)
+                    if (angle > groundCheckMaxAngle && Vector3.Dot(hit.normal, currentVelocityValue) < 0.01f)
                     {
-                        if (Vector3.Dot(hit.normal, WallNormal) < 0.6f && WallNormal != Vector3.zero)
+                        if (closestHit.collider == null || closestHit.distance > hit.distance)
                         {
-                            IsWalled = false;
-                            WallNormal = Vector3.zero;
-                            CurrentWall = null;
-                            return;
+                            closestHit = hit;
                         }
-                        
-                        
-                        IsWalled = true;
-                        WallNormal = hit.normal;
-                        CurrentWall = hit.collider;
-                        LastKnownWallNormal = WallNormal;
-                        return;
                     }
                 }
+            }
+
+            if (closestHit.collider != null)
+            {
+                Debug.Log(Vector3.Dot(closestHit.normal, currentVelocityValue));
+                IsWalled = true;
+                LastKnownWallNormal = WallNormal;
+                WallNormal = closestHit.normal;
+                WallContactPoint = closestHit.point;
+                CurrentWall = closestHit.collider;
+                return;
             }
 
             IsWalled = false;
@@ -388,36 +392,49 @@ namespace RogueLike.Player
             }
 
             Vector3 rayDirection = Gravity.Value.normalized;
-
-            //Ground Distance
-            bool distanceResult = Physics.SphereCast(rb.position, CapsuleCollider.radius, rayDirection,
-                out RaycastHit hit, Mathf.Infinity, GroundLayer);
-            if (distanceResult)
-            {
-                DistanceFromGround = Vector3.Distance(hit.point, rb.position);
-            }
-            else
-            {
-                DistanceFromGround = Mathf.Infinity;
-            }
-
+            
             //Ground Check
             float radius = CapsuleCollider.radius;
-            bool result = Physics.SphereCast(Position, radius, rayDirection, out hit, radius + MIN_THRESHOLD, GroundLayer, QueryTriggerInteraction.Ignore);
+            Vector3 center = Foot.position - Gravity.Value.normalized * (radius + MIN_THRESHOLD);
+            float castDistance = groundCheckDistance + MIN_THRESHOLD;
             
-            if (result)
+            RaycastHit[] hitsBuffer = Physics.SphereCastAll(center, radius, rayDirection, castDistance, 
+                GroundLayer, QueryTriggerInteraction.Ignore);
+
+            int hitCount = hitsBuffer.Length;
+
+            Debug.DrawRay(center, rayDirection * (castDistance + radius), Color.cyan);
+            Debug.Log($"Count = {hitCount}, Distance = {castDistance}, center = {center}, radius = {radius}");
+            
+            RaycastHit closestHit = default;
+            for (int i = 0; i < hitCount; i++)
             {
-                float angle = Vector3.Angle(hit.normal, -rayDirection);
-                if (angle < groundCheckMaxAngle)
+                RaycastHit hit = hitsBuffer[i];
+                
+                if (closestHit.collider == null || closestHit.distance > hit.distance)
                 {
-                    GroundNormal = hit.normal;
-                    IsGrounded = true;
-                    return;
+                    float angle = Vector3.Angle(hit.normal, -rayDirection);
+                    if (angle < groundCheckMaxAngle)
+                    {
+                        Debug.Log(hit.collider.name, hit.collider);
+                        Debug.DrawRay(hit.point, hit.normal * 10, Color.magenta);
+                        Debug.DrawLine(hit.point, Position, Color.magenta);
+                        closestHit = hit;
+                    }
                 }
+            }
+
+            if (closestHit.collider != null)
+            {
+                GroundNormal = closestHit.normal;
+                IsGrounded = true;
+                DistanceFromGround = closestHit.distance;
+                return;
             }
             
             GroundNormal = Vector3.up;
             IsGrounded = false;
+            DistanceFromGround = Mathf.Infinity;
         }
         
         #endregion

@@ -12,12 +12,10 @@ namespace RogueLike.Player.States
         
         public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
         {
-            gravityScale = 1;
             Vector3 velocity = base.GetVelocity(movement, deltaTime, ref gravityScale);
 
-            const float snapForce = 2;
-
-            velocity += movement.Gravity.Value.normalized * snapForce * deltaTime;
+            //const float snapForce = 2;
+            //velocity += movement.Gravity.Value.normalized * snapForce * deltaTime;
             
             return velocity;
         }
