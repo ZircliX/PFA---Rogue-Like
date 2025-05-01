@@ -10,18 +10,18 @@ namespace RogueLike.Player.States
     {
         [field: Header("Camera Effects")]
         [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
-        
-        [Header("Speed")] 
+
+        [Header("Speed")]
         [SerializeField] private float wallrunSpeed;
         [SerializeField] private float minWallrunSpeed;
         [SerializeField] private float directionControl;
-        
+
         [Header("Acceleration")]
         [SerializeField] private AnimationCurve accelerationCurve;
         [SerializeField] private float accelerationDuration;
         [SerializeField] private float acceleration;
         private float currentAcceleration;
-        
+
         [Header("Deceleration")]
         [SerializeField] private AnimationCurve decelerationCurve;
         [SerializeField] private float decelerationDuration;
@@ -29,10 +29,10 @@ namespace RogueLike.Player.States
         [SerializeField] private float decelerationThreshold;
         private float currentDeceleration;
 
-        [Header("Wall")] 
+        [Header("Wall")]
         [SerializeField] private float wallPull;
         [SerializeField] private float wallSnapDistance;
-        
+
         private Vector3 direction;
 
         public override void Dispose(PlayerMovement movement)
@@ -42,13 +42,15 @@ namespace RogueLike.Player.States
         public override void Enter(PlayerMovement movement)
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
-            
+
+            Debug.Log("Wallruning start");
             currentAcceleration = 0;
             currentDeceleration = 0;
         }
 
         public override void Exit(PlayerMovement movement)
         {
+            Debug.Log("Wallrunning end");
             currentAcceleration = 0;
             currentDeceleration = 0;
         }
@@ -56,15 +58,15 @@ namespace RogueLike.Player.States
         public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
         {
             Vector3 cross = Vector3.Cross(movement.WallNormal, movement.Gravity.Value.normalized);
-            
+
             float dot = Vector3.Dot(cross, cam.transform.forward);
 
             CameraEffectComposite comp = CameraEffectData.CameraEffectComposite;
             CameraEffectComposite cameraEffectComposite = new CameraEffectComposite(
-                dot > 0 ? comp.Dutch : -comp.Dutch, 
-                comp.FovScale, 
+                dot > 0 ? comp.Dutch : -comp.Dutch,
+                comp.FovScale,
                 comp.Speed);
-            
+
             return cameraEffectComposite;
         }
 
@@ -72,7 +74,7 @@ namespace RogueLike.Player.States
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
             Vector3 lastVelocity = movement.StateVelocity;
-            
+
             //Calculate wallrun direction
             Vector3 alongWallDirection = Vector3.Cross(movement.WallNormal, movement.Gravity).normalized;
 
@@ -82,10 +84,10 @@ namespace RogueLike.Player.States
                 //invert direction
                 alongWallDirection = -alongWallDirection;
             }
-            
+
             Debug.DrawRay(movement.rb.position, alongWallDirection * 10, Color.green);
             //Debug.Break();
-            
+
             //Snap to Wall
             float distFromWall = (movement.Position - movement.WallContactPoint).sqrMagnitude - movement.CapsuleCollider.radius;
             if (distFromWall > wallSnapDistance)
@@ -93,7 +95,7 @@ namespace RogueLike.Player.States
                 Vector3 snapDeltaMovement = -movement.WallNormal * (wallPull * deltaTime);
                 movement.rb.position += snapDeltaMovement;
             }
-            
+
             //Velocities calculation
             Vector3 wallPullForce = wallPull * -movement.WallNormal;
             Vector3 wallVelocity = lastVelocity.ProjectOntoPlane(movement.WallNormal);
@@ -110,7 +112,7 @@ namespace RogueLike.Player.States
                 {
                     targetSpeed = targetSpeed.ProjectOntoPlane(movement.Gravity.Value.normalized);
                 }
-                
+
                 return targetSpeed;
             }
             //Accelerate
@@ -164,7 +166,7 @@ namespace RogueLike.Player.States
                 Debug.Log("Plus de vitesse ?");
                 return MovementState.Falling;
             }
-            
+
             return State;
         }
 
