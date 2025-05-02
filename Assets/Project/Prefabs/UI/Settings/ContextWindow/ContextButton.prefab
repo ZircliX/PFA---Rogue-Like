@@ -75,10 +75,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textSize: 24
+  underline: {fileID: 5292986507200624026}
   text: {fileID: 1298244061440223463}
-  image: {fileID: 5292986507200624026}
   <Button>k__BackingField: {fileID: 6356711544708416729}
-  baseState: 1
+  <BaseState>k__BackingField: 0
 --- !u!114 &6356711544708416729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,9 +226,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Context
+  m_text: ContextButton
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eb9edb67f34d75a47a04e7d5b27bc360, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 0.6}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.6}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -1,6 +1,5 @@
 using LTX.ChanneledProperties;
 using RogueLike;
-using RogueLike.Controllers;
 using UnityEngine;
 
 namespace DeadLink.Menus.Implementation
@@ -10,11 +9,6 @@ namespace DeadLink.Menus.Implementation
         [field: SerializeField] protected override bool baseState { get; set; }
 
         public override MenuType MenuType => MenuType.Settings;
-
-        protected override void Awake()
-        {
-            base.Awake();
-        }
 
         protected override void CheckMenuType(MenuType type)
         {
@@ -48,6 +42,31 @@ namespace DeadLink.Menus.Implementation
         public void Back()
         {
             MenuManager.Instance.CloseMenu();
+        }
+
+        public void EnableVibrations(bool state)
+        {
+            
+        }
+
+        public void ChangeLanguage(int index)
+        {
+            
+        }
+        
+        public void ChangeMasterVolume(float value)
+        {
+            //AudioManager.Instance.SetMasterVolume(value);
+        }
+        
+        public void ChangeMusicVolume(float value)
+        {
+            //AudioManager.Instance.SetMasterVolume(value);
+        }
+        
+        public void ChangeSFXVolume(float value)
+        {
+            //AudioManager.Instance.SetMasterVolume(value);
         }
     }
 }
