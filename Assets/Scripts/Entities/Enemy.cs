@@ -2,6 +2,7 @@ using DeadLink.Entities.Data;
 using Enemy;
 using LTX.ChanneledProperties;
 using RayFire;
+using RogueLike;
 using RogueLike.Controllers;
 using UnityEngine;
 
@@ -66,6 +67,7 @@ namespace DeadLink.Entities
             rayfireRigid.Demolish();
             OutlinerManager.Instance.RemoveOutline(gameObject);
             EnemyManager.Instance.EnemyKilled(this);
+            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemiesDeath, transform.position);
             Destroy(gameObject);
         }
     }

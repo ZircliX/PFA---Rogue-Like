@@ -9,16 +9,16 @@ namespace DeadLink.Menus.Implementation.Extensions
         public ContextWindowButton Button;
         public ContextWindow Window;
 
-        public void SetValues(bool value)
+        public void Enter()
         {
-            Button.SetValues(value);
-            Window.SetValues(value);
+            Button.Enter();
+            Window.Enter();
         }
 
-        public void ChangeState()
+        public void Exit()
         {
-            Button.ChangeState();
-            Window.ChangeState();
+            Button.Exit();
+            Window.Exit();
         }
 
         public bool IsNull => Button == null && Window == null;

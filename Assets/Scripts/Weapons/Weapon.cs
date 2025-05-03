@@ -42,8 +42,6 @@ namespace DeadLink.Weapons
         
         public virtual void Fire(Entity entity, Vector3 direction)
         {
-            if (CurrentReloadTime < WeaponData.ReloadTime) return;
-            
             if (CurrentMunitions <= 0)
             {
                 //play sound

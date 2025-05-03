@@ -10,20 +10,29 @@ namespace DeadLink.Menus.Implementation.Extensions
         [SerializeField, Self] private CanvasGroup canvasGroup;
         [ReadOnly, SerializeField] private bool currentState = false;
         
-        private void OnValidate()
-        {
-            this.ValidateRefs();
-        }
+        private void OnValidate() => this.ValidateRefs();
         
-        public void SetValues(bool value)
+        public void Enter()
         {
-            currentState = value;
-            canvasGroup.alpha = currentState ? 1 : 0;
+            currentState = true;
+            ChangeCanvasAlpha();
         }
-        
-        public void ChangeState(bool validate = false)
+
+        public void Exit()
         {
-            currentState = !validate ? !currentState : currentState;
+            currentState = false;
+            ChangeCanvasAlpha();
+        }
+
+        private void ChangeCanvasAlpha()
+        {
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                canvasGroup.alpha = currentState ? 1 : 0;
+                return;
+            }
+#endif
             
             canvasGroup.DOFade(currentState ? 1 : 0, 0.25f).SetUpdate(true);
         }

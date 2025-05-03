@@ -26,15 +26,24 @@ namespace DeadLink.Menus.Implementation.Extensions
             
             for (int i = 0; i < links.Length; i++)
             {
-                links[i].SetValues(i == index);
-                currentLink = i == index ? links[i] : currentLink;
+                ContextWindowLink contextWindowLink = links[i];
+                
+                if (i == index)
+                {
+                    currentLink = contextWindowLink;
+                    currentLink.Enter();
+                }
+                else
+                {
+                    contextWindowLink.Exit();
+                }
             }
         }
         #endregion
         
         private void Awake()
         {
-            currentLink.ChangeState();
+            currentLink.Enter();
             
             for (int i = 0; i < links.Length; i++)
             {
@@ -50,18 +59,24 @@ namespace DeadLink.Menus.Implementation.Extensions
             }
         }
 
-        private void ButtonClick(ContextWindowButton button)
+        private void ManageButtonClick(ContextWindowButton button)
         {
-            if (!currentLink.IsNull) currentLink.ChangeState();
+            if (!currentLink.IsNull) currentLink.Exit();
             
             for (int i = 0; i < links.Length; i++)
             {
                 if (links[i].Button == button)
                 {
                     currentLink = links[i];
-                    currentLink.ChangeState();
+                    currentLink.Enter();
                 }
             }
+        }
+
+        private void ButtonClick(ContextWindowButton button)
+        {
+            if (button.Equals(currentLink.Button)) return;
+            ManageButtonClick(button);
         }
     }
 }

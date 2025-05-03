@@ -129,7 +129,7 @@ namespace DeadLink.Entities
         
         protected virtual void Shoot()
         {
-            if (CurrentWeapon != null)
+            if (CurrentWeapon != null && CurrentWeapon.CurrentReloadTime >= CurrentWeapon.WeaponData.ReloadTime)
             {
                 Vector3 direction;
                 Camera mainCam = Camera.main;

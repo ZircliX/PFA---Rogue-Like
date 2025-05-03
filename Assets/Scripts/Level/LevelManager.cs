@@ -33,6 +33,8 @@ namespace RogueLike.Managers
         
         private void StartLevel()
         {
+            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_LevelStart, transform.position);
+            
             if (GameMetrics.Global.SpawnEnemies)
                 EnemyManager.Instance.SpawnEnemies(difficulty);
             player.Spawn(player.EntityData, difficulty, player.SpawnPosition.position);
