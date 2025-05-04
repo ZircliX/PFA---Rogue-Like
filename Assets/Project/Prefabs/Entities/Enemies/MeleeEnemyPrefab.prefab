@@ -206,9 +206,9 @@ GameObject:
   - component: {fileID: 1198171011335945665}
   - component: {fileID: 2498381480007148682}
   - component: {fileID: 259710934558240639}
-  - component: {fileID: 5479701914166373156}
   - component: {fileID: 7118967720084334429}
   - component: {fileID: 8754444563749847026}
+  - component: {fileID: 5195393138138241059}
   m_Layer: 3
   m_Name: MeleeEnemyPrefab
   m_TagString: Untagged
@@ -326,7 +326,13 @@ MonoBehaviour:
   - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
   <Cost>k__BackingField: 0
   <enemyUI>k__BackingField: {fileID: 259710934558240639}
+  sphereRadius: 5
+  newPosRadius: 5
+  maxTurnAngle: 90
+  idleTime: 0.3
   rayfireRigid: {fileID: 8754444563749847026}
+  navMeshAgent: {fileID: 7118967720084334429}
+  sc: {fileID: 5195393138138241059}
 --- !u!114 &259710934558240639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,20 +346,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 7882088084321818726}
---- !u!114 &5479701914166373156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2696346464027847249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dd496bd525cbfd46ac5e5fcfc1f4078, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  agent: {fileID: 7118967720084334429}
 --- !u!195 &7118967720084334429
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -364,11 +356,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 15
-  m_Acceleration: 20
+  m_Speed: 10
+  m_Acceleration: 25
   avoidancePriority: 50
-  m_AngularSpeed: 500
-  m_StoppingDistance: 1
+  m_AngularSpeed: 1000
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -566,6 +558,27 @@ MonoBehaviour:
   skr: {fileID: 0}
   rest: {fileID: 0}
   sound: {fileID: 0}
+--- !u!135 &5195393138138241059
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2696346464027847249}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3583216811191965925
 GameObject:
   m_ObjectHideFlags: 0

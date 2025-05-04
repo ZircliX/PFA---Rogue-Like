@@ -13,8 +13,8 @@ namespace RogueLike
         
         [field: Header("Debug Settings")]
         [field: SerializeField] public bool SpawnEnemies { get; private set; }
-        
         [field : SerializeField] public SceneLoader SceneLoader { get; private set; }
+        [field : SerializeField] public LayerMask EnemyStopDetect { get; private set; }
         
         #region Scenes
         [field: Header("Scenes")]

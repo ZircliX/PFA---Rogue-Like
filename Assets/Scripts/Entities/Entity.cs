@@ -126,6 +126,8 @@ namespace DeadLink.Entities
             CurrentWeapon = Weapons[newIndex];
             currentShootTime = 0;
         }
+
+        protected abstract void Attack();
         
         protected virtual void Shoot()
         {
@@ -144,7 +146,7 @@ namespace DeadLink.Entities
                     // Calculate direction from bullet spawn to the hit point
                     direction = (hit.point - BulletSpawnPoint.position).normalized;
 
-                    Debug.DrawRay(BulletSpawnPoint.position, direction * 10, Color.red, 2f);
+                    //Debug.DrawRay(BulletSpawnPoint.position, direction * 10, Color.red);
                     //Debug.Log("Hit: " + hit.collider.name + ", Direction: " + direction);
                 }
                 else
@@ -157,7 +159,7 @@ namespace DeadLink.Entities
             }
             else
             {
-                Debug.LogError($"No equipped weapon for {gameObject.name}");
+                //Debug.LogError($"No equipped weapon for {gameObject.name}");
             }
         }
         
@@ -177,7 +179,7 @@ namespace DeadLink.Entities
 
             if (canShoot)
             {
-                Shoot();
+                Attack();
                 currentShootTime = CurrentWeapon.WeaponData.ShootRate;
             }
 

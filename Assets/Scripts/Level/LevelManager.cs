@@ -4,6 +4,7 @@ using DeadLink.Menus.Implementation;
 using Enemy;
 using LTX.Singletons;
 using RogueLike.Controllers;
+using RogueLike.Player;
 using RogueLike.Timer;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace RogueLike.Managers
     {
         [field: SerializeField] public DifficultyData difficulty { get; private set; }
         [field: SerializeField] public Entities.Player player { get; private set; }
+        [field: SerializeField] public PlayerMovement PlayerMovement { get; private set; }
         
         [field: SerializeField] public HUDMenuHandler HUDMenuHandler { get; private set; }
 

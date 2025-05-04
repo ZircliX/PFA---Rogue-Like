@@ -14,6 +14,11 @@ namespace DeadLink.Entities.Enemies
         {
         }
 
+        protected override void Attack()
+        {
+            Shoot();
+        }
+
         protected override void Shoot()
         {
             base.Shoot();

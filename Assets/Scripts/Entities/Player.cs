@@ -60,6 +60,11 @@ namespace RogueLike.Entities
             LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentWeapon.CurrentMunitions, CurrentWeapon.WeaponData.MaxAmmunition);
         }
 
+        protected override void Attack()
+        {
+            Shoot();
+        }
+
         public override void TakeDamage(int damage)
         {
             base.TakeDamage(damage);
