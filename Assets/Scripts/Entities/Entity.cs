@@ -15,6 +15,7 @@ namespace DeadLink.Entities
         [field: SerializeField]
         public EntityData EntityData { get; private set; }
 
+        #region Weapons Data
         [Header("Weapons")]
         [field: SerializeField] public Transform BulletSpawnPoint { get; private set; }
         [field: SerializeField] public Weapon[] Weapons { get; private set; }
@@ -24,14 +25,22 @@ namespace DeadLink.Entities
         protected float currentShootTime;
 
         protected bool canShoot => isShooting && currentShootTime <= 0f;
+        #endregion
         
         public int Health { get; private set; }
         private int removedHealthBar;
+        
+        #region Influenced Properties
+        
         public InfluencedProperty<int> HealthBarCount { get; private set; }
         public InfluencedProperty<float> Strength { get; private set; }
         public InfluencedProperty<float> Speed { get; private set; }
         public InfluencedProperty<float> MaxHealth { get; private set; }
+        
+        #endregion
 
+        #region spawn damage heal die
+        
         public virtual void Spawn(EntityData data, DifficultyData difficultyData, Vector3 SpawnPosition)
         {
             EntityData = data;
@@ -113,6 +122,10 @@ namespace DeadLink.Entities
             Health += instantHealAmount;
         }
 
+        #endregion
+        
+        #region Weapons Logic
+        
         protected virtual void ChangeWeapon(int direction)
         {
             int currentIndex = Array.IndexOf(Weapons, CurrentWeapon);
@@ -169,8 +182,8 @@ namespace DeadLink.Entities
             
             StartCoroutine(CurrentWeapon.Reload());
         }
-        
-        protected virtual void Update()
+
+        protected virtual void ShootLogic()
         {
             if (CurrentWeapon == null) return;
 
@@ -185,8 +198,19 @@ namespace DeadLink.Entities
 
             CurrentWeapon.SetShootingState(isShooting);
         }
+        
+        #endregion
+        
+        protected virtual void Update()
+        {
+            ShootLogic();
+        }
 
+        #region PowerUps
+        
         public abstract void Unlock(IVisitor visitor);
         public abstract void UsePowerUp(InputAction.CallbackContext context);
+        
+        #endregion
     }
 }

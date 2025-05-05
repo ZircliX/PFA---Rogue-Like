@@ -15,19 +15,29 @@ namespace DeadLink.Entities
     [RequireComponent(typeof(SphereCollider))]
     public abstract class Enemy : Entity
     {
+        
         [field: SerializeField] public int Cost { get; private set; }
         [field: SerializeField] public EnemyUI enemyUI { get; private set; }
         
+        #region Detection Params
         [Header("Detection Parameters")]
-        [SerializeField] private float sphereRadius = 5f;
+        [SerializeField] private float detectRadius = 12.5f;
+        [SerializeField] private float aggroRadius = 10;
+        [SerializeField] private float attackRadius = 8;
+        protected bool inDetectRange;
+        protected bool inAggroRange;
+        protected bool inAttackRange;
+        #endregion
         
+        #region NavMesh Params
         [Header("NavMesh Parameters")]
-        [SerializeField] private float newPosRadius = 5f;
+        [SerializeField] private float idleMoveRadius = 5f;
         [SerializeField] private float maxTurnAngle = 90f;
         [SerializeField] private float idleTime = 1f;
 
         private Vector3 lastDirection = Vector3.forward;
         private bool isRandomMoving = false;
+        #endregion
         
         [Header("References")]
         [SerializeField, Self] private RayfireRigid rayfireRigid;
@@ -37,17 +47,27 @@ namespace DeadLink.Entities
         private RogueLike.Entities.Player currentPlayer;
         private bool canSeePlayer;
         
+        //Old Damage System
+        float currentTime = 0;
+        float maxTime = 0.5f;
+        
+        #region Event Functions
+        
         private void OnValidate()
         {
             this.ValidateRefs();
-            sc.radius = sphereRadius;
+            sc.radius = detectRadius;
         }
 
         private void Start()
         {
             StartCoroutine(MoveRoutine());
         }
+        
+        #endregion
 
+        #region spawn damge heal die
+        
         public override void Spawn(EntityData entityData, DifficultyData difficultyData, Vector3 SpawnPosition)
         {
             //Debug.Log("Spawn 1 enemy");
@@ -58,34 +78,6 @@ namespace DeadLink.Entities
             Speed.AddInfluence(difficultyData, difficultyData.EnemyStrengthMultiplier, Influence.Multiply);
             
             OutlinerManager.Instance.AddOutline(gameObject);
-        }
-
-        float currentTime = 0;
-        float maxTime = 0.5f;
-        
-        protected override void Update()
-        {
-            base.Update();
-            
-            if (currentTime >= maxTime)
-            {
-                currentTime = 0;
-                
-                Ray ray = new Ray(transform.position, transform.forward);
-                RaycastHit[] raycast = Physics.SphereCastAll(ray, 3, 3);
-                
-                for (int i = 0; i < raycast.Length; i++)
-                {
-                    if (raycast[i].transform.TryGetComponent(out RogueLike.Entities.Player player))
-                    {
-                        player.TakeDamage(1);
-                    }
-                }
-            }
-            else
-            {
-                currentTime += Time.deltaTime;
-            }
         }
 
         public override void TakeDamage(float damage)
@@ -104,18 +96,52 @@ namespace DeadLink.Entities
             Destroy(gameObject);
         }
 
+        #endregion
+        
+        #region Updates
+        
+        protected override void Update()
+        {
+            base.Update();
+            
+            /* Debug damage to player
+            if (currentTime >= maxTime)
+            {
+                currentTime = 0;
+
+                Ray ray = new Ray(transform.position, transform.forward);
+                RaycastHit[] raycast = Physics.SphereCastAll(ray, 3, 3);
+
+                for (int i = 0; i < raycast.Length; i++)
+                {
+                    if (raycast[i].transform.TryGetComponent(out RogueLike.Entities.Player player))
+                    {
+                        player.TakeDamage(1);
+                    }
+                }
+            }
+            else
+            {
+                currentTime += Time.deltaTime;
+            }
+            */
+        }
+        
         protected void FixedUpdate()
         {
-            ConeCast();
-            CalculatePlayerPosition();
-            MoveTowardPlayer();
+            HandlePlayerDetection();
+            HandleMovement();
         }
+        
+        #endregion
+        
+        #region Idle Moving Logic
         
         private IEnumerator MoveRoutine()
         {
             while (true)
             {
-                if (!isRandomMoving && !canSeePlayer)
+                if (!isRandomMoving && (!canSeePlayer || currentPlayer == null))
                 {
                     yield return new WaitForSeconds(idleTime);
                     TryMove();
@@ -131,7 +157,7 @@ namespace DeadLink.Entities
 
             for (int i = 0; i < 10; i++)
             {
-                Vector3 randomPoint = Random.insideUnitSphere * newPosRadius;
+                Vector3 randomPoint = Random.insideUnitSphere * idleMoveRadius;
                 Vector3 projected = Vector3.ProjectOnPlane(randomPoint, LevelManager.Instance.PlayerMovement.Gravity.Value.normalized);
 
                 float angle = Vector3.Angle(lastDirection, projected);
@@ -146,7 +172,7 @@ namespace DeadLink.Entities
 
             if (found)
             {
-                Vector3 target = transform.position + candidateDirection * newPosRadius;
+                Vector3 target = transform.position + candidateDirection * idleMoveRadius;
                 if (NavMesh.SamplePosition(target, out NavMeshHit hit, 1, NavMesh.AllAreas))
                 {
                     navMeshAgent.SetDestination(hit.position);
@@ -166,13 +192,16 @@ namespace DeadLink.Entities
 
             isRandomMoving = false;
         }
+        
+        #endregion
+        
+        #region Move to Player Logic
 
-        private void MoveTowardPlayer()
+        private void HandleMovement()
         {
-            if (currentPlayer != null && canSeePlayer)
+            if (currentPlayer != null && canSeePlayer &&!isRandomMoving)
             {
                 navMeshAgent.SetDestination(currentPlayer.transform.position); 
-                Attack();
             }
         }
 
@@ -184,21 +213,38 @@ namespace DeadLink.Entities
                 return;
             }
             
-            bool didHit = false;
-            RaycastHit hit = default;
-
             Vector3 deltaPosition = (currentPlayer.transform.position - transform.position);
             Vector3 direction = deltaPosition.normalized;
             float distance = deltaPosition.magnitude;
+
+            inDetectRange = false;
+            inAggroRange = false;
+            inAttackRange = false;
+
+            if (distance <= detectRadius)
+            {
+                if (distance <= attackRadius)
+                {
+                    inAttackRange = true;
+                }
+                else if (distance <= aggroRadius)
+                {
+                    inAggroRange = true;
+                }
+                else
+                {
+                    inDetectRange = true;
+                }
+            }
             
             //Debug.DrawRay(transform.position, direction * distance, Color.cyan, 2);
-            didHit = Physics.Raycast(transform.position, direction, out hit,
+            bool didHit = Physics.Raycast(transform.position, direction, out RaycastHit hit,
                 distance, GameMetrics.Global.EnemyStopDetect);
 
             canSeePlayer = !didHit;
         }
-
-        private void ConeCast()
+        
+        private void HandlePlayerDetection()
         {
             RaycastHit[] hits = PhysicsExtensions.ConeCastAll(transform.position, 3, transform.forward, 15, 35f);
             
@@ -206,9 +252,16 @@ namespace DeadLink.Entities
             {
                 if (hits[i].transform.TryGetComponent(out RogueLike.Entities.Player player))
                 {
-                    currentPlayer = player;
+                    CalculatePlayerPosition();
+                    currentPlayer = inDetectRange ? player : null;
+                    
+                    return;
                 }
             }
+
+            currentPlayer = null;
         }
+        
+        #endregion
     }
 }
