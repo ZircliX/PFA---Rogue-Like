@@ -1,4 +1,5 @@
 using DG.Tweening;
+using EditorAttributes;
 using KBCore.Refs;
 using UnityEngine;
 
@@ -6,21 +7,32 @@ namespace DeadLink.Menus.Implementation.Extensions
 {
     public class ContextWindow : MonoBehaviour
     {
-        [SerializeField] private bool baseState = false;
         [SerializeField, Self] private CanvasGroup canvasGroup;
-        private bool currentState = false;
+        [ReadOnly, SerializeField] private bool currentState = false;
         
-        private void OnValidate()
+        private void OnValidate() => this.ValidateRefs();
+        
+        public void Enter()
         {
-            this.ValidateRefs();
-            currentState = baseState;
-            ChangeState(true);
+            currentState = true;
+            ChangeCanvasAlpha();
         }
-        
-        public void ChangeState(bool validate = false)
+
+        public void Exit()
         {
-            if (!validate)
-                currentState = !currentState;
+            currentState = false;
+            ChangeCanvasAlpha();
+        }
+
+        private void ChangeCanvasAlpha()
+        {
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                canvasGroup.alpha = currentState ? 1 : 0;
+                return;
+            }
+#endif
             
             canvasGroup.DOFade(currentState ? 1 : 0, 0.25f).SetUpdate(true);
         }

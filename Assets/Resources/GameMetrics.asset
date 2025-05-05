@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SpawnEnemies>k__BackingField: 1
   <SceneLoader>k__BackingField: {fileID: 3979984848490167843, guid: a39c2f37b5967cf42a360df5d75d8c96, type: 3}
+  <EnemyStopDetect>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 640
   <MainMenuScene>k__BackingField:
     m_SceneAsset: {fileID: 102900000, guid: 29a5aee83d2e2224480ebced603fc37e, type: 3}
     m_IsDirty: 0
@@ -32,10 +35,157 @@ MonoBehaviour:
   <SettingsMenu>k__BackingField: {fileID: 11400000, guid: 61e8a13d4abad89418df7511ed34ef5f, type: 2}
   <UpgradesMenu>k__BackingField: {fileID: 11400000, guid: 7949dcdc7f87fbb4b9d31c6865dcc52e, type: 2}
   <PowerUps>k__BackingField: []
-  <test>k__BackingField:
+  <FMOD_PlayerAutomaticReload>k__BackingField:
     Guid:
-      Data1: -790836542
-      Data2: 1218030727
-      Data3: -1599217255
-      Data4: 1041057648
-    Path: event:/Blablabla
+      Data1: 1352886904
+      Data2: 1339542223
+      Data3: 1268556425
+      Data4: 1564372243
+    Path: event:/Player/Combat/AutomaticReload
+  <FMOD_PlayerAutomaticShoot>k__BackingField:
+    Guid:
+      Data1: 528887724
+      Data2: 1185781682
+      Data3: 604984734
+      Data4: 1718863008
+    Path: event:/Player/Combat/AutomaticShoot
+  <FMOD_PlayerHandAttack>k__BackingField:
+    Guid:
+      Data1: 683273949
+      Data2: 1325812614
+      Data3: 655412352
+      Data4: 54501949
+    Path: event:/Player/Combat/HandAttack
+  <FMOD_PlayerLaserOverHeat>k__BackingField:
+    Guid:
+      Data1: 2068506968
+      Data2: 1337801182
+      Data3: -977639785
+      Data4: -1470043981
+    Path: event:/Player/Combat/LaserOverHeat
+  <FMOD_PlayerLaserReload>k__BackingField:
+    Guid:
+      Data1: 1045892338
+      Data2: 1232348753
+      Data3: 641237144
+      Data4: -1885957824
+    Path: event:/Player/Combat/LaserReload
+  <FMOD_PlayerLaserShoot>k__BackingField:
+    Guid:
+      Data1: -1380027055
+      Data2: 1075263955
+      Data3: -444447827
+      Data4: 559236038
+    Path: event:/Player/Combat/LaserShoot
+  <FMOD_PlayerRocketReload>k__BackingField:
+    Guid:
+      Data1: 158399944
+      Data2: 1212388814
+      Data3: 788089776
+      Data4: -119164588
+    Path: event:/Player/Combat/RocketReload
+  <FMOD_PlayerRocketShoot>k__BackingField:
+    Guid:
+      Data1: 555210910
+      Data2: 1287308698
+      Data3: -1888536174
+      Data4: -1595420832
+    Path: event:/Player/Combat/RocketShoot
+  <FMOD_PlayerDie>k__BackingField:
+    Guid:
+      Data1: 26166734
+      Data2: 1192618062
+      Data3: -272248701
+      Data4: 197273872
+    Path: event:/Player/Health/Die
+  <FMOD_PlayerHealthGain>k__BackingField:
+    Guid:
+      Data1: -829403718
+      Data2: 1151976694
+      Data3: -178301268
+      Data4: 373437099
+    Path: event:/Player/Health/HealthGain
+  <FMOD_PlayerHealthLoss>k__BackingField:
+    Guid:
+      Data1: -283821355
+      Data2: 1221365487
+      Data3: -1353596288
+      Data4: 1631383478
+    Path: event:/Player/Health/HealthLoss
+  <FMOD_PlayerDash>k__BackingField:
+    Guid:
+      Data1: -830473947
+      Data2: 1085890071
+      Data3: -203046230
+      Data4: -1493653802
+    Path: event:/Player/Movement/Dash
+  <FMOD_PlayerJump>k__BackingField:
+    Guid:
+      Data1: 16719906
+      Data2: 1176714688
+      Data3: -2081865087
+      Data4: -1336597057
+    Path: event:/Player/Movement/Jump
+  <FMOD_PlayerSlide>k__BackingField:
+    Guid:
+      Data1: 680162030
+      Data2: 1160776179
+      Data3: -1259175787
+      Data4: 586722736
+    Path: event:/Player/Movement/Slide
+  <FMOD_PlayerWalk>k__BackingField:
+    Guid:
+      Data1: 1578207163
+      Data2: 1262740229
+      Data3: -970870346
+      Data4: 1448548803
+    Path: event:/Player/Movement/Walk
+  <FMOD_EnemiesAttack>k__BackingField:
+    Guid:
+      Data1: -1253688648
+      Data2: 1111282359
+      Data3: 1157374636
+      Data4: -675931730
+    Path: event:/Enemies/Attack
+  <FMOD_EnemiesDeath>k__BackingField:
+    Guid:
+      Data1: -615710973
+      Data2: 1275740209
+      Data3: 439326893
+      Data4: -1035062470
+    Path: event:/Enemies/Death
+  <FMOD_WorldAmbiance>k__BackingField:
+    Guid:
+      Data1: 731320945
+      Data2: 1233387418
+      Data3: 206075559
+      Data4: -405606511
+    Path: event:/World/Ambiance
+  <FMOD_WorldMusic1>k__BackingField:
+    Guid:
+      Data1: 505105811
+      Data2: 1130010490
+      Data3: 1946922886
+      Data4: 2057226959
+    Path: event:/World/Music1
+  <FMOD_LevelEnd>k__BackingField:
+    Guid:
+      Data1: 1572463474
+      Data2: 1177455914
+      Data3: 1525537930
+      Data4: -2009923494
+    Path: event:/Levels/LevelEnd
+  <FMOD_LevelStart>k__BackingField:
+    Guid:
+      Data1: 408643984
+      Data2: 1329941177
+      Data3: 31686048
+      Data4: -1882494164
+    Path: event:/Levels/LevelStart
+  <FMOD_LevelPortal>k__BackingField:
+    Guid:
+      Data1: -1858411740
+      Data2: 1316696586
+      Data3: 486359176
+      Data4: -1179024635
+    Path: event:/Levels/Portal

@@ -2,7 +2,9 @@ using System;
 using DeadLink.Ammunitions.Data;
 using DeadLink.Entities;
 using KBCore.Refs;
+using RogueLike.Controllers;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace DeadLink.Ammunitions
 {
@@ -84,7 +86,7 @@ namespace DeadLink.Ammunitions
             if (hit.collider.CompareTag(AuthorTag)) return;
             
             //+ hit.normal * 0.5f
-            Instantiate(BulletData.HitVFX, hit.point , Quaternion.identity);
+            BulletData.HitVFX.PlayVFX(hit.point, 2);
             
             OnBulletHit?.Invoke(this);
             DestroyBullet();

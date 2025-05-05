@@ -15,10 +15,7 @@ namespace DeadLink.Extensions
         {
             position.y += extend;
             
-            pm.rb.DOMove(position, speed).OnComplete(() =>
-            {
-                pm.rb.isKinematic = false;
-            });
+            pm.rb.DOMove(position, speed);
         }
     }
 }

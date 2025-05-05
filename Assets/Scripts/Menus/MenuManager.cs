@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using DeadLink.Menus.Implementation;
 using DeadLink.Menus.Interfaces;
 using LTX.ChanneledProperties;
 using LTX.Singletons;
@@ -144,7 +143,6 @@ namespace DeadLink.Menus
                 }
                 else
                 {
-                    //Debug.Log("no menu to close, opening pause menu");
                     ChangeMenu(MenuType.Pause);
                 }
             }

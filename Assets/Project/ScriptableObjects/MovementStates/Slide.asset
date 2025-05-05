@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CameraEffectData>k__BackingField: {fileID: 11400000, guid: 0e2f37a09a94fbb40b59e8eadb0a7963, type: 2}
   slideSpeed: 20
-  slideMinSpeed: 12
+  slideMinSpeed: 10
   accelerationCurve:
     serializedVersion: 2
     m_Curve:

@@ -1,4 +1,3 @@
-using System;
 using DeadLink.Cameras;
 using DeadLink.Extensions;
 using DG.Tweening;
@@ -212,7 +211,6 @@ namespace RogueLike.Player
                 currentDashCooldown = 0;
         }
 
-
         private void FixedUpdate()
         {
             Position = rb.position;
@@ -267,7 +265,10 @@ namespace RogueLike.Player
                 Vector3 snapPosition = plane.ClosestPointOnPlane(capsuleBottom);
 
                 Vector3 deltaPosition = snapPosition - capsuleBottom;
-                rb.position += deltaPosition;
+                if (deltaPosition.sqrMagnitude > 0.1f)
+                {
+                    rb.DOMove(rb.position + deltaPosition, 0.1f);
+                }
             }
 
             Vector3 velocity = CurrentVelocity.Value;

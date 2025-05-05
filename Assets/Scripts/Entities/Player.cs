@@ -24,6 +24,8 @@ namespace RogueLike.Entities
 
         public int Kills { get; private set; }
 
+        #region Event Functions
+        
         private void OnValidate() => this.ValidateRefs();
         
         private void Start()
@@ -40,6 +42,10 @@ namespace RogueLike.Entities
             }
         }
 
+        #endregion
+        
+        #region spawn damage heal die
+        
         public override void Spawn(EntityData data, DifficultyData difficultyData, Vector3 spawnPoint)
         {
             base.Spawn(data, difficultyData, spawnPoint);
@@ -52,12 +58,9 @@ namespace RogueLike.Entities
             inputToPowerUpName = new Dictionary<string, string>();
         }
 
-        protected override void ChangeWeapon(int direction)
+        protected override void Attack()
         {
-            base.ChangeWeapon(direction);
-            
-            LevelManager.Instance.HUDMenuHandler.ChangeWeapon(currentWeaponIndex);
-            LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentWeapon.CurrentMunitions, CurrentWeapon.WeaponData.MaxAmmunition);
+            Shoot();
         }
 
         public override void TakeDamage(int damage)
@@ -70,7 +73,19 @@ namespace RogueLike.Entities
         {
 
         }
+        
+        #endregion
+        
+        protected override void ChangeWeapon(int direction)
+        {
+            base.ChangeWeapon(direction);
+            
+            LevelManager.Instance.HUDMenuHandler.ChangeWeapon(currentWeaponIndex);
+            LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentWeapon.CurrentMunitions, CurrentWeapon.WeaponData.MaxAmmunition);
+        }
 
+        #region Inputs
+        
         public void ChangeWeapon(InputAction.CallbackContext context)
         {
             if (context.performed)
@@ -99,6 +114,11 @@ namespace RogueLike.Entities
                 Reload();
             }
         }
+        
+        #endregion
+        
+        #region PowerUps
+        
         public override void UsePowerUp(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
@@ -128,5 +148,7 @@ namespace RogueLike.Entities
             unlockedPowerUps.Add(visitor.Name, visitor);
             visitor.OnBeUnlocked(this, pm);
         }
+        
+        #endregion
     }
 }

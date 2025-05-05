@@ -43,14 +43,12 @@ namespace RogueLike.Player.States
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
             
-            Debug.Log("Wallruning start");
             currentAcceleration = 0;
             currentDeceleration = 0;
         }
 
         public override void Exit(PlayerMovement movement)
         {
-            Debug.Log("Wallrunning end");
             currentAcceleration = 0;
             currentDeceleration = 0;
         }
@@ -163,7 +161,6 @@ namespace RogueLike.Player.States
             if (projectOnPlane.sqrMagnitude < minWallrunSpeed * minWallrunSpeed + decelerationThreshold)
             {
                 movement.ExitWallrun();
-                Debug.Log("Plus de vitesse ?");
                 return MovementState.Falling;
             }
 

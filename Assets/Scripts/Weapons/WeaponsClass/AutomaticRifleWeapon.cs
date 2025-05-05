@@ -1,5 +1,6 @@
 using DeadLink.Entities;
 using DeadLink.Weapons.Data;
+using RogueLike;
 using UnityEngine;
 
 namespace DeadLink.Weapons.WeaponsClass
@@ -14,6 +15,7 @@ namespace DeadLink.Weapons.WeaponsClass
         public override void Fire(Entity entity, Vector3 direction)
         {
             base.Fire(entity, direction);
+            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerAutomaticShoot, entity.transform.position);
         }
     }
 }

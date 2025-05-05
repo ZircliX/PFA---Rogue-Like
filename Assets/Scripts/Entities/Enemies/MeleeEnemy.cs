@@ -1,4 +1,5 @@
 using DeadLink.PowerUpSystem.InterfacePowerUps;
+using RogueLike;
 using UnityEngine.InputSystem;
 
 namespace DeadLink.Entities.Enemies
@@ -11,6 +12,17 @@ namespace DeadLink.Entities.Enemies
 
         public override void UsePowerUp(InputAction.CallbackContext context)
         {
+        }
+
+        protected override void Attack()
+        {
+            Shoot();
+        }
+
+        protected override void Shoot()
+        {
+            base.Shoot();
+            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemiesAttack, transform.position);
         }
     }
 }
