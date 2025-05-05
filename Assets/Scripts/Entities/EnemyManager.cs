@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Enemy;
 using LTX.Singletons;
 using RogueLike.Controllers;
@@ -8,15 +9,27 @@ namespace DeadLink.Entities
 {
     public class EnemyManager : MonoSingleton<EnemyManager>
     {
-        [SerializeField] private Enemy[] enemyPrefabs;
+        [SerializeField] private Entity[] enemyPrefabs;
         [SerializeField] private int wavesToSpawn;
         [SerializeField] private Transform[] SpawnPositions;
+        private List<Entity> spawnedEnemies;
 
-        public void Update()
+        protected override void Awake()
+        {
+            base.Awake();
+            spawnedEnemies = new List<Entity>();
+        }
+
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
                 SpawnEnemies(LevelManager.Instance.difficulty);
+            }
+
+            foreach (Entity entity in spawnedEnemies)
+            {
+                entity.OnFixedUpdate();
             }
         }
         
@@ -28,17 +41,20 @@ namespace DeadLink.Entities
                 for (int j = 0; j < SpawnPositions.Length; j++)
                 {
                     Vector3 position = SpawnPositions[j].position;
-                    Enemy spawnedEnemy = Instantiate(enemyPrefabs[0], position, Quaternion.identity);
+                    Entity spawnedEnemy = Instantiate(enemyPrefabs[0], position, Quaternion.identity);
                     spawnedEnemy.Spawn(spawnedEnemy.EntityData, difficultyData, position);
+                    
+                    spawnedEnemies.Add(spawnedEnemy);
                 }
             }
         }
         
-        public void EnemyKilled(Enemy enemyKilled)
+        public void EnemyKilled(Entity entity)
         {
             //Imobiliser le mob
-            enemyKilled.EntityData.VFXToSpawn.PlayVFX(enemyKilled.transform.position, enemyKilled.EntityData.DelayAfterDestroyVFX);
-            Destroy(enemyKilled.gameObject, 2f);
+            entity.EntityData.VFXToSpawn.PlayVFX(entity.transform.position, entity.EntityData.DelayAfterDestroyVFX);
+            spawnedEnemies.Remove(entity);
+            Destroy(entity.gameObject, 2f);
         }
     }
 }

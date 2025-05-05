@@ -58,7 +58,7 @@ namespace RogueLike.Player.States
         {
             Vector3 cross = Vector3.Cross(movement.WallNormal, movement.Gravity.Value.normalized);
 
-            float dot = Vector3.Dot(cross, cam.transform.forward);
+            float dot = Vector3.Dot(cross, movement.CameraTransform.forward);
 
             CameraEffectComposite comp = CameraEffectData.CameraEffectComposite;
             CameraEffectComposite cameraEffectComposite = new CameraEffectComposite(

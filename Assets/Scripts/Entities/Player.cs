@@ -141,6 +141,10 @@ namespace RogueLike.Entities
             }
         }
 
+        public override void OnFixedUpdate()
+        {
+        }
+
         public override void Unlock(IVisitor visitor)
         {
             if (!unlockedPowerUps.TryAdd(visitor.Name, visitor))

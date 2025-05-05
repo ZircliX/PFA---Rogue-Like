@@ -6,11 +6,9 @@ namespace RogueLike.Player
 {
     public abstract class MovementStateBehavior : ScriptableObject
     {
-        protected Transform cam;
-
         public virtual void Initialize(EntityMovement movement)
         {
-            cam = movement.CameraTransform;
+            
         }
         public abstract void Dispose(EntityMovement movement);
 
@@ -26,8 +24,12 @@ namespace RogueLike.Player
 
         protected virtual Vector3 GetCameraDirection(EntityMovement movement, Vector2 direction)
         {
+            Transform cam = movement.CameraTransform;
+            
             Vector3 worldInputs = cam.transform.right * direction.x;
             float cameraDotProduct = Vector3.Dot(cam.transform.forward, -movement.Gravity.Value.normalized);
+            
+            Debug.Log(cam.name, cam);
             
             worldInputs += cameraDotProduct switch
             {
@@ -35,6 +37,8 @@ namespace RogueLike.Player
                 > 0.8f => -cam.transform.up,
                 _ => cam.transform.forward
             } * direction.y;
+            
+            //Debug.Log("worldInputs: " + worldInputs);
             
             return worldInputs;
         }

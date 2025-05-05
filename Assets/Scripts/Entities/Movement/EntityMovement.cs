@@ -23,6 +23,7 @@ namespace DeadLink.Entities.Movement
         
         [Header("Movement States")]
         [SerializeField] protected MovementStateBehavior[] movementStates;
+        protected MovementStateBehavior[] movementStatesCache;
         protected int currentStateIndex;
         
         #region Ground Check
@@ -144,6 +145,8 @@ namespace DeadLink.Entities.Movement
         protected readonly RaycastHit[] raycastHitsBuffer = new RaycastHit[16];
         protected readonly Collider[] collidersBuffer = new Collider[16];
         
+        #region Event Functions
+        
         protected virtual void OnValidate() => this.ValidateRefs();
 
         protected virtual void Awake()
@@ -182,6 +185,10 @@ namespace DeadLink.Entities.Movement
                 state.Dispose(this);
             }
         }
+        
+        #endregion
+        
+        #region Update Functions
         
         protected virtual void Update()
         {
@@ -229,6 +236,8 @@ namespace DeadLink.Entities.Movement
 
             HandleVoidDetection();
         }
+        
+        #endregion
         
         private void MovePlayer()
         {
@@ -358,39 +367,7 @@ namespace DeadLink.Entities.Movement
 
             IsTouchingCeiling = result;
         }
-
-        public Vector3 GetCapsuleOrientation() => CapsuleCollider.direction switch
-            {
-                1 => transform.up,
-                2 => transform.right,
-                3 => transform.forward,
-                _ => Vector3.zero
-            };
-
-        public Vector3 GetCapsuleCenter() => Position + CapsuleCollider.center;
-        public Vector3 GetCapsuleBottom()
-        {
-            Vector3 capsuleCenter = GetCapsuleCenter();
-            if (CapsuleCollider.height > CapsuleCollider.radius * 2)
-            {
-                return capsuleCenter - GetCapsuleOrientation() * (CapsuleCollider.height * .5f);
-            }
-
-            return capsuleCenter - GetCapsuleOrientation() * CapsuleCollider.radius;
-        }
-
-        public Vector3 GetCapsuleTop()
-        {
-            Vector3 capsuleCenter = GetCapsuleCenter();
-            if (CapsuleCollider.height > CapsuleCollider.radius * 2)
-            {
-                return capsuleCenter + GetCapsuleOrientation() * (CapsuleCollider.height * .5f);
-            }
-
-            return capsuleCenter + GetCapsuleOrientation() * CapsuleCollider.radius;
-        }
-
-
+        
         private void HandleGroundDetection()
         {
             if (CurrentState == MovementState.Jumping && StateVelocity.y >= 0)
@@ -467,6 +444,41 @@ namespace DeadLink.Entities.Movement
 
         #endregion
         
+        #region Capsule Extensions
+        
+        public Vector3 GetCapsuleOrientation() => CapsuleCollider.direction switch
+        {
+            1 => transform.up,
+            2 => transform.right,
+            3 => transform.forward,
+            _ => Vector3.zero
+        };
+
+        public Vector3 GetCapsuleCenter() => Position + CapsuleCollider.center;
+        public Vector3 GetCapsuleBottom()
+        {
+            Vector3 capsuleCenter = GetCapsuleCenter();
+            if (CapsuleCollider.height > CapsuleCollider.radius * 2)
+            {
+                return capsuleCenter - GetCapsuleOrientation() * (CapsuleCollider.height * .5f);
+            }
+
+            return capsuleCenter - GetCapsuleOrientation() * CapsuleCollider.radius;
+        }
+
+        public Vector3 GetCapsuleTop()
+        {
+            Vector3 capsuleCenter = GetCapsuleCenter();
+            if (CapsuleCollider.height > CapsuleCollider.radius * 2)
+            {
+                return capsuleCenter + GetCapsuleOrientation() * (CapsuleCollider.height * .5f);
+            }
+
+            return capsuleCenter + GetCapsuleOrientation() * CapsuleCollider.radius;
+        }
+        
+        #endregion
+        
         #region States
 
         protected void HandleStateChange()
@@ -496,6 +508,7 @@ namespace DeadLink.Entities.Movement
                     CurrentState = state;
                     currentStateIndex = i;
 
+                    //Debug.Log($"Enter state : {CurrentState}");
                     movementStateBehavior.Enter(this);
 
                     (float newCapsuleHeight, float newHeadHeight) = movementStateBehavior.GetHeight(this);

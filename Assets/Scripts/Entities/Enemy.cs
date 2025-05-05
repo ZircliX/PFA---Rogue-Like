@@ -1,5 +1,6 @@
 using System.Collections;
 using DeadLink.Entities.Data;
+using DeadLink.Entities.Enemies.Detection;
 using Enemy;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
@@ -9,21 +10,23 @@ using RogueLike.Controllers;
 using RogueLike.Managers;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace DeadLink.Entities
 {
-    [RequireComponent(typeof(SphereCollider))]
     public abstract class Enemy : Entity
     {
-        
         [field: SerializeField] public int Cost { get; private set; }
         [field: SerializeField] public EnemyUI enemyUI { get; private set; }
         
         #region Detection Params
         [Header("Detection Parameters")]
         [SerializeField] private float detectRadius = 12.5f;
+        [SerializeField] private SphereDetector detectDetector;
         [SerializeField] private float aggroRadius = 10;
+        [SerializeField] private SphereDetector aggroDetector;
         [SerializeField] private float attackRadius = 8;
+        [SerializeField] private SphereDetector attackDetector;
         protected bool inDetectRange;
         protected bool inAggroRange;
         protected bool inAttackRange;
@@ -42,21 +45,47 @@ namespace DeadLink.Entities
         [Header("References")]
         [SerializeField, Self] private RayfireRigid rayfireRigid;
         [SerializeField, Self] private NavMeshAgent navMeshAgent;
-        [SerializeField, Self] private SphereCollider sc;
-
-        private RogueLike.Entities.Player currentPlayer;
-        private bool canSeePlayer;
         
-        //Old Damage System
-        float currentTime = 0;
-        float maxTime = 0.5f;
+        private Transform playerTransform;
         
         #region Event Functions
         
         private void OnValidate()
         {
             this.ValidateRefs();
-            sc.radius = detectRadius;
+            detectDetector.SphereCollider.radius = detectRadius;
+            aggroDetector.SphereCollider.radius = aggroRadius;
+            attackDetector.SphereCollider.radius = attackRadius;
+        }
+
+        private void OnEnable()
+        {
+            detectDetector.OnTriggerEnterEvent += TriggerEnter;
+            detectDetector.OnTriggerStayEvent += TriggerStay;
+            detectDetector.OnTriggerExitEvent += TriggerExit;
+            
+            aggroDetector.OnTriggerEnterEvent += TriggerEnter;
+            aggroDetector.OnTriggerStayEvent += TriggerStay;
+            aggroDetector.OnTriggerExitEvent += TriggerExit;
+            
+            attackDetector.OnTriggerEnterEvent += TriggerEnter;
+            attackDetector.OnTriggerStayEvent += TriggerStay;
+            attackDetector.OnTriggerExitEvent += TriggerExit;
+        }
+        
+        private void OnDisable()
+        {
+            detectDetector.OnTriggerEnterEvent -= TriggerEnter;
+            detectDetector.OnTriggerStayEvent -= TriggerStay;
+            detectDetector.OnTriggerExitEvent -= TriggerExit;
+            
+            aggroDetector.OnTriggerEnterEvent -= TriggerEnter;
+            aggroDetector.OnTriggerStayEvent -= TriggerStay;
+            aggroDetector.OnTriggerExitEvent -= TriggerExit;
+            
+            attackDetector.OnTriggerEnterEvent -= TriggerEnter;
+            attackDetector.OnTriggerStayEvent -= TriggerStay;
+            attackDetector.OnTriggerExitEvent -= TriggerExit;
         }
 
         private void Start()
@@ -127,9 +156,8 @@ namespace DeadLink.Entities
             */
         }
         
-        protected void FixedUpdate()
+        public override void OnFixedUpdate()
         {
-            HandlePlayerDetection();
             HandleMovement();
         }
         
@@ -141,7 +169,7 @@ namespace DeadLink.Entities
         {
             while (true)
             {
-                if (!isRandomMoving && (!canSeePlayer || currentPlayer == null))
+                if (!isRandomMoving && !inAggroRange)
                 {
                     yield return new WaitForSeconds(idleTime);
                     TryMove();
@@ -194,72 +222,89 @@ namespace DeadLink.Entities
         }
         
         #endregion
-        
-        #region Move to Player Logic
 
         private void HandleMovement()
         {
-            if (currentPlayer != null && canSeePlayer &&!isRandomMoving)
+            if (playerTransform != null && HasVisionOnPlayer() &&!isRandomMoving)
             {
-                navMeshAgent.SetDestination(currentPlayer.transform.position); 
+                navMeshAgent.SetDestination(playerTransform.position); 
             }
         }
 
-        private void CalculatePlayerPosition()
+        private bool HasVisionOnPlayer()
         {
-            if (currentPlayer == null)
-            {
-                canSeePlayer = false;
-                return;
-            }
+            if (playerTransform == null) return false;
             
-            Vector3 deltaPosition = (currentPlayer.transform.position - transform.position);
+            Vector3 deltaPosition = (playerTransform.position - transform.position);
             Vector3 direction = deltaPosition.normalized;
             float distance = deltaPosition.magnitude;
-
-            inDetectRange = false;
-            inAggroRange = false;
-            inAttackRange = false;
-
-            if (distance <= detectRadius)
-            {
-                if (distance <= attackRadius)
-                {
-                    inAttackRange = true;
-                }
-                else if (distance <= aggroRadius)
-                {
-                    inAggroRange = true;
-                }
-                else
-                {
-                    inDetectRange = true;
-                }
-            }
             
-            //Debug.DrawRay(transform.position, direction * distance, Color.cyan, 2);
             bool didHit = Physics.Raycast(transform.position, direction, out RaycastHit hit,
                 distance, GameMetrics.Global.EnemyStopDetect);
 
-            canSeePlayer = !didHit;
+            return !didHit;
         }
         
-        private void HandlePlayerDetection()
+        #region Trigger Events
+        
+        private void TriggerEnter(Collider other, SphereDetector sphereDetector)
         {
-            RaycastHit[] hits = PhysicsExtensions.ConeCastAll(transform.position, 3, transform.forward, 15, 35f);
-            
-            for (int i = 0; i < hits.Length; i++)
+            if (other.TryGetComponent(out RogueLike.Entities.Player player))
             {
-                if (hits[i].transform.TryGetComponent(out RogueLike.Entities.Player player))
+                playerTransform = player.transform;
+                
+                if (sphereDetector == detectDetector)
                 {
-                    CalculatePlayerPosition();
-                    currentPlayer = inDetectRange ? player : null;
-                    
-                    return;
+                    inDetectRange = true;
+                }
+                else if (sphereDetector == aggroDetector)
+                {
+                    inAggroRange = true;
+                }
+                else if (sphereDetector == attackDetector)
+                {
+                    inAttackRange = true;
                 }
             }
-
-            currentPlayer = null;
+        }
+        
+        private void TriggerStay(Collider other, SphereDetector sphereDetector)
+        {
+            if (other.TryGetComponent(out RogueLike.Entities.Player player))
+            {
+                if (sphereDetector == detectDetector)
+                {
+                    inDetectRange = true;
+                }
+                else if (sphereDetector == aggroDetector)
+                {
+                    inAggroRange = true;
+                }
+                else if (sphereDetector == attackDetector)
+                {
+                    inAttackRange = true;
+                }
+            }
+        }
+        
+        private void TriggerExit(Collider other, SphereDetector sphereDetector)
+        {
+            if (other.TryGetComponent(out RogueLike.Entities.Player player))
+            {
+                if (sphereDetector == detectDetector)
+                {
+                    inDetectRange = false;
+                    playerTransform = null;
+                }
+                else if (sphereDetector == aggroDetector)
+                {
+                    inAggroRange = false;
+                }
+                else if (sphereDetector == attackDetector)
+                {
+                    inAttackRange = false;
+                }
+            }
         }
         
         #endregion

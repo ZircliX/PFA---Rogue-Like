@@ -218,6 +218,8 @@ namespace DeadLink.Entities
         {
             ShootLogic();
         }
+        
+        public abstract void OnFixedUpdate();
 
         #region PowerUps
         

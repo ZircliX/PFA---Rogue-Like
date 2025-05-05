@@ -2,7 +2,6 @@ using DeadLink.Cameras;
 using DeadLink.Cameras.Data;
 using DeadLink.Entities.Movement;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace RogueLike.Player.States
 {
