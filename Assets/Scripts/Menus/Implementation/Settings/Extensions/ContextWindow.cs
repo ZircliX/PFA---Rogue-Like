@@ -30,11 +30,13 @@ namespace DeadLink.Menus.Implementation.Extensions
             if (!Application.isPlaying)
             {
                 canvasGroup.alpha = currentState ? 1 : 0;
+                canvasGroup.blocksRaycasts = currentState;
                 return;
             }
 #endif
             
             canvasGroup.DOFade(currentState ? 1 : 0, 0.25f).SetUpdate(true);
+            canvasGroup.blocksRaycasts = currentState;
         }
     }
 }

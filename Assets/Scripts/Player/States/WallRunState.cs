@@ -1,5 +1,6 @@
 using DeadLink.Cameras;
 using DeadLink.Cameras.Data;
+using DeadLink.Entities.Movement;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -35,11 +36,11 @@ namespace RogueLike.Player.States
 
         private Vector3 direction;
 
-        public override void Dispose(PlayerMovement movement)
+        public override void Dispose(EntityMovement movement)
         {
         }
 
-        public override void Enter(PlayerMovement movement)
+        public override void Enter(EntityMovement movement)
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
             
@@ -47,13 +48,13 @@ namespace RogueLike.Player.States
             currentDeceleration = 0;
         }
 
-        public override void Exit(PlayerMovement movement)
+        public override void Exit(EntityMovement movement)
         {
             currentAcceleration = 0;
             currentDeceleration = 0;
         }
 
-        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        public override CameraEffectComposite GetCameraEffects(EntityMovement movement, float deltaTime)
         {
             Vector3 cross = Vector3.Cross(movement.WallNormal, movement.Gravity.Value.normalized);
 
@@ -68,7 +69,7 @@ namespace RogueLike.Player.States
             return cameraEffectComposite;
         }
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
+        public override Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale)
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
             Vector3 lastVelocity = movement.StateVelocity;
@@ -138,7 +139,7 @@ namespace RogueLike.Player.States
             return finalVelocity;
         }
 
-        public override MovementState GetNextState(PlayerMovement movement)
+        public override MovementState GetNextState(EntityMovement movement)
         {
             if (movement.CanJump())
             {
@@ -167,7 +168,7 @@ namespace RogueLike.Player.States
             return State;
         }
 
-        public override (float, float) GetHeight(PlayerMovement movement)
+        public override (float, float) GetHeight(EntityMovement movement)
         {
             return (movement.BaseCapsuleHeight, movement.BaseHeadHeight);
         }

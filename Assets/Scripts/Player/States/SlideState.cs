@@ -1,5 +1,6 @@
 using DeadLink.Cameras;
 using DeadLink.Cameras.Data;
+using DeadLink.Entities.Movement;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -34,23 +35,23 @@ namespace RogueLike.Player.States
         private float currentSlideTime;
         private Vector3 direction;
 
-        public override void Dispose(PlayerMovement movement)
+        public override void Dispose(EntityMovement movement)
         {
 
         }
 
-        public override void Enter(PlayerMovement movement)
+        public override void Enter(EntityMovement movement)
         {
             currentSlideTime = 0;
             direction = GetWorldInputs(movement);
         }
 
-        public override void Exit(PlayerMovement movement)
+        public override void Exit(EntityMovement movement)
         {
             currentSlideTime = 0;
         }
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
+        public override Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale)
         {
             Vector3 velocity = Vector3.zero;
             Vector3 projectionPlaneNormal = GetGroundNormal(movement);
@@ -81,7 +82,7 @@ namespace RogueLike.Player.States
             return velocity;
         }
 
-        public override MovementState GetNextState(PlayerMovement movement)
+        public override MovementState GetNextState(EntityMovement movement)
         {
             if (!movement.IsGrounded)
             {
@@ -106,12 +107,12 @@ namespace RogueLike.Player.States
             return State;
         }
 
-        public override (float, float) GetHeight(PlayerMovement movement)
+        public override (float, float) GetHeight(EntityMovement movement)
         {
             return (crouchCapsuleHeight, crouchHeadHeight);
         }
 
-        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        public override CameraEffectComposite GetCameraEffects(EntityMovement movement, float deltaTime)
         {
             return CameraEffectData.CameraEffectComposite;
         }

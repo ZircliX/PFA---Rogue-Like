@@ -1,3 +1,4 @@
+using DeadLink.Entities.Movement;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -5,7 +6,7 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Run")]
     public class RunState : WalkState
     {
-        public override MovementState GetNextState(PlayerMovement movement)
+        public override MovementState GetNextState(EntityMovement movement)
         {
             //Debug.Log(movement.WantsToSlide);
             //Debug.Log($"grounded = {movement.IsGrounded}");

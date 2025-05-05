@@ -1,3 +1,4 @@
+using DeadLink.Entities.Movement;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -25,11 +26,11 @@ namespace RogueLike.Player.States
 
         private Vector3 direction;
 
-        public override void Dispose(PlayerMovement movement)
+        public override void Dispose(EntityMovement movement)
         {
         }
 
-        public override void Enter(PlayerMovement movement)
+        public override void Enter(EntityMovement movement)
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
 
@@ -37,13 +38,13 @@ namespace RogueLike.Player.States
             currentDeceleration = 0;
         }
 
-        public override void Exit(PlayerMovement movement)
+        public override void Exit(EntityMovement movement)
         {
             currentAcceleration = 0;
             currentDeceleration = 0;
         }
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
+        public override Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale)
         {
             Vector3 lastVelocity = movement.StateVelocity;
             Vector3 worldInputs = GetWorldInputs(movement);
