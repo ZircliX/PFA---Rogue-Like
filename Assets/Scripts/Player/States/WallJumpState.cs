@@ -34,7 +34,7 @@ namespace RogueLike.Player.States
 
             Vector3 finalVelocity = gravityNormal * (jumpModifier * jumpForce) +
                                     movement.LastKnownWallNormal * (diagonalJumpModifier * diagonalJumpForce) + baseVelocity;
-            Debug.DrawRay(movement.rb.position, finalVelocity, Color.cyan, 2);
+            //Debug.DrawRay(movement.rb.position, finalVelocity, Color.cyan, 2);
 
             return finalVelocity;
         }

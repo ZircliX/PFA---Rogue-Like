@@ -48,7 +48,6 @@ namespace RogueLike.Player.States
         {
             Vector3 lastVelocity = movement.StateVelocity;
             Vector3 worldInputs = GetWorldInputs(movement);
-            Debug.DrawRay(movement.Position, worldInputs * 15, Color.magenta);
 
             Vector3 projectionPlaneNormal = GetGroundNormal(movement);
             Vector3 projectedInputs = Vector3.ProjectOnPlane(worldInputs, projectionPlaneNormal).normalized;

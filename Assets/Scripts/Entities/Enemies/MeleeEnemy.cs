@@ -16,7 +16,7 @@ namespace DeadLink.Entities.Enemies
 
         protected override void Attack()
         {
-            Shoot();
+            //Shoot();
         }
 
         protected override void Shoot()

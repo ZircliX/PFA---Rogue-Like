@@ -365,7 +365,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 883e689dfa4847941bce434d7db80613, type: 2}
   - {fileID: 2100000, guid: 7a0d9e7ac0d04fa4c834511cec182074, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -429,12 +429,12 @@ MonoBehaviour:
   <enemyUI>k__BackingField: {fileID: 259710934558240639}
   detectRadius: 20
   detectDetector: {fileID: 553871397517849164}
-  aggroRadius: 17.5
+  aggroRadius: 10
   aggroDetector: {fileID: 8700123457204935612}
-  attackRadius: 12.5
+  attackRadius: 5
   attackDetector: {fileID: 7936516376208140070}
   idleMoveRadius: 5
-  maxTurnAngle: 90
+  maxTurnAngle: 360
   idleTime: 0.3
   rayfireRigid: {fileID: 8754444563749847026}
   navMeshAgent: {fileID: 7118967720084334429}
@@ -637,10 +637,10 @@ MonoBehaviour:
     onDemolition: 1
     onActivation: 0
     byOffset: 0
-    fadeType: 0
-    fadeTime: 5
+    fadeType: 3
+    fadeTime: 1
     lifeType: 4
-    lifeTime: 7
+    lifeTime: 0
     lifeVariation: 3
     sizeFilter: 0
     shardAmount: 5
@@ -801,7 +801,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 17.5
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8700123457204935612
 MonoBehaviour:
@@ -943,7 +943,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 12.5
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7936516376208140070
 MonoBehaviour:

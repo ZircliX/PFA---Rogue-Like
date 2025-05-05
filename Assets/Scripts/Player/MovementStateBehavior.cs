@@ -29,8 +29,6 @@ namespace RogueLike.Player
             Vector3 worldInputs = cam.transform.right * direction.x;
             float cameraDotProduct = Vector3.Dot(cam.transform.forward, -movement.Gravity.Value.normalized);
             
-            Debug.Log(cam.name, cam);
-            
             worldInputs += cameraDotProduct switch
             {
                 < -0.8f => cam.transform.up,
