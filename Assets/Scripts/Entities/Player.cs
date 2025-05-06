@@ -23,6 +23,7 @@ namespace RogueLike.Entities
         [SerializeField, Self] private PlayerMovement pm;
 
         public int Kills { get; private set; }
+        public bool isInvisible;
 
         #region Event Functions
         
@@ -147,6 +148,11 @@ namespace RogueLike.Entities
             }
             unlockedPowerUps.Add(visitor.Name, visitor);
             visitor.OnBeUnlocked(this, pm);
+        }
+        
+        public void StartCoroutine(CooldownPowerUp cooldownPowerUp)
+        {
+            StartCoroutine(cooldownPowerUp.Cooldown());
         }
         
         #endregion

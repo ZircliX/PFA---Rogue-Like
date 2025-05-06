@@ -4,7 +4,7 @@ using UnityEngine;
 namespace DeadLink.PowerUpSystem.ActivePowerUps
 {
     [CreateAssetMenu(menuName = "PowerUp/InstantHealPowerUp", fileName = "InstantHealPowerUp")]
-    public class InstantHealPowerUp : PowerUp
+    public class InstantHealPowerUp : CooldownPowerUp
     {
         [field: SerializeField] public int InstantHealBonus { get; private set; } = 40;
 
@@ -24,6 +24,11 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
             {
                 Debug.Log("PowerUp is not unlocked");
             }
+        }
+
+        public override void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
