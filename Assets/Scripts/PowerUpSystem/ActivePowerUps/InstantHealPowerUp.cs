@@ -11,14 +11,17 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         public override void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
             IsUnlocked = true;
+            CanBeUsed = true;
+            
         }
 
         public override void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
-            if (IsUnlocked)
+            if (IsUnlocked && CanBeUsed)
             {
                 player.SetInstantHeal(InstantHealBonus);
-                Debug.Log("Visitor accepted in HealthComponent");
+                player.StartCoroutine(Cooldown());
+
             }
             else
             {
@@ -28,7 +31,6 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
 
         public override void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
-            throw new System.NotImplementedException();
         }
     }
 }

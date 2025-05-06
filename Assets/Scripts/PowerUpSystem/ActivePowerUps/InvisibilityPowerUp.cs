@@ -18,11 +18,11 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
             {
                 player.isInvisible = true;
                 player.StartCoroutine(Cooldown());
-
+                
             }
             else
             {
-                Debug.Log("PowerUp is not unlocked");
+                Debug.Log("PowerUp is not unlocked or already used");
             }
         }
 

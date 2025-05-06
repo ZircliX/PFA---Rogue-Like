@@ -20,7 +20,6 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
 
         public override void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
-            throw new System.NotImplementedException();
         }
     }
 }
