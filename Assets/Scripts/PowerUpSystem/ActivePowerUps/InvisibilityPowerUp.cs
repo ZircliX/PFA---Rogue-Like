@@ -16,18 +16,15 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         {
             if (IsUnlocked && CanBeUsed)
             {
-                player.isInvisible = true;
-                player.StartCoroutine(Cooldown());
-                
-            }
-            else
-            {
-                Debug.Log("PowerUp is not unlocked or already used");
+                player.ActiveInvisibility();
+                player.StartCooldownCoroutine(this);
+                player.StartCoroutine(CompetenceDuration(player, playerMovement, OnFinishedToBeUsed));
             }
         }
 
         public override void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
+            player.DesactiveInvisibility();
         }
     }
 }

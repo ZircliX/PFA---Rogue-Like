@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using RogueLike.Player;
 using UnityEngine;
@@ -11,13 +12,37 @@ namespace DeadLink.PowerUpSystem
         public virtual IEnumerator Cooldown()
         {
             CanBeUsed = false;
-            yield return new WaitForSeconds(CooldownTime);
+            float currentTime = 0;
+
+            while (currentTime < CooldownTime)
+            {
+                currentTime += Time.deltaTime;
+                HandleUI();
+                
+                yield return null;
+            }
+            
             CanBeUsed = true;
         }
-
-        public virtual IEnumerator CompetenceDuration()
+        
+        private void HandleUI()
         {
-            yield return new WaitForSeconds(CompetenceTime);
+            //implement UI logic here?
+        }
+
+        public virtual IEnumerator CompetenceDuration(RogueLike.Entities.Player player, PlayerMovement playerMovement, Action<RogueLike.Entities.Player, PlayerMovement> callback)
+        {
+            float currentTime = 0;
+
+            while (currentTime < CooldownTime)
+            {
+                currentTime += Time.deltaTime;
+                
+                yield return null;
+            }
+            
+            callback.Invoke(player, playerMovement);
+
         }
         
     }

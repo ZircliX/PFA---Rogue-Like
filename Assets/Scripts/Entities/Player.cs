@@ -23,7 +23,6 @@ namespace RogueLike.Entities
         [SerializeField, Self] private PlayerMovement pm;
 
         public int Kills { get; private set; }
-        public bool isInvisible;
 
         #region Event Functions
         
@@ -150,11 +149,36 @@ namespace RogueLike.Entities
             visitor.OnBeUnlocked(this, pm);
         }
         
-        public void StartCoroutine(CooldownPowerUp cooldownPowerUp)
+        public void StartCooldownCoroutine(CooldownPowerUp cooldownPowerUp)
         {
             StartCoroutine(cooldownPowerUp.Cooldown());
         }
         
+        public void ActiveContinuousFire(CooldownPowerUp cooldownPowerUp)
+        {
+            if (CurrentWeapon != null)
+            {
+                ContinuousFire = true; 
+            }
+        }
+
+        public void DesactiveContinuousFire()
+        {
+            ContinuousFire = false;
+        }
+        
+        public void ActiveInvisibility()
+        {
+            IsInvisible = true;
+        }
+        
+        public void DesactiveInvisibility()
+        {
+            IsInvisible = false;
+        }
+        
         #endregion
+
+
     }
 }

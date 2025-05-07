@@ -1,5 +1,6 @@
 using System;
 using DeadLink.Entities.Data;
+using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using DeadLink.Weapons;
 using Enemy;
@@ -29,7 +30,10 @@ namespace DeadLink.Entities
         
         public int Health { get; private set; }
         private int removedHealthBar;
-        
+        public bool IsInvisible { get; protected set; }
+
+        public bool ContinuousFire { get; protected set; }
+
         #region Influenced Properties
         
         public InfluencedProperty<int> HealthBarCount { get; private set; }
@@ -119,7 +123,15 @@ namespace DeadLink.Entities
         
         public virtual void SetInstantHeal(int instantHealAmount)
         {
-            Health += instantHealAmount;
+            if (Health + instantHealAmount >= MaxHealth.Value)
+            {
+                Health = Mathf.CeilToInt(MaxHealth.Value);
+            }
+            else
+            {
+                Health += instantHealAmount;
+            }
+                
         }
 
         #endregion
