@@ -1,5 +1,6 @@
 using DeadLink.Cameras;
 using DeadLink.Extensions;
+using DeadLink.PowerUpSystem;
 using DG.Tweening;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
@@ -73,7 +74,11 @@ namespace RogueLike.Player
         private int remainingDash = 1;
         public void AddBonusJump(int value) => remainingJump += value;
         public void AddBonusDash(int value) => remainingDash += value;
-
+        
+        public void StartCooldownCoroutine(CooldownPowerUp cooldownPowerUp)
+        {
+            StartCoroutine(cooldownPowerUp.Cooldown());
+        }
         #endregion
 
         #region Gravity
