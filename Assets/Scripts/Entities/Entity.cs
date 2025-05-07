@@ -38,6 +38,7 @@ namespace DeadLink.Entities
         
         public InfluencedProperty<int> HealthBarCount { get; private set; }
         public InfluencedProperty<float> Strength { get; private set; }
+        public InfluencedProperty<float> Resistance { get; private set; }
         public InfluencedProperty<float> Speed { get; private set; }
         public InfluencedProperty<float> MaxHealth { get; private set; }
         

@@ -6,7 +6,7 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
     [CreateAssetMenu(menuName = "PowerUp/InstantHealPowerUp", fileName = "InstantHealPowerUp")]
     public class InstantHealPowerUp : CooldownPowerUp
     {
-        [field: SerializeField] public int InstantHealBonus { get; private set; } = 40;
+        [field: SerializeField] public int InstantHealBonus { get; private set; } = 20;
 
         public override void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
@@ -21,7 +21,6 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
             {
                 player.SetInstantHeal(InstantHealBonus);
                 player.StartCoroutine(Cooldown());
-
             }
         }
 

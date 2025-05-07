@@ -30,7 +30,7 @@ namespace RogueLike.Entities
         
         private void Start()
         {
-            if (PowerUpsInputName.Count < 9) return;
+            if (GameMetrics.Global.PowerUps.Length < inputToPowerUpName.Count) return;
 
             inputToPowerUpName = new Dictionary<string, string>();
             for (int i = 0; i < GameMetrics.Global.PowerUps.Length; i++)
