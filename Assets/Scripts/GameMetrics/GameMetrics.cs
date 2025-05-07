@@ -15,6 +15,7 @@ namespace RogueLike
         [field: SerializeField] public bool SpawnEnemies { get; private set; }
         [field : SerializeField] public SceneLoader SceneLoader { get; private set; }
         [field : SerializeField] public LayerMask EnemyStopDetect { get; private set; }
+        [field : SerializeField] public LayerMask BulletRayCast { get; private set; }
         
         #region Scenes
         [field: Header("Scenes")]

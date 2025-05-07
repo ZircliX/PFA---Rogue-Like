@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4f635d150049ce869b338f37777669, type: 3}
   m_Name: ClassicBulletData
   m_EditorClassIdentifier: 
-  <BulletSpeed>k__BackingField: 750
+  <BulletSpeed>k__BackingField: 500
   <Damage>k__BackingField: 25
   <MaxLifeCycle>k__BackingField: 5
   <HitVFX>k__BackingField: {fileID: 0}

@@ -39,7 +39,7 @@ namespace DeadLink.Entities
         [SerializeField] private float idleTime = 1f;
 
         private Vector3 lastDirection = Vector3.forward;
-        private bool isRandomMoving;
+        private bool findingNewPos;
         #endregion
         
         [Header("References")]
@@ -59,7 +59,7 @@ namespace DeadLink.Entities
             aggroDetector.SphereCollider.radius = aggroRadius;
             attackDetector.SphereCollider.radius = attackRadius;
         }
-
+        
         private void OnEnable()
         {
             detectDetector.OnTriggerEnterEvent += TriggerEnter;
@@ -156,8 +156,6 @@ namespace DeadLink.Entities
             HandleDetection();
             HandleIdleMovement();
             
-            Debug.DrawRay(targetPosition, targetPosition + Vector3.up * 20, Color.red);
-            
             Attack();
             Move();
         }
@@ -170,9 +168,10 @@ namespace DeadLink.Entities
 
             if (hasVision)
             {
+                Debug.Log("Visionnnnnnnnnnn");
                 canAttack = inAttackRange;
                 
-                if (!isRandomMoving && inAggroRange)
+                if (inAggroRange)
                 {
                     Vector3 direction = (player.transform.position - transform.position).normalized;
                     Vector3 deltaOffset = direction * attackRadius;
@@ -196,14 +195,12 @@ namespace DeadLink.Entities
         
         private void HandleIdleMovement()
         {
-            if (!inDetectRange || inAggroRange) return;
-            
-            bool pending = navMeshAgent.pathPending;
-            bool arrived = navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance;
-            bool stopped = navMeshAgent.isStopped;
+            if (inAggroRange || findingNewPos) return;
 
-            if (!pending || arrived || stopped)
+            bool shouldFindNew = navMeshAgent.velocity.sqrMagnitude < 0.1f;
+            if (shouldFindNew)
             {
+                findingNewPos = true;
                 FindNewPosition();
             }
         }
@@ -256,12 +253,11 @@ namespace DeadLink.Entities
                 {
                     targetPosition = hit.position;
                     lastDirection = (hit.position - transform.position).normalized;
-                    isRandomMoving = true;
                     return;
                 }
             }
             
-            isRandomMoving = false;
+            findingNewPos = false;
         }
 
         private bool HasVisionOnPlayer()
@@ -278,9 +274,8 @@ namespace DeadLink.Entities
             if (objectBlocking) return false;
 
             Debug.DrawLine(transform.position, player.transform.position, Color.black);
-
-            Vector3 dir = transform.position - player.transform.position;
-            float angle = Vector3.Dot(transform.forward, dir.normalized);
+            
+            float angle = Vector3.Dot(transform.forward, direction.normalized);
             bool correctAngle = angle < -0.7f;
             
             return correctAngle;

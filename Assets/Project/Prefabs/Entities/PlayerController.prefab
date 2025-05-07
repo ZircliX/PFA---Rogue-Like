@@ -572,7 +572,7 @@ MonoBehaviour:
   <CrouchCapsuleHeight>k__BackingField: 0.5
   <BaseHeadHeight>k__BackingField: 0.5
   <ColliderCenterOffset>k__BackingField: {x: 0, y: -0.5, z: 0}
-  <CameraTransform>k__BackingField: {fileID: 989072162060737332}
+  <CameraTransform>k__BackingField: {fileID: 1853930067422575411}
   <Head>k__BackingField: {fileID: 2065021886003205984}
   <Foot>k__BackingField: {fileID: 7415998647446923790}
   <CapsuleCollider>k__BackingField: {fileID: 2649105432247018214}

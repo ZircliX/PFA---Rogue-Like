@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DeadLink.Entities;
 using DeadLink.Entities.Data;
+using DeadLink.Menus.New;
 using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using Enemy;
@@ -30,7 +31,7 @@ namespace RogueLike.Entities
         
         private void Start()
         {
-            if (GameMetrics.Global.PowerUps.Length < inputToPowerUpName.Count) return;
+            if (inputToPowerUpName.Count < GameMetrics.Global.PowerUps.Length) return;
 
             inputToPowerUpName = new Dictionary<string, string>();
             for (int i = 0; i < GameMetrics.Global.PowerUps.Length; i++)
@@ -58,6 +59,16 @@ namespace RogueLike.Entities
             
             unlockedPowerUps = new Dictionary<string, IVisitor>();
             inputToPowerUpName = new Dictionary<string, string>();
+            
+            ResetPowerUps();
+        }
+
+        private void ResetPowerUps()
+        {
+            foreach (KeyValuePair<string, IVisitor> power in unlockedPowerUps)
+            {
+                power.Value.OnReset(this, pm);
+            }
         }
 
         protected override void Attack()
@@ -83,8 +94,8 @@ namespace RogueLike.Entities
         {
             base.ChangeWeapon(direction);
             
-            LevelManager.Instance.HUDMenuHandler.ChangeWeapon(currentWeaponIndex);
-            LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentWeapon.CurrentMunitions, CurrentWeapon.WeaponData.MaxAmmunition);
+            MenuManager.Instance.HUDMenu.ChangeWeapon(currentWeaponIndex);
+            MenuManager.Instance.HUDMenu.UpdateAmmunitions(CurrentWeapon.CurrentMunitions, CurrentWeapon.WeaponData.MaxAmmunition);
         }
 
         #region Inputs

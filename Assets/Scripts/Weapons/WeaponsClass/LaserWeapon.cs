@@ -1,5 +1,6 @@
 using System.Collections;
 using DeadLink.Entities;
+using DeadLink.Menus.New;
 using DeadLink.Weapons.Data;
 using RogueLike.Managers;
 using UnityEngine;
@@ -15,12 +16,17 @@ namespace DeadLink.Weapons.WeaponsClass
 
         private float currentLaserGainTime;
 
-        public override IEnumerator Reload()
+        public override IEnumerator Reload(Entity entity)
         {
             yield return null;
         }
 
-        private IEnumerator CooldownLaser()
+        /// <summary>
+        /// Called when the laser is overheated.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        private IEnumerator CooldownLaser(Entity entity)
         {
             CurrentReloadTime = 0;
             
@@ -29,7 +35,9 @@ namespace DeadLink.Weapons.WeaponsClass
                 CurrentReloadTime += Time.deltaTime;
                 
                 CurrentMunitions = Mathf.FloorToInt(CurrentReloadTime / laserWeaponData.ReloadTime * WeaponData.MaxAmmunition);
-                LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
+                
+                if (entity.CurrentWeapon == this)
+                    MenuManager.Instance.HUDMenu.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
                 
                 yield return null;
             }
@@ -37,10 +45,11 @@ namespace DeadLink.Weapons.WeaponsClass
             CurrentReloadTime = laserWeaponData.ReloadTime;
             
             SetMaxBullets();
-            LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
+            if (entity.CurrentWeapon == this)
+                MenuManager.Instance.HUDMenu.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
         }
 
-        private void Update()
+        public override void OnUpdate(Entity entity)
         {
             if (CurrentReloadTime < laserWeaponData.ReloadTime) return;
             
@@ -52,7 +61,7 @@ namespace DeadLink.Weapons.WeaponsClass
                 {
                     currentLaserGainTime = 0;
                     CurrentMunitions++;
-                    LevelManager.Instance.HUDMenuHandler.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
+                    MenuManager.Instance.HUDMenu.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
                 }
             }
         }
@@ -63,7 +72,7 @@ namespace DeadLink.Weapons.WeaponsClass
 
             if (CurrentMunitions <= 0)
             {
-                StartCoroutine(CooldownLaser());
+                StartCoroutine(CooldownLaser(entity));
             }
         }
     }

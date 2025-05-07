@@ -1,20 +1,28 @@
-using DeadLink.Menus.Interfaces;
+using UnityEngine;
 
-namespace DeadLink.Menus
+namespace DeadLink.Menus.New
 {
-    public abstract class Menu<T> : IMenu
-        where T : IMenuContext
+    public abstract class Menu : MonoBehaviour, IMenu
     {
-        public virtual void OnOpen(ref T context)
+        [field : SerializeField] public bool BaseState { get; set; }
+
+        public abstract MenuType MenuType { get; protected set; }
+
+        public virtual void Initialize()
         {
-            context.GameObject.SetActive(true);
+            gameObject.SetActive(BaseState);
         }
 
-        public abstract void OnRefresh(ref T context);
-
-        public virtual void OnClose(ref T context)
+        public virtual void Open()
         {
-            context.GameObject.SetActive(false);
+            gameObject.SetActive(true);
         }
+
+        public virtual void Close()
+        {
+            gameObject.SetActive(false);
+        }
+        
+        public abstract MenuProperties GetMenuProperties();
     }
 }
