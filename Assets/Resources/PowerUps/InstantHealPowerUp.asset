@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529ee3c1d8a547ca84073d195d891b97, type: 3}
   m_Name: InstantHealPowerUp
   m_EditorClassIdentifier: 
-  <VisitableType>k__BackingField: {fileID: 0}
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
+  <Name>k__BackingField: VITAL BOOST
+  <Description>k__BackingField: "\u201CRestore 20% of your health when used. A quick
+    recovery boost.\u201D"
   <Icon>k__BackingField: {fileID: 0}
+  <CooldownTime>k__BackingField: 90
+  <CompetenceTime>k__BackingField: 1
   <InstantHealBonus>k__BackingField: 40
