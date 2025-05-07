@@ -14,6 +14,9 @@ namespace Enemy
         public float PlayerStrengthMultiplier { get; private set; }
         
         [field : SerializeField]
+        public float PlayerResistanceMultiplier { get; private set; }
+        
+        [field : SerializeField]
         public int PlayerHealthBarCount { get; private set; }
         #endregion
         

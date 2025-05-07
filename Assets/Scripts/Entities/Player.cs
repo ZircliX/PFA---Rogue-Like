@@ -53,6 +53,8 @@ namespace RogueLike.Entities
             HealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarCount, Influence.Add);
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
             Strength.AddInfluence(difficultyData, difficultyData.PlayerStrengthMultiplier, Influence.Multiply);
+            Resistance.AddInfluence(difficultyData, difficultyData.PlayerResistanceMultiplier, Influence.Multiply);
+            Speed.AddInfluence(this, 1, Influence.Add);
             
             unlockedPowerUps = new Dictionary<string, IVisitor>();
             inputToPowerUpName = new Dictionary<string, string>();
@@ -65,7 +67,8 @@ namespace RogueLike.Entities
 
         public override void TakeDamage(int damage)
         {
-            base.TakeDamage(damage);
+            int finalDamage = Mathf.CeilToInt(damage / Resistance);
+            base.TakeDamage(finalDamage);
             LevelManager.Instance.HUDMenuHandler.UpdateHealth(Health, MaxHealth.Value, HealthBarCount.Value);
         }
 
@@ -175,6 +178,15 @@ namespace RogueLike.Entities
         public void DesactiveInvisibility()
         {
             IsInvisible = false;
+        }
+
+        public void OnAdrenalineShot(int adrenalineMultipier)
+        {
+            Speed.Write(this, adrenalineMultipier);
+        }
+        public void OnAdrenalineShotEnd()
+        {
+            Speed.Write(this, 1);
         }
         
         #endregion
