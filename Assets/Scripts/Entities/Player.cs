@@ -149,6 +149,36 @@ namespace RogueLike.Entities
             visitor.OnBeUnlocked(this, pm);
         }
         
+        public void StartCooldownCoroutine(CooldownPowerUp cooldownPowerUp)
+        {
+            StartCoroutine(cooldownPowerUp.Cooldown());
+        }
+        
+        public void ActiveContinuousFire(CooldownPowerUp cooldownPowerUp)
+        {
+            if (CurrentWeapon != null)
+            {
+                ContinuousFire = true; 
+            }
+        }
+
+        public void DesactiveContinuousFire()
+        {
+            ContinuousFire = false;
+        }
+        
+        public void ActiveInvisibility()
+        {
+            IsInvisible = true;
+        }
+        
+        public void DesactiveInvisibility()
+        {
+            IsInvisible = false;
+        }
+        
         #endregion
+
+
     }
 }

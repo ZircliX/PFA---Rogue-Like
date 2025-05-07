@@ -1,3 +1,4 @@
+using System.Collections;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using RogueLike.Player;
 using UnityEngine;
@@ -11,8 +12,11 @@ namespace DeadLink.PowerUpSystem
         [field: SerializeField] public Sprite Icon { get; private set; }
 
         public bool IsUnlocked { get; protected set; }
+        public bool CanBeUsed { get; protected set; }
 
         public abstract void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement);
         public abstract void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement);
+        public abstract void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement);
+        
     }
 }

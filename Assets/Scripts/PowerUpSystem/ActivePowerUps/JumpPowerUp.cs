@@ -26,5 +26,9 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
                 Debug.Log("PowerUp is not unlocked");
             }
         }
+
+        public override void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        {
+        }
     }
 }

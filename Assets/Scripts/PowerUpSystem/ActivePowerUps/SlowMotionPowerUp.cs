@@ -5,7 +5,7 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
 {
     [CreateAssetMenu(menuName = "PowerUp/SlowMotionPowerUp", fileName = "SlowMotionPowerUp")]
 
-    public class SlowMotionPowerUp : PowerUp
+    public class SlowMotionPowerUp : CooldownPowerUp
     {
         public override void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
@@ -13,6 +13,10 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
 
         public override void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
-        } 
+        }
+
+        public override void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        {
+        }
     }
 }
