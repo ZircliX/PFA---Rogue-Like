@@ -27,5 +27,10 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         {
             player.DesactiveContinuousFire();
         }
+
+        public override void OnReset(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        {
+            OnFinishedToBeUsed(player, playerMovement);
+        }
     }
 }

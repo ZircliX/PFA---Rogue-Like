@@ -1,30 +1,31 @@
 using DeadLink.Cameras;
+using DeadLink.Entities.Movement;
 using UnityEngine;
 
 namespace RogueLike.Player
 {
     public abstract class MovementStateBehavior : ScriptableObject
     {
-        protected Camera cam;
-
-        public virtual void Initialize(PlayerMovement movement)
+        public virtual void Initialize(EntityMovement movement)
         {
-            cam = movement.Camera;
+            
         }
-        public abstract void Dispose(PlayerMovement movement);
+        public abstract void Dispose(EntityMovement movement);
 
-        public abstract void Enter(PlayerMovement movement);
-        public abstract void Exit(PlayerMovement movement);
-        public abstract Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale);
+        public abstract void Enter(EntityMovement movement);
+        public abstract void Exit(EntityMovement movement);
+        public abstract Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale);
 
-        public abstract MovementState GetNextState(PlayerMovement movement);
+        public abstract MovementState GetNextState(EntityMovement movement);
 
-        public abstract (float, float) GetHeight(PlayerMovement movement);
+        public abstract (float, float) GetHeight(EntityMovement movement);
 
-        public abstract CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime);
+        public abstract CameraEffectComposite GetCameraEffects(EntityMovement movement, float deltaTime);
 
-        protected virtual Vector3 GetCameraDirection(PlayerMovement movement, Vector2 direction)
+        protected virtual Vector3 GetCameraDirection(EntityMovement movement, Vector2 direction)
         {
+            Transform cam = movement.CameraTransform;
+            
             Vector3 worldInputs = cam.transform.right * direction.x;
             float cameraDotProduct = Vector3.Dot(cam.transform.forward, -movement.Gravity.Value.normalized);
             
@@ -35,15 +36,17 @@ namespace RogueLike.Player
                 _ => cam.transform.forward
             } * direction.y;
             
+            //Debug.Log("worldInputs: " + worldInputs);
+            
             return worldInputs;
         }
         
-        protected virtual Vector3 GetWorldInputs(PlayerMovement movement)
+        protected virtual Vector3 GetWorldInputs(EntityMovement movement)
         {
             return GetCameraDirection(movement, new Vector2(movement.InputDirection.x, movement.InputDirection.z));
         }
         
-        protected virtual Vector3 GetGroundNormal(PlayerMovement movement)
+        protected virtual Vector3 GetGroundNormal(EntityMovement movement)
         {
             return movement.GroundNormal;
         }

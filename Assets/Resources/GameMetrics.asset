@@ -17,6 +17,9 @@ MonoBehaviour:
   <EnemyStopDetect>k__BackingField:
     serializedVersion: 2
     m_Bits: 640
+  <BulletRayCast>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 649
   <MainMenuScene>k__BackingField:
     m_SceneAsset: {fileID: 102900000, guid: 29a5aee83d2e2224480ebced603fc37e, type: 3}
     m_IsDirty: 0
@@ -34,7 +37,19 @@ MonoBehaviour:
   <PauseMenu>k__BackingField: {fileID: 11400000, guid: 97638f9619455f64b97d7c00e144f118, type: 2}
   <SettingsMenu>k__BackingField: {fileID: 11400000, guid: 61e8a13d4abad89418df7511ed34ef5f, type: 2}
   <UpgradesMenu>k__BackingField: {fileID: 11400000, guid: 7949dcdc7f87fbb4b9d31c6865dcc52e, type: 2}
-  <PowerUps>k__BackingField: []
+  <PowerUps>k__BackingField:
+  - {fileID: 11400000, guid: 4dd4990ffc969f14183a349c439dc513, type: 2}
+  - {fileID: 11400000, guid: 123967cebb36f0e42a9d462041310d11, type: 2}
+  - {fileID: 11400000, guid: 17e4b6de80cda8f41a2911d0e1913164, type: 2}
+  - {fileID: 11400000, guid: 2bcc692a55eeddd4ebe2dc839ce84e38, type: 2}
+  - {fileID: 11400000, guid: dfee3bdd3ef043840bd1e9561e110fce, type: 2}
+  - {fileID: 11400000, guid: a58aef0061334c140a8d1bba795dc85a, type: 2}
+  - {fileID: 11400000, guid: e1db99738f1d7814aa59297b9ee754fc, type: 2}
+  - {fileID: 11400000, guid: 681daeaf69420774fae36dc40d49b06d, type: 2}
+  - {fileID: 11400000, guid: 7b08fdd6c3d51c041b56b844f30129b9, type: 2}
+  - {fileID: 11400000, guid: 4c584a2f0c08eea4cbae48368a4619f0, type: 2}
+  - {fileID: 11400000, guid: 12d80c6090743824092112f961daa031, type: 2}
+  - {fileID: 11400000, guid: 6f8980940283fcd4296490b6495b50e8, type: 2}
   <FMOD_PlayerAutomaticReload>k__BackingField:
     Guid:
       Data1: 1352886904

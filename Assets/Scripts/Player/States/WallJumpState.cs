@@ -1,4 +1,5 @@
 using DeadLink.Cameras;
+using DeadLink.Entities.Movement;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -10,7 +11,7 @@ namespace RogueLike.Player.States
         [SerializeField] private float diagonalJumpForce;
         [SerializeField] private AnimationCurve diagonalCurve;
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
+        public override Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale)
         {
             float normTime = currentJumpTime / jumpDuration;
 
@@ -33,12 +34,12 @@ namespace RogueLike.Player.States
 
             Vector3 finalVelocity = gravityNormal * (jumpModifier * jumpForce) +
                                     movement.LastKnownWallNormal * (diagonalJumpModifier * diagonalJumpForce) + baseVelocity;
-            Debug.DrawRay(movement.rb.position, finalVelocity, Color.cyan, 2);
+            //Debug.DrawRay(movement.rb.position, finalVelocity, Color.cyan, 2);
 
             return finalVelocity;
         }
         
-        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        public override CameraEffectComposite GetCameraEffects(EntityMovement movement, float deltaTime)
         {
             Vector3 cross = Vector3.Cross(movement.WallNormal, movement.Gravity.Value.normalized);
             float dot = Vector3.Dot(cross, movement.CurrentVelocity.Value.normalized);

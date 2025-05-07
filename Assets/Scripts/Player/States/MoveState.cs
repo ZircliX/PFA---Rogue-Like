@@ -1,3 +1,4 @@
+using DeadLink.Entities.Movement;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -12,55 +13,55 @@ namespace RogueLike.Player.States
         [SerializeField] private AnimationCurve accelerationCurve;
         [SerializeField] private float accelerationDuration;
         [SerializeField] private float acceleration;
-        private float currentAcceleration;
+        protected float currentAcceleration;
 
         [Header("Deceleration")]
         [SerializeField] private AnimationCurve decelerationCurve;
         [SerializeField] private float decelerationDuration;
         [SerializeField] private float deceleration;
-        private float currentDeceleration;
+        protected float currentDeceleration;
 
         [Header("STEPSSSSSSSSSSSSSSSSSSSSSSSS")]
         [SerializeField] private float maxStepHeight;
 
-        private Vector3 direction;
+        protected Vector3 direction;
 
-        public override void Dispose(PlayerMovement movement)
+        public override void Dispose(EntityMovement movement)
         {
         }
 
-        public override void Enter(PlayerMovement movement)
+        public override void Enter(EntityMovement movement)
         {
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
-
+            
             currentAcceleration = 0;
             currentDeceleration = 0;
         }
 
-        public override void Exit(PlayerMovement movement)
+        public override void Exit(EntityMovement movement)
         {
             currentAcceleration = 0;
             currentDeceleration = 0;
         }
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
+        public override Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale)
         {
             Vector3 lastVelocity = movement.StateVelocity;
             Vector3 worldInputs = GetWorldInputs(movement);
 
             Vector3 projectionPlaneNormal = GetGroundNormal(movement);
-            Vector3 projectedInputs = worldInputs.ProjectOntoPlane(projectionPlaneNormal).normalized;
-            Vector3 projectedLastDirection = direction.ProjectOntoPlane(projectionPlaneNormal).normalized;
-
+            Vector3 projectedInputs = Vector3.ProjectOnPlane(worldInputs, projectionPlaneNormal).normalized;
+            
+            //Vector3 projectedLastDirection = direction.ProjectOntoPlane(projectionPlaneNormal).normalized;
             //direction = Vector3.Lerp(projectedLastDirection, projectedInputs, directionControl * deltaTime);
+            
             direction = projectedInputs;
 
             Vector3 planeVelocity = lastVelocity.ProjectOntoPlane(projectionPlaneNormal);
             Vector3 otherVelocity = lastVelocity - planeVelocity;
 
             Vector3 targetSpeed = direction * maxSpeed;
-
-
+            
             if (movement.IsGrounded && Vector3.Dot(otherVelocity, movement.Gravity) > 0)
             {
                 gravityScale = 0f;

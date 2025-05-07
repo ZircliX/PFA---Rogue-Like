@@ -1,5 +1,6 @@
 using DeadLink.Cameras;
 using DeadLink.Cameras.Data;
+using DeadLink.Entities.Movement;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -11,19 +12,19 @@ namespace RogueLike.Player.States
         [field: SerializeField] public FallCameraEffectData CameraEffectData { get; protected set; }
         private float fovModifier;
 
-        public override void Enter(PlayerMovement movement)
+        public override void Enter(EntityMovement movement)
         {
             fovModifier = 0;
             //Debug.Log($"Entering {State}");
 
         }
 
-        public override void Exit(PlayerMovement movement)
+        public override void Exit(EntityMovement movement)
         {
             fovModifier = 0;
         }
 
-        public override MovementState GetNextState(PlayerMovement movement)
+        public override MovementState GetNextState(EntityMovement movement)
         {
             if (movement.IsGrounded)
             {
@@ -51,12 +52,12 @@ namespace RogueLike.Player.States
             return State;
         }
 
-        public override (float, float) GetHeight(PlayerMovement movement)
+        public override (float, float) GetHeight(EntityMovement movement)
         {
             return (movement.BaseCapsuleHeight, movement.BaseHeadHeight);
         }
 
-        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        public override CameraEffectComposite GetCameraEffects(EntityMovement movement, float deltaTime)
         {
             CameraEffectComposite composite = CameraEffectData.CameraEffectComposite;
 
@@ -69,7 +70,7 @@ namespace RogueLike.Player.States
             return composite;
         }
 
-        protected override Vector3 GetGroundNormal(PlayerMovement movement)
+        protected override Vector3 GetGroundNormal(EntityMovement movement)
         {
             return -movement.Gravity.Value.normalized;
         }

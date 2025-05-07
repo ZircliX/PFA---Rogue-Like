@@ -5,6 +5,7 @@ using DeadLink.PowerUpSystem.InterfacePowerUps;
 using DeadLink.Weapons;
 using Enemy;
 using LTX.ChanneledProperties;
+using RogueLike;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -143,6 +144,7 @@ namespace DeadLink.Entities
         {
             int currentIndex = Array.IndexOf(Weapons, CurrentWeapon);
             int newIndex = (currentIndex + direction) % Weapons.Length;
+            
             if (newIndex < 0)
             {
                 newIndex += Weapons.Length;
@@ -163,7 +165,7 @@ namespace DeadLink.Entities
                 Camera mainCam = Camera.main;
                 Ray ray = mainCam!.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
 
-                bool raycast = Physics.Raycast(ray, out RaycastHit hit, 1000);
+                bool raycast = Physics.Raycast(ray, out RaycastHit hit, 1000, GameMetrics.Global.BulletRayCast);
                 if (raycast && hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())
                     raycast = false;
                 
@@ -171,8 +173,8 @@ namespace DeadLink.Entities
                 {
                     // Calculate direction from bullet spawn to the hit point
                     direction = (hit.point - BulletSpawnPoint.position).normalized;
+                    Debug.DrawLine(BulletSpawnPoint.position, hit.point, Color.cyan, 5);
 
-                    //Debug.DrawRay(BulletSpawnPoint.position, direction * 10, Color.red);
                     //Debug.Log("Hit: " + hit.collider.name + ", Direction: " + direction);
                 }
                 else
@@ -180,6 +182,7 @@ namespace DeadLink.Entities
                     //Debug.Log("No hit");
                     direction = ray.direction;
                 }
+                Debug.DrawRay(BulletSpawnPoint.position, direction * 10, Color.red, 2);
                 
                 CurrentWeapon.Fire(this, direction);
             }
@@ -193,7 +196,7 @@ namespace DeadLink.Entities
         {
             if (CurrentWeapon == null) return;
             
-            StartCoroutine(CurrentWeapon.Reload());
+            StartCoroutine(CurrentWeapon.Reload(this));
         }
 
         protected virtual void ShootLogic()
@@ -217,7 +220,10 @@ namespace DeadLink.Entities
         protected virtual void Update()
         {
             ShootLogic();
+            CurrentWeapon!.OnUpdate(this);
         }
+        
+        public abstract void OnFixedUpdate();
 
         #region PowerUps
         

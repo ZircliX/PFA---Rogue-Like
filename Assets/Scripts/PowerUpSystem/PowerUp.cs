@@ -1,4 +1,3 @@
-using System.Collections;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using RogueLike.Player;
 using UnityEngine;
@@ -14,9 +13,14 @@ namespace DeadLink.PowerUpSystem
         public bool IsUnlocked { get; protected set; }
         public bool CanBeUsed { get; protected set; }
 
+        public virtual void OnReset(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        {
+            
+        }
+
         public abstract void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement);
         public abstract void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement);
         public abstract void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement);
-        
+
     }
 }

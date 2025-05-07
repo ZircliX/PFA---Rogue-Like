@@ -1,4 +1,5 @@
 using DeadLink.Cameras;
+using DeadLink.Entities.Movement;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -14,7 +15,7 @@ namespace RogueLike.Player.States
         protected float currentJumpTime;
         private int count;
         
-        public override void Enter(PlayerMovement movement)
+        public override void Enter(EntityMovement movement)
         {
             base.Enter(movement);
             //Debug.Log($"Entering {State}");
@@ -25,13 +26,13 @@ namespace RogueLike.Player.States
             movement.PlayerHeight.Write(this, (movement.BaseCapsuleHeight, movement.BaseHeadHeight));
         }
 
-        public override void Exit(PlayerMovement movement)
+        public override void Exit(EntityMovement movement)
         {
             base.Exit(movement);
             currentJumpTime = 0;
         }
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
+        public override Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale)
         {
             float normTime = currentJumpTime / jumpDuration;
 
@@ -58,7 +59,7 @@ namespace RogueLike.Player.States
             return finalVelocity;
         }
 
-        public override MovementState GetNextState(PlayerMovement movement)
+        public override MovementState GetNextState(EntityMovement movement)
         {
             float dot = Vector3.Dot(movement.CurrentVelocity.Value.normalized, movement.Gravity.Value.normalized);
             //Debug.Log(dot);
@@ -79,7 +80,7 @@ namespace RogueLike.Player.States
             return State;
         }
         
-        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        public override CameraEffectComposite GetCameraEffects(EntityMovement movement, float deltaTime)
         {
             return CameraEffectData.CameraEffectComposite;
         }

@@ -1,5 +1,6 @@
 using DeadLink.Cameras;
 using DeadLink.Cameras.Data;
+using DeadLink.Entities.Movement;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -18,12 +19,12 @@ namespace RogueLike.Player.States
         private float currentDashTime;
         private Vector3 direction;
         
-        public override void Dispose(PlayerMovement movement)
+        public override void Dispose(EntityMovement movement)
         {
             
         }
 
-        public override void Enter(PlayerMovement movement)
+        public override void Enter(EntityMovement movement)
         {
             currentDashTime = 0;
             direction = GetCameraDirection(movement, Vector2.up);
@@ -31,14 +32,14 @@ namespace RogueLike.Player.States
             //Debug.Log("Enter Dash");
         }
 
-        public override void Exit(PlayerMovement movement)
+        public override void Exit(EntityMovement movement)
         {
             currentDashTime = 0;
             movement.DashCooldown();
             //Debug.Log("Exit Dash");
         }
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
+        public override Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale)
         {
             Vector3 targetVelocity = Vector3.zero;
             Vector3 gravityNormal = movement.Gravity.Value.normalized;
@@ -56,12 +57,12 @@ namespace RogueLike.Player.States
             return targetVelocity;
         }
         
-        public override CameraEffectComposite GetCameraEffects(PlayerMovement movement, float deltaTime)
+        public override CameraEffectComposite GetCameraEffects(EntityMovement movement, float deltaTime)
         {
             return CameraEffectData.CameraEffectComposite;
         }
 
-        public override MovementState GetNextState(PlayerMovement movement)
+        public override MovementState GetNextState(EntityMovement movement)
         {
             if (currentDashTime >= accelerationDuration)
             {
@@ -84,7 +85,7 @@ namespace RogueLike.Player.States
             return State;
         }
 
-        public override (float, float) GetHeight(PlayerMovement movement)
+        public override (float, float) GetHeight(EntityMovement movement)
         {
             return (movement.BaseCapsuleHeight, movement.BaseHeadHeight);
         }
