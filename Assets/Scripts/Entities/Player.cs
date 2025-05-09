@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DeadLink.Entities;
 using DeadLink.Entities.Data;
+using DeadLink.Menus;
 using DeadLink.Menus.New;
 using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
@@ -31,9 +32,8 @@ namespace RogueLike.Entities
         
         private void Start()
         {
-            if (inputToPowerUpName.Count < GameMetrics.Global.PowerUps.Length) return;
+            if (PowerUpsInputName.Count < GameMetrics.Global.PowerUps.Length) return;
 
-            inputToPowerUpName = new Dictionary<string, string>();
             for (int i = 0; i < GameMetrics.Global.PowerUps.Length; i++)
             {
                 PowerUp powerUp = GameMetrics.Global.PowerUps[i];
@@ -80,7 +80,7 @@ namespace RogueLike.Entities
         {
             int finalDamage = Mathf.CeilToInt(damage / Resistance);
             base.TakeDamage(finalDamage);
-            LevelManager.Instance.HUDMenuHandler.UpdateHealth(Health, MaxHealth.Value, HealthBarCount.Value);
+            MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount.Value);
         }
 
         public override void Die()
@@ -92,10 +92,18 @@ namespace RogueLike.Entities
         
         protected override void ChangeWeapon(int direction)
         {
+            if (!MenuManager.Instance.TryGetCurrentMenu(out IMenu menu) || menu.MenuType != MenuType.HUD) return;
+            
             base.ChangeWeapon(direction);
             
             MenuManager.Instance.HUDMenu.ChangeWeapon(currentWeaponIndex);
             MenuManager.Instance.HUDMenu.UpdateAmmunitions(CurrentWeapon.CurrentMunitions, CurrentWeapon.WeaponData.MaxAmmunition);
+        }
+
+        protected override void Reload()
+        {
+            if (!MenuManager.Instance.TryGetCurrentMenu(out IMenu menu) || menu.MenuType != MenuType.HUD) return;
+            base.Reload();
         }
 
         #region Inputs

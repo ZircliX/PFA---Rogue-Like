@@ -27,7 +27,7 @@ namespace DeadLink.Menus.Implementation
         
         private void Update()
         {
-            if (currentlyHovered)
+            if (currentlyHovered == this)
             {
                 if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, Input.mousePosition, null, out Vector2 localMousePosition))
                 {

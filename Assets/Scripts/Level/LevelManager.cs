@@ -6,6 +6,7 @@ using RogueLike.Controllers;
 using RogueLike.Player;
 using RogueLike.Timer;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RogueLike.Managers
 {
@@ -37,6 +38,7 @@ namespace RogueLike.Managers
             
             if (GameMetrics.Global.SpawnEnemies)
                 EnemyManager.Instance.SpawnEnemies(difficulty);
+
             player.Spawn(player.EntityData, difficulty, player.SpawnPosition.position);
             
             TimerManager.Instance.StartTimer();
@@ -60,7 +62,7 @@ namespace RogueLike.Managers
 
         public void RetryLevel()
         {
-            
+            SceneController.Global.ChangeScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

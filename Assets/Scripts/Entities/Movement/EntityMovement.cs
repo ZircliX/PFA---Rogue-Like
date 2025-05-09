@@ -23,7 +23,6 @@ namespace DeadLink.Entities.Movement
         
         [Header("Movement States")]
         [SerializeField] protected MovementStateBehavior[] movementStates;
-        protected MovementStateBehavior[] movementStatesCache;
         protected int currentStateIndex;
         
         #region Ground Check
@@ -126,7 +125,8 @@ namespace DeadLink.Entities.Movement
         protected int slideInput;
         public bool CanSlide()
         {
-            return slideInput > 0;
+            return slideInput > 0
+                && (Position - lastSafePosition).sqrMagnitude > MIN_THRESHOLD * 10;
         }
 
         public bool DashInput { get; protected set; }
@@ -139,7 +139,7 @@ namespace DeadLink.Entities.Movement
 
         #endregion
         
-        protected Vector3 lastSafePosition;
+        public Vector3 lastSafePosition { get; protected set; }
         protected ChannelKey stateChannelKey;
         public const float MIN_THRESHOLD = 0.001f;
         protected readonly RaycastHit[] raycastHitsBuffer = new RaycastHit[16];

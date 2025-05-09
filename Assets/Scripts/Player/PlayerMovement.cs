@@ -1,9 +1,9 @@
 using DeadLink.Cameras;
 using DeadLink.Entities.Movement;
 using DeadLink.Extensions;
+using DeadLink.Menus;
+using DeadLink.Menus.New;
 using DeadLink.PowerUpSystem;
-using DG.Tweening;
-using KBCore.Refs;
 using LTX.ChanneledProperties;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -40,6 +40,7 @@ namespace RogueLike.Player
 
         protected override void FixedUpdate()
         {
+            if (!MenuManager.Instance.TryGetCurrentMenu(out IMenu menu) || menu.MenuType != MenuType.HUD) return;
             base.FixedUpdate();
             CameraController.Instance.CameraEffectProperty.Write(stateChannelKey, movementStates[currentStateIndex].GetCameraEffects(this, Time.deltaTime));
         }

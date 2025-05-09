@@ -504,7 +504,8 @@ MonoBehaviour:
   - {fileID: 1105781393924151091}
   - {fileID: 7682103927050320968}
   <SpawnPosition>k__BackingField: {fileID: 8406938040259338861}
-  <PowerUpsInputName>k__BackingField: []
+  <PowerUpsInputName>k__BackingField:
+  - 
   pm: {fileID: 7673975130547769438}
 --- !u!114 &3016530247966428140
 MonoBehaviour:
@@ -920,7 +921,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DeadLink.Menus.MenuManager, DeadLink
+        m_TargetAssemblyTypeName: DeadLink.Menus.New.MenuManager, DeadLink
         m_MethodName: Pause
         m_Mode: 0
         m_Arguments:
