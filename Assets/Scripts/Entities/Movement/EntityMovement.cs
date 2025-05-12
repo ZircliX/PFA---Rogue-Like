@@ -141,6 +141,8 @@ namespace DeadLink.Entities.Movement
         
         public Vector3 lastSafePosition { get; protected set; }
         protected ChannelKey stateChannelKey;
+        protected float stateGravityScale;
+        protected bool canChangeGravityScale = true;
         public const float MIN_THRESHOLD = 0.001f;
         protected readonly RaycastHit[] raycastHitsBuffer = new RaycastHit[16];
         protected readonly Collider[] collidersBuffer = new Collider[16];
@@ -221,7 +223,10 @@ namespace DeadLink.Entities.Movement
             HandleWallDetection();
 
             float deltaTime = Time.fixedDeltaTime;
-            float stateGravityScale = 1;
+            if (canChangeGravityScale)
+            {
+                stateGravityScale = 1;
+            }
 
             //Manage States Values
             MovementStateBehavior state = movementStates[currentStateIndex];

@@ -23,6 +23,17 @@ namespace RogueLike.Player
         {
             StartCoroutine(cooldownPowerUp.Cooldown());
         }
+        
+        public void ActiveQuickFall()
+        {
+            canChangeGravityScale = false;
+            gravityScale = 10f;
+        }
+        public void DesactiveQuickFall()
+        {
+            gravityScale = 1f;
+            canChangeGravityScale = true;
+        }
         #endregion
 
         #region References

@@ -15,7 +15,6 @@ namespace DeadLink.PowerUpSystem
 
         public virtual void OnReset(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
-            
         }
 
         public abstract void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement);
