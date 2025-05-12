@@ -15814,8 +15814,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa0d3e64d2a4c199e3413c548474afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <difficulty>k__BackingField: {fileID: 11400000, guid: c37f0028a9d5e7742a7abf8e0f892751, type: 2}
-  <player>k__BackingField: {fileID: 1909224783}
+  <Difficulty>k__BackingField: {fileID: 11400000, guid: c37f0028a9d5e7742a7abf8e0f892751, type: 2}
+  <Player>k__BackingField: {fileID: 1909224783}
   <PlayerMovement>k__BackingField: {fileID: 1909224788}
 --- !u!1 &1757008720
 GameObject:

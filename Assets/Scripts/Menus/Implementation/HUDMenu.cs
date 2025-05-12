@@ -1,10 +1,11 @@
-using DeadLink.Menus.Implementation;
+using DeadLink.Menus.Other;
 using DG.Tweening;
 using LTX.ChanneledProperties;
 using UnityEngine;
 using UnityEngine.UI;
+using CrosshairOffset = DeadLink.Menus.Other.CrosshairOffset;
 
-namespace DeadLink.Menus.New.Implementation
+namespace DeadLink.Menus.Implementation
 {
     public class HUDMenu : Menu
     {
@@ -13,6 +14,9 @@ namespace DeadLink.Menus.New.Implementation
         
         [Header("Ammunitions")]
         [SerializeField] private AmmunitionReferences[] ammunitions;
+        
+        [Header("Ammunitions")]
+        [SerializeField] private WeaponReference[] weapons;
         
         [Header("Health")]
         [SerializeField] private Image[] healthBars;
@@ -27,6 +31,12 @@ namespace DeadLink.Menus.New.Implementation
         {
             MenuType = MenuType.HUD;
             currentWeaponIndex = 0;
+        }
+
+        public override void Close()
+        {
+            Debug.Log("Closing HUD MENU");
+            base.Close();
         }
 
         public override MenuProperties GetMenuProperties()
@@ -48,6 +58,9 @@ namespace DeadLink.Menus.New.Implementation
             
             ammunitions[currentWeaponIndex].gameObject.SetActive(false);
             ammunitions[index].gameObject.SetActive(true);
+            
+            weapons[currentWeaponIndex].DeactivateImage();
+            weapons[index].ActivateImage();
             
             currentWeaponIndex = index;
         }

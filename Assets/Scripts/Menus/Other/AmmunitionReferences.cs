@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DeadLink.Menus.Implementation
+namespace DeadLink.Menus.Other
 {
     public class AmmunitionReferences : MonoBehaviour
     {

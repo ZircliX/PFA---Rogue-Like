@@ -4,7 +4,6 @@ using DeadLink.Ammunitions.Data;
 using DeadLink.Cameras;
 using DeadLink.Entities;
 using DeadLink.Menus;
-using DeadLink.Menus.New;
 using DeadLink.Weapons.Data;
 using LTX.ChanneledProperties;
 using RogueLike.Managers;
@@ -28,7 +27,8 @@ namespace DeadLink.Weapons
 
         private void OnDisable()
         {
-            CameraController.Instance.CameraShakeProperty.RemovePriority(this);
+            if (CameraController.HasInstance)
+                CameraController.Instance.CameraShakeProperty.RemovePriority(this);
         }
 
         protected virtual void Awake()
@@ -70,17 +70,24 @@ namespace DeadLink.Weapons
             bullet.OnBulletDestroy += BulletDestroy;
             
             bullet.Shoot(entity.Strength, direction);
-            
-            WeaponRecoilSettings recoilData = WeaponData.WeaponRecoilSettings;
-            CameraController.Instance.RecoilFire(recoilData.GetRecoil(), recoilData.Snappiness, recoilData.ReturnSpeed);
+
+            if (entity.CompareTag("Player"))
+            {
+                WeaponRecoilSettings recoilData = WeaponData.WeaponRecoilSettings;
+                CameraController.Instance.RecoilFire(recoilData.GetRecoil(), recoilData.Snappiness, recoilData.ReturnSpeed);
+            }
 
             if (!entity.ContinuousFire)
             {
                 CurrentMunitions--;
             }
 
-            MenuManager.Instance.HUDMenu.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
-            MenuManager.Instance.HUDMenu.SetCrosshairOffset();
+            if (entity.CompareTag("Player"))
+            {
+                MenuManager.Instance.HUDMenu.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
+                MenuManager.Instance.HUDMenu.SetCrosshairOffset();
+            }
+
             return true;
         }
         

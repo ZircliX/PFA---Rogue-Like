@@ -11,6 +11,7 @@ namespace DeadLink.Entities.Movement
     {
         #region Public Properties
         public bool IsGrounded { get; protected set; }
+        public bool PreviousIsGrounded { get; protected set; }
         public Vector3 InputDirection { get; protected set; }
         public Vector3 GroundNormal { get; protected set; }
         public Vector3 GroundPosition { get; protected set; }
@@ -117,9 +118,10 @@ namespace DeadLink.Entities.Movement
         }
 
         protected int jumpInput;
+        protected bool jumpInputPressed;
         public bool CanJump()
         {
-            return jumpInput > 0;
+            return jumpInput > 0 && jumpInputPressed;
         }
         
         protected int slideInput;
@@ -205,18 +207,18 @@ namespace DeadLink.Entities.Movement
                 currentDashCooldown -= Time.deltaTime;
             else
                 currentDashCooldown = 0;
-        }
-        
-        protected virtual void FixedUpdate()
-        {
-            Position = rb.position;
-            currentStateIndex = currentStateIndex == -1 ? 0 : currentStateIndex;
             
             //Set Buffers
             if (jumpInput > 0)
                 jumpInput--;
             if (slideInput > 0)
                 slideInput--;
+        }
+        
+        protected virtual void FixedUpdate()
+        {
+            Position = rb.position;
+            currentStateIndex = currentStateIndex == -1 ? 0 : currentStateIndex;
 
             HandleGroundDetection();
             HandleCeilingDetection();
@@ -382,6 +384,7 @@ namespace DeadLink.Entities.Movement
                 return;
             }
 
+            PreviousIsGrounded = IsGrounded;
             Vector3 rayDirection = Gravity.Value.normalized;
 
             //Ground Check
@@ -442,6 +445,12 @@ namespace DeadLink.Entities.Movement
 
             GroundNormal = Vector3.up;
             IsGrounded = false;
+
+            if (PreviousIsGrounded)
+            {
+                jumpInput = coyoteTime;
+                Debug.Log(jumpInput);
+            }
 
             GroundPosition = Position;
             DistanceFromGround = Mathf.Infinity;

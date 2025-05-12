@@ -12,8 +12,8 @@ namespace RogueLike.Managers
 {
     public class LevelManager : MonoSingleton<LevelManager>
     {
-        [field: SerializeField] public DifficultyData difficulty { get; private set; }
-        [field: SerializeField] public Entities.Player player { get; private set; }
+        [field: SerializeField] public DifficultyData Difficulty { get; private set; }
+        [field: SerializeField] public Entities.Player Player { get; private set; }
         [field: SerializeField] public PlayerMovement PlayerMovement { get; private set; }
         
 
@@ -37,16 +37,16 @@ namespace RogueLike.Managers
             AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_LevelStart, transform.position);
             
             if (GameMetrics.Global.SpawnEnemies)
-                EnemyManager.Instance.SpawnEnemies(difficulty);
+                EnemyManager.Instance.SpawnEnemies(Difficulty);
 
-            player.Spawn(player.EntityData, difficulty, player.SpawnPosition.position);
+            Player.Spawn(Player.EntityData, Difficulty, Player.SpawnPosition.position);
             
             TimerManager.Instance.StartTimer();
         }
 
         public void StartWaveMode()
         {
-            WaveManager.Instance.SetupWaveManager(difficulty);
+            WaveManager.Instance.SetupWaveManager(Difficulty);
         }
 
         public void EndWaveMode()
@@ -57,7 +57,7 @@ namespace RogueLike.Managers
         public void FinishLevel()
         {
             TimerManager.Instance.PauseTimer();
-            SceneController.Global.ChangeScene(GameMetrics.Global.ShopScene);
+            SceneController.Global.ChangeScene(GameMetrics.Global.ShopScene.BuildIndex);
         }
 
         public void RetryLevel()

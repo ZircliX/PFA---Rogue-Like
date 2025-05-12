@@ -1,11 +1,10 @@
-using System;
 using LTX.ChanneledProperties;
 using RogueLike;
 using RogueLike.Controllers;
 using RogueLike.Managers;
 using UnityEngine;
 
-namespace DeadLink.Menus.New.Implementation
+namespace DeadLink.Menus.Implementation
 {
     public class PauseMenu : Menu
     {

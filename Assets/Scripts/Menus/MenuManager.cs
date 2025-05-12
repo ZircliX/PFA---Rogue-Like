@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using DeadLink.Menus.New.Implementation;
-using EditorAttributes;
+using DeadLink.Menus.Implementation;
 using LTX.ChanneledProperties;
 using LTX.Singletons;
 using RogueLike.Controllers;
@@ -9,7 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using ZLinq;
 
-namespace DeadLink.Menus.New
+namespace DeadLink.Menus
 {
     public class MenuManager : MonoSingleton<MenuManager>
     {
@@ -31,6 +30,16 @@ namespace DeadLink.Menus.New
             GameController.TimeScale.AddPriority(this, PriorityTags.None);
             
             openedMenus = new Stack<IMenu>();
+        }
+
+        private void OnEnable()
+        {
+            SceneController.Global.OnWantsToChangeScene += ResetPriorities;
+        }
+        
+        private void OnDisable()
+        {
+            SceneController.Global.OnWantsToChangeScene -= ResetPriorities;
         }
 
         private void Start()
@@ -61,6 +70,13 @@ namespace DeadLink.Menus.New
         public IMenu GetMenu(MenuType menuType)
         {
             return menus.AsValueEnumerable().First(ctx => ctx.MenuType == menuType);
+        }
+
+        private void ResetPriorities()
+        {
+            GameController.CursorVisibility.ChangeChannelPriority(this, PriorityTags.None);
+            GameController.CursorLockMode.ChangeChannelPriority(this, PriorityTags.None);
+            GameController.TimeScale.ChangeChannelPriority(this, PriorityTags.None);
         }
         
         private void UpdateGameProperties(MenuProperties menuProperties)

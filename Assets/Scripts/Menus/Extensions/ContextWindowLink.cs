@@ -1,7 +1,7 @@
 using System;
 using System.Data.SqlTypes;
 
-namespace DeadLink.Menus.Implementation.Extensions
+namespace DeadLink.Menus.Extensions
 {
     [System.Serializable]
     public struct ContextWindowLink : INullable, IEquatable<ContextWindowLink>

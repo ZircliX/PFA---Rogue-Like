@@ -3,7 +3,7 @@ using EditorAttributes;
 using UnityEngine;
 using Void = EditorAttributes.Void;
 
-namespace DeadLink.Menus.Implementation.Extensions
+namespace DeadLink.Menus.Extensions
 {
     public class ContextWindowManager : MonoBehaviour
     {

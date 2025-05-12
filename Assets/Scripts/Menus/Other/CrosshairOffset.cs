@@ -1,11 +1,10 @@
-using System;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using KBCore.Refs;
 using UnityEngine;
 
-namespace DeadLink.Menus.Implementation
+namespace DeadLink.Menus.Other
 {
     public class CrosshairOffset : MonoBehaviour
     {

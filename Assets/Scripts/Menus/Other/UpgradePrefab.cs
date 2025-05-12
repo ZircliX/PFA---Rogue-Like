@@ -1,28 +1,33 @@
+using DeadLink.Menus.Implementation;
 using DeadLink.PowerUpSystem;
+using DG.Tweening;
+using KBCore.Refs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace DeadLink.Menus.Implementation
+namespace DeadLink.Menus.Other
 {
     public class UpgradePrefab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private TMP_Text title;
         [SerializeField] private TMP_Text description;
         [SerializeField] private Image icon;
+        private UpgradesMenu upgradesMenu;
         
         public PowerUp powerUp { get; private set; }
         
         [SerializeField] private  float tiltAmount = 10f;
         [SerializeField] private  float smoothSpeed = 5f;
+        private bool hasClicked;
 
-        private RectTransform rectTransform;
+        [SerializeField, Self] private RectTransform rectTransform;
         private static UpgradePrefab currentlyHovered;
 
-        private void Awake()
+        private void OnValidate()
         {
-            rectTransform = GetComponent<RectTransform>();
+            this.ValidateRefs();
         }
         
         private void Update()
@@ -50,30 +55,34 @@ namespace DeadLink.Menus.Implementation
             }
         }
         
-        public void Initialize(string title, string description, Sprite icon, PowerUp powerUp)
+        public void Initialize(UpgradesMenu upgradesMenu, PowerUp powerUp)
         {
-            this.title.text = title;
-            this.description.text = description;
-            this.icon.sprite = icon;
-            
             this.powerUp = powerUp;
+            title.text = powerUp.Name;
+            description.text = powerUp.Description;
+            icon.sprite = powerUp.Icon;
+            
+            this.upgradesMenu = upgradesMenu;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            //transform.DOScale(1.1f, 0.25f).SetUpdate(true);
+            transform.DOScale(1.1f, 0.25f).SetUpdate(true);
             currentlyHovered = this;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            //transform.DOScale(1f, 0.25f).SetUpdate(true);
+            transform.DOScale(1f, 0.25f).SetUpdate(true);
             if (currentlyHovered == this)
                 currentlyHovered = null;
         }
         
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (hasClicked) return;
+            upgradesMenu.UseUpgrade(this);
+            hasClicked = true;
         }
     }
 }

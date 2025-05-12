@@ -1,5 +1,4 @@
 using DeadLink.Menus;
-using DeadLink.Menus.New;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

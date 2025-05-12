@@ -8,7 +8,7 @@ namespace DeadLink.Entities.Enemies
     {
         public override void OnFixedUpdate()
         {
-            
+            base.OnFixedUpdate();
         }
 
         public override void Unlock(IVisitor visitor)
@@ -21,6 +21,7 @@ namespace DeadLink.Entities.Enemies
 
         protected override void Attack()
         {
+            if (!canAttack) return;
             Shoot();
         }
 
