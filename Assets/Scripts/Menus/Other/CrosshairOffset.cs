@@ -10,6 +10,7 @@ namespace DeadLink.Menus.Other
     {
         [field: SerializeField] public Vector2 MinOffset { get; private set; }
         [field: SerializeField] public Vector2 MaxOffset { get; private set; }
+        [field: SerializeField] public float OffsetTime { get; private set; }
         [SerializeField, Self] private RectTransform rt;
 
         private void OnValidate() => this.ValidateRefs();
@@ -25,7 +26,7 @@ namespace DeadLink.Menus.Other
                 () => rt.sizeDelta,
                 value => rt.sizeDelta = value,
                 offset,
-                0.1f
+                OffsetTime * 0.5f
             );
         }
     }

@@ -48,6 +48,7 @@ namespace RogueLike.Player.States
         public override void Exit(EntityMovement movement)
         {
             currentSlideTime = 0;
+            
         }
 
         public override Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale)
@@ -85,6 +86,7 @@ namespace RogueLike.Player.States
         {
             if (!movement.IsGrounded)
             {
+                Debug.Log("Not grounded");;
                 return MovementState.Falling;
             }
             if (movement.CanJump() && !movement.IsTouchingCeiling)

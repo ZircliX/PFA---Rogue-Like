@@ -59,8 +59,8 @@ namespace DeadLink.Entities
             HealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
             HealthBarCount.AddInfluence(this, Influence.Subtract);
 
-            CurrentWeapon = Weapons[0];
-            currentWeaponIndex = 0;
+            CurrentWeapon = Weapons[^1];
+            currentWeaponIndex = Weapons.Length;
 
             SetFullHealth();
         }
@@ -195,7 +195,7 @@ namespace DeadLink.Entities
         
         protected virtual void Reload()
         {
-            if (CurrentWeapon == null) return;
+            if (CurrentWeapon == null && CurrentWeapon.CurrentReloadTime >= CurrentWeapon.WeaponData.ReloadTime) return;
             
             StartCoroutine(CurrentWeapon.Reload(this));
         }

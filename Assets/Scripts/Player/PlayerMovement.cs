@@ -76,12 +76,10 @@ namespace RogueLike.Player
         {
             if (context.performed)
             {
-                jumpInput = coyoteTime;
                 jumpInputPressed = true;
             }
             else if (context.canceled)
             {
-                //jumpInput = 0;
                 jumpInputPressed = false;
             }
         }

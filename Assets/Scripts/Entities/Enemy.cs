@@ -153,7 +153,7 @@ namespace DeadLink.Entities
 
         private bool HasVisionOnPlayer()
         {
-            if (player == null) return false;
+            if (player == null || transform == null) return false;
             
             Vector3 deltaPosition = (player.transform.position - transform.position);
             Vector3 direction = deltaPosition.normalized;
@@ -178,6 +178,8 @@ namespace DeadLink.Entities
         {
             if (other.TryGetComponent(out RogueLike.Entities.Player playerDetected))
             {
+                if (playerDetected.IsInvisible) return;
+                
                 if (sphereDetector == detectDetector)
                 {
                     Debug.Log("Enter detect range");
