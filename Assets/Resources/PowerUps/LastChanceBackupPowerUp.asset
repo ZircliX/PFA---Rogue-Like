@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6182eefb96148c59a877a0aa685219c, type: 3}
+  m_Name: LastChanceBackupPowerUp
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: LAST CHANCE BACKUP
+  <Description>k__BackingField: '"Activating the Last Chance Backup will restore
+    1HP when your health reaches zero."'
+  <Icon>k__BackingField:
+  - {fileID: 21300000, guid: 82eae57a0fae6c84f86e681afb514c94, type: 3}
+  - {fileID: 21300000, guid: 0cb1be9d7102a6644b1b6beb39783cd6, type: 3}

@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c8919fe2f041c1ac3b34423aaa76bb, type: 3}
   m_Name: ShockWavePowerUp
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 0}
-  <CooldownTime>k__BackingField: 0
-  <CompetenceTime>k__BackingField: 0
+  <Name>k__BackingField: BLAST WAVE
+  <Description>k__BackingField: "\u201CRelease a shockwave. Deal damage to all nearby
+    enemies.\u201D"
+  <Icon>k__BackingField:
+  - {fileID: 21300000, guid: 40d3474259e10304ca3b0dd7134b1049, type: 3}
+  - {fileID: 21300000, guid: d956570354b6977449145b0f0ab794c4, type: 3}
+  <CooldownTime>k__BackingField: 30
+  <CompetenceTime>k__BackingField: 0.1

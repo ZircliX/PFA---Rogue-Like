@@ -13,7 +13,8 @@ namespace DeadLink.Menus.Other
     {
         [SerializeField] private TMP_Text title;
         [SerializeField] private TMP_Text description;
-        [SerializeField] private Image icon;
+        [SerializeField] private RectTransform layersParent;
+        [SerializeField] private Image imagePrefab;
         private UpgradesMenu upgradesMenu;
         
         public PowerUp powerUp { get; private set; }
@@ -60,7 +61,20 @@ namespace DeadLink.Menus.Other
             this.powerUp = powerUp;
             title.text = powerUp.Name;
             description.text = powerUp.Description;
-            icon.sprite = powerUp.Icon;
+            for (int i = 0; i < powerUp.Icon.Length; i++)
+            {
+                Image ip = Instantiate(imagePrefab, layersParent);
+                // if (i == 0)
+                // {
+                //     ip.transform.localScale = new Vector3(1.2f, 1.2f, 1);
+                // }
+                ip.sprite = powerUp.Icon[i];
+                ip.gameObject.SetActive(true);
+                
+                float inverse = Mathf.InverseLerp(0, powerUp.Icon.Length, i);
+                float lerp = Mathf.Lerp(0, 60, inverse);
+                ip.transform.DOLocalMoveZ(lerp, 0.25f);
+            }
             
             this.upgradesMenu = upgradesMenu;
         }

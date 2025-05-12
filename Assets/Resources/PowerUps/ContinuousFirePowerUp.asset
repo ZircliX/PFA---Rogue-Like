@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48164932a33741f09cc4f182f1a24292, type: 3}
   m_Name: ContinuousFirePowerUp
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 0}
-  <CooldownTime>k__BackingField: 0
-  <CompetenceTime>k__BackingField: 0
+  <Name>k__BackingField: PERMASHOT
+  <Description>k__BackingField: "\u201CFire continuously without reloading or interruptions.\u201D"
+  <Icon>k__BackingField:
+  - {fileID: 21300000, guid: 22209d9f443199d48b862266f08106a9, type: 3}
+  - {fileID: 21300000, guid: b8b6a8f9c68c1b64d92d41e7b72905dd, type: 3}
+  <CooldownTime>k__BackingField: 60
+  <CompetenceTime>k__BackingField: 10
