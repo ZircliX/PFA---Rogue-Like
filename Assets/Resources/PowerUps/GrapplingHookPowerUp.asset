@@ -16,7 +16,8 @@ MonoBehaviour:
   <Description>k__BackingField: "\u201CLaunch a grappling device to pull yourself
     to enemies and deliver a melee strike.\u201D"
   <Icon>k__BackingField:
-  - {fileID: 21300000, guid: b06de3ee779f5e8499cc3ef5b8bcd7ed, type: 3}
+  - {fileID: 21300000, guid: 82eae57a0fae6c84f86e681afb514c94, type: 3}
   - {fileID: 21300000, guid: f5f1fc4b7e989dd47a05a616ba620155, type: 3}
+  - {fileID: 21300000, guid: c320b01e206747e46b22ab746b8cfa82, type: 3}
   <CooldownTime>k__BackingField: 10
   <CompetenceTime>k__BackingField: 0.1

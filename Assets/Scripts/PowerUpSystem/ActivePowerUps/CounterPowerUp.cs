@@ -1,5 +1,6 @@
 using RogueLike.Player;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace DeadLink.PowerUpSystem.ActivePowerUps
 {
@@ -9,6 +10,8 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         
         public override void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
+            IsUnlocked = true;
+            CanBeUsed = true;
         }
 
         public override void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
