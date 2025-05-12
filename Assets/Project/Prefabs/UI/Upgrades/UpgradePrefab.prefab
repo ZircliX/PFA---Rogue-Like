@@ -305,8 +305,8 @@ MonoBehaviour:
   title: {fileID: 1944705104284897200}
   description: {fileID: 3317772705693729885}
   icon: {fileID: 4416881502988460982}
-  tiltAmount: 10
-  smoothSpeed: 5
+  tiltAmount: 15
+  smoothSpeed: 3
 --- !u!114 &5593681792125473019
 MonoBehaviour:
   m_ObjectHideFlags: 0

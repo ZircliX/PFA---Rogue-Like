@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DeadLink.Menus.New.Implementation;
+using EditorAttributes;
 using LTX.ChanneledProperties;
 using LTX.Singletons;
 using RogueLike.Controllers;
@@ -19,6 +20,7 @@ namespace DeadLink.Menus.New
         public event Action<IMenu> OnMenuClose;
         
         private Stack<IMenu> openedMenus;
+        private IMenu currentMenu;
         
         protected override void Awake()
         {
@@ -35,13 +37,25 @@ namespace DeadLink.Menus.New
         {
             for (int i = 0; i < menus.Length; i++)
             {
-                menus[i].Initialize();
+                Menu menuToOpen = menus[i];
+                
+                menuToOpen.Initialize();
+                if (menuToOpen.BaseState)
+                {
+                    OpenMenu(menuToOpen);
+                }
             }
         }
         
-        public IMenu GetCurrentMenu()
+        public bool TryGetCurrentMenu(out IMenu IMenu)
         {
-            return openedMenus.Peek();
+            IMenu = default;
+            if (openedMenus.Count > 0)
+            {
+                IMenu = openedMenus.Peek();
+            }
+
+            return IMenu != default;
         }
 
         public IMenu GetMenu(MenuType menuType)
@@ -62,39 +76,45 @@ namespace DeadLink.Menus.New
 
         public void OpenMenu(IMenu menuToOpen)
         {
-            openedMenus.Push(menuToOpen);
+            //Debug.Log($"MenuToOpen : {menuToOpen}, menuType : {menuToOpen.MenuType}, menuName : {menuToOpen.GetMenuProperties().GameObject}");
             
-            MenuProperties menuProperties = menuToOpen.GetMenuProperties();
+            currentMenu = menuToOpen;
+            openedMenus.Push(currentMenu);
+            
+            MenuProperties menuProperties = currentMenu.GetMenuProperties();
             UpdateGameProperties(menuProperties);
+            
+            currentMenu.Open();
 
-            OnMenuOpen?.Invoke(menuToOpen);
+            OnMenuOpen?.Invoke(currentMenu);
         }
 
         public void CloseMenu()
         {
-            if (openedMenus.Count > 0)
-            {
-                if (GetCurrentMenu().GetMenuProperties().CanClose)
-                {
-                    OnMenuClose?.Invoke(openedMenus.Pop());
-                }
-            }
+            IMenu menuToClose = openedMenus.Pop();
+            menuToClose.Close();
+            OnMenuClose?.Invoke(menuToClose);
+            
+            currentMenu = openedMenus.Peek();
+            UpdateGameProperties(currentMenu.GetMenuProperties());
         }
         
         public void Pause(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.performed && openedMenus.Count > 0)
             {
-                if (openedMenus.Count > 0)
+                if (TryGetCurrentMenu(out IMenu IMenu))
                 {
-                    if (GetCurrentMenu().GetMenuProperties().CanClose)
+                    MenuProperties menuProperties = IMenu.GetMenuProperties();
+                
+                    if (menuProperties.CanStack && IMenu.MenuType != MenuType.Pause)
+                    {
+                        OpenMenu(GetMenu(MenuType.Pause));
+                    }
+                    else if (menuProperties.CanClose)
                     {
                         CloseMenu();
                     }
-                }
-                else
-                {
-                    OpenMenu(GetMenu(MenuType.Pause));
                 }
             }
         }

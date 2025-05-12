@@ -13,6 +13,8 @@ namespace DeadLink.Entities.Data
         [field: SerializeField]
         public float BaseSpeed { get; private set; }
         [field: SerializeField]
+        public float BaseResistance { get; private set; }
+        [field: SerializeField]
         public int BaseStrength { get; private set; }
         
         [field: Header("VFX")]

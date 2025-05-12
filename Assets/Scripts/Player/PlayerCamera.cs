@@ -1,3 +1,5 @@
+using DeadLink.Menus;
+using DeadLink.Menus.New;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +25,8 @@ namespace RogueLike.Player
         
         private void Update()
         {
+            if (!MenuManager.Instance.TryGetCurrentMenu(out IMenu menu) || menu.MenuType != MenuType.HUD) return;
+            
             camRotation.x -= targetCamVelocity.x * speed * Time.deltaTime * sens;
             camRotation.y += targetCamVelocity.y * speed * Time.deltaTime * sens;
             camRotation.x = Mathf.Clamp(camRotation.x, -yRange, yRange);

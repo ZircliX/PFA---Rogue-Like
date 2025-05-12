@@ -15,7 +15,7 @@ namespace DeadLink.Menus.New.Implementation
         public PowerUp[] PowerUps { get; private set; }
         private List<UpgradePrefab> upgradeUIs;
         
-        public override MenuType MenuType { get; protected set; } = MenuType.Upgrades;
+        public override MenuType MenuType { get; protected set; }
 
         public override MenuProperties GetMenuProperties()
         {
@@ -29,6 +29,18 @@ namespace DeadLink.Menus.New.Implementation
                 false);
         }
         
+        private void Awake()
+        {
+            MenuType = MenuType.Upgrades;
+            upgradeUIs = new List<UpgradePrefab>();
+        }
+
+        public override void Open()
+        {
+            base.Open();
+            SetPowerUps();
+        }
+
         private void GetPowerUps()
         {
             PowerUps = Resources.LoadAll<PowerUp>("PowerUps");
@@ -50,8 +62,9 @@ namespace DeadLink.Menus.New.Implementation
                     
                     UpgradePrefab upgradeUI = Instantiate(upgradePrefab, targetUpgradePanel);
                     //Debug.Log("powerUp : " + powerUp.Name);
-                    upgradeUI.Initialize(powerUp.Name, powerUp.Name, null, powerUp);
+                    upgradeUI.Initialize(powerUp.Name, powerUp.Name, powerUp.Icon, powerUp);
 
+                    Debug.Log(upgradeUI);
                     upgradeUIs.Add(upgradeUI);
                 }
             }

@@ -47,15 +47,17 @@ namespace DeadLink.Weapons
             CurrentMunitions = WeaponData.MaxAmmunition;
         }
         
-        public virtual void Fire(Entity entity, Vector3 direction)
+        public virtual bool Fire(Entity entity, Vector3 direction)
         {
+            if (!MenuManager.Instance.TryGetCurrentMenu(out IMenu menu) || menu.MenuType != MenuType.HUD) return false;
+            
             if (!entity.ContinuousFire)
             {
                 if (CurrentMunitions <= 0)
                 {
                     //play sound
                     StartCoroutine(Reload(entity));
-                    return;
+                    return false;
                 }
             }
             
@@ -79,6 +81,7 @@ namespace DeadLink.Weapons
 
             MenuManager.Instance.HUDMenu.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
             MenuManager.Instance.HUDMenu.SetCrosshairOffset();
+            return true;
         }
         
         public void SetShootingState(bool canShoot)

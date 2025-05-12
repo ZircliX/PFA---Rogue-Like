@@ -20,11 +20,12 @@ namespace DeadLink.Menus.New.Implementation
         [SerializeField] private Image health;
         
         private int currentWeaponIndex;
-        
-        public override MenuType MenuType { get; protected set; } = MenuType.HUD;
+
+        public override MenuType MenuType { get; protected set; }
 
         private void Awake()
         {
+            MenuType = MenuType.HUD;
             currentWeaponIndex = 0;
         }
 

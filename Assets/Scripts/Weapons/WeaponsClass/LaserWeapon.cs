@@ -66,14 +66,19 @@ namespace DeadLink.Weapons.WeaponsClass
             }
         }
 
-        public override void Fire(Entity entity, Vector3 direction)
+        public override bool Fire(Entity entity, Vector3 direction)
         {
-            base.Fire(entity, direction);
-
-            if (CurrentMunitions <= 0)
+            if (base.Fire(entity, direction))
             {
-                StartCoroutine(CooldownLaser(entity));
+                if (CurrentMunitions <= 0)
+                {
+                    StartCoroutine(CooldownLaser(entity));
+                }
+                //AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerAutomaticShoot, entity.transform.position);
+                return true;
             }
+
+            return false;
         }
     }
 }

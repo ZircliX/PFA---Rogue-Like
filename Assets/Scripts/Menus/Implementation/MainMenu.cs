@@ -7,7 +7,7 @@ namespace DeadLink.Menus.New.Implementation
 {
     public class MainMenu : Menu
     {
-        public override MenuType MenuType { get; protected set; } = MenuType.Main;
+        public override MenuType MenuType { get; protected set; }
 
         public override MenuProperties GetMenuProperties()
         {
@@ -19,6 +19,11 @@ namespace DeadLink.Menus.New.Implementation
                 true,
                 false,
                 true);
+        }
+        
+        private void Awake()
+        {
+            MenuType = MenuType.Main;
         }
         
         public void Play()

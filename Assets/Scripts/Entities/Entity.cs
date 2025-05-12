@@ -54,6 +54,7 @@ namespace DeadLink.Entities
             MaxHealth = new InfluencedProperty<float>(EntityData.BaseHealth);
             Strength = new InfluencedProperty<float>(EntityData.BaseStrength);
             Speed = new InfluencedProperty<float>(EntityData.BaseSpeed);
+            Resistance = new InfluencedProperty<float>(EntityData.BaseResistance);
             HealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
             HealthBarCount.AddInfluence(this, Influence.Subtract);
             
@@ -220,7 +221,7 @@ namespace DeadLink.Entities
         protected virtual void Update()
         {
             ShootLogic();
-            CurrentWeapon!.OnUpdate(this);
+            CurrentWeapon?.OnUpdate(this);
         }
         
         public abstract void OnFixedUpdate();
