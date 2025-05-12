@@ -9,14 +9,23 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
     {
         public override void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
+            IsUnlocked = true;
+            CanBeUsed = true;
         }
 
         public override void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
+            if (IsUnlocked && CanBeUsed)
+            {
+                CanBeUsed = false;
+                playerMovement.StartCoroutine(Cooldown());
+                playerMovement.StartCoroutine(CompetenceDuration(player, playerMovement, OnFinishedToBeUsed));
+            }
         }
 
         public override void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
+            
         }
     }
 }

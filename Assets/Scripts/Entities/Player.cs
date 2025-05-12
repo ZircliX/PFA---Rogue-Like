@@ -4,6 +4,7 @@ using DeadLink.Entities.Data;
 using DeadLink.Menus;
 using DeadLink.Menus.New;
 using DeadLink.PowerUpSystem;
+using DeadLink.PowerUpSystem.ActivePowerUps;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using Enemy;
 using KBCore.Refs;
@@ -93,7 +94,7 @@ namespace RogueLike.Entities
         protected override void ChangeWeapon(int direction)
         {
             if (!MenuManager.Instance.TryGetCurrentMenu(out IMenu menu) || menu.MenuType != MenuType.HUD) return;
-            
+
             base.ChangeWeapon(direction);
             
             MenuManager.Instance.HUDMenu.ChangeWeapon(currentWeaponIndex);
@@ -211,9 +212,8 @@ namespace RogueLike.Entities
         {
             Speed.Write(this, 1);
         }
-        
         #endregion
-
+        
 
     }
 }
