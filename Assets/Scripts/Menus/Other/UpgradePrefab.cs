@@ -1,3 +1,4 @@
+using System;
 using DeadLink.Menus.Implementation;
 using DeadLink.PowerUpSystem;
 using DG.Tweening;
@@ -30,7 +31,12 @@ namespace DeadLink.Menus.Other
         {
             this.ValidateRefs();
         }
-        
+
+        private void OnDestroy()
+        {
+            this.transform.DOKill();
+        }
+
         private void Update()
         {
             if (currentlyHovered == this)

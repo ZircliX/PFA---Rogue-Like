@@ -30,7 +30,6 @@ namespace DeadLink.Menus.Implementation
         private void Awake()
         {
             MenuType = MenuType.HUD;
-            currentWeaponIndex = 0;
         }
 
         public override void Close()

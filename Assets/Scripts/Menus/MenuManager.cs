@@ -105,14 +105,17 @@ namespace DeadLink.Menus
             OnMenuOpen?.Invoke(currentMenu);
         }
 
-        public void CloseMenu()
+        public void CloseMenu(bool FORCE_CLOSE = false)
         {
-            IMenu menuToClose = openedMenus.Pop();
-            menuToClose.Close();
-            OnMenuClose?.Invoke(menuToClose);
+            if ((openedMenus.Count > 0 && openedMenus.Peek().GetMenuProperties().CanClose) || FORCE_CLOSE)
+            {
+                IMenu menuToClose = openedMenus.Pop();
+                menuToClose.Close();
+                OnMenuClose?.Invoke(menuToClose);
             
-            currentMenu = openedMenus.Peek();
-            UpdateGameProperties(currentMenu.GetMenuProperties());
+                currentMenu = openedMenus.Peek();
+                UpdateGameProperties(currentMenu.GetMenuProperties());
+            }
         }
         
         public void Pause(InputAction.CallbackContext context)

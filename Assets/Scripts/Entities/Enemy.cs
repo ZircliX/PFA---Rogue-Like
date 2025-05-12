@@ -182,18 +182,18 @@ namespace DeadLink.Entities
                 
                 if (sphereDetector == detectDetector)
                 {
-                    Debug.Log("Enter detect range");
+                    //Debug.Log("Enter detect range");
                     this.player = playerDetected;
                     inDetectRange = true;
                 }
                 else if (sphereDetector == aggroDetector)
                 {
-                    Debug.Log("Enter aggro range");
+                    //Debug.Log("Enter aggro range");
                     inAggroRange = true;
                 }
                 else if (sphereDetector == attackDetector)
                 {
-                    Debug.Log("Enter attack range");
+                    //Debug.Log("Enter attack range");
                     inAttackRange = true;
                 }
             }
@@ -210,18 +210,18 @@ namespace DeadLink.Entities
             {
                 if (sphereDetector == detectDetector)
                 {
-                    Debug.Log("Exit detect range");
+                    //Debug.Log("Exit detect range");
                     inDetectRange = false;
                     this.player = null;
                 }
                 else if (sphereDetector == aggroDetector)
                 {
-                    Debug.Log("Exit aggro range");
+                    //Debug.Log("Exit aggro range");
                     inAggroRange = false;
                 }
                 else if (sphereDetector == attackDetector)
                 {
-                    Debug.Log("Exit attack range");
+                    //Debug.Log("Exit attack range");
                     inAttackRange = false;
                 }
             }

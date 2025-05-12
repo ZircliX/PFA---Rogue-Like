@@ -23,13 +23,5 @@ namespace RogueLike.Events
             OnGameEnd?.Invoke();
             GameController.End();
         }
-
-
-        public event Action<int> OnGoldEarn;
-        public void GoldEarn(int value)
-        {
-            GameController.SaveListener.AddCurrency(value);
-            OnGoldEarn?.Invoke(value);
-        }
     }
 }

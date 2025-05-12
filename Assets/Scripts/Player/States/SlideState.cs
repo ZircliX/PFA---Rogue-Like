@@ -86,7 +86,6 @@ namespace RogueLike.Player.States
         {
             if (!movement.IsGrounded)
             {
-                Debug.Log("Not grounded");;
                 return MovementState.Falling;
             }
             if (movement.CanJump() && !movement.IsTouchingCeiling)

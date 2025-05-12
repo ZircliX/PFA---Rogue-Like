@@ -1,11 +1,14 @@
 using System;
 using DeadLink.Entities.Data;
+using DeadLink.Menus;
+using DeadLink.Menus.Implementation;
 using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using DeadLink.Weapons;
 using Enemy;
 using LTX.ChanneledProperties;
 using RogueLike;
+using RogueLike.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -60,7 +63,8 @@ namespace DeadLink.Entities
             HealthBarCount.AddInfluence(this, Influence.Subtract);
 
             CurrentWeapon = Weapons[^1];
-            currentWeaponIndex = Weapons.Length;
+            currentWeaponIndex = Weapons.Length - 1;
+            MenuManager.Instance.HUDMenu.ChangeWeapon(currentWeaponIndex);
 
             SetFullHealth();
         }
