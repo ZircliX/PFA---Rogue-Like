@@ -30,5 +30,10 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         {
             player.OnAdrenalineShotEnd();
         }
+        
+        public override void OnReset(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        {
+            OnFinishedToBeUsed(player, playerMovement);
+        }
     }
 }

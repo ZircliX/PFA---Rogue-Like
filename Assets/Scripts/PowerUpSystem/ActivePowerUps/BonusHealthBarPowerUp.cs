@@ -29,5 +29,10 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         public override void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {
         }
+        
+        public override void OnReset(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        {
+            OnFinishedToBeUsed(player, playerMovement);
+        }
     }
 }

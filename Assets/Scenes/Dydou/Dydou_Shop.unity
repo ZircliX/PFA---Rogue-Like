@@ -2036,6 +2036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MinOffset>k__BackingField: {x: 100, y: 100}
   <MaxOffset>k__BackingField: {x: 100, y: 100}
+  <OffsetTime>k__BackingField: 0
   rt: {fileID: 301268358}
 --- !u!114 &301268360
 MonoBehaviour:
@@ -15770,6 +15771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MinOffset>k__BackingField: {x: 100, y: 65}
   <MaxOffset>k__BackingField: {x: 130, y: 85}
+  <OffsetTime>k__BackingField: 0
   rt: {fileID: 1731551006}
 --- !u!1 &1737560605
 GameObject:
@@ -17991,6 +17993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MinOffset>k__BackingField: {x: 100, y: 100}
   <MaxOffset>k__BackingField: {x: 125, y: 125}
+  <OffsetTime>k__BackingField: 0
   rt: {fileID: 1928101089}
 --- !u!1 &1939946308
 GameObject:

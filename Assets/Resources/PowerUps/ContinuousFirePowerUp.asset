@@ -17,5 +17,6 @@ MonoBehaviour:
   <Icon>k__BackingField:
   - {fileID: 21300000, guid: 22209d9f443199d48b862266f08106a9, type: 3}
   - {fileID: 21300000, guid: b8b6a8f9c68c1b64d92d41e7b72905dd, type: 3}
+  - {fileID: 21300000, guid: e8575a74778951747b7c728baff199e6, type: 3}
   <CooldownTime>k__BackingField: 60
   <CompetenceTime>k__BackingField: 10
