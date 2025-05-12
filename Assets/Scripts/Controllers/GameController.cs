@@ -48,7 +48,7 @@ namespace RogueLike.Controllers
         private static void LoadGame()
         {
             Application.quitting += QuitGame;
-            DOTween.Init(false, false, LogBehaviour.Verbose);
+            //DOTween.Init(false, false, LogBehaviour.Verbose);
 
             SetupFields();
             SetupPrioritisedProperties();

@@ -1,3 +1,4 @@
+using DeadLink.PowerUpSystem;
 using DG.Tweening;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
@@ -119,9 +120,13 @@ namespace DeadLink.Entities.Movement
 
         protected int jumpInput;
         protected bool jumpInputPressed;
+        protected float jumpCooldown;
         public bool CanJump()
         {
-            return jumpInput > 0 && jumpInputPressed;
+            return jumpInput > 0
+                   && jumpInputPressed
+                   && currentJump > 0
+                   && jumpCooldown <= 0;
         }
         
         protected int slideInput;
@@ -148,6 +153,40 @@ namespace DeadLink.Entities.Movement
         public const float MIN_THRESHOLD = 0.001f;
         protected readonly RaycastHit[] raycastHitsBuffer = new RaycastHit[16];
         protected readonly Collider[] collidersBuffer = new Collider[16];
+        
+        #region Power ups
+
+        protected int remainingJump = 1;
+        protected int currentJump = 1;
+        public void UseJump()
+        {
+            jumpCooldown = 0.25f;
+            currentJump--;
+        }
+
+        protected int remainingDash = 1;
+        protected int currentDash = 1;
+        public void UseDash() => currentDash--;
+        public void AddBonusJump(int value) => remainingJump += value;
+        public void AddBonusDash(int value) => remainingDash += value;
+        
+        public void StartCooldownCoroutine(CooldownPowerUp cooldownPowerUp)
+        {
+            StartCoroutine(cooldownPowerUp.Cooldown());
+        }
+        
+        public void ActiveQuickFall()
+        {
+            canChangeGravityScale = false;
+            gravityScale = 10f;
+        }
+        public void DesactiveQuickFall()
+        {
+            gravityScale = 1f;
+            canChangeGravityScale = true;
+        }
+        
+        #endregion
         
         #region Event Functions
         
@@ -188,6 +227,8 @@ namespace DeadLink.Entities.Movement
                 MovementStateBehavior state = movementStates[i];
                 state.Dispose(this);
             }
+
+            this.DOKill();
         }
         
         #endregion
@@ -213,6 +254,11 @@ namespace DeadLink.Entities.Movement
                 jumpInput--;
             if (slideInput > 0)
                 slideInput--;
+            
+            if (jumpCooldown > 0)
+                jumpCooldown -= Time.deltaTime;
+            else
+                jumpCooldown = 0;
         }
         
         protected virtual void FixedUpdate()
@@ -220,6 +266,7 @@ namespace DeadLink.Entities.Movement
             Position = rb.position;
             currentStateIndex = currentStateIndex == -1 ? 0 : currentStateIndex;
 
+            ComputePenetration();
             HandleGroundDetection();
             HandleCeilingDetection();
             HandleWallDetection();
@@ -245,7 +292,41 @@ namespace DeadLink.Entities.Movement
         }
         
         #endregion
-        
+
+        private void ComputePenetration()
+        {
+            for (int i = 0; i < 32; i++)
+            {
+                float radius = CapsuleCollider.radius + MIN_THRESHOLD;
+
+                Vector3 top = GetCapsuleTop() - GetCapsuleOrientation() * CapsuleCollider.radius;
+                Vector3 bottom = GetCapsuleBottom() + GetCapsuleOrientation() * CapsuleCollider.radius;
+
+                int overlapSize = Physics.OverlapCapsuleNonAlloc(top, bottom, radius, collidersBuffer, GroundLayer);
+                for (int j = 0; j < overlapSize; j++)
+                {
+                    Collider other = collidersBuffer[j];
+                    Vector3 pos = other.attachedRigidbody == null
+                        ? other.transform.position
+                        : other.attachedRigidbody.position;
+                    
+                    Quaternion rot = other.attachedRigidbody == null
+                        ? other.transform.rotation
+                        : other.attachedRigidbody.rotation;
+                    if (Physics.ComputePenetration(CapsuleCollider, Position, rb.rotation,
+                            other, pos, rot,
+                            out Vector3 offset, out float distance))
+                    {
+                        Position += offset * distance;
+                        rb.position = Position;
+                    }
+                }
+                if(overlapSize == 0)
+                    return;
+                
+            }
+
+        }
         private void MovePlayer()
         {
             if (IsGrounded)
@@ -342,6 +423,12 @@ namespace DeadLink.Entities.Movement
             {
                 // Debug.Log(Vector3.Dot(closestHit.normal, currentVelocityValue));
                 IsWalled = true;
+                if (jumpCooldown <= 0)
+                {
+                    jumpInput = coyoteTime;
+                    currentJump = 1;
+                }
+                
                 LastKnownWallNormal = WallNormal;
                 WallNormal = closestHit.normal;
                 WallContactPoint = closestHit.point;
@@ -349,8 +436,14 @@ namespace DeadLink.Entities.Movement
 
                 return;
             }
-
+            
             IsWalled = false;
+            
+            if (PreviousIsGrounded)
+            {
+                jumpInput = coyoteTime;
+            }
+            
             WallNormal = Vector3.zero;
             CurrentWall = null;
         }
@@ -398,8 +491,9 @@ namespace DeadLink.Entities.Movement
                 center, radius, rayDirection,
                 raycastHitsBuffer,
                 castDistance, GroundLayer);
-
+            
             int overlapSize = Physics.OverlapSphereNonAlloc(center, radius, collidersBuffer, GroundLayer);
+            Debug.DrawRay(center, rayDirection * (castDistance + radius));
             // Debug.DrawLine(center, center + rayDirection * height, Color.cyan);
             // Debug.DrawRay(center, rayDirection * (castDistance + radius), Color.cyan);
             RaycastHit closestHit = default;
@@ -438,7 +532,14 @@ namespace DeadLink.Entities.Movement
             {
                 GroundNormal = closestHit.normal;
                 GroundPosition = closestHit.point;
+                
                 IsGrounded = true;
+                if (jumpCooldown <= 0)
+                {
+                    jumpInput = coyoteTime;
+                    currentJump = 1;
+                }
+                
                 DistanceFromGround = closestHit.distance;
                 return;
             }
@@ -449,7 +550,6 @@ namespace DeadLink.Entities.Movement
             if (PreviousIsGrounded)
             {
                 jumpInput = coyoteTime;
-                Debug.Log(jumpInput);
             }
 
             GroundPosition = Position;
@@ -546,7 +646,7 @@ namespace DeadLink.Entities.Movement
             CapsuleCollider.center = targetCenter;
 
             Vector3 targetHead = new Vector3(Head.localPosition.x, newHeadHeight, Head.localPosition.z);
-            Head.DOLocalMove(targetHead, 0.25f).SetEase(Ease.OutCubic);
+            Head.DOLocalMove(targetHead, 0.25f).SetEase(Ease.OutCubic).SetTarget(this);
         }
 
         public void ExitWallrun()

@@ -13,17 +13,14 @@ namespace RogueLike.Player.States
         [SerializeField] protected AnimationCurve jumpCurve;
         
         protected float currentJumpTime;
-        private int count;
         
         public override void Enter(EntityMovement movement)
         {
+            movement.UseJump();
             base.Enter(movement);
             //Debug.Log($"Entering {State}");
-
-            count = 0;
-            currentJumpTime = 0;
             
-            movement.PlayerHeight.Write(this, (movement.BaseCapsuleHeight, movement.BaseHeadHeight));
+            currentJumpTime = 0;
         }
 
         public override void Exit(EntityMovement movement)

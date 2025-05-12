@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e60a77d63684bec9b6a6a1fe0fc8be9, type: 3}
   m_Name: AutomaticRecoil
   m_EditorClassIdentifier: 
-  <RecoilX>k__BackingField: -15
+  <RecoilX>k__BackingField: -3
   <RecoilY>k__BackingField: 3
   <RecoilZ>k__BackingField: 1
-  <Snappiness>k__BackingField: 1.25
+  <Snappiness>k__BackingField: 0.75
   <ReturnSpeed>k__BackingField: 5

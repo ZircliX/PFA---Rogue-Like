@@ -11,30 +11,6 @@ namespace RogueLike.Player
 {
     public class PlayerMovement : EntityMovement
     {
-        #region Power ups
-
-        private int remainingJump = 1;
-        private int remainingDash = 1;
-        public void AddBonusJump(int value) => remainingJump += value;
-        public void AddBonusDash(int value) => remainingDash += value;
-        
-        public void StartCooldownCoroutine(CooldownPowerUp cooldownPowerUp)
-        {
-            StartCoroutine(cooldownPowerUp.Cooldown());
-        }
-        
-        public void ActiveQuickFall()
-        {
-            canChangeGravityScale = false;
-            gravityScale = 10f;
-        }
-        public void DesactiveQuickFall()
-        {
-            gravityScale = 1f;
-            canChangeGravityScale = true;
-        }
-        #endregion
-
         #region References
 
         [field: Header("References")]
@@ -76,12 +52,10 @@ namespace RogueLike.Player
         {
             if (context.performed)
             {
-                jumpInput = coyoteTime;
                 jumpInputPressed = true;
             }
             else if (context.canceled)
             {
-                //jumpInput = 0;
                 jumpInputPressed = false;
             }
         }

@@ -82,7 +82,7 @@ namespace DeadLink.Menus.Implementation
                 
                 if (ui == upgradeInstance)
                 {
-                    ui.transform.DOMoveY(ui.transform.position.y, 5f).OnComplete(() =>
+                    ui.transform.DOMoveY(ui.transform.position.y, 5f).SetUpdate(true).OnComplete(() =>
                     {
                         upgradeUIs.Remove(ui);
                         Destroy(ui.gameObject);
@@ -92,7 +92,8 @@ namespace DeadLink.Menus.Implementation
                 }
                 else
                 {
-                    ui.transform.DOMoveY(ui.transform.position.y + 1000, 1f).OnComplete(() =>
+                    Debug.Log("Move other ui");
+                    ui.transform.DOMoveY(ui.transform.position.y + 5000, 5f).SetUpdate(true).OnComplete(() =>
                     {
                         upgradeUIs.Remove(ui);
                         Destroy(ui.gameObject);
