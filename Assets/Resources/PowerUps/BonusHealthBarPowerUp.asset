@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e6ecf0a5a3417ebb1bbe6bf1a7c4a9, type: 3}
   m_Name: BonusHealthBarPowerUp
   m_EditorClassIdentifier: 
-  <VisitableType>k__BackingField: {fileID: 0}
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: CORE REGEN
+  <Description>k__BackingField: "\u201CInstantly restore a full health bar, regardless
+    of the damage taken.\u201D"
+  <Icon>k__BackingField:
+  - {fileID: 21300000, guid: 9ef677212b49ae1499f7dbf15976cda1, type: 3}
+  - {fileID: 21300000, guid: 6c75d4b0934ee394a9715e68e71f4dfd, type: 3}
   <BonusHealthBarCount>k__BackingField: 1

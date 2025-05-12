@@ -47,6 +47,7 @@ namespace DeadLink.Menus.Implementation
         private void GetPowerUps()
         {
             PowerUps = Resources.LoadAll<PowerUp>("PowerUps");
+            Debug.Log(PowerUps.Length);
         }
         
         public void SetPowerUps()
@@ -91,7 +92,6 @@ namespace DeadLink.Menus.Implementation
                 }
                 else
                 {
-                    Debug.Log("Move other ui");
                     ui.transform.DOMoveY(ui.transform.position.y + 1000, 1f).OnComplete(() =>
                     {
                         upgradeUIs.Remove(ui);

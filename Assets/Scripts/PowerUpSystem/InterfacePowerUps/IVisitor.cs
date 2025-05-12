@@ -7,7 +7,7 @@ namespace DeadLink.PowerUpSystem.InterfacePowerUps
     {
         public string Name { get; }
         public string Description { get; }
-        public Sprite Icon { get; }
+        public Sprite[] Icon { get; }
         public bool IsUnlocked { get; }
         
         public void OnReset(RogueLike.Entities.Player player, PlayerMovement playerMovement);

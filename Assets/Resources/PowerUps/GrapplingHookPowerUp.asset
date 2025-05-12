@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d834b4b36db4fabbf70edb37b413e1c, type: 3}
   m_Name: GrapplingHookPowerUp
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 0}
-  <CooldownTime>k__BackingField: 0
-  <CompetenceTime>k__BackingField: 0
+  <Name>k__BackingField: CHAINHOOK
+  <Description>k__BackingField: "\u201CLaunch a grappling device to pull yourself
+    to enemies and deliver a melee strike.\u201D"
+  <Icon>k__BackingField:
+  - {fileID: 21300000, guid: b06de3ee779f5e8499cc3ef5b8bcd7ed, type: 3}
+  - {fileID: 21300000, guid: f5f1fc4b7e989dd47a05a616ba620155, type: 3}
+  <CooldownTime>k__BackingField: 10
+  <CompetenceTime>k__BackingField: 0.1

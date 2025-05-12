@@ -15,7 +15,9 @@ MonoBehaviour:
   <Name>k__BackingField: VITAL BOOST
   <Description>k__BackingField: "\u201CRestore 20% of your health when used. A quick
     recovery boost.\u201D"
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField:
+  - {fileID: 21300000, guid: 82eae57a0fae6c84f86e681afb514c94, type: 3}
+  - {fileID: 21300000, guid: dff7e68de49ac904f93e8f01fb66e5a7, type: 3}
   <CooldownTime>k__BackingField: 90
   <CompetenceTime>k__BackingField: 1
-  <InstantHealBonus>k__BackingField: 40
+  <InstantHealBonus>k__BackingField: 20
