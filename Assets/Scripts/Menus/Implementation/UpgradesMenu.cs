@@ -1,12 +1,14 @@
 using System.Collections.Generic;
-using DeadLink.Menus.Implementation;
+using DeadLink.Menus.Other;
 using DeadLink.PowerUpSystem;
 using DG.Tweening;
 using LTX.ChanneledProperties;
+using RogueLike.Controllers;
+using RogueLike.Managers;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace DeadLink.Menus.New.Implementation
+namespace DeadLink.Menus.Implementation
 {
     public class UpgradesMenu : Menu
     {
@@ -37,6 +39,7 @@ namespace DeadLink.Menus.New.Implementation
 
         public override void Open()
         {
+            Debug.Log("Opening Upgrades Menu");
             base.Open();
             SetPowerUps();
         }
@@ -62,26 +65,39 @@ namespace DeadLink.Menus.New.Implementation
                     
                     UpgradePrefab upgradeUI = Instantiate(upgradePrefab, targetUpgradePanel);
                     //Debug.Log("powerUp : " + powerUp.Name);
-                    upgradeUI.Initialize(powerUp.Name, powerUp.Name, powerUp.Icon, powerUp);
+                    upgradeUI.Initialize(this, powerUp);
 
-                    Debug.Log(upgradeUI);
+                    //Debug.Log(upgradeUI);
                     upgradeUIs.Add(upgradeUI);
                 }
             }
         }
         
-        public void UseUpgrade(int index)
+        public void UseUpgrade(UpgradePrefab upgradeInstance)
         {
             for (int i = upgradeUIs.Count - 1; i >= 0; i--)
             {
                 UpgradePrefab ui = upgradeUIs[i];
                 
-                float moveValue = i != index ? 50 : -50;
-                ui.transform.DOMoveY(moveValue, 0.5f).OnComplete(() =>
+                if (ui == upgradeInstance)
                 {
-                    Destroy(ui.gameObject);
-                    upgradeUIs.RemoveAt(i);
-                });
+                    ui.transform.DOMoveY(ui.transform.position.y, 5f).OnComplete(() =>
+                    {
+                        upgradeUIs.Remove(ui);
+                        Destroy(ui.gameObject);
+                        SceneController.Global.ChangeScene(SceneController.Global.previousScene.buildIndex);
+                    });
+                    ui.powerUp.OnBeUnlocked(LevelManager.Instance.Player, LevelManager.Instance.PlayerMovement);
+                }
+                else
+                {
+                    Debug.Log("Move other ui");
+                    ui.transform.DOMoveY(ui.transform.position.y + 1000, 1f).OnComplete(() =>
+                    {
+                        upgradeUIs.Remove(ui);
+                        Destroy(ui.gameObject);
+                    });
+                }
             }
         }
     }

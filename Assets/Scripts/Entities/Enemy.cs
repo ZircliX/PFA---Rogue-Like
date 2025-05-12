@@ -1,4 +1,3 @@
-using System.Collections;
 using DeadLink.Entities.Data;
 using DeadLink.Entities.Enemies.Detection;
 using Enemy;
@@ -7,10 +6,7 @@ using LTX.ChanneledProperties;
 using RayFire;
 using RogueLike;
 using RogueLike.Controllers;
-using RogueLike.Managers;
 using UnityEngine;
-using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 namespace DeadLink.Entities
 {
@@ -32,23 +28,12 @@ namespace DeadLink.Entities
         protected bool inAttackRange;
         #endregion
         
-        #region NavMesh Params
-        [Header("NavMesh Parameters")]
-        [SerializeField] private float idleMoveRadius = 5f;
-        [SerializeField] private float maxTurnAngle = 90f;
-        [SerializeField] private float idleTime = 1f;
-
-        private Vector3 lastDirection = Vector3.forward;
-        private bool findingNewPos;
-        #endregion
-        
         [Header("References")]
         [SerializeField, Self] private RayfireRigid rayfireRigid;
-        [SerializeField, Self] private NavMeshAgent navMeshAgent;
         
-        private Entity player;
-        private Vector3 targetPosition;
-        private bool canAttack;
+        
+        protected Entity player;
+        protected bool canAttack;
         
         #region Event Functions
         
@@ -124,40 +109,11 @@ namespace DeadLink.Entities
         
         #region Updates
         
-        protected override void Update()
-        {
-            base.Update();
-            
-            /* Debug damage to player
-            if (currentTime >= maxTime)
-            {
-                currentTime = 0;
-
-                Ray ray = new Ray(transform.position, transform.forward);
-                RaycastHit[] raycast = Physics.SphereCastAll(ray, 3, 3);
-
-                for (int i = 0; i < raycast.Length; i++)
-                {
-                    if (raycast[i].transform.TryGetComponent(out RogueLike.Entities.Player player))
-                    {
-                        player.TakeDamage(1);
-                    }
-                }
-            }
-            else
-            {
-                currentTime += Time.deltaTime;
-            }
-            */
-        }
-        
         public override void OnFixedUpdate()
         {
             HandleDetection();
-            HandleIdleMovement();
-            
+            HandleOrientation();
             Attack();
-            Move();
         }
         
         #endregion
@@ -165,20 +121,27 @@ namespace DeadLink.Entities
         private void HandleDetection()
         {
             bool hasVision = HasVisionOnPlayer();
-
+            canAttack = inAttackRange && hasVision;
+            
             if (hasVision)
             {
-                Debug.Log("Visionnnnnnnnnnn");
-                canAttack = inAttackRange;
-                
                 if (inAggroRange)
                 {
                     Vector3 direction = (player.transform.position - transform.position).normalized;
                     Vector3 deltaOffset = direction * attackRadius;
 
-                    targetPosition = player.transform.position - deltaOffset;
+                    //targetPosition = player.transform.position - deltaOffset;
                 }
             }
+        }
+        
+        private void HandleOrientation()
+        {
+            if (!HasVisionOnPlayer()) return;
+            
+            Vector3 direction = (player.transform.position - transform.position).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 5f);
         }
         
         protected override void Attack()
@@ -186,78 +149,6 @@ namespace DeadLink.Entities
             if (!canAttack) return;
             
             player.TakeDamage(1);
-        }
-
-        private void Move()
-        {
-            navMeshAgent.SetDestination(targetPosition);
-        }
-        
-        private void HandleIdleMovement()
-        {
-            if (inAggroRange || findingNewPos) return;
-
-            bool shouldFindNew = navMeshAgent.velocity.sqrMagnitude < 0.1f;
-            if (shouldFindNew)
-            {
-                findingNewPos = true;
-                FindNewPosition();
-            }
-        }
-
-        private void FindNewPosition()
-        {
-            Vector3 candidateDirection = Vector3.zero;
-            bool found = false;
-            
-            Vector3 gravity = LevelManager.Instance.PlayerMovement.Gravity.Value.normalized;
-            if (gravity == Vector3.zero)
-                gravity = Vector3.down;
-            
-            for (int i = 0; i < 5; i++)
-            {
-                Vector3 randomPoint = Random.insideUnitSphere * idleMoveRadius;
-                Vector3 projected = Vector3.ProjectOnPlane(randomPoint, gravity).normalized;
-
-                if (projected == Vector3.zero)
-                    continue;
-
-                float angle = Vector3.Angle(lastDirection, projected);
-
-                if (angle <= maxTurnAngle)
-                {
-                    candidateDirection = projected;
-                    found = true;
-                    break;
-                }
-            }
-            
-            if (!found)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    Vector3 randomPoint = Random.insideUnitSphere * idleMoveRadius;
-                    candidateDirection = Vector3.ProjectOnPlane(randomPoint, gravity).normalized;
-                    if (candidateDirection != Vector3.zero)
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-            }
-            
-            if (found)
-            {
-                Vector3 target = transform.position + candidateDirection * idleMoveRadius;
-                if (NavMesh.SamplePosition(target, out NavMeshHit hit, 1, NavMesh.AllAreas))
-                {
-                    targetPosition = hit.position;
-                    lastDirection = (hit.position - transform.position).normalized;
-                    return;
-                }
-            }
-            
-            findingNewPos = false;
         }
 
         private bool HasVisionOnPlayer()
@@ -285,20 +176,22 @@ namespace DeadLink.Entities
         
         private void TriggerEnter(Collider other, SphereDetector sphereDetector)
         {
-            if (other.TryGetComponent(out RogueLike.Entities.Player player))
+            if (other.TryGetComponent(out RogueLike.Entities.Player playerDetected))
             {
-                this.player = player;
-                
                 if (sphereDetector == detectDetector)
                 {
+                    Debug.Log("Enter detect range");
+                    this.player = playerDetected;
                     inDetectRange = true;
                 }
                 else if (sphereDetector == aggroDetector)
                 {
+                    Debug.Log("Enter aggro range");
                     inAggroRange = true;
                 }
                 else if (sphereDetector == attackDetector)
                 {
+                    Debug.Log("Enter attack range");
                     inAttackRange = true;
                 }
             }
@@ -311,19 +204,22 @@ namespace DeadLink.Entities
         
         private void TriggerExit(Collider other, SphereDetector sphereDetector)
         {
-            if (other.TryGetComponent(out RogueLike.Entities.Player player))
+            if (other.TryGetComponent(out RogueLike.Entities.Player playerDetected))
             {
                 if (sphereDetector == detectDetector)
                 {
+                    Debug.Log("Exit detect range");
                     inDetectRange = false;
                     this.player = null;
                 }
                 else if (sphereDetector == aggroDetector)
                 {
+                    Debug.Log("Exit aggro range");
                     inAggroRange = false;
                 }
                 else if (sphereDetector == attackDetector)
                 {
+                    Debug.Log("Exit attack range");
                     inAttackRange = false;
                 }
             }

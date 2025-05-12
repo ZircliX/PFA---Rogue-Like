@@ -1,7 +1,7 @@
 using LTX.ChanneledProperties;
 using UnityEngine;
 
-namespace DeadLink.Menus.New
+namespace DeadLink.Menus
 {
     public struct MenuProperties
     {

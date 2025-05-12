@@ -1,4 +1,4 @@
-namespace DeadLink.Menus.New
+namespace DeadLink.Menus
 {
     public interface IMenu
     {

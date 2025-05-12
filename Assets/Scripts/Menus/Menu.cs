@@ -3,7 +3,7 @@ using EditorAttributes;
 using KBCore.Refs;
 using UnityEngine;
 
-namespace DeadLink.Menus.New
+namespace DeadLink.Menus
 {
     public abstract class Menu : MonoBehaviour, IMenu
     {

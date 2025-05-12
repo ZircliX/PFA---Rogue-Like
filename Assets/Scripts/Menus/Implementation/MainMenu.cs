@@ -3,7 +3,7 @@ using RogueLike;
 using RogueLike.Controllers;
 using UnityEngine;
 
-namespace DeadLink.Menus.New.Implementation
+namespace DeadLink.Menus.Implementation
 {
     public class MainMenu : Menu
     {

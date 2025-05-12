@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace DeadLink.Menus.Implementation.Extensions
+namespace DeadLink.Menus.Extensions
 {
     public class ContextWindowButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {

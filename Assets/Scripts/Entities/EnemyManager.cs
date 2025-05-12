@@ -24,7 +24,7 @@ namespace DeadLink.Entities
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
-                SpawnEnemies(LevelManager.Instance.difficulty);
+                SpawnEnemies(LevelManager.Instance.Difficulty);
             }
 
             foreach (Entity entity in spawnedEnemies)
@@ -41,7 +41,7 @@ namespace DeadLink.Entities
                 for (int j = 0; j < SpawnPositions.Length; j++)
                 {
                     Vector3 position = SpawnPositions[j].position;
-                    Entity spawnedEnemy = Instantiate(enemyPrefabs[0], position, Quaternion.identity);
+                    Entity spawnedEnemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], position, Quaternion.identity);
                     spawnedEnemy.Spawn(spawnedEnemy.EntityData, difficultyData, position);
                     
                     spawnedEnemies.Add(spawnedEnemy);

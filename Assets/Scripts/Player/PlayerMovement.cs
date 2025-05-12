@@ -2,7 +2,6 @@ using DeadLink.Cameras;
 using DeadLink.Entities.Movement;
 using DeadLink.Extensions;
 using DeadLink.Menus;
-using DeadLink.Menus.New;
 using DeadLink.PowerUpSystem;
 using LTX.ChanneledProperties;
 using UnityEngine;
@@ -67,10 +66,12 @@ namespace RogueLike.Player
             if (context.performed)
             {
                 jumpInput = coyoteTime;
+                jumpInputPressed = true;
             }
             else if (context.canceled)
             {
-                jumpInput = 0;
+                //jumpInput = 0;
+                jumpInputPressed = false;
             }
         }
 

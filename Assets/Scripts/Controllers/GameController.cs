@@ -1,3 +1,4 @@
+using DG.Tweening;
 using LTX.ChanneledProperties;
 using RogueLike.Save;
 using SaveSystem.Core;
@@ -47,6 +48,7 @@ namespace RogueLike.Controllers
         private static void LoadGame()
         {
             Application.quitting += QuitGame;
+            DOTween.Init(false, false, LogBehaviour.Verbose);
 
             SetupFields();
             SetupPrioritisedProperties();

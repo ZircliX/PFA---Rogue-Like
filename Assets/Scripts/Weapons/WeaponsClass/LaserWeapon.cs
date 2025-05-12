@@ -1,6 +1,6 @@
 using System.Collections;
 using DeadLink.Entities;
-using DeadLink.Menus.New;
+using DeadLink.Menus;
 using DeadLink.Weapons.Data;
 using RogueLike.Managers;
 using UnityEngine;

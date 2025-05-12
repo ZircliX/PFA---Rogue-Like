@@ -2,6 +2,7 @@ using System;
 using DeadLink.Ammunitions.Data;
 using DeadLink.Entities;
 using KBCore.Refs;
+using RayFire;
 using RogueLike.Controllers;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -84,6 +85,10 @@ namespace DeadLink.Ammunitions
         {
             //Debug.Log($"Author Result {hit.collider.CompareTag(AuthorTag)}, Hit Result {hit.collider.gameObject.name}");
             if (hit.collider.CompareTag(AuthorTag)) return;
+            if (hit.collider.gameObject.TryGetComponent(out RayfireRigid rfr))
+            {
+                rfr.Demolish();
+            }
             
             //+ hit.normal * 0.5f
             BulletData.HitVFX.PlayVFX(hit.point, 2);

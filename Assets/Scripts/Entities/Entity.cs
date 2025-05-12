@@ -50,6 +50,7 @@ namespace DeadLink.Entities
         public virtual void Spawn(EntityData data, DifficultyData difficultyData, Vector3 SpawnPosition)
         {
             EntityData = data;
+            transform.position = SpawnPosition;
 
             MaxHealth = new InfluencedProperty<float>(EntityData.BaseHealth);
             Strength = new InfluencedProperty<float>(EntityData.BaseStrength);
@@ -57,12 +58,11 @@ namespace DeadLink.Entities
             Resistance = new InfluencedProperty<float>(EntityData.BaseResistance);
             HealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
             HealthBarCount.AddInfluence(this, Influence.Subtract);
-            
-            ChangeWeapon(1);
-            transform.position = SpawnPosition;
+
+            CurrentWeapon = Weapons[0];
+            currentWeaponIndex = 0;
 
             SetFullHealth();
-            //Debug.Log("Spawn entity " + gameObject.name);
         }
 
         public abstract void Die();
@@ -174,7 +174,7 @@ namespace DeadLink.Entities
                 {
                     // Calculate direction from bullet spawn to the hit point
                     direction = (hit.point - BulletSpawnPoint.position).normalized;
-                    Debug.DrawLine(BulletSpawnPoint.position, hit.point, Color.cyan, 5);
+                    //Debug.DrawLine(BulletSpawnPoint.position, hit.point, Color.cyan, 5);
 
                     //Debug.Log("Hit: " + hit.collider.name + ", Direction: " + direction);
                 }
@@ -183,7 +183,7 @@ namespace DeadLink.Entities
                     //Debug.Log("No hit");
                     direction = ray.direction;
                 }
-                Debug.DrawRay(BulletSpawnPoint.position, direction * 10, Color.red, 2);
+                //Debug.DrawRay(BulletSpawnPoint.position, direction * 10, Color.red, 2);
                 
                 CurrentWeapon.Fire(this, direction);
             }

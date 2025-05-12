@@ -3,7 +3,7 @@ using EditorAttributes;
 using KBCore.Refs;
 using UnityEngine;
 
-namespace DeadLink.Menus.Implementation.Extensions
+namespace DeadLink.Menus.Extensions
 {
     public class ContextWindow : MonoBehaviour
     {

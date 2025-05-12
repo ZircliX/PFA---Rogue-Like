@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChanneledPropertiesSettings
   m_EditorClassIdentifier: 
   <LogInitialisationMessages>k__BackingField: 0
-  <DefaultCapacity>k__BackingField: 16
+  <DefaultCapacity>k__BackingField: 32
   <ExpandOnFullCapacityReached>k__BackingField: 1
   <CustomOperators>k__BackingField: []
 --- !u!114 &11400000
