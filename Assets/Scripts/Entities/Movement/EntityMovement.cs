@@ -1,3 +1,4 @@
+using DeadLink.PowerUpSystem;
 using DG.Tweening;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
@@ -119,9 +120,13 @@ namespace DeadLink.Entities.Movement
 
         protected int jumpInput;
         protected bool jumpInputPressed;
+        protected float jumpCooldown;
         public bool CanJump()
         {
-            return jumpInput > 0 && jumpInputPressed;
+            return jumpInput > 0
+                   && jumpInputPressed
+                   && currentJump > 0
+                   && jumpCooldown <= 0;
         }
         
         protected int slideInput;
@@ -148,6 +153,40 @@ namespace DeadLink.Entities.Movement
         public const float MIN_THRESHOLD = 0.001f;
         protected readonly RaycastHit[] raycastHitsBuffer = new RaycastHit[16];
         protected readonly Collider[] collidersBuffer = new Collider[16];
+        
+        #region Power ups
+
+        protected int remainingJump = 1;
+        protected int currentJump = 1;
+        public void UseJump()
+        {
+            jumpCooldown = 0.25f;
+            currentJump--;
+        }
+
+        protected int remainingDash = 1;
+        protected int currentDash = 1;
+        public void UseDash() => currentDash--;
+        public void AddBonusJump(int value) => remainingJump += value;
+        public void AddBonusDash(int value) => remainingDash += value;
+        
+        public void StartCooldownCoroutine(CooldownPowerUp cooldownPowerUp)
+        {
+            StartCoroutine(cooldownPowerUp.Cooldown());
+        }
+        
+        public void ActiveQuickFall()
+        {
+            canChangeGravityScale = false;
+            gravityScale = 10f;
+        }
+        public void DesactiveQuickFall()
+        {
+            gravityScale = 1f;
+            canChangeGravityScale = true;
+        }
+        
+        #endregion
         
         #region Event Functions
         
@@ -215,6 +254,11 @@ namespace DeadLink.Entities.Movement
                 jumpInput--;
             if (slideInput > 0)
                 slideInput--;
+            
+            if (jumpCooldown > 0)
+                jumpCooldown -= Time.deltaTime;
+            else
+                jumpCooldown = 0;
         }
         
         protected virtual void FixedUpdate()
@@ -379,7 +423,11 @@ namespace DeadLink.Entities.Movement
             {
                 // Debug.Log(Vector3.Dot(closestHit.normal, currentVelocityValue));
                 IsWalled = true;
-                jumpInput = coyoteTime;
+                if (jumpCooldown <= 0)
+                {
+                    jumpInput = coyoteTime;
+                    currentJump = 1;
+                }
                 
                 LastKnownWallNormal = WallNormal;
                 WallNormal = closestHit.normal;
@@ -486,7 +534,11 @@ namespace DeadLink.Entities.Movement
                 GroundPosition = closestHit.point;
                 
                 IsGrounded = true;
-                jumpInput = coyoteTime;
+                if (jumpCooldown <= 0)
+                {
+                    jumpInput = coyoteTime;
+                    currentJump = 1;
+                }
                 
                 DistanceFromGround = closestHit.distance;
                 return;
