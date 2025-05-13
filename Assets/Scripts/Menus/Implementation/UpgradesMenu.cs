@@ -18,6 +18,7 @@ namespace DeadLink.Menus.Implementation
         private List<UpgradePrefab> upgradeUIs;
         
         public override MenuType MenuType { get; protected set; }
+        private bool canBeClosed = false;
 
         public override MenuProperties GetMenuProperties()
         {
@@ -27,7 +28,7 @@ namespace DeadLink.Menus.Implementation
                 0f,
                 CursorLockMode.None,
                 true,
-                false,
+                canBeClosed,
                 false);
         }
         
@@ -39,7 +40,6 @@ namespace DeadLink.Menus.Implementation
 
         public override void Open()
         {
-            Debug.Log("Opening Upgrades Menu");
             base.Open();
             SetPowerUps();
         }
@@ -47,7 +47,6 @@ namespace DeadLink.Menus.Implementation
         private void GetPowerUps()
         {
             PowerUps = Resources.LoadAll<PowerUp>("PowerUps");
-            Debug.Log(PowerUps.Length);
         }
         
         public void SetPowerUps()
@@ -82,18 +81,20 @@ namespace DeadLink.Menus.Implementation
                 
                 if (ui == upgradeInstance)
                 {
-                    ui.transform.DOMoveY(ui.transform.position.y, 5f).SetUpdate(true).OnComplete(() =>
+                    ui.transform.DOMoveY(ui.transform.position.y, 5f).SetTarget(ui.transform).SetUpdate(true).OnComplete(() =>
                     {
+                        //SceneController.Global.ChangeScene(SceneController.Global.previousScene.buildIndex);
+                        canBeClosed = true;
+                        MenuManager.Instance.CloseMenu();
+                        
                         upgradeUIs.Remove(ui);
                         Destroy(ui.gameObject);
-                        SceneController.Global.ChangeScene(SceneController.Global.previousScene.buildIndex);
                     });
                     ui.powerUp.OnBeUnlocked(LevelManager.Instance.Player, LevelManager.Instance.PlayerMovement);
                 }
                 else
                 {
-                    Debug.Log("Move other ui");
-                    ui.transform.DOMoveY(ui.transform.position.y + 5000, 5f).SetUpdate(true).OnComplete(() =>
+                    ui.transform.DOMoveY(ui.transform.position.y + 5000, 5f).SetTarget(ui.transform).SetUpdate(true).OnComplete(() =>
                     {
                         upgradeUIs.Remove(ui);
                         Destroy(ui.gameObject);

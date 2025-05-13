@@ -1,3 +1,4 @@
+using DeadLink.Misc;
 using DeadLink.PowerUpSystem;
 using DG.Tweening;
 using KBCore.Refs;
@@ -142,6 +143,23 @@ namespace DeadLink.Entities.Movement
         {
             return DashInput
                    && currentDashCooldown <= 0;
+        }
+
+        #endregion
+
+        #region Pad
+
+        public bool OnPad { get; protected set; }
+        public Pad CurrentPad { get; protected set; }
+
+        public void EnterPad(Pad pad)
+        {
+            OnPad = true;
+            CurrentPad = pad;
+        }
+        public void ExitPad()
+        {
+            OnPad = false;
         }
 
         #endregion

@@ -31,6 +31,10 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Falling;
             }
+            if (movement.OnPad)
+            {
+                return MovementState.Pad;
+            }
             if (!movement.CrouchInput && !movement.IsTouchingCeiling)
             {
                 return MovementState.Idle;

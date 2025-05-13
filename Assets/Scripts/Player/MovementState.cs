@@ -13,5 +13,6 @@ namespace RogueLike.Player
         Dashing,
         WallRunning,
         WallJumping,
+        Pad
     }
 }

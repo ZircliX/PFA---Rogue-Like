@@ -99,6 +99,7 @@ namespace DeadLink.Entities
 
         public override void Die()
         {
+            Debug.Log("ihfuoheisufhleuifhesliufhzeuiqfhqeiskufhqsekiufhqsefkigqsefkiuheqsifkuqesfui");
             rayfireRigid.Demolish();
             OutlinerManager.Instance.RemoveOutline(gameObject);
             EnemyManager.Instance.EnemyKilled(this);
@@ -153,7 +154,7 @@ namespace DeadLink.Entities
 
         private bool HasVisionOnPlayer()
         {
-            if (player == null || transform == null) return false;
+            if (player == null) return false;
             
             Vector3 deltaPosition = (player.transform.position - transform.position);
             Vector3 direction = deltaPosition.normalized;
@@ -182,18 +183,18 @@ namespace DeadLink.Entities
                 
                 if (sphereDetector == detectDetector)
                 {
-                    Debug.Log("Enter detect range");
+                    //Debug.Log("Enter detect range");
                     this.player = playerDetected;
                     inDetectRange = true;
                 }
                 else if (sphereDetector == aggroDetector)
                 {
-                    Debug.Log("Enter aggro range");
+                    //Debug.Log("Enter aggro range");
                     inAggroRange = true;
                 }
                 else if (sphereDetector == attackDetector)
                 {
-                    Debug.Log("Enter attack range");
+                    //Debug.Log("Enter attack range");
                     inAttackRange = true;
                 }
             }
@@ -210,18 +211,18 @@ namespace DeadLink.Entities
             {
                 if (sphereDetector == detectDetector)
                 {
-                    Debug.Log("Exit detect range");
+                    //Debug.Log("Exit detect range");
                     inDetectRange = false;
                     this.player = null;
                 }
                 else if (sphereDetector == aggroDetector)
                 {
-                    Debug.Log("Exit aggro range");
+                    //Debug.Log("Exit aggro range");
                     inAggroRange = false;
                 }
                 else if (sphereDetector == attackDetector)
                 {
-                    Debug.Log("Exit attack range");
+                    //Debug.Log("Exit attack range");
                     inAttackRange = false;
                 }
             }

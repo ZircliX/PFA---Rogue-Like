@@ -48,6 +48,10 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Crouching;
             }
+            if (movement.OnPad)
+            {
+                return MovementState.Pad;
+            }
             if (movement.InputDirection.sqrMagnitude > PlayerMovement.MIN_THRESHOLD)
             {
                 return MovementState.Running;

@@ -1,6 +1,8 @@
 using DeadLink.Menus;
 using DeadLink.PowerUpSystem;
 using DevLocker.Utils;
+using Enemy;
+using JetBrains.Annotations;
 using RogueLike.Controllers;
 using UnityEngine;
 
@@ -10,6 +12,16 @@ namespace RogueLike
     public partial class GameMetrics : ScriptableObject
     {
         public static GameMetrics Global => GameController.Metrics;
+        
+        [field: Header("Difficulties")]
+        [field: SerializeField] public DifficultyData EasyDiffuculty { get; private set; }
+        [field: SerializeField] public DifficultyData NormalDiffuculty { get; private set; }
+        [field: SerializeField] public DifficultyData HardDiffuculty { get; private set; }
+        [field: SerializeField] public DifficultyData InsaneDiffuculty { get; private set; }
+
+        [field: Header("Leaderboard")]
+        [field: SerializeField] public string LevelOneNormal { get; private set; }
+        
         
         [field: Header("Debug Settings")]
         [field: SerializeField] public bool SpawnEnemies { get; private set; }
@@ -31,6 +43,8 @@ namespace RogueLike
         [field: SerializeField] public MenuType PauseMenu { get; private set; }
         [field: SerializeField] public MenuType SettingsMenu { get; private set; }
         [field: SerializeField] public MenuType UpgradesMenu { get; private set; }
+        [field: SerializeField] public MenuType CreditsMenu { get; private set; }
+        [field: SerializeField] public MenuType ScoreboardMenu { get; private set; }
         #endregion
         
         #region PowerUps

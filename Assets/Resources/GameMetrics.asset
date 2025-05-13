@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdf870fed234952a77aa0036142d86c, type: 3}
   m_Name: GameMetrics
   m_EditorClassIdentifier: 
+  <EasyDiffuculty>k__BackingField: {fileID: 11400000, guid: c88190c6be38ada458b34b6c959b5d6c, type: 2}
+  <NormalDiffuculty>k__BackingField: {fileID: 11400000, guid: c37f0028a9d5e7742a7abf8e0f892751, type: 2}
+  <HardDiffuculty>k__BackingField: {fileID: 11400000, guid: 2cd4a70f6f1503e49b6f8105dcb8d288, type: 2}
+  <InsaneDiffuculty>k__BackingField: {fileID: 11400000, guid: a92bbb00a52979147986d41fd4431cd0, type: 2}
+  <LevelOneNormal>k__BackingField: 30906
   <SpawnEnemies>k__BackingField: 1
   <SceneLoader>k__BackingField: {fileID: 3979984848490167843, guid: a39c2f37b5967cf42a360df5d75d8c96, type: 3}
   <EnemyStopDetect>k__BackingField:
@@ -25,9 +30,9 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/ZCX/ZircliX_New.unity
   <ShopScene>k__BackingField:
-    m_SceneAsset: {fileID: 102900000, guid: df803c7c2336e7d419630f1fe8cc9bca, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: c9cac20e2c1d89d4bb9eaa71c167447e, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/ShopScene.unity
+    m_ScenePath: Assets/Scenes/Valou/Transition/TransitionScene.unity
   <LevelOne>k__BackingField:
     m_SceneAsset: {fileID: 102900000, guid: 8bc2888afa7440644bd7f6b05b451767, type: 3}
     m_IsDirty: 0
@@ -37,6 +42,8 @@ MonoBehaviour:
   <PauseMenu>k__BackingField: {fileID: 11400000, guid: 97638f9619455f64b97d7c00e144f118, type: 2}
   <SettingsMenu>k__BackingField: {fileID: 11400000, guid: 61e8a13d4abad89418df7511ed34ef5f, type: 2}
   <UpgradesMenu>k__BackingField: {fileID: 11400000, guid: 7949dcdc7f87fbb4b9d31c6865dcc52e, type: 2}
+  <CreditsMenu>k__BackingField: {fileID: 11400000, guid: 2e2470dcf0f8c544083947adcc638650, type: 2}
+  <ScoreboardMenu>k__BackingField: {fileID: 11400000, guid: 53dabc4e62dc60c42af9c356a48f04e7, type: 2}
   <PowerUps>k__BackingField:
   - {fileID: 11400000, guid: 4dd4990ffc969f14183a349c439dc513, type: 2}
   - {fileID: 11400000, guid: 123967cebb36f0e42a9d462041310d11, type: 2}

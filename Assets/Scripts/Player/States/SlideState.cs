@@ -86,12 +86,15 @@ namespace RogueLike.Player.States
         {
             if (!movement.IsGrounded)
             {
-                Debug.Log("Not grounded");;
                 return MovementState.Falling;
             }
             if (movement.CanJump() && !movement.IsTouchingCeiling)
             {
                 return MovementState.Jumping;
+            }
+            if (movement.OnPad)
+            {
+                return MovementState.Pad;
             }
 
             Vector3 projectionPlaneNormal = GetGroundNormal(movement);

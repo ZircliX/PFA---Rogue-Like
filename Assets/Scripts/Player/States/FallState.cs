@@ -54,6 +54,11 @@ namespace RogueLike.Player.States
                 return MovementState.Dashing;
             }
 
+            if (movement.OnPad)
+            {
+                return MovementState.Pad;
+            }
+
             return State;
         }
 

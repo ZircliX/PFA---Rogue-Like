@@ -41,5 +41,17 @@ namespace DeadLink.Menus.Implementation
             IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.SettingsMenu);
             MenuManager.Instance.OpenMenu(menu);
         }
+        
+        public void Credits()
+        {
+            IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.CreditsMenu);
+            MenuManager.Instance.OpenMenu(menu);
+        }
+
+        public void Scoreboard()
+        {
+            IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.ScoreboardMenu);
+            MenuManager.Instance.OpenMenu(menu);
+        }
     }
 }

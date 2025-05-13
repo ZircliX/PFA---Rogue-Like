@@ -549,6 +549,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9a432f516a3ed30479c1ffd7ad841227, type: 2}
   - {fileID: 11400000, guid: fbab10ddc9204e24eb7857ef1f772720, type: 2}
   - {fileID: 11400000, guid: 9c330759aaab57647ac2ccd06053627a, type: 2}
+  - {fileID: 11400000, guid: abea978b1a3d7194daf34bac3cdc859e, type: 2}
   groundCheckDistance: 0.2
   groundCheckMaxAngle: 50
   <GroundLayer>k__BackingField:
