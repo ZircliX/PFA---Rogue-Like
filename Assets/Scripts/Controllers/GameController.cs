@@ -59,7 +59,7 @@ namespace RogueLike.Controllers
             SaveManager<SettingsSave>.Pull();
             
             SaveManager<GameProgression>.SetSaveController(new SaveController());
-            SaveManager<GameProgression>.AddListener(GameProgressionSaveListener);
+            SaveManager<GameProgression>.AddListener(GameProgressionListener);
             SaveManager<GameProgression>.Pull();
         }
 

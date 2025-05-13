@@ -1,3 +1,5 @@
+using DeadLink.Menus.Other.Scoreboard;
+using Enemy;
 using LTX.ChanneledProperties;
 using RogueLike;
 using RogueLike.Controllers;
@@ -7,6 +9,9 @@ namespace DeadLink.Menus.Implementation
 {
     public class MainMenu : Menu
     {
+        [SerializeField] private GameObject difficultyPanel;
+        [SerializeField] private DifficultyData[] difficultyDatas;
+        
         public override MenuType MenuType { get; protected set; }
 
         public override MenuProperties GetMenuProperties()
@@ -24,6 +29,22 @@ namespace DeadLink.Menus.Implementation
         private void Awake()
         {
             MenuType = MenuType.Main;
+        }
+        
+        public void SetPlayerName(string playerName)
+        {
+            GameController.GameProgressionListener.SetPlayerName(playerName);
+            ScoreboardSession.Instance.StartSession();
+        }
+
+        public void OpenDifficulty()
+        {
+            difficultyPanel.SetActive(!difficultyPanel.activeSelf);
+        }
+
+        public void SetDifficulty(int index)
+        {
+            GameController.GameProgressionListener.SetDifficultyData(difficultyDatas[index]);
         }
         
         public void Play()

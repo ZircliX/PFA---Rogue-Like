@@ -1,3 +1,4 @@
+using DeadLink.Menus.Other.Scoreboard;
 using LTX.ChanneledProperties;
 using UnityEngine;
 
@@ -22,6 +23,12 @@ namespace DeadLink.Menus.Implementation
         private void Awake()
         {
             MenuType = MenuType.Scoreboard;
+        }
+
+        public override void Open()
+        {
+            base.Open();
+            ScoreboardViewer.Instance.RefreshScoreboard();
         }
 
         public void Back()
