@@ -92,6 +92,10 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Jumping;
             }
+            if (movement.OnPad)
+            {
+                return MovementState.Pad;
+            }
 
             Vector3 projectionPlaneNormal = GetGroundNormal(movement);
             Vector3 projectOnPlane = Vector3.ProjectOnPlane(movement.StateVelocity, projectionPlaneNormal);

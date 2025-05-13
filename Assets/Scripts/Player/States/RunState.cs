@@ -31,6 +31,10 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Dashing;
             }
+            if (movement.OnPad)
+            {
+                return MovementState.Pad;
+            }
             if (movement.InputDirection.sqrMagnitude < EntityMovement.MIN_THRESHOLD)
             {
                 return MovementState.Idle;
