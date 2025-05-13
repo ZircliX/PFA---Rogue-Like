@@ -1,3 +1,4 @@
+using DeadLink.Save.Settings;
 using DG.Tweening;
 using LTX.ChanneledProperties;
 using RogueLike.Save;
@@ -18,6 +19,7 @@ namespace RogueLike.Controllers
         public static void Play() => IsPlaying = true;
         
         public static GameProgressionSaveListener GameProgressionSaveListener { get; private set; }
+        public static SettingsListener SettingsListener { get; private set; }
         public static AudioManager AudioManager { get; private set; }
         public static SceneController SceneController { get; private set; }
 
@@ -52,6 +54,9 @@ namespace RogueLike.Controllers
 
             SetupFields();
             SetupPrioritisedProperties();
+            SaveManager<SettingsSave>.SetSaveController(new SaveController());
+            SaveManager<SettingsSave>.AddListener(SettingsListener);
+            SaveManager<SettingsSave>.Pull();
             
             SaveManager<GameProgression>.SetSaveController(new SaveController());
             SaveManager<GameProgression>.AddListener(GameProgressionSaveListener);
@@ -62,12 +67,15 @@ namespace RogueLike.Controllers
         {
             SaveManager<GameProgression>.Push();
             SaveManager<GameProgression>.RemoveListener(GameProgressionSaveListener);
+            SaveManager<SettingsSave>.Push();
+            SaveManager<SettingsSave>.RemoveListener(SettingsListener);
             Application.Quit();
         }
 
         private static void SetupFields()
         {
             GameProgressionSaveListener = new GameProgressionSaveListener();
+            SettingsListener = new SettingsListener();
             AudioManager = new AudioManager();
             SceneController = new SceneController();
         }

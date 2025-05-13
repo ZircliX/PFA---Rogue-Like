@@ -16,7 +16,8 @@ MonoBehaviour:
   <Description>k__BackingField: "\u201CReveal hidden enemies through walls using
     X-ray vision system.\u201D"
   <Icon>k__BackingField:
-  - {fileID: 21300000, guid: e8a06687acd09f644b525c43c05e39db, type: 3}
+  - {fileID: 21300000, guid: 82eae57a0fae6c84f86e681afb514c94, type: 3}
+  - {fileID: 21300000, guid: 274316896da8af14aa14793fbdfcbd1d, type: 3}
   - {fileID: 21300000, guid: cc7453e9d7b3a7f4e8aa05d8080e0df6, type: 3}
   <CooldownTime>k__BackingField: 15
   <CompetenceTime>k__BackingField: 2
