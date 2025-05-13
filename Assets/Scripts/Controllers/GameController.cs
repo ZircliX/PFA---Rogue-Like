@@ -17,7 +17,7 @@ namespace RogueLike.Controllers
         public static void End() => IsPlaying = false;
         public static void Play() => IsPlaying = true;
         
-        public static GameProgressionSaveListener GameProgressionSaveListener { get; private set; }
+        public static GameProgressionListener GameProgressionListener { get; private set; }
         public static AudioManager AudioManager { get; private set; }
         public static SceneController SceneController { get; private set; }
 
@@ -54,20 +54,20 @@ namespace RogueLike.Controllers
             SetupPrioritisedProperties();
             
             SaveManager<GameProgression>.SetSaveController(new SaveController());
-            SaveManager<GameProgression>.AddListener(GameProgressionSaveListener);
+            SaveManager<GameProgression>.AddListener(GameProgressionListener);
             SaveManager<GameProgression>.Pull();
         }
 
         public static void QuitGame()
         {
             SaveManager<GameProgression>.Push();
-            SaveManager<GameProgression>.RemoveListener(GameProgressionSaveListener);
+            SaveManager<GameProgression>.RemoveListener(GameProgressionListener);
             Application.Quit();
         }
 
         private static void SetupFields()
         {
-            GameProgressionSaveListener = new GameProgressionSaveListener();
+            GameProgressionListener = new GameProgressionListener();
             AudioManager = new AudioManager();
             SceneController = new SceneController();
         }

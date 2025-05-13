@@ -12,6 +12,7 @@ namespace RogueLike.Save
         public int Version => 1;
         
         public DifficultyData DifficultyData { get; set; }
+        public string PlayerName { get; set; }
 
         public int HealthPoints { get; set; }
         public int HealthBarCount { get; set; }

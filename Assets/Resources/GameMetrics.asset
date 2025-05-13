@@ -26,17 +26,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 649
   <MainMenuScene>k__BackingField:
-    m_SceneAsset: {fileID: 102900000, guid: 29a5aee83d2e2224480ebced603fc37e, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: 699ac3a7803a1a644842267e9b1a4f5e, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/ZCX/ZircliX_New.unity
+    m_ScenePath: Assets/Scenes/ZCX/MainMenu.unity
   <ShopScene>k__BackingField:
     m_SceneAsset: {fileID: 102900000, guid: c9cac20e2c1d89d4bb9eaa71c167447e, type: 3}
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/Valou/Transition/TransitionScene.unity
   <LevelOne>k__BackingField:
-    m_SceneAsset: {fileID: 102900000, guid: 8bc2888afa7440644bd7f6b05b451767, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: 29a5aee83d2e2224480ebced603fc37e, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/ZircliX/ZircliX.unity
+    m_ScenePath: Assets/Scenes/ZCX/ZircliX_New.unity
   <HUDMenu>k__BackingField: {fileID: 11400000, guid: dbea5b65fb6d5fa4192af463fff236f1, type: 2}
   <MainMenu>k__BackingField: {fileID: 11400000, guid: 8c73c9023678ccb4b86a4422c2f32837, type: 2}
   <PauseMenu>k__BackingField: {fileID: 11400000, guid: 97638f9619455f64b97d7c00e144f118, type: 2}

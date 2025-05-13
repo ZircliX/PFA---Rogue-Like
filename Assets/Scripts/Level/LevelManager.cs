@@ -1,5 +1,6 @@
 using System;
 using DeadLink.Entities;
+using DeadLink.Menus;
 using Enemy;
 using LTX.Singletons;
 using RogueLike.Controllers;
@@ -57,7 +58,10 @@ namespace RogueLike.Managers
         public void FinishLevel()
         {
             TimerManager.Instance.PauseTimer();
-            SceneController.Global.ChangeScene(GameMetrics.Global.ShopScene.BuildIndex);
+            
+            IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.ScoreboardMenu);
+            MenuManager.Instance.OpenMenu(menu);
+            //SceneController.Global.ChangeScene(GameMetrics.Global.ShopScene.BuildIndex);
         }
 
         public void RetryLevel()
