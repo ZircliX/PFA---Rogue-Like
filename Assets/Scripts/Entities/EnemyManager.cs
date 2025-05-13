@@ -29,6 +29,8 @@ namespace DeadLink.Entities
 
             foreach (Entity entity in spawnedEnemies)
             {
+                //Debug.Log(spawnedEnemies.Count);
+                if (entity == null) continue;
                 entity.OnFixedUpdate();
             }
         }
@@ -53,6 +55,7 @@ namespace DeadLink.Entities
         {
             //Imobiliser le mob
             entity.EntityData.VFXToSpawn.PlayVFX(entity.transform.position, entity.EntityData.DelayAfterDestroyVFX);
+            Debug.Log("Enemy Killed");
             spawnedEnemies.Remove(entity);
             Destroy(entity.gameObject, 2f);
         }

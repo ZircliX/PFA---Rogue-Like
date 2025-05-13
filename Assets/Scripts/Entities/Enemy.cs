@@ -99,6 +99,7 @@ namespace DeadLink.Entities
 
         public override void Die()
         {
+            Debug.Log("ihfuoheisufhleuifhesliufhzeuiqfhqeiskufhqsekiufhqsefkigqsefkiuheqsifkuqesfui");
             rayfireRigid.Demolish();
             OutlinerManager.Instance.RemoveOutline(gameObject);
             EnemyManager.Instance.EnemyKilled(this);
@@ -153,7 +154,7 @@ namespace DeadLink.Entities
 
         private bool HasVisionOnPlayer()
         {
-            if (player == null || transform == null) return false;
+            if (player == null) return false;
             
             Vector3 deltaPosition = (player.transform.position - transform.position);
             Vector3 direction = deltaPosition.normalized;

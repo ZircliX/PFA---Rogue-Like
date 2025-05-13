@@ -1,14 +1,11 @@
 using System;
 using DeadLink.Entities.Data;
 using DeadLink.Menus;
-using DeadLink.Menus.Implementation;
-using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using DeadLink.Weapons;
 using Enemy;
 using LTX.ChanneledProperties;
 using RogueLike;
-using RogueLike.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -91,6 +88,7 @@ namespace DeadLink.Entities
                 int remainingDamages = Mathf.Abs(Health);
                 if (HealthBarCount.Value <= 0)
                 {
+                    Debug.Log("call die");
                     Die();
                     return;
                 }

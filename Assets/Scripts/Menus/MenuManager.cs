@@ -19,7 +19,6 @@ namespace DeadLink.Menus
         public event Action<IMenu> OnMenuClose;
         
         private Stack<IMenu> openedMenus;
-        private IMenu currentMenu;
         
         protected override void Awake()
         {
@@ -59,7 +58,7 @@ namespace DeadLink.Menus
         public bool TryGetCurrentMenu(out IMenu IMenu)
         {
             IMenu = default;
-            if (openedMenus.Count > 0)
+            if (HasOpenMenu())
             {
                 IMenu = openedMenus.Peek();
             }
@@ -94,33 +93,32 @@ namespace DeadLink.Menus
         {
             //Debug.Log($"MenuToOpen : {menuToOpen}, menuType : {menuToOpen.MenuType}, menuName : {menuToOpen.GetMenuProperties().GameObject}");
             
-            currentMenu = menuToOpen;
-            openedMenus.Push(currentMenu);
+            openedMenus.Push(menuToOpen);
             
-            MenuProperties menuProperties = currentMenu.GetMenuProperties();
+            MenuProperties menuProperties = menuToOpen.GetMenuProperties();
             UpdateGameProperties(menuProperties);
             
-            currentMenu.Open();
+            menuToOpen.Open();
 
-            OnMenuOpen?.Invoke(currentMenu);
+            OnMenuOpen?.Invoke(menuToOpen);
         }
 
         public void CloseMenu(bool FORCE_CLOSE = false)
         {
-            if ((openedMenus.Count > 0 && openedMenus.Peek().GetMenuProperties().CanClose) || FORCE_CLOSE)
+            if ((HasOpenMenu() && openedMenus.Peek().GetMenuProperties().CanClose) || FORCE_CLOSE)
             {
                 IMenu menuToClose = openedMenus.Pop();
                 menuToClose.Close();
                 OnMenuClose?.Invoke(menuToClose);
             
-                currentMenu = openedMenus.Peek();
-                UpdateGameProperties(currentMenu.GetMenuProperties());
+                IMenu menu = openedMenus.Peek();
+                UpdateGameProperties(menu.GetMenuProperties());
             }
         }
         
         public void Pause(InputAction.CallbackContext context)
         {
-            if (context.performed && openedMenus.Count > 0)
+            if (context.performed && HasOpenMenu())
             {
                 if (TryGetCurrentMenu(out IMenu IMenu))
                 {
@@ -137,5 +135,7 @@ namespace DeadLink.Menus
                 }
             }
         }
+        
+        private bool HasOpenMenu() => openedMenus.Count > 0;
     }
 }
