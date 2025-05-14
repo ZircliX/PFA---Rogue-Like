@@ -1,6 +1,7 @@
+using DeadLink.Save.GameProgression;
+using DeadLink.Save.Level;
 using DeadLink.Save.Settings;
 using LTX.ChanneledProperties;
-using RogueLike.Save;
 using SaveSystem.Core;
 
 #if UNITY_EDITOR
@@ -13,11 +14,8 @@ namespace RogueLike.Controllers
 {
     public static class GameController
     {
-        public static bool IsPlaying { get; private set; }
-        public static void End() => IsPlaying = false;
-        public static void Play() => IsPlaying = true;
-        
         public static GameProgressionListener GameProgressionListener { get; private set; }
+        public static LevelProgressionListener LevelProgressionListener { get; private set; }
         public static SettingsListener SettingsListener { get; private set; }
         public static AudioManager AudioManager { get; private set; }
         public static SceneController SceneController { get; private set; }
@@ -49,32 +47,52 @@ namespace RogueLike.Controllers
         private static void LoadGame()
         {
             Application.quitting += QuitGame;
-            //DOTween.Init(false, false, LogBehaviour.Verbose);
 
             SetupFields();
             SetupPrioritisedProperties();
-            SaveManager<SettingsSave>.SetSaveController(new SaveController());
-            SaveManager<SettingsSave>.AddListener(SettingsListener);
-            SaveManager<SettingsSave>.Pull();
-            
-            SaveManager<GameProgression>.SetSaveController(new SaveController());
-            SaveManager<GameProgression>.AddListener(GameProgressionListener);
-            SaveManager<GameProgression>.Pull();
+            AddSaveControllers();
         }
 
         public static void QuitGame()
         {
+            RemoveSaveControllers();
+            
+            Application.Quit();
+        }
+
+        private static void AddSaveControllers()
+        {
+            SaveManager<GameProgression>.SetSaveController(new GameSaveController());
+            SaveManager<GameProgression>.AddListener(GameProgressionListener);
+            SaveManager<GameProgression>.Pull();
+            
+            SaveManager<LevelProgression>.SetSaveController(new LevelSaveController());
+            SaveManager<LevelProgression>.AddListener(LevelProgressionListener);
+            SaveManager<LevelProgression>.Pull();
+            
+            SaveManager<SettingsSave>.SetSaveController(new SettingsSaveController());
+            SaveManager<SettingsSave>.AddListener(SettingsListener);
+            SaveManager<SettingsSave>.Pull();
+        }
+        
+        private static void RemoveSaveControllers()
+        {
             SaveManager<GameProgression>.Push();
             SaveManager<GameProgression>.RemoveListener(GameProgressionListener);
+            
+            SaveManager<LevelProgression>.Push();
+            SaveManager<LevelProgression>.RemoveListener(LevelProgressionListener);
+            
             SaveManager<SettingsSave>.Push();
             SaveManager<SettingsSave>.RemoveListener(SettingsListener);
-            Application.Quit();
         }
 
         private static void SetupFields()
         {
             GameProgressionListener = new GameProgressionListener();
+            LevelProgressionListener = new LevelProgressionListener();
             SettingsListener = new SettingsListener();
+            
             AudioManager = new AudioManager();
             SceneController = new SceneController();
         }

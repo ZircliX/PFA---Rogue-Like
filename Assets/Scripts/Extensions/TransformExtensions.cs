@@ -1,4 +1,3 @@
-using RogueLike.Save;
 using UnityEngine;
 
 namespace DeadLink.Extensions
@@ -16,7 +15,7 @@ namespace DeadLink.Extensions
             };
         }
         
-        public static void ToTransform(Transform transform, SerializedTransform serializedTransform)
+        public static void ToTransform(ref Transform transform, SerializedTransform serializedTransform)
         {
             transform.position = serializedTransform.Position;
             transform.rotation = new Quaternion(serializedTransform.Rotation.x, serializedTransform.Rotation.y,
@@ -24,5 +23,13 @@ namespace DeadLink.Extensions
             transform.localScale = serializedTransform.Scale;
             
         }
+    }
+    
+    [System.Serializable]
+    public struct SerializedTransform
+    {
+        public Vector3 Position;
+        public Vector4 Rotation;
+        public Vector3 Scale;
     }
 }
