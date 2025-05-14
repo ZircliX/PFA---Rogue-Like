@@ -1,5 +1,4 @@
 using DeadLink.Cameras;
-using DeadLink.Cameras.Data;
 using DeadLink.Entities.Movement;
 using DeadLink.Misc;
 using UnityEngine;
@@ -9,13 +8,6 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Pad")]
     public class PadState : MoveState
     {
-        [Header("Pad")]
-        [SerializeField] protected float padBaseForce;
-        [SerializeField] protected float padDuration;
-        [SerializeField] protected AnimationCurve padCurve;
-        
-        [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
-
         protected float currentPadTime;
         
         public override void Enter(EntityMovement movement)
@@ -34,20 +26,26 @@ namespace RogueLike.Player.States
         
         public override Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale)
         {
-            float normTime = currentPadTime / padDuration;
-            float padModifier = padCurve.Evaluate(normTime);
+            Pad pad = movement.CurrentPad;
             
             currentPadTime += deltaTime;
-            if (currentPadTime >= padDuration)
+            if (currentPadTime >= pad.PadDuration)
                 movement.SetMovementState(MovementState.Falling);
 
-            Pad pad = movement.CurrentPad;
-            Vector3 padDirection = pad.PadDirection.normalized;
-            Vector3 finalVelocity = new Vector3(
-                padDirection.x * pad.PadXForce,
-                padDirection.y * pad.PadYForce,
-                padDirection.z * pad.PadZForce) * padModifier * padBaseForce;
+            Vector3 baseVelocity = base.GetVelocity(movement, deltaTime, ref gravityScale);
+            
+            Vector3 finalVelocity = CalculateVelocity(pad, currentPadTime) + baseVelocity;
+            
+            return finalVelocity;
+        }
 
+        public static Vector3 CalculateVelocity(Pad pad, float currentTime)
+        {
+            float normTime = currentTime / pad.PadDuration;
+            float padModifier = pad.PadCurve.Evaluate(normTime);
+            
+            Vector3 finalVelocity = pad.PadDirection * padModifier;
+            
             return finalVelocity;
         }
 
@@ -72,7 +70,7 @@ namespace RogueLike.Player.States
 
         public override CameraEffectComposite GetCameraEffects(EntityMovement movement, float deltaTime)
         {
-            return CameraEffectData.CameraEffectComposite;
+            return movement.CurrentPad.CameraEffectData.CameraEffectComposite;
         }
 
         public override MovementState State => MovementState.Pad;

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using DeadLink.Extensions;
 using DeadLink.PowerUpSystem;
 using Enemy;
 using SaveSystem.Core;
 using UnityEngine;
+using ZLinq;
 
 namespace RogueLike.Save
 {
@@ -26,32 +28,32 @@ namespace RogueLike.Save
         
         public void Write(ref GameProgression saveFile)
         {
-            // saveFile.DifficultyData = DifficultyData;
-            //saveFile.PlayerName = PlayerName;
-            //
-            // saveFile.HealthPoints = HealthPoints;
-            // saveFile.HealthBarCount = HealthBarCount;
-            //
-            // saveFile.LastCheckPoint = LastCheckPoint;
-            // saveFile.EnemyPositions = EnemyPositions;
-            //
-            // saveFile.RemainingPowerUps = RemainingPowerUps;
-            // saveFile.PlayerPowerUps = PlayerPowerUps;
+            saveFile.DifficultyData = DifficultyData.GUID;
+            saveFile.PlayerName = PlayerName;
+            
+            saveFile.HealthPoints = HealthPoints;
+            saveFile.HealthBarCount = HealthBarCount;
+            
+            saveFile.LastCheckPoint = LastCheckPoint.ToSerializeTransform();
+            saveFile.EnemyPositions = EnemyPositions.AsValueEnumerable().Select(transform => transform.ToSerializeTransform()).ToList();
+            
+            saveFile.RemainingPowerUps = RemainingPowerUps.AsValueEnumerable().Select(up => up.GUID).ToList();
+            saveFile.PlayerPowerUps = PlayerPowerUps.AsValueEnumerable().Select(up => up.GUID).ToList();
         }
 
         public void Read(in GameProgression saveFile)
         {
-            DifficultyData = saveFile.DifficultyData;
+            //DifficultyData = saveFile.DifficultyData;
             PlayerName = saveFile.PlayerName;
             
             HealthPoints = saveFile.HealthPoints;
             HealthBarCount = saveFile.HealthBarCount;
             
-            LastCheckPoint = saveFile.LastCheckPoint;
-            EnemyPositions = saveFile.EnemyPositions;
+            //LastCheckPoint = saveFile.LastCheckPoint;
+            //EnemyPositions = saveFile.EnemyPositions;
             
-            RemainingPowerUps = saveFile.RemainingPowerUps;
-            PlayerPowerUps = saveFile.PlayerPowerUps;
+            //RemainingPowerUps = saveFile.RemainingPowerUps;
+            //PlayerPowerUps = saveFile.PlayerPowerUps;
         }
         
         #endregion

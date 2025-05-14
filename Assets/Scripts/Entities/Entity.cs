@@ -68,12 +68,12 @@ namespace DeadLink.Entities
 
         public abstract void Die();
 
-        public virtual void TakeDamage(float damage)
+        public virtual bool TakeDamage(float damage)
         {
-            TakeDamage(Mathf.CeilToInt(damage));
+            return TakeDamage(Mathf.CeilToInt(damage));
         }
 
-        public virtual void TakeDamage(int damage)
+        public virtual bool TakeDamage(int damage)
         {
             Health -= damage;
             
@@ -88,15 +88,15 @@ namespace DeadLink.Entities
                 int remainingDamages = Mathf.Abs(Health);
                 if (HealthBarCount.Value <= 0)
                 {
-                    Debug.Log("call die");
                     Die();
-                    return;
+                    return true;
                 }
                 
                 SetFullHealth();
                 Health -= remainingDamages;
             }
             
+            return false;
             //Debug.Log($"entity {gameObject.name} take {damage} damage, health : {Health}");
         }
 

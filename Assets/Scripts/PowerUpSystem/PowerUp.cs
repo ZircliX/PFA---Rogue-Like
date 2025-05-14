@@ -1,4 +1,6 @@
+using System;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
+using EditorAttributes;
 using RogueLike.Player;
 using UnityEngine;
 
@@ -12,6 +14,16 @@ namespace DeadLink.PowerUpSystem
 
         public bool IsUnlocked { get; protected set; }
         public bool CanBeUsed { get; protected set; }
+        
+        [field: SerializeField, ReadOnly] public string GUID { get; private set; }
+
+        private void OnValidate()
+        {
+            if (string.IsNullOrEmpty(GUID))
+            {
+                GUID = Guid.NewGuid().ToString();
+            }
+        }
 
         public virtual void OnReset(RogueLike.Entities.Player player, PlayerMovement playerMovement)
         {

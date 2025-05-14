@@ -1,3 +1,5 @@
+using System;
+using EditorAttributes;
 using UnityEngine;
 
 namespace Enemy
@@ -5,6 +7,16 @@ namespace Enemy
     [CreateAssetMenu(menuName = "RogueLike/Difficulty")]
     public class DifficultyData : ScriptableObject
     {
+        [field: SerializeField, ReadOnly] public string GUID { get; private set; }
+
+        private void OnValidate()
+        {
+            if (string.IsNullOrEmpty(GUID))
+            {
+                GUID = Guid.NewGuid().ToString();
+            }
+        }
+        
         #region player
         
         [field : SerializeField]

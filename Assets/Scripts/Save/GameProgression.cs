@@ -11,16 +11,24 @@ namespace RogueLike.Save
     {
         public int Version => 1;
         
-        public DifficultyData DifficultyData { get; set; }
-        public string PlayerName { get; set; }
+        [SerializeField] public string DifficultyData;
+        [SerializeField] public string PlayerName;
 
-        public int HealthPoints { get; set; }
-        public int HealthBarCount { get; set; }
+        [SerializeField] public int HealthPoints;
+        [SerializeField] public int HealthBarCount;
         
-        public Transform LastCheckPoint { get; set; }
-        public List<Transform> EnemyPositions { get; set; }
+        [SerializeField] public SerializedTransform LastCheckPoint;
+        [SerializeField] public List<SerializedTransform> EnemyPositions;
         
-        public List<PowerUp> RemainingPowerUps { get; set; }
-        public List<PowerUp> PlayerPowerUps { get; set; }
+        [SerializeField] public List<string> RemainingPowerUps;
+        [SerializeField] public List<string> PlayerPowerUps;
+    }
+
+    [System.Serializable]
+    public struct SerializedTransform
+    {
+        public Vector3 Position;
+        public Vector4 Rotation;
+        public Vector3 Scale;
     }
 }

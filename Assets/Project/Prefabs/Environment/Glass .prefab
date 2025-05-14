@@ -102,7 +102,7 @@ MonoBehaviour:
   initialization: 1
   simTp: 0
   objTp: 0
-  dmlTp: 1
+  dmlTp: 2
   physics:
     mt: 6
     ma: {fileID: 0}
@@ -241,8 +241,8 @@ MonoBehaviour:
     cE: 0
     cC: {r: 0, g: 0, b: 0, a: 0}
   damage:
-    en: 0
-    max: 100
+    en: 1
+    max: 10
     cur: 0
     col: 0
     mlt: 1

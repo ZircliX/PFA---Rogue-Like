@@ -604,7 +604,7 @@ MonoBehaviour:
   initialization: 0
   simTp: 0
   objTp: 0
-  dmlTp: 1
+  dmlTp: 2
   physics:
     mt: 4
     ma: {fileID: 0}

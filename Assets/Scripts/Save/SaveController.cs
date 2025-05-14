@@ -12,19 +12,24 @@ namespace RogueLike.Save
         private const string SAMPLE_SAVE_FILE = "SaveFile";
         private const string SETTINGS_SAVE_FILE = "SettingsSaveFile";
 
-        public GameProgression GetDefaultSaveFile() => new GameProgression()
+        public GameProgression GetDefaultSaveFile()
         {
-            DifficultyData = GameMetrics.Global.NormalDiffuculty,
+            Debug.Log("create default game progression save file");
             
-            HealthPoints = 100,
-            HealthBarCount = 3,
-            
-            LastCheckPoint = null,
-            EnemyPositions = new List<Transform>(),
-            
-            RemainingPowerUps = GameMetrics.Global.PowerUps.AsValueEnumerable().ToList(),
-            PlayerPowerUps = new List<PowerUp>(),
-        };
+            return new GameProgression()
+            {
+                DifficultyData = GameMetrics.Global.NormalDiffuculty.GUID,
+
+                HealthPoints = 100,
+                HealthBarCount = 3,
+
+                LastCheckPoint = default,
+                EnemyPositions = new List<SerializedTransform>(),
+
+                RemainingPowerUps = GameMetrics.Global.PowerUps.AsValueEnumerable().Select(up => up.GUID).ToList(),
+                PlayerPowerUps = new List<string>(),
+            };
+        }
 
         public bool Push(in GameProgression saveFile)
         {

@@ -75,11 +75,12 @@ namespace RogueLike.Entities
             Shoot();
         }
 
-        public override void TakeDamage(int damage)
+        public override bool TakeDamage(int damage)
         {
             int finalDamage = Mathf.CeilToInt(damage / Resistance);
-            base.TakeDamage(finalDamage);
+            bool die = base.TakeDamage(finalDamage);
             MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount.Value);
+            return die;
         }
 
         public override void Die()

@@ -6,6 +6,7 @@ using RayFire;
 using RogueLike.Controllers;
 using UnityEngine;
 using UnityEngine.VFX;
+using Random = UnityEngine.Random;
 
 namespace DeadLink.Ammunitions
 {
@@ -27,7 +28,7 @@ namespace DeadLink.Ammunitions
         
         protected virtual void FixedUpdate()
         {
-            Vector3 currentPosition = transform.position;
+            Vector3 currentPosition = rb.position;
             Vector3 direction = currentPosition - lastPosition;
             float distance = direction.magnitude;
             
@@ -66,8 +67,18 @@ namespace DeadLink.Ammunitions
         public void Shoot(float entityStrength, Vector3 direction)
         {
             damage = BulletData.Damage * entityStrength;
-            lastPosition = transform.position;
+            lastPosition = rb.position;
             rb.AddForce(direction * BulletData.BulletSpeed, ForceMode.Impulse);
+        }
+
+        protected virtual void Explode(Rigidbody otherRB)
+        {
+            Vector3 currentPosition = rb.position;
+            Vector3 direction = currentPosition - lastPosition;
+            
+            float explosionForce = 3 * BulletData.Damage * Random.value;
+            
+            otherRB.AddForce(direction.normalized * explosionForce, ForceMode.Impulse);
         }
 
         protected virtual void ApplyDamage(params Entity[] entities)
@@ -77,7 +88,16 @@ namespace DeadLink.Ammunitions
             {
                 Entity entity = entities[i];
                 if (entity.CompareTag(AuthorTag)) continue;
-                entity.TakeDamage(damage);
+                if (entity.TakeDamage(damage) && entity.TryGetComponent(out RayfireRigid rfr))
+                {
+                    foreach (RayfireRigid frag in rfr.fragments)
+                    {
+                        if (frag.TryGetComponent(out Rigidbody rfRb))
+                        {
+                            Explode(rfRb);
+                        }
+                    }
+                }
             }
         }
 
@@ -87,7 +107,16 @@ namespace DeadLink.Ammunitions
             if (hit.collider.CompareTag(AuthorTag)) return;
             if (hit.collider.gameObject.TryGetComponent(out RayfireRigid rfr))
             {
-                rfr.Demolish();
+                if (rfr.ApplyDamage(50, hit.point, 0.25f))
+                {
+                    foreach (RayfireRigid frag in rfr.fragments)
+                    {
+                        if (frag.TryGetComponent(out Rigidbody rfRb))
+                        {
+                            Explode(rfRb);
+                        }
+                    }
+                }
             }
             
             //+ hit.normal * 0.5f

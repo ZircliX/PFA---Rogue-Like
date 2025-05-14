@@ -433,10 +433,10 @@ MonoBehaviour:
   aggroDetector: {fileID: 8700123457204935612}
   attackRadius: 5
   attackDetector: {fileID: 7936516376208140070}
+  rayfireRigid: {fileID: 8754444563749847026}
   idleMoveRadius: 15
   maxTurnAngle: 120
   idleTime: 0.3
-  rayfireRigid: {fileID: 8754444563749847026}
   navMeshAgent: {fileID: 7118967720084334429}
 --- !u!114 &259710934558240639
 MonoBehaviour:
@@ -488,7 +488,7 @@ MonoBehaviour:
   initialization: 0
   simTp: 0
   objTp: 0
-  dmlTp: 1
+  dmlTp: 2
   physics:
     mt: 4
     ma: {fileID: 0}

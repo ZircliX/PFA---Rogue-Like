@@ -91,15 +91,15 @@ namespace DeadLink.Entities
             OutlinerManager.Instance.AddOutline(gameObject);
         }
 
-        public override void TakeDamage(float damage)
+        public override bool TakeDamage(float damage)
         {
-            base.TakeDamage(damage);
+            bool die = base.TakeDamage(damage);
             enemyUI.UpdateHealthBar(Health, MaxHealth.Value);
+            return die;
         }
 
         public override void Die()
         {
-            Debug.Log("ihfuoheisufhleuifhesliufhzeuiqfhqeiskufhqsekiufhqsefkigqsefkiuheqsifkuqesfui");
             rayfireRigid.Demolish();
             OutlinerManager.Instance.RemoveOutline(gameObject);
             EnemyManager.Instance.EnemyKilled(this);

@@ -2406,6 +2406,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <BaseState>k__BackingField: 0
   canvasGroup: {fileID: 320016479}
+  musicSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
+  voiceSlider: {fileID: 0}
+  resolutionDropdown: {fileID: 0}
+  brightnessSlider: {fileID: 0}
 --- !u!225 &320016479
 CanvasGroup:
   m_ObjectHideFlags: 0
