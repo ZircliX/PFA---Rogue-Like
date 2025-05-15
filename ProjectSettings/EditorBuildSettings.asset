@@ -6,17 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/ZCX/MainMenu.unity
+    guid: 699ac3a7803a1a644842267e9b1a4f5e
+  - enabled: 1
     path: Assets/Scenes/ZCX/ZircliX_New.unity
     guid: 29a5aee83d2e2224480ebced603fc37e
   - enabled: 1
-    path: Assets/Scenes/ShopScene.unity
-    guid: df803c7c2336e7d419630f1fe8cc9bca
-  - enabled: 1
-    path: Assets/Scenes/Valou/Transition/TransitionScene.unity
-    guid: c9cac20e2c1d89d4bb9eaa71c167447e
-  - enabled: 1
-    path: Assets/Scenes/ZCX/MainMenu.unity
-    guid: 699ac3a7803a1a644842267e9b1a4f5e
+    path: Assets/Scenes/ZCX/TransitionScene_ZCX.unity
+    guid: ff0a13eafa480fc4bb98467bd8530cf8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: add8497ed08fad84fa6109da5fb34bf0, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: d49fa89c5798f204383ef0098a16fb65, type: 3}

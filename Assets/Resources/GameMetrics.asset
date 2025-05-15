@@ -30,9 +30,9 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/ZCX/MainMenu.unity
   <ShopScene>k__BackingField:
-    m_SceneAsset: {fileID: 102900000, guid: c9cac20e2c1d89d4bb9eaa71c167447e, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: ff0a13eafa480fc4bb98467bd8530cf8, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/Valou/Transition/TransitionScene.unity
+    m_ScenePath: Assets/Scenes/ZCX/TransitionScene_ZCX.unity
   <LevelOne>k__BackingField:
     m_SceneAsset: {fileID: 102900000, guid: 29a5aee83d2e2224480ebced603fc37e, type: 3}
     m_IsDirty: 0

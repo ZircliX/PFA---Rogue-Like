@@ -1,6 +1,7 @@
 using DeadLink.Cameras;
 using DeadLink.Entities.Movement;
 using DeadLink.Extensions;
+using DeadLink.Level.CheckPoint;
 using DeadLink.Menus;
 using DeadLink.PowerUpSystem;
 using LTX.ChanneledProperties;
@@ -36,7 +37,7 @@ namespace RogueLike.Player
             base.HandleVoidDetection();
             if (Position.y < - Mathf.Abs(maxYPosition))
             {
-                this.TeleportPlayer(lastSafePosition, 1, 2);
+                CheckPointManager.Instance.TeleportToCheckPoint(this);
             }
         }
 
