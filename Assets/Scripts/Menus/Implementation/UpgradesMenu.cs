@@ -81,7 +81,7 @@ namespace DeadLink.Menus.Implementation
                 
                 if (ui == upgradeInstance)
                 {
-                    ui.transform.DOMoveY(ui.transform.position.y, 5f).SetTarget(ui.transform).SetUpdate(true).OnComplete(() =>
+                    ui.transform.DOMoveY(ui.transform.position.y, 3f).SetTarget(ui.transform).SetUpdate(true).OnComplete(() =>
                     {
                         //SceneController.Global.ChangeScene(SceneController.Global.previousScene.buildIndex);
                         canBeClosed = true;
@@ -90,11 +90,11 @@ namespace DeadLink.Menus.Implementation
                         upgradeUIs.Remove(ui);
                         Destroy(ui.gameObject);
                     });
-                    ui.powerUp.OnBeUnlocked(LevelManager.Instance.Player, LevelManager.Instance.PlayerMovement);
+                    ui.powerUp.OnBeUnlocked(LevelManager.Instance.PlayerController.PlayerEntity, LevelManager.Instance.PlayerController.PlayerMovement);
                 }
                 else
                 {
-                    ui.transform.DOMoveY(ui.transform.position.y + 5000, 5f).SetTarget(ui.transform).SetUpdate(true).OnComplete(() =>
+                    ui.transform.DOMoveY(ui.transform.position.y + 3000, 1.5f).SetTarget(ui.transform).SetUpdate(true).OnComplete(() =>
                     {
                         upgradeUIs.Remove(ui);
                         Destroy(ui.gameObject);

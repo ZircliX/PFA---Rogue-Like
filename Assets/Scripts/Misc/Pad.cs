@@ -1,17 +1,19 @@
+using System;
+using DeadLink.Cameras.Data;
 using DeadLink.Entities.Movement;
-using EditorAttributes;
 using UnityEngine;
 
 namespace DeadLink.Misc
 {
     public class Pad : MonoBehaviour
     {
-        [field : SerializeField, DrawHandle(handleSpace: Space.Self)] public Vector3 PadDirection { get; private set; }
+        [field : SerializeField] public Vector3 PadDirection { get; private set; }
         
-        [field : SerializeField, Range(0, 100)] public float PadXForce { get; private set; }
-        [field : SerializeField, Range(0, 100)] public float PadYForce { get; private set; }
-        [field : SerializeField, Range(0, 100)] public float PadZForce { get; private set; }
+        [field : SerializeField] public float PadDuration;
+        [field : SerializeField] public AnimationCurve PadCurve;
         
+        [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
+
         private void OnTriggerEnter(Collider col)
         {
             if (col.TryGetComponent(out EntityMovement em))

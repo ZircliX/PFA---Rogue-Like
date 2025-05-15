@@ -1,4 +1,5 @@
 using DeadLink.Menus.Other.Scoreboard;
+using DeadLink.SceneManagement;
 using Enemy;
 using LTX.ChanneledProperties;
 using RogueLike;
@@ -44,12 +45,18 @@ namespace DeadLink.Menus.Implementation
 
         public void SetDifficulty(int index)
         {
-            GameController.GameProgressionListener.SetDifficultyData(difficultyDatas[index]);
+            //GameController.GameProgressionListener.SetDifficultyData(difficultyDatas[index]);
         }
         
-        public void Play()
+        public void StartNewGame()
         {
             SceneController.Global.ChangeScene(GameMetrics.Global.LevelOne);
+            //GameController.StartNewGame();
+        }
+        
+        public void ContinueGame()
+        {
+            //GameController.ContinueGame();
         }
 
         public void Quit()

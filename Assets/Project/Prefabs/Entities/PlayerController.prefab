@@ -495,7 +495,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6401934034392761331}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4e5b408c32141b3882a35648cded372, type: 3}
+  m_Script: {fileID: 11500000, guid: d394161051cdd1642bcc870c7f328dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityData>k__BackingField: {fileID: 11400000, guid: f28fe2fd1bf23b944b37bfc0b2bfc6dc, type: 2}
@@ -557,7 +557,7 @@ MonoBehaviour:
     m_Bits: 640
   ceilingCheckDistance: 0.5
   ceilingCrouchCheckDistance: 0.75
-  dashCooldown: 2.5
+  dashCooldown: 1
   wallCastSample: 20
   wallCastDistance: 1
   wallRunCastExpension: 2
@@ -829,6 +829,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8406938040259338861}
   - component: {fileID: 2643648427546800899}
+  - component: {fileID: 5946190847953547969}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Player
@@ -1094,6 +1095,23 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &5946190847953547969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7771178899970783667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5020a99b6a514844b448fe8f6dbda072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GUID>k__BackingField: 6ee36fd4-24fb-488d-8ac9-4902ebdfa073
+  <PlayerInput>k__BackingField: {fileID: 2643648427546800899}
+  <PlayerEntity>k__BackingField: {fileID: 5095986187323191965}
+  <PlayerMovement>k__BackingField: {fileID: 7673975130547769438}
+  <LastCheckPoint>k__BackingField: {fileID: 8406938040259338861}
 --- !u!1 &7951095932090443510
 GameObject:
   m_ObjectHideFlags: 0

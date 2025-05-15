@@ -83,7 +83,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6966376794381805016}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.345, y: -12.5, z: 303.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -463,7 +463,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 18700
+  m_VersionIndex: 18733
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -557,10 +557,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b10eaf016c4fd78a34478953e7a850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PadDirection>k__BackingField: {x: 0, y: 1, z: 1}
-  <PadXForce>k__BackingField: 5
-  <PadYForce>k__BackingField: 5
-  <PadZForce>k__BackingField: 5
+  <PadDirection>k__BackingField: {x: 0, y: 6, z: 10}
+  PadDuration: 0.1
+  PadCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -109.30134
+      outSlope: -109.30134
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.002450999
+    - serializedVersion: 3
+      time: 1
+      value: 0.75
+      inSlope: 0.0000021737383
+      outSlope: 0.0000021737383
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 1
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <CameraEffectData>k__BackingField: {fileID: 11400000, guid: 7a2c4f80b21da1a4ca88ddedd9388594, type: 2}
 --- !u!65 &3751835134389424727
 BoxCollider:
   m_ObjectHideFlags: 0

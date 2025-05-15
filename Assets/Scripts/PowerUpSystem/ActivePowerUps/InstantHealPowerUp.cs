@@ -8,23 +8,23 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
     {
         [field: SerializeField] public int InstantHealBonus { get; private set; } = 20;
 
-        public override void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnBeUnlocked(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
             IsUnlocked = true;
             CanBeUsed = true;
             
         }
 
-        public override void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
             if (IsUnlocked && CanBeUsed)
             {
-                player.SetInstantHeal(InstantHealBonus);
-                player.StartCoroutine(Cooldown());
+                playerEntity.SetInstantHeal(InstantHealBonus);
+                playerEntity.StartCoroutine(Cooldown());
             }
         }
 
-        public override void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnFinishedToBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
         }
     }

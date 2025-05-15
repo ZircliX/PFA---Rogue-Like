@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DeadLink.Menus.Implementation;
+using DeadLink.SceneManagement;
 using LTX.ChanneledProperties;
 using LTX.Singletons;
 using RogueLike.Controllers;

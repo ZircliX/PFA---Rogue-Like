@@ -1,6 +1,7 @@
 using DeadLink.Menus.Other;
 using DG.Tweening;
 using LTX.ChanneledProperties;
+using RogueLike.Controllers;
 using UnityEngine;
 using UnityEngine.UI;
 using CrosshairOffset = DeadLink.Menus.Other.CrosshairOffset;
@@ -32,10 +33,10 @@ namespace DeadLink.Menus.Implementation
             MenuType = MenuType.HUD;
         }
 
-        public override void Close()
+        public override void Open()
         {
-            Debug.Log("Closing HUD MENU");
-            base.Close();
+            base.Open();
+            GameController.SetGameState(GameState.Playing);
         }
 
         public override MenuProperties GetMenuProperties()

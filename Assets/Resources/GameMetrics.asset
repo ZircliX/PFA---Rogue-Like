@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdf870fed234952a77aa0036142d86c, type: 3}
   m_Name: GameMetrics
   m_EditorClassIdentifier: 
-  <EasyDiffuculty>k__BackingField: {fileID: 11400000, guid: c88190c6be38ada458b34b6c959b5d6c, type: 2}
-  <NormalDiffuculty>k__BackingField: {fileID: 11400000, guid: c37f0028a9d5e7742a7abf8e0f892751, type: 2}
-  <HardDiffuculty>k__BackingField: {fileID: 11400000, guid: 2cd4a70f6f1503e49b6f8105dcb8d288, type: 2}
-  <InsaneDiffuculty>k__BackingField: {fileID: 11400000, guid: a92bbb00a52979147986d41fd4431cd0, type: 2}
+  <EasyDifficulty>k__BackingField: {fileID: 11400000, guid: c88190c6be38ada458b34b6c959b5d6c, type: 2}
+  <NormalDifficulty>k__BackingField: {fileID: 11400000, guid: c37f0028a9d5e7742a7abf8e0f892751, type: 2}
+  <HardDifficulty>k__BackingField: {fileID: 11400000, guid: 2cd4a70f6f1503e49b6f8105dcb8d288, type: 2}
+  <InsaneDifficulty>k__BackingField: {fileID: 11400000, guid: a92bbb00a52979147986d41fd4431cd0, type: 2}
   <LevelOneNormal>k__BackingField: 30906
   <SpawnEnemies>k__BackingField: 1
   <SceneLoader>k__BackingField: {fileID: 3979984848490167843, guid: a39c2f37b5967cf42a360df5d75d8c96, type: 3}
@@ -30,9 +30,9 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/ZCX/MainMenu.unity
   <ShopScene>k__BackingField:
-    m_SceneAsset: {fileID: 102900000, guid: c9cac20e2c1d89d4bb9eaa71c167447e, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: ff0a13eafa480fc4bb98467bd8530cf8, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/Valou/Transition/TransitionScene.unity
+    m_ScenePath: Assets/Scenes/ZCX/TransitionScene_ZCX.unity
   <LevelOne>k__BackingField:
     m_SceneAsset: {fileID: 102900000, guid: 29a5aee83d2e2224480ebced603fc37e, type: 3}
     m_IsDirty: 0
@@ -44,19 +44,6 @@ MonoBehaviour:
   <UpgradesMenu>k__BackingField: {fileID: 11400000, guid: 7949dcdc7f87fbb4b9d31c6865dcc52e, type: 2}
   <CreditsMenu>k__BackingField: {fileID: 11400000, guid: 2e2470dcf0f8c544083947adcc638650, type: 2}
   <ScoreboardMenu>k__BackingField: {fileID: 11400000, guid: 53dabc4e62dc60c42af9c356a48f04e7, type: 2}
-  <PowerUps>k__BackingField:
-  - {fileID: 11400000, guid: 4dd4990ffc969f14183a349c439dc513, type: 2}
-  - {fileID: 11400000, guid: 123967cebb36f0e42a9d462041310d11, type: 2}
-  - {fileID: 11400000, guid: 17e4b6de80cda8f41a2911d0e1913164, type: 2}
-  - {fileID: 11400000, guid: 2bcc692a55eeddd4ebe2dc839ce84e38, type: 2}
-  - {fileID: 11400000, guid: dfee3bdd3ef043840bd1e9561e110fce, type: 2}
-  - {fileID: 11400000, guid: a58aef0061334c140a8d1bba795dc85a, type: 2}
-  - {fileID: 11400000, guid: e1db99738f1d7814aa59297b9ee754fc, type: 2}
-  - {fileID: 11400000, guid: 681daeaf69420774fae36dc40d49b06d, type: 2}
-  - {fileID: 11400000, guid: 7b08fdd6c3d51c041b56b844f30129b9, type: 2}
-  - {fileID: 11400000, guid: 4c584a2f0c08eea4cbae48368a4619f0, type: 2}
-  - {fileID: 11400000, guid: 12d80c6090743824092112f961daa031, type: 2}
-  - {fileID: 11400000, guid: 6f8980940283fcd4296490b6495b50e8, type: 2}
   <FMOD_PlayerAutomaticReload>k__BackingField:
     Guid:
       Data1: 1352886904

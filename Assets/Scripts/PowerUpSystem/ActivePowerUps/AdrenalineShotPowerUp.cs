@@ -10,30 +10,30 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         [field: SerializeField] public int AdrenalineMultiplier { get; private set; } = 2;
 
         
-        public override void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnBeUnlocked(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
             IsUnlocked = true;
             CanBeUsed = true;
         }
 
-        public override void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
             if (IsUnlocked && CanBeUsed)
             {
-                player.OnAdrenalineShot(AdrenalineMultiplier);
+                playerEntity.OnAdrenalineShot(AdrenalineMultiplier);
                 playerMovement.StartCooldownCoroutine(this);
-                player.StartCoroutine(CompetenceDuration(player, playerMovement, OnFinishedToBeUsed));
+                playerEntity.StartCoroutine(CompetenceDuration(playerEntity, playerMovement, OnFinishedToBeUsed));
             }
         }
 
-        public override void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnFinishedToBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
-            player.OnAdrenalineShotEnd();
+            playerEntity.OnAdrenalineShotEnd();
         }
         
-        public override void OnReset(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnReset(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
-            OnFinishedToBeUsed(player, playerMovement);
+            OnFinishedToBeUsed(playerEntity, playerMovement);
         }
     }
 }

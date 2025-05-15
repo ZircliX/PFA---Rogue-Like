@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using DeadLink.Entities.Data;
 using DeadLink.Menus;
+using DeadLink.Player;
+using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using DeadLink.Weapons;
 using Enemy;
@@ -30,14 +34,17 @@ namespace DeadLink.Entities
         #endregion
         
         public int Health { get; private set; }
+        public int HealthBarCount { get; private set; }
         private int removedHealthBar;
         public bool IsInvisible { get; protected set; }
 
         public bool ContinuousFire { get; protected set; }
-
+        
+        public List<PowerUp> PowerUps { get; protected set; }
+        
         #region Influenced Properties
         
-        public InfluencedProperty<int> HealthBarCount { get; private set; }
+        public InfluencedProperty<int> MaxHealthBarCount { get; private set; }
         public InfluencedProperty<float> Strength { get; private set; }
         public InfluencedProperty<float> Resistance { get; private set; }
         public InfluencedProperty<float> Speed { get; private set; }
@@ -45,6 +52,13 @@ namespace DeadLink.Entities
         
         #endregion
 
+        public void SetInfos(PlayerController.PlayerInfos playerInfos)
+        {
+            Health = playerInfos.HealthPoints;
+            HealthBarCount = playerInfos.HealthBarCount;
+            PowerUps = playerInfos.PlayerPowerUps.Select(PowerUp.GetPowerUpFromGUID).Where(ctx => ctx != null).ToList();
+        }
+        
         #region spawn damage heal die
         
         public virtual void Spawn(EntityData data, DifficultyData difficultyData, Vector3 SpawnPosition)
@@ -56,8 +70,8 @@ namespace DeadLink.Entities
             Strength = new InfluencedProperty<float>(EntityData.BaseStrength);
             Speed = new InfluencedProperty<float>(EntityData.BaseSpeed);
             Resistance = new InfluencedProperty<float>(EntityData.BaseResistance);
-            HealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
-            HealthBarCount.AddInfluence(this, Influence.Subtract);
+            MaxHealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
+            MaxHealthBarCount.AddInfluence(this, Influence.Subtract);
 
             CurrentWeapon = Weapons[^1];
             currentWeaponIndex = Weapons.Length - 1;
@@ -68,35 +82,35 @@ namespace DeadLink.Entities
 
         public abstract void Die();
 
-        public virtual void TakeDamage(float damage)
+        public virtual bool TakeDamage(float damage)
         {
-            TakeDamage(Mathf.CeilToInt(damage));
+            return TakeDamage(Mathf.CeilToInt(damage));
         }
 
-        public virtual void TakeDamage(int damage)
+        public virtual bool TakeDamage(int damage)
         {
             Health -= damage;
             
             if (Health <= 0)
             {
                 removedHealthBar++;
-                HealthBarCount.Write(this, removedHealthBar);
+                MaxHealthBarCount.Write(this, removedHealthBar);
                 
-                //Debug.Log("Removing health bar, remaining health bar count : " + HealthBarCount.Value);
-                //Debug.Log($"Current health bar count : {HealthBarCount.Value}");
+                //Debug.Log("Removing health bar, remaining health bar count : " + MaxHealthBarCount.Value);
+                //Debug.Log($"Current health bar count : {MaxHealthBarCount.Value}");
                 
                 int remainingDamages = Mathf.Abs(Health);
-                if (HealthBarCount.Value <= 0)
+                if (MaxHealthBarCount.Value <= 0)
                 {
-                    Debug.Log("call die");
                     Die();
-                    return;
+                    return true;
                 }
                 
                 SetFullHealth();
                 Health -= remainingDamages;
             }
             
+            return false;
             //Debug.Log($"entity {gameObject.name} take {damage} damage, health : {Health}");
         }
 
@@ -123,7 +137,7 @@ namespace DeadLink.Entities
         
         public virtual void SetBonusHealthBarCount(int bonusHealthBarCount)
         {
-            HealthBarCount.AddInfluence(this, bonusHealthBarCount, Influence.Add);
+            MaxHealthBarCount.AddInfluence(this, bonusHealthBarCount, Influence.Add);
         }
         
         public virtual void SetInstantHeal(int instantHealAmount)

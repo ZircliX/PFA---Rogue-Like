@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FMOD.Studio;
 using FMODUnity;
 using LTX.ChanneledProperties;
@@ -89,7 +90,7 @@ namespace DeadLink.Menus.Implementation
             resolutions = Screen.resolutions;
             resolutionDropdown.ClearOptions();
 
-            var options = new System.Collections.Generic.List<string>();
+            List<string> options = new List<string>();
 
             for (int i = 0; i < resolutions.Length; i++)
             {
@@ -110,6 +111,7 @@ namespace DeadLink.Menus.Implementation
 
             resolutionDropdown.onValueChanged.AddListener(SetResolution);
         }
+        
         #region ScreenResolutionSettings
         
         public void SetResolution(int resolutionIndex)
@@ -118,7 +120,6 @@ namespace DeadLink.Menus.Implementation
             Screen.SetResolution(res.width, res.height, Screen.fullScreen);
         }
         #endregion
-        
         
         #region SoundsSettings
         public void SetMusicVolume(float volume)

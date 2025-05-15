@@ -53,7 +53,7 @@ namespace DeadLink.Entities.Enemies
             Vector3 candidateDirection = Vector3.zero;
             bool found = false;
             
-            Vector3 gravity = LevelManager.Instance.PlayerMovement.Gravity.Value.normalized;
+            Vector3 gravity = LevelManager.Instance.PlayerController.PlayerMovement.Gravity.Value.normalized;
             if (gravity == Vector3.zero)
                 gravity = Vector3.down;
             

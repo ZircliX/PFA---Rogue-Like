@@ -1,11 +1,10 @@
-using RogueLike.Controllers;
 using SaveSystem.Core;
 
 namespace DeadLink.Save.Settings
 {
     public class SettingsListener : ISaveListener<SettingsSave>
     {
-        public int Priority { get; }
+        public int Priority => 1;
         
         public float SfxVolume { get; private set; }
         public float MusicVolume { get; private set; }
@@ -25,19 +24,10 @@ namespace DeadLink.Save.Settings
             VoiceVolume = saveFile.VoiceVolume;
         }
         
-        public void SetSfxVolume(float volume)
-        {
-            SfxVolume = volume;
-        }
-        
-        public void SetMusicVolume(float volume)
-        {
-            MusicVolume = volume;
-        }
-        
-        public void SetVoiceVolume(float volume)
-        {
-            VoiceVolume = volume;
-        }
+        public void SetSfxVolume(float volume) => SfxVolume = volume;
+
+        public void SetMusicVolume(float volume) => MusicVolume = volume;
+
+        public void SetVoiceVolume(float volume) => VoiceVolume = volume;
     }
 }

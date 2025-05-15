@@ -433,10 +433,10 @@ MonoBehaviour:
   aggroDetector: {fileID: 8700123457204935612}
   attackRadius: 5
   attackDetector: {fileID: 7936516376208140070}
+  rayfireRigid: {fileID: 8754444563749847026}
   idleMoveRadius: 15
   maxTurnAngle: 120
   idleTime: 0.3
-  rayfireRigid: {fileID: 8754444563749847026}
   navMeshAgent: {fileID: 7118967720084334429}
 --- !u!114 &259710934558240639
 MonoBehaviour:
@@ -447,7 +447,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2696346464027847249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67316644dbb14e6e9d1f1c030395d4f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 00ea0e837ccfdfa44834ac603a4a10a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 7882088084321818726}
@@ -488,7 +488,7 @@ MonoBehaviour:
   initialization: 0
   simTp: 0
   objTp: 0
-  dmlTp: 1
+  dmlTp: 2
   physics:
     mt: 4
     ma: {fileID: 0}

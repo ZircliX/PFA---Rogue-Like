@@ -1,5 +1,7 @@
 using DeadLink.Menus.Other.Scoreboard;
+using DeadLink.SceneManagement;
 using LTX.ChanneledProperties;
+using RogueLike;
 using UnityEngine;
 
 namespace DeadLink.Menus.Implementation
@@ -23,6 +25,11 @@ namespace DeadLink.Menus.Implementation
         private void Awake()
         {
             MenuType = MenuType.Scoreboard;
+        }
+
+        public void GoToShop()
+        {
+            SceneController.Global.ChangeScene(GameMetrics.Global.ShopScene);
         }
 
         public override void Open()

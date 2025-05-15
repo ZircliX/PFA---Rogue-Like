@@ -1,12 +1,14 @@
 using SaveSystem.Core;
+using UnityEngine;
 
 namespace DeadLink.Save.Settings
 {
     public struct SettingsSave : ISaveFile
     {
         public int Version { get; }
-        public float SfxVolume { get; set; }
-        public float MusicVolume { get; set; }
-        public float VoiceVolume { get; set; }
+        
+        [SerializeField] public float SfxVolume;
+        [SerializeField] public float MusicVolume;
+        [SerializeField] public float VoiceVolume;
     }
 }
