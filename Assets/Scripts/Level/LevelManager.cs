@@ -7,10 +7,12 @@ using DeadLink.Menus;
 using DeadLink.Player;
 using DeadLink.Save.LevelProgression;
 using DeadLink.SceneManagement;
+using EditorAttributes;
 using Enemy;
 using LTX.ChanneledProperties;
 using LTX.Singletons;
 using RogueLike.Timer;
+using SaveSystem.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ZLinq;
@@ -38,6 +40,7 @@ namespace RogueLike.Managers
         public DifficultyData Difficulty { get; private set; }
         
         public PrioritisedProperty<ILevelScenarioProvider> LevelScenarioProvider { get; private set; }
+        public LevelScenario LastLevelScenario { get; private set; }
         public List<LevelElement> LevelElements { get; private set; }
         
         private void OnEnable()
@@ -63,31 +66,24 @@ namespace RogueLike.Managers
         {
             yield return new WaitForEndOfFrame();
             
-            PrepareLevel(LevelScenarioProvider.Value.GetLevelScenario(this));
+            LastLevelScenario = LevelScenarioProvider.Value.GetLevelScenario(this);
+            PrepareLevel();
             StartLevel();
         }
         
-        private void PrepareLevel(LevelScenario levelScenario)
+        private void PrepareLevel()
         {
-            Difficulty = levelScenario.DifficultyData;
+            Difficulty = LastLevelScenario.DifficultyData;
 
             foreach (LevelElement element in LevelElements)
             {
-                foreach (KeyValuePair<string, ILevelElementInfos> elementSaveFile in levelScenario.LevelElements)
+                foreach (KeyValuePair<string, ILevelElementInfos> elementSaveFile in LastLevelScenario.LevelElements)
                 {
                     if (element.GUID != elementSaveFile.Key) continue;
                     
                     element.Push(elementSaveFile.Value);
                 }
             }
-                
-            if (GameMetrics.Global.SpawnEnemies)
-                EnemyManager.Instance.SpawnEnemies(Difficulty);
-
-            PlayerController.PlayerEntity.Spawn(
-                PlayerController.PlayerEntity.EntityData, 
-                Difficulty, 
-                PlayerController.PlayerEntity.SpawnPosition.position);
         }
 
         public void StartLevel()
@@ -109,10 +105,11 @@ namespace RogueLike.Managers
         public void FinishLevel()
         {
             TimerManager.Instance.PauseTimer();
+            LastLevelScenario = LevelScenario.GetDefault();
+            SaveManager<LevelScenarioSaveFile>.Push();
             
             IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.ScoreboardMenu);
             MenuManager.Instance.OpenMenu(menu);
-            //SceneController.Global.ChangeScene(GameMetrics.Global.ShopScene.BuildIndex);
         }
 
         public void RetryLevel()
@@ -120,19 +117,29 @@ namespace RogueLike.Managers
             SceneController.Global.ChangeScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        public LevelScenarioSaveFile GetLevelScenario()
+        public void ReloadFromLastScenario()
         {
-            return new LevelScenarioSaveFile()
+            PrepareLevel();
+            StartLevel();
+        }
+
+        LevelScenarioSaveFile ILevelManager.GetLevelScenario()
+        {
+            if (!LastLevelScenario.IsValid) return LevelScenarioSaveFile.GetDefault();
+            return new LevelScenarioSaveFile(LastLevelScenario);
+        }
+        
+        public void SaveCurrentLevelScenario()
+        {
+            LastLevelScenario = new LevelScenario()
             {
-                DifficultyData = Difficulty.GUID,
+                DifficultyData = Difficulty,
                 LevelElements = LevelElements
                     .AsValueEnumerable()
-                    .Select(ctx => new LevelScenarioSaveFile.LevelElementSaveFile()
-                    {
-                        GUID = ctx.GUID,
-                        ILevelElementInfos = ctx.Pull()
-                    }).ToList()
+                    .ToDictionary(ctx => ctx.GUID, ctx => ctx.Pull())
             };
+            
+            SaveManager<LevelScenarioSaveFile>.Push();
         }
     }
 }

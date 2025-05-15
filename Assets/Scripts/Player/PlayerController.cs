@@ -4,6 +4,7 @@ using DeadLink.Extensions;
 using DeadLink.Level.Interfaces;
 using KBCore.Refs;
 using RogueLike.Entities;
+using RogueLike.Managers;
 using RogueLike.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -51,6 +52,11 @@ namespace DeadLink.Player
             {
                 PlayerEntity.SetInfos(playerInfos);
                 transform.ApplySerialized(playerInfos.LastCheckPoint);
+                
+                PlayerEntity.Spawn(
+                    PlayerEntity.EntityData, 
+                    LevelManager.Instance.Difficulty, 
+                    PlayerEntity.SpawnPosition.position);
             }
         }
     }

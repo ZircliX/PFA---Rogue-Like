@@ -292,8 +292,8 @@
                 {
                     "name": "",
                     "id": "5e9536c4-b3cb-484b-a847-65c27ed7c990",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "Press",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
                     "processors": "",
                     "groups": ";Controller",
                     "action": "Slide",
@@ -303,7 +303,7 @@
                 {
                     "name": "",
                     "id": "b8fad0af-e352-4c19-944e-5c0c35502033",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Controller",
@@ -457,7 +457,7 @@
                 {
                     "name": "negative",
                     "id": "307bb96f-34b1-40a3-8a0d-d8adbb20c797",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Controller",
@@ -468,7 +468,7 @@
                 {
                     "name": "positive",
                     "id": "d43eb954-52fb-47bf-9077-f76d7ab04582",
-                    "path": "",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -512,7 +512,7 @@
                 {
                     "name": "",
                     "id": "2fb57a1f-4778-4010-896d-95440c32a780",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Controller",

@@ -46,7 +46,7 @@ namespace DeadLink.Entities
             rayfireRigid.Demolish();
             rayfireRigid.Fade();
             OutlinerManager.Instance.RemoveOutline(gameObject);
-            EnemyManager.Instance.EnemyKilled(this);
+            //EnemyManager.Instance.EnemyKilled(this);
             AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemiesDeath, transform.position);
             Destroy(gameObject);
         }
@@ -55,7 +55,7 @@ namespace DeadLink.Entities
         
         #region Power Ups
 
-        public override void OnFixedUpdate()
+        public override void OnUpdate()
         {
         }
 

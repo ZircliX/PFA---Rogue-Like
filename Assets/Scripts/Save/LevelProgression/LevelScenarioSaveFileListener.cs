@@ -15,11 +15,12 @@ namespace DeadLink.Save.LevelProgression
             if (CurrentILevelManager != null)
             {
                 LevelScenarioSaveFile scenarioSaveFile = CurrentILevelManager.GetLevelScenario();
+                CurrentLevelScenarioSaveFile = scenarioSaveFile;
 
+                if (!scenarioSaveFile.IsValid) return;
+                
                 saveFile.DifficultyData = scenarioSaveFile.DifficultyData;
                 saveFile.LevelElements = scenarioSaveFile.LevelElements;
-
-                CurrentLevelScenarioSaveFile = scenarioSaveFile;
             }
         }
 

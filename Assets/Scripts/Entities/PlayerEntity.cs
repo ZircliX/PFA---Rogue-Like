@@ -56,6 +56,7 @@ namespace RogueLike.Entities
         public override void Spawn(EntityData data, DifficultyData difficultyData, Vector3 spawnPoint)
         {
             base.Spawn(data, difficultyData, spawnPoint);
+            MenuManager.Instance.HUDMenu.ChangeWeapon(currentWeaponIndex);
             
             MaxHealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarCount, Influence.Add);
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
@@ -167,7 +168,7 @@ namespace RogueLike.Entities
             }
         }
 
-        public override void OnFixedUpdate()
+        public override void OnUpdate()
         {
         }
 

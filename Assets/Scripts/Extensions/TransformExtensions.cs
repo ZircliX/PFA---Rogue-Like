@@ -23,6 +23,11 @@ namespace DeadLink.Extensions
             transform.localScale = serializedTransform.Scale;
             
         }
+        
+        public static Quaternion GetQuaternion(this Vector4 vector)
+        {
+            return new Quaternion(vector.x, vector.y, vector.z, vector.w);
+        }
     }
     
     [System.Serializable]

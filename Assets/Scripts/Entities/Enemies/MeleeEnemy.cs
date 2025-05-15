@@ -24,9 +24,9 @@ namespace DeadLink.Entities.Enemies
         
         private Vector3 targetPosition;
 
-        public override void OnFixedUpdate()
+        public override void OnUpdate()
         {
-            base.OnFixedUpdate();
+            base.OnUpdate();
             HandleIdleMovement();
             Move();
         }

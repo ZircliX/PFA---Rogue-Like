@@ -1,5 +1,7 @@
+using System;
 using DeadLink.Entities.Data;
 using DeadLink.Entities.Enemies.Detection;
+using EditorAttributes;
 using Enemy;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
@@ -7,6 +9,10 @@ using RayFire;
 using RogueLike;
 using RogueLike.Controllers;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
 
 namespace DeadLink.Entities
 {
@@ -31,9 +37,10 @@ namespace DeadLink.Entities
         [Header("References")]
         [SerializeField, Self] private RayfireRigid rayfireRigid;
         
-        
         protected Entity player;
         protected bool canAttack;
+        
+        [field: SerializeField, ReadOnly, HideInEditMode] public string GUID { get; private set; }
         
         #region Event Functions
         
@@ -43,10 +50,31 @@ namespace DeadLink.Entities
             detectDetector.SphereCollider.radius = detectRadius;
             aggroDetector.SphereCollider.radius = aggroRadius;
             attackDetector.SphereCollider.radius = attackRadius;
+            
+#if UNITY_EDITOR
+            PrefabStage currentPrefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+            if (currentPrefabStage != null && currentPrefabStage.IsPartOfPrefabContents(gameObject))
+            {
+                //Debug.Log($" Prefab Instance: {currentPrefabStage.prefabContentsRoot == gameObject}", gameObject);
+                SetGUID(string.Empty);
+            }
+            else if (PrefabUtility.IsPartOfPrefabAsset(gameObject) || EditorUtility.IsPersistent(gameObject))
+            {
+                //Debug.Log($" Prefab Asset: {PrefabUtility.IsPartOfPrefabAsset(gameObject)}", gameObject);
+                SetGUID(string.Empty);
+            }
+            else if (string.IsNullOrEmpty(GUID))
+            {
+                //Debug.Log($"Assigning GUID: {GUID} to {gameObject.name}", gameObject);
+                SetGUID(Guid.NewGuid().ToString());
+            }
+#endif
         }
         
         private void OnEnable()
         {
+            EnemyManager.Instance.RegisterEnemy(this);
+            
             detectDetector.OnTriggerEnterEvent += TriggerEnter;
             detectDetector.OnTriggerStayEvent += TriggerStay;
             detectDetector.OnTriggerExitEvent += TriggerExit;
@@ -62,6 +90,8 @@ namespace DeadLink.Entities
         
         private void OnDisable()
         {
+            EnemyManager.Instance.UnregisterEnemy(this);
+            
             detectDetector.OnTriggerEnterEvent -= TriggerEnter;
             detectDetector.OnTriggerStayEvent -= TriggerStay;
             detectDetector.OnTriggerExitEvent -= TriggerExit;
@@ -74,7 +104,17 @@ namespace DeadLink.Entities
             attackDetector.OnTriggerStayEvent -= TriggerStay;
             attackDetector.OnTriggerExitEvent -= TriggerExit;
         }
-        
+
+        private void Start()
+        {
+            if (string.IsNullOrEmpty(GUID))
+            {
+                SetGUID(Guid.NewGuid().ToString());
+            }
+        }
+
+        public void SetGUID(string guid) => GUID = guid;
+
         #endregion
 
         #region spawn damage heal die
@@ -110,7 +150,7 @@ namespace DeadLink.Entities
         
         #region Updates
         
-        public override void OnFixedUpdate()
+        public override void OnUpdate()
         {
             HandleDetection();
             HandleOrientation();
