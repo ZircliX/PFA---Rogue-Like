@@ -36,7 +36,7 @@ namespace RogueLike.Player
         protected override void HandleVoidDetection()
         {
             base.HandleVoidDetection();
-            if (Position.y < - Mathf.Abs(maxYPosition))
+            if (Position.y < - Mathf.Abs(maxYPosition) || Position.y > Mathf.Abs(maxYPosition))
             {
                 LevelManager.Instance.ReloadFromLastScenario();
                 CheckPointManager.Instance.TeleportToCheckPoint(this);

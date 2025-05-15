@@ -51,12 +51,11 @@ namespace DeadLink.Menus.Implementation
         public void StartNewGame()
         {
             SceneController.Global.ChangeScene(GameMetrics.Global.LevelOne);
-            //GameController.StartNewGame();
         }
         
         public void ContinueGame()
         {
-            //GameController.ContinueGame();
+            SceneController.Global.ChangeScene(GameMetrics.Global.LevelOne);
         }
 
         public void Quit()

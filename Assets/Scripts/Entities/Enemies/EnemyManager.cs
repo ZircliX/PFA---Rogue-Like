@@ -1,14 +1,17 @@
 using System.Collections.Generic;
 using DeadLink.Entities.Data;
 using DeadLink.Extensions;
+using DG.Tweening;
 using EditorAttributes;
 using Enemy;
 using LTX.Singletons;
 using RogueLike.Controllers;
-using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Pool;
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
 
 namespace DeadLink.Entities
 {
@@ -17,7 +20,9 @@ namespace DeadLink.Entities
         [SerializeField] private int wavesToSpawn;
         [SerializeField] private Transform[] SpawnPositions;
         public List<Enemy> SpawnedEnemies { get; private set; }
-        
+
+
+#if UNITY_EDITOR
         [ButtonField(nameof(EditorSpawnEnemies), "SpawnEnemies")]
         [SerializeField] private Void RefreshWindows;
 
@@ -38,6 +43,7 @@ namespace DeadLink.Entities
 
             EditorSceneManager.MarkSceneDirty(gameObject.scene);
         }
+#endif
         
         protected override void Awake()
         {
@@ -91,11 +97,8 @@ namespace DeadLink.Entities
         
         public void EnemyKilled(Enemy enemy)
         {
-            //Imobiliser le mob
-            enemy.EntityData.VFXToSpawn.PlayVFX(enemy.transform.position, enemy.EntityData.DelayAfterDestroyVFX);
-            Debug.Log("Enemy Killed");
             SpawnedEnemies.Remove(enemy);
-            Destroy(enemy.gameObject, 2f);
+            Destroy(enemy.gameObject);
         }
     }
 }

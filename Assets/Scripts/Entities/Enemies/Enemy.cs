@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using DeadLink.Entities.Data;
 using DeadLink.Entities.Enemies.Detection;
+using DG.Tweening;
 using EditorAttributes;
 using Enemy;
 using KBCore.Refs;
@@ -138,12 +140,18 @@ namespace DeadLink.Entities
             return die;
         }
 
-        public override void Die()
+        public override IEnumerator Die()
         {
-            rayfireRigid.Demolish();
             OutlinerManager.Instance.RemoveOutline(gameObject);
-            EnemyManager.Instance.EnemyKilled(this);
+            
+            yield return new WaitForSeconds(0.3f);
+            DOTween.Kill(gameObject);
+            
             AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemiesDeath, transform.position);
+            EntityData.VFXToSpawn.PlayVFX(transform.position, EntityData.DelayAfterDestroyVFX);
+
+            EnemyManager.Instance.EnemyKilled(this);
+            rayfireRigid.Demolish();
         }
 
         #endregion

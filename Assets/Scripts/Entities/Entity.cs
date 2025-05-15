@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DeadLink.Entities.Data;
@@ -79,11 +80,11 @@ namespace DeadLink.Entities
             SetFullHealth();
         }
 
-        public abstract void Die();
+        public abstract IEnumerator Die();
 
         public virtual void Dispose()
         {
-            DOTween.Kill(this);
+            DOTween.Kill(gameObject);
             Destroy(gameObject);
         }
 
@@ -107,7 +108,7 @@ namespace DeadLink.Entities
                 int remainingDamages = Mathf.Abs(Health);
                 if (MaxHealthBarCount.Value <= 0)
                 {
-                    Die();
+                    StartCoroutine(Die());
                     return true;
                 }
                 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DeadLink.Entities;
 using DeadLink.Entities.Data;
@@ -91,9 +92,9 @@ namespace RogueLike.Entities
             return die;
         }
 
-        public override void Die()
+        public override IEnumerator Die()
         {
-
+            yield return null;
         }
         
         #endregion
