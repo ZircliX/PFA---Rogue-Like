@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba67f4a1984e4a7294304f42a9bfebf1, type: 3}
   m_Name: DistanceEnemyData
   m_EditorClassIdentifier: 
+  <EntityPrefab>k__BackingField: {fileID: 1638479232568043533, guid: b4804a422f4380348940b7d3af0cc94f, type: 3}
+  <GUID>k__BackingField: fdb37697-ff40-4dd7-9168-52df7266cbbf
   <BaseHealth>k__BackingField: 50
   <BaseHealthBarAmount>k__BackingField: 1
   <BaseSpeed>k__BackingField: 1
+  <BaseResistance>k__BackingField: 0
   <BaseStrength>k__BackingField: 1
   <VFXToSpawn>k__BackingField: {fileID: 0}
   <DelayAfterDestroyVFX>k__BackingField: 0

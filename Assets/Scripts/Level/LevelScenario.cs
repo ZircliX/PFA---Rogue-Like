@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DeadLink.Level.Interfaces;
 using Enemy;
+using RogueLike;
 using RogueLike.Controllers;
 
 namespace DeadLink.Level
@@ -17,5 +18,16 @@ namespace DeadLink.Level
             LevelElements = levelScenarioSaveFile.LevelElements.
                 ToDictionary(ctx => ctx.GUID, ctx => ctx.ILevelElementInfos);
         }
+        
+        public static LevelScenario GetDefault()
+        {
+            return new LevelScenario()
+            {
+                DifficultyData = null,
+                LevelElements = null
+            };
+        }
+        
+        public bool IsValid => DifficultyData != null && LevelElements != null;
     }
 }

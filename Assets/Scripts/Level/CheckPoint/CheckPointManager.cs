@@ -2,6 +2,7 @@ using System.Linq;
 using DeadLink.Entities.Movement;
 using DeadLink.Extensions;
 using LTX.Singletons;
+using RogueLike.Managers;
 using RogueLike.Player;
 using UnityEngine;
 
@@ -11,12 +12,26 @@ namespace DeadLink.Level.CheckPoint
     {
         [SerializeField] private CheckPointInfos[] checkPoints;
         public CheckPointInfos CurrentCheckPoint { get; private set; }
-        
+
+        protected override void Awake()
+        {
+            base.Awake();
+            CurrentCheckPoint = new CheckPointInfos()
+            {
+                CheckPoint = null,
+                CheckPointIndex = 0
+            };
+        }
+
         public void TeleportToCheckPoint(PlayerMovement player)
         {
             if (CurrentCheckPoint.CheckPoint != null)
             {
                 player.TeleportPlayer(CurrentCheckPoint.CheckPoint.transform, 1f, 1f);
+            }
+            else
+            {
+                player.TeleportPlayer(LevelManager.Instance.PlayerController.PlayerEntity.SpawnPosition);
             }
         }
         
@@ -28,6 +43,7 @@ namespace DeadLink.Level.CheckPoint
                 if (checkPointInfos.CheckPointIndex < CurrentCheckPoint.CheckPointIndex) return;
             }
             CurrentCheckPoint = checkPointInfos;
+            LevelManager.Instance.SaveCurrentLevelScenario();
         }
         
         private bool GetCheckPointInfos(CheckPoint checkPoint, out CheckPointInfos checkPointInfos)

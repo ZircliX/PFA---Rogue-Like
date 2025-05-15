@@ -1,12 +1,13 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DeadLink.Entities.Data;
-using DeadLink.Menus;
 using DeadLink.Player;
 using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using DeadLink.Weapons;
+using DG.Tweening;
 using Enemy;
 using LTX.ChanneledProperties;
 using RogueLike;
@@ -75,12 +76,17 @@ namespace DeadLink.Entities
 
             CurrentWeapon = Weapons[^1];
             currentWeaponIndex = Weapons.Length - 1;
-            MenuManager.Instance.HUDMenu.ChangeWeapon(currentWeaponIndex);
 
             SetFullHealth();
         }
 
-        public abstract void Die();
+        public abstract IEnumerator Die();
+
+        public virtual void Dispose()
+        {
+            DOTween.Kill(gameObject);
+            Destroy(gameObject);
+        }
 
         public virtual bool TakeDamage(float damage)
         {
@@ -102,7 +108,7 @@ namespace DeadLink.Entities
                 int remainingDamages = Mathf.Abs(Health);
                 if (MaxHealthBarCount.Value <= 0)
                 {
-                    Die();
+                    StartCoroutine(Die());
                     return true;
                 }
                 
@@ -240,7 +246,7 @@ namespace DeadLink.Entities
             CurrentWeapon?.OnUpdate(this);
         }
         
-        public abstract void OnFixedUpdate();
+        public abstract void OnUpdate();
 
         #region PowerUps
         

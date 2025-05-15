@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DeadLink.Entities;
 using DeadLink.Entities.Data;
@@ -56,6 +57,7 @@ namespace RogueLike.Entities
         public override void Spawn(EntityData data, DifficultyData difficultyData, Vector3 spawnPoint)
         {
             base.Spawn(data, difficultyData, spawnPoint);
+            MenuManager.Instance.HUDMenu.ChangeWeapon(currentWeaponIndex);
             
             MaxHealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarCount, Influence.Add);
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
@@ -90,9 +92,9 @@ namespace RogueLike.Entities
             return die;
         }
 
-        public override void Die()
+        public override IEnumerator Die()
         {
-
+            yield return null;
         }
         
         #endregion
@@ -167,7 +169,7 @@ namespace RogueLike.Entities
             }
         }
 
-        public override void OnFixedUpdate()
+        public override void OnUpdate()
         {
         }
 

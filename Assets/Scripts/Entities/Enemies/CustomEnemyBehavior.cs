@@ -1,3 +1,4 @@
+using System.Collections;
 using DeadLink.Entities.Data;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using Enemy;
@@ -41,13 +42,16 @@ namespace DeadLink.Entities
             return die;
         }
 
-        public override void Die()
+        public override IEnumerator Die()
         {
             rayfireRigid.Demolish();
             rayfireRigid.Fade();
             OutlinerManager.Instance.RemoveOutline(gameObject);
-            EnemyManager.Instance.EnemyKilled(this);
+            
+            yield return new WaitForSeconds(0.5f);
+            
             AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemiesDeath, transform.position);
+            //EnemyManager.Instance.EnemyKilled(this);
             Destroy(gameObject);
         }
         
@@ -55,7 +59,7 @@ namespace DeadLink.Entities
         
         #region Power Ups
 
-        public override void OnFixedUpdate()
+        public override void OnUpdate()
         {
         }
 

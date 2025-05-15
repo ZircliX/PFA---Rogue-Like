@@ -72,9 +72,11 @@ namespace DeadLink.Menus.Implementation
 
         private void SaveSettings()
         {
+            /*
             GameController.SettingsListener.SetMusicVolume(musicSlider.value);
             GameController.SettingsListener.SetSfxVolume(sfxSlider.value);
             GameController.SettingsListener.SetVoiceVolume(voiceSlider.value);
+            */
         }
         
         private void Start()

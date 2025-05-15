@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba67f4a1984e4a7294304f42a9bfebf1, type: 3}
   m_Name: MeleeEnemyData
   m_EditorClassIdentifier: 
+  <EntityPrefab>k__BackingField: {fileID: 2498381480007148682, guid: 343651463b8218b4bb6311c254684901, type: 3}
+  <GUID>k__BackingField: a465a979-a164-47a6-83e4-649b9b234d8c
   <BaseHealth>k__BackingField: 75
   <BaseHealthBarAmount>k__BackingField: 1
   <BaseSpeed>k__BackingField: 1
+  <BaseResistance>k__BackingField: 0
   <BaseStrength>k__BackingField: 1
   <VFXToSpawn>k__BackingField: {fileID: 0}
   <DelayAfterDestroyVFX>k__BackingField: 0

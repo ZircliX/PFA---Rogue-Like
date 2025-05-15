@@ -6,9 +6,9 @@ namespace DeadLink.Entities.Enemies
 {
     public class DistanceEnemy : Enemy
     {
-        public override void OnFixedUpdate()
+        public override void OnUpdate()
         {
-            base.OnFixedUpdate();
+            base.OnUpdate();
         }
 
         public override void Unlock(IVisitor visitor)

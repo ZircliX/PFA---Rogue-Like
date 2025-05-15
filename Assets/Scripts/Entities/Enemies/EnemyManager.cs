@@ -1,63 +1,104 @@
 using System.Collections.Generic;
+using DeadLink.Entities.Data;
+using DeadLink.Extensions;
+using DG.Tweening;
+using EditorAttributes;
 using Enemy;
 using LTX.Singletons;
 using RogueLike.Controllers;
-using RogueLike.Managers;
 using UnityEngine;
+using UnityEngine.Pool;
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
 
 namespace DeadLink.Entities
 {
     public class EnemyManager : MonoSingleton<EnemyManager>
     {
-        [SerializeField] private Entity[] enemyPrefabs;
         [SerializeField] private int wavesToSpawn;
         [SerializeField] private Transform[] SpawnPositions;
-        public List<Entity> spawnedEnemies { get; private set; }
+        public List<Enemy> SpawnedEnemies { get; private set; }
 
+
+#if UNITY_EDITOR
+        [ButtonField(nameof(EditorSpawnEnemies), "SpawnEnemies")]
+        [SerializeField] private Void RefreshWindows;
+
+        public void EditorSpawnEnemies()
+        {
+            EntityData[] entityDatas = Resources.LoadAll<EntityData>("Entities/Enemies");
+            for (int i = 0; i < SpawnPositions.Length; i++)
+            {
+                EntityData enemy = entityDatas[Random.Range(0, entityDatas.Length)];
+                Object spawnedObject = PrefabUtility.InstantiatePrefab(enemy.EntityPrefab, SpawnPositions[i].transform.parent);
+                
+                if (spawnedObject is Entity entity)
+                {
+                    entity.transform.position = SpawnPositions[i].position;
+                    entity.transform.rotation = SpawnPositions[i].rotation;
+                }
+            }
+
+            EditorSceneManager.MarkSceneDirty(gameObject.scene);
+        }
+#endif
+        
         protected override void Awake()
         {
             base.Awake();
-            spawnedEnemies = new List<Entity>();
+            SpawnedEnemies = new List<Enemy>();
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                SpawnEnemies(LevelManager.Instance.Difficulty);
-            }
-
-            foreach (Entity entity in spawnedEnemies)
+            foreach (Enemy entity in SpawnedEnemies)
             {
                 //Debug.Log(spawnedEnemies.Count);
                 if (entity == null) continue;
-                entity.OnFixedUpdate();
+                entity.OnUpdate();
             }
         }
 
-        public void SpawnEnemies(DifficultyData difficultyData)
+        public Enemy SpawnEnemy(EntityData entity, DifficultyData difficultyData, SerializedTransform t)
         {
-            if (enemyPrefabs == null) return;
-            for (var i = 0; i < wavesToSpawn; i++)
+            Entity spawnedEnemy = Instantiate(entity.EntityPrefab, t.Position, t.Rotation.GetQuaternion());
+            spawnedEnemy.Spawn(entity, difficultyData, t.Position);
+            //Debug.Log($"Spawned {spawnedEnemy.name} at {t.Position}", spawnedEnemy);
+            
+            return spawnedEnemy as Enemy;
+        }
+
+        public void ClearEnemies()
+        {
+            using (ListPool<Enemy>.Get(out List<Enemy> enemies))
             {
-                for (int j = 0; j < SpawnPositions.Length; j++)
+                enemies.AddRange(SpawnedEnemies);
+                
+                foreach (Enemy enemy in enemies)
                 {
-                    Vector3 position = SpawnPositions[j].position;
-                    Entity spawnedEnemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], position, Quaternion.identity);
-                    spawnedEnemy.Spawn(spawnedEnemy.EntityData, difficultyData, position);
-                    
-                    spawnedEnemies.Add(spawnedEnemy);
+                    enemy.Dispose();
                 }
             }
+            
+            SpawnedEnemies.Clear();
         }
         
-        public void EnemyKilled(Entity entity)
+        public void RegisterEnemy(Enemy enemy)
         {
-            //Imobiliser le mob
-            entity.EntityData.VFXToSpawn.PlayVFX(entity.transform.position, entity.EntityData.DelayAfterDestroyVFX);
-            Debug.Log("Enemy Killed");
-            spawnedEnemies.Remove(entity);
-            Destroy(entity.gameObject, 2f);
+            SpawnedEnemies.Add(enemy);
+        }
+        
+        public void UnregisterEnemy(Enemy enemy)
+        {
+            SpawnedEnemies.Remove(enemy);
+        }
+        
+        public void EnemyKilled(Enemy enemy)
+        {
+            SpawnedEnemies.Remove(enemy);
+            Destroy(enemy.gameObject);
         }
     }
 }
