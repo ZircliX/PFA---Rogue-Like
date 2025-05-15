@@ -12,7 +12,7 @@ namespace DeadLink.Entities
         [SerializeField] private Entity[] enemyPrefabs;
         [SerializeField] private int wavesToSpawn;
         [SerializeField] private Transform[] SpawnPositions;
-        private List<Entity> spawnedEnemies;
+        public List<Entity> spawnedEnemies { get; private set; }
 
         protected override void Awake()
         {
@@ -34,7 +34,7 @@ namespace DeadLink.Entities
                 entity.OnFixedUpdate();
             }
         }
-        
+
         public void SpawnEnemies(DifficultyData difficultyData)
         {
             if (enemyPrefabs == null) return;

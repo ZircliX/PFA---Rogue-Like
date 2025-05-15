@@ -17,7 +17,7 @@ namespace DeadLink.Entities
         [Header("References")]
         [SerializeField] private RayfireRigid rayfireRigid;
         
-        private RogueLike.Entities.Player currentPlayer;
+        private RogueLike.Entities.PlayerEntity currentPlayerEntity;
         private bool canSeePlayer;
 
         #region spawn damge heal die

@@ -1,9 +1,9 @@
+using System;
 using System.Collections.Generic;
 using DeadLink.Entities;
 using DeadLink.Entities.Data;
 using DeadLink.Menus;
 using DeadLink.PowerUpSystem;
-using DeadLink.PowerUpSystem.ActivePowerUps;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
 using Enemy;
 using KBCore.Refs;
@@ -14,7 +14,7 @@ using UnityEngine.InputSystem;
 
 namespace RogueLike.Entities
 {
-    public class Player : Entity
+    public class PlayerEntity : Entity
     {
         [field : SerializeField] public Transform SpawnPosition { get; private set; }
         [field : SerializeField] public List<string> PowerUpsInputName{ get; private set; }
@@ -28,9 +28,15 @@ namespace RogueLike.Entities
         #region Event Functions
         
         private void OnValidate() => this.ValidateRefs();
-        
+
+        private void Awake()
+        {
+            PowerUps = new List<PowerUp>();
+        }
+
         private void Start()
         {
+            /*
             if (PowerUpsInputName.Count < GameMetrics.Global.PowerUps.Length) return;
 
             for (int i = 0; i < GameMetrics.Global.PowerUps.Length; i++)
@@ -40,6 +46,7 @@ namespace RogueLike.Entities
 
                 inputToPowerUpName.Add(inputName, powerUp.Name);
             }
+            */
         }
 
         #endregion
@@ -50,7 +57,7 @@ namespace RogueLike.Entities
         {
             base.Spawn(data, difficultyData, spawnPoint);
             
-            HealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarCount, Influence.Add);
+            MaxHealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarCount, Influence.Add);
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
             Strength.AddInfluence(difficultyData, difficultyData.PlayerStrengthMultiplier, Influence.Multiply);
             Resistance.AddInfluence(difficultyData, difficultyData.PlayerResistanceMultiplier, Influence.Multiply);
@@ -79,7 +86,7 @@ namespace RogueLike.Entities
         {
             int finalDamage = Mathf.CeilToInt(damage / Resistance);
             bool die = base.TakeDamage(finalDamage);
-            MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount.Value);
+            MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
             return die;
         }
 

@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DevLocker.Utils;
+using RogueLike;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace RogueLike.Controllers
+namespace DeadLink.SceneManagement
 {
     public class SceneLoader : MonoBehaviour
     {

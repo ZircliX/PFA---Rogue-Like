@@ -1,8 +1,7 @@
 using DeadLink.Menus;
-using DeadLink.PowerUpSystem;
+using DeadLink.SceneManagement;
 using DevLocker.Utils;
 using Enemy;
-using JetBrains.Annotations;
 using RogueLike.Controllers;
 using UnityEngine;
 
@@ -14,10 +13,10 @@ namespace RogueLike
         public static GameMetrics Global => GameController.Metrics;
         
         [field: Header("Difficulties")]
-        [field: SerializeField] public DifficultyData EasyDiffuculty { get; private set; }
-        [field: SerializeField] public DifficultyData NormalDiffuculty { get; private set; }
-        [field: SerializeField] public DifficultyData HardDiffuculty { get; private set; }
-        [field: SerializeField] public DifficultyData InsaneDiffuculty { get; private set; }
+        [field: SerializeField] public DifficultyData EasyDifficulty { get; private set; }
+        [field: SerializeField] public DifficultyData NormalDifficulty { get; private set; }
+        [field: SerializeField] public DifficultyData HardDifficulty { get; private set; }
+        [field: SerializeField] public DifficultyData InsaneDifficulty { get; private set; }
 
         [field: Header("Leaderboard")]
         [field: SerializeField] public string LevelOneNormal { get; private set; }
@@ -47,42 +46,5 @@ namespace RogueLike
         [field: SerializeField] public MenuType ScoreboardMenu { get; private set; }
         #endregion
         
-        #region PowerUps
-        [field: Header("PowerUps")]
-        [field: SerializeField] public PowerUp[] PowerUps { get; private set; }
-        /*
-        [field: SerializeField] public PowerUp InstantHealPowerUp { get; private set; }
-        [field: SerializeField] public PowerUp WallHackPowerUp { get; private set; }
-        
-        [field: SerializeField] public PowerUp SlowMotionPowerUp { get; private set; }
-        
-        [field: SerializeField] public PowerUp GrapplingHookPowerUp { get; private set; }
-        
-        [field: SerializeField] public PowerUp InvisibilityPowerUp { get; private set; }
-        
-        [field: SerializeField] public PowerUp ShockWavePowerUp { get; private set; }
-        
-        [field: SerializeField] public PowerUp FastFallPowerUp { get; private set; }
-        
-        [field: SerializeField] public PowerUp AdrenalineShotPowerUp { get; private set; }
-        
-        [field: SerializeField] public PowerUp ContinuousFirePowerUp { get; private set; }
-        */
-        
-        public PowerUp GetPowerUp(string targetName)
-        {
-            for (int index = 0; index < PowerUps.Length; index++)
-            {
-                PowerUp powerUp = PowerUps[index];
-                if (powerUp.Name == targetName)
-                {
-                    return powerUp;
-                }
-            }
-
-            Debug.LogError($"PowerUp with name {targetName} not found.");
-            return null;
-        }
-        #endregion
     }
 }

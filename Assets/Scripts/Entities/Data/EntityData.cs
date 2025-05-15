@@ -1,3 +1,5 @@
+using System;
+using EditorAttributes;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -5,6 +7,10 @@ namespace DeadLink.Entities.Data
 {
     public abstract class EntityData : ScriptableObject
     {
+        [field: Header("Enemy")]
+        [field: SerializeField] public Entity EntityPrefab { get; private set; }
+        [field: SerializeField, ReadOnly] public string GUID { get; private set; } = Guid.NewGuid().ToString();
+        
         [field: Header("Base Stats")]
         [field: SerializeField]
         public int BaseHealth { get; private set; }
@@ -20,5 +26,14 @@ namespace DeadLink.Entities.Data
         [field: Header("VFX")]
         [field: SerializeField] public VisualEffect VFXToSpawn { get; private set; }
         [field: SerializeField] public float DelayAfterDestroyVFX { get; private set; }
+
+
+        private void OnValidate()
+        {
+            if (string.IsNullOrEmpty(GUID))
+            {
+                GUID = Guid.NewGuid().ToString();
+            }
+        }
     }
 }

@@ -8,31 +8,31 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
     {
         [field: SerializeField] public int BonusHealthBarCount { get; private set; } = 1;
 
-        public override void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnBeUnlocked(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
-            if (player.HealthBarCount >= 3)
+            if (playerEntity.HealthBarCount >= 3)
             {
-                player.SetFullHealth();
+                playerEntity.SetFullHealth();
             }
             else
             {
-                player.SetBonusHealthBarCount(BonusHealthBarCount);
+                playerEntity.SetBonusHealthBarCount(BonusHealthBarCount);
             }
 
             Debug.Log("Visitor accepted in HealthComponent");
         }
 
-        public override void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
         }
 
-        public override void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnFinishedToBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
         }
         
-        public override void OnReset(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnReset(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
-            OnFinishedToBeUsed(player, playerMovement);
+            OnFinishedToBeUsed(playerEntity, playerMovement);
         }
     }
 }

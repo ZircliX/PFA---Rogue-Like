@@ -15,7 +15,7 @@ namespace DeadLink.Extensions
             };
         }
         
-        public static void ToTransform(ref Transform transform, SerializedTransform serializedTransform)
+        public static void ApplySerialized(this Transform transform, SerializedTransform serializedTransform)
         {
             transform.position = serializedTransform.Position;
             transform.rotation = new Quaternion(serializedTransform.Rotation.x, serializedTransform.Rotation.y,

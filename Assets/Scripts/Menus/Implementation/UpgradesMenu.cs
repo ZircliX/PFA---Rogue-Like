@@ -90,7 +90,7 @@ namespace DeadLink.Menus.Implementation
                         upgradeUIs.Remove(ui);
                         Destroy(ui.gameObject);
                     });
-                    ui.powerUp.OnBeUnlocked(LevelManager.Instance.Player, LevelManager.Instance.PlayerMovement);
+                    ui.powerUp.OnBeUnlocked(LevelManager.Instance.PlayerController.PlayerEntity, LevelManager.Instance.PlayerController.PlayerMovement);
                 }
                 else
                 {

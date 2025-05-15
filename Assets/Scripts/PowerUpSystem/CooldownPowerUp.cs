@@ -10,9 +10,9 @@ namespace DeadLink.PowerUpSystem
         [field: SerializeField] public float CooldownTime { get; private set; }
         [field: SerializeField] public float CompetenceTime { get; private set; }
         
-        public override void OnReset(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnReset(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
-            OnFinishedToBeUsed(player, playerMovement);
+            OnFinishedToBeUsed(playerEntity, playerMovement);
         }
         
         public virtual IEnumerator Cooldown()
@@ -36,7 +36,7 @@ namespace DeadLink.PowerUpSystem
             //implement UI logic here?
         }
 
-        public virtual IEnumerator CompetenceDuration(RogueLike.Entities.Player player, PlayerMovement playerMovement, Action<RogueLike.Entities.Player, PlayerMovement> callback)
+        public virtual IEnumerator CompetenceDuration(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement, Action<RogueLike.Entities.PlayerEntity, PlayerMovement> callback)
         {
             float currentTime = 0;
 
@@ -47,7 +47,7 @@ namespace DeadLink.PowerUpSystem
                 yield return null;
             }
             
-            callback.Invoke(player, playerMovement);
+            callback.Invoke(playerEntity, playerMovement);
 
         }
     }

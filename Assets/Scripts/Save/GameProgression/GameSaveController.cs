@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using RogueLike;
 using SaveSystem.Core;
 using UnityEngine;
-using ZLinq;
 
 namespace DeadLink.Save.GameProgression
 {
@@ -12,13 +9,7 @@ namespace DeadLink.Save.GameProgression
 
         public GameProgression GetDefaultSaveFile()
         {
-            return new GameProgression()
-            {
-                DifficultyData = GameMetrics.Global.NormalDiffuculty.GUID,
-                PlayerName = "Unnamed",
-                RemainingPowerUps = GameMetrics.Global.PowerUps.AsValueEnumerable().Select(up => up.GUID).ToList(),
-                PlayerPowerUps = new List<string>(),
-            };
+            return GameProgression.GetDefault();
         }
 
         public bool Push(in GameProgression saveFile)

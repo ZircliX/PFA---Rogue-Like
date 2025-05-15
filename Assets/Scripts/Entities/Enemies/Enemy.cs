@@ -177,7 +177,7 @@ namespace DeadLink.Entities
         
         private void TriggerEnter(Collider other, SphereDetector sphereDetector)
         {
-            if (other.TryGetComponent(out RogueLike.Entities.Player playerDetected))
+            if (other.TryGetComponent(out RogueLike.Entities.PlayerEntity playerDetected))
             {
                 if (playerDetected.IsInvisible) return;
                 
@@ -207,7 +207,7 @@ namespace DeadLink.Entities
         
         private void TriggerExit(Collider other, SphereDetector sphereDetector)
         {
-            if (other.TryGetComponent(out RogueLike.Entities.Player playerDetected))
+            if (other.TryGetComponent(out RogueLike.Entities.PlayerEntity playerDetected))
             {
                 if (sphereDetector == detectDetector)
                 {

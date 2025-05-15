@@ -8,13 +8,13 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
     {
         [field: SerializeField] public int BonusJumpCount { get; private set; } = 1;
 
-        public override void OnBeUnlocked(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnBeUnlocked(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
             IsUnlocked = true;
-            OnBeUsed(player, playerMovement);
+            OnBeUsed(playerEntity, playerMovement);
         }
 
-        public override void OnBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
             if (IsUnlocked)
             {
@@ -27,7 +27,7 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
             }
         }
 
-        public override void OnFinishedToBeUsed(RogueLike.Entities.Player player, PlayerMovement playerMovement)
+        public override void OnFinishedToBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
         }
     }
