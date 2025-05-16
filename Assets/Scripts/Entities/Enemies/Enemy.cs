@@ -38,6 +38,8 @@ namespace DeadLink.Entities
         
         [Header("References")]
         [SerializeField, Self] private RayfireRigid rayfireRigid;
+
+        public GameObject outline;
         
         protected Entity player;
         protected bool canAttack;

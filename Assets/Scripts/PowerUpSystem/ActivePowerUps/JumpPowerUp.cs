@@ -19,11 +19,6 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
             if (IsUnlocked)
             {
                 playerMovement.AddBonusJump(BonusJumpCount);
-                Debug.Log("Visitor accepted in JumpComponent");
-            }
-            else
-            {
-                Debug.Log("PowerUp is not unlocked");
             }
         }
 

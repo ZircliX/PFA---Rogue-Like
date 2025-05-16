@@ -13,6 +13,7 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
 
         public override void OnBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
+            
         }
 
         public override void OnFinishedToBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
