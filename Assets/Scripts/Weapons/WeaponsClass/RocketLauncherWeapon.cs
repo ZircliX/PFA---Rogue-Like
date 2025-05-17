@@ -11,9 +11,9 @@ namespace DeadLink.Weapons.WeaponsClass
         public override int CurrentMunitions { get; protected set; }
         public override float CurrentReloadTime { get; protected set; }
 
-        public override bool Fire(Entity entity, Vector3 direction)
+        public override bool Fire(Entity entity, Vector3 direction, GameObject shouldHit)
         {
-            if (base.Fire(entity, direction))
+            if (base.Fire(entity, direction, shouldHit))
             {
                 //AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerAutomaticShoot, entity.transform.position);
                 return true;

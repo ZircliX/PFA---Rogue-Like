@@ -70,10 +70,6 @@ namespace RogueLike.Player.States
                 {
                     return MovementState.Running;
                 }
-                if (movement.WalkInput)
-                {
-                    return MovementState.Walking;
-                }
                 if (movement.CanWallRun())
                 {
                     return MovementState.WallRunning;

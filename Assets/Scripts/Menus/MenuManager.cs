@@ -93,6 +93,8 @@ namespace DeadLink.Menus
         public void OpenMenu(IMenu menuToOpen)
         {
             //Debug.Log($"MenuToOpen : {menuToOpen}, menuType : {menuToOpen.MenuType}, menuName : {menuToOpen.GetMenuProperties().GameObject}");
+
+            if (HasOpenMenu() && !openedMenus.Peek().GetMenuProperties().CanStack) return;
             
             openedMenus.Push(menuToOpen);
             

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using DeadLink.Misc;
 using DevLocker.Utils;
+using DG.Tweening;
 using RogueLike.Controllers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,15 +31,6 @@ namespace DeadLink.SceneManagement
             while (op != null && !op.isDone)
                 yield return null;
         }
-        
-        public void ChangeScene(int sceneIndex)
-        {
-            OnWantsToChangeScene?.Invoke();
-            PreviousScene = SceneManager.GetActiveScene();
-            
-            SceneManager.LoadScene(sceneIndex);
-        }
-        
         public void ChangeScene(string sceneName)
         {
             OnWantsToChangeScene?.Invoke();
@@ -45,13 +38,25 @@ namespace DeadLink.SceneManagement
             
             SceneManager.LoadScene(sceneName);
         }
+
+        public void ChangeScene(SceneData scene)
+        {
+            ChangeScene(scene.Scene);
+        }
         
         public void ChangeScene(SceneReference scene)
         {
+            ChangeScene(scene.BuildIndex);
+        }
+        
+        public void ChangeScene(int sceneIndex)
+        {
             OnWantsToChangeScene?.Invoke();
             PreviousScene = SceneManager.GetActiveScene();
-            
-            SceneManager.LoadScene(scene.BuildIndex);
+            FadeUI.Instance.FadeIn(1f).OnComplete(() =>
+            {
+                SceneManager.LoadScene(sceneIndex);
+            });
         }
     }
 }

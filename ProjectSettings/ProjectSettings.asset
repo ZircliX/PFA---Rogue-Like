@@ -145,6 +145,7 @@ PlayerSettings:
   - {fileID: -944628639613478452, guid: d49fa89c5798f204383ef0098a16fb65, type: 3}
   - {fileID: 11400000, guid: add8497ed08fad84fa6109da5fb34bf0, type: 2}
   - {fileID: 11400000, guid: 26294e01b511ee04c93639a95901dbbb, type: 2}
+  - {fileID: 11400000, guid: da24c4f051363e043afb520261f132c6, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -855,7 +856,7 @@ PlayerSettings:
     PS5: 1
     QNX: 1
     ReservedCFE: 1
-    Standalone: 3
+    Standalone: 1
     VisionOS: 1
     WebGL: 1
     Windows Store Apps: 1

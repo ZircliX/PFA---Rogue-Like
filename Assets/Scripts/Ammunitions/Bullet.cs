@@ -23,11 +23,26 @@ namespace DeadLink.Ammunitions
         protected float damage;
         protected Vector3 lastPosition;
         protected float currentLifeCycle;
+        protected GameObject shouldHit;
 
         private void OnValidate() => this.ValidateRefs();
         
         protected virtual void FixedUpdate()
         {
+            if (shouldHit)
+            {
+                if (shouldHit.TryGetComponent(out Entity entity))
+                {
+                    ApplyDamage(entity);
+                    Debug.Log("apply damage");
+                    HitObject(entity.gameObject);
+                }
+                else
+                {
+                    HitObject(shouldHit);
+                }
+            }
+            
             Vector3 currentPosition = rb.position;
             Vector3 direction = currentPosition - lastPosition;
             float distance = direction.magnitude;
@@ -38,6 +53,7 @@ namespace DeadLink.Ammunitions
                 
                 if (Physics.Raycast(ray, out RaycastHit hit, distance, ~0, QueryTriggerInteraction.Ignore))
                 {
+                    /*
                     if (hit.collider.TryGetComponent(out Entity entity))
                     {
                         //Debug.Log($"Hit Entity {entity.name}");
@@ -49,8 +65,17 @@ namespace DeadLink.Ammunitions
                         //Debug.Log($"Hit object {hit.collider.name}");
                         HitObject(hit);
                     }
+                    */
                     
-                    else if (hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())
+                    if (hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())
+                    {
+                        currentLifeCycle += Time.deltaTime;
+                        if (currentLifeCycle >= BulletData.MaxLifeCycle)
+                        {
+                            DestroyBullet();
+                        }
+                    }
+                    else
                     {
                         currentLifeCycle += Time.deltaTime;
                         if (currentLifeCycle >= BulletData.MaxLifeCycle)
@@ -64,8 +89,9 @@ namespace DeadLink.Ammunitions
             lastPosition = currentPosition;
         }
 
-        public void Shoot(float entityStrength, Vector3 direction)
+        public void Shoot(float entityStrength, Vector3 direction, GameObject shouldHit)
         {
+            this.shouldHit = shouldHit;
             damage = BulletData.Damage * entityStrength;
             lastPosition = rb.position;
             rb.AddForce(direction * BulletData.BulletSpeed, ForceMode.Impulse);
@@ -103,11 +129,15 @@ namespace DeadLink.Ammunitions
 
         protected virtual void HitObject(RaycastHit hit)
         {
-            //Debug.Log($"Author Result {hit.collider.CompareTag(AuthorTag)}, Hit Result {hit.collider.gameObject.name}");
-            if (hit.collider.CompareTag(AuthorTag)) return;
-            if (hit.collider.gameObject.TryGetComponent(out RayfireRigid rfr))
+            HitObject(hit.collider.gameObject);
+        }
+
+        protected virtual void HitObject(GameObject gm)
+        {
+            if (gm.CompareTag(AuthorTag)) return;
+            if (gm.TryGetComponent(out RayfireRigid rfr))
             {
-                if (rfr.ApplyDamage(50, hit.point, 0.25f))
+                if (rfr.ApplyDamage(50, gm.transform.position, 0.25f))
                 {
                     foreach (RayfireRigid frag in rfr.fragments)
                     {
@@ -120,7 +150,7 @@ namespace DeadLink.Ammunitions
             }
             
             //+ hit.normal * 0.5f
-            BulletData.HitVFX.PlayVFX(hit.point, 2);
+            BulletData.HitVFX.PlayVFX(gm.transform.position, 2);
             
             OnBulletHit?.Invoke(this);
             DestroyBullet();

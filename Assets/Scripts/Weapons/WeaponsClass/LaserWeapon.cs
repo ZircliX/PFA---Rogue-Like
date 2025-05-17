@@ -66,9 +66,9 @@ namespace DeadLink.Weapons.WeaponsClass
             }
         }
 
-        public override bool Fire(Entity entity, Vector3 direction)
+        public override bool Fire(Entity entity, Vector3 direction, GameObject shouldHit)
         {
-            if (base.Fire(entity, direction))
+            if (base.Fire(entity, direction, shouldHit))
             {
                 if (CurrentMunitions <= 0)
                 {

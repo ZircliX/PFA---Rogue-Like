@@ -6,16 +6,16 @@ namespace DeadLink.Extensions
 {
     public static class PlayerExtensions
     {
-        public static void TeleportPlayer(this PlayerMovement pm, Transform target, float speed = 0.5f, float extend = 0)
+        public static void TeleportPlayer(this PlayerMovement pm, Transform target, float extend = 0)
         {
-            TeleportPlayer(pm, target.position, speed, extend);
+            TeleportPlayer(pm, target.position, extend);
         }
         
-        public static void TeleportPlayer(this PlayerMovement pm, Vector3 position, float speed = 0.5f, float extend = 0)
+        public static void TeleportPlayer(this PlayerMovement pm, Vector3 position, float extend = 0)
         {
             position.y += extend;
             
-            pm.rb.DOMove(position, speed);
+            pm.rb.MovePosition(position);
         }
     }
 }

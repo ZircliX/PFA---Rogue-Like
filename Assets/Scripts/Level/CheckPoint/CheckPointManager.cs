@@ -1,6 +1,7 @@
 using System.Linq;
 using DeadLink.Entities.Movement;
 using DeadLink.Extensions;
+using DG.Tweening;
 using LTX.Singletons;
 using RogueLike.Managers;
 using RogueLike.Player;
@@ -27,11 +28,11 @@ namespace DeadLink.Level.CheckPoint
         {
             if (CurrentCheckPoint.CheckPoint != null)
             {
-                player.TeleportPlayer(CurrentCheckPoint.CheckPoint.transform, 1f, 1f);
+                player.TeleportPlayer(CurrentCheckPoint.CheckPoint.transform, 1f);
             }
             else
             {
-                player.TeleportPlayer(LevelManager.Instance.PlayerController.PlayerEntity.SpawnPosition);
+                player.TeleportPlayer(LevelManager.Instance.PlayerController.PlayerEntity.SpawnPosition, 1f);
             }
         }
         

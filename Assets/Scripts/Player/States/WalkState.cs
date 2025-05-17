@@ -40,15 +40,11 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Crouching;
             }
-            if (!movement.WalkInput)
-            {
-                return MovementState.Running;
-            }
             if (movement.CanDash())
             {
                 return MovementState.Dashing;
             }
-            if (movement.InputDirection.sqrMagnitude < PlayerMovement.MIN_THRESHOLD)
+            if (movement.InputDirection.sqrMagnitude < EntityMovement.MIN_THRESHOLD)
             {
                 //Debug.Log("HAAAAAAA");
                 return MovementState.Idle;

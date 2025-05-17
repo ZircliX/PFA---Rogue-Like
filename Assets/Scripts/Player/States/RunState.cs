@@ -39,10 +39,6 @@ namespace RogueLike.Player.States
             {
                 return MovementState.Idle;
             }
-            if (movement.WalkInput)
-            {
-                return MovementState.Walking;
-            }
 
             return State;
         }

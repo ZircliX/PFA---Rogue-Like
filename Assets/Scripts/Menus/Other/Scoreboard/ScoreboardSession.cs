@@ -8,8 +8,6 @@ namespace DeadLink.Menus.Other.Scoreboard
 {
     public class ScoreboardSession : MonoSingleton<ScoreboardSession>
     {
-        private bool isDone;
-
         public void StartSession()
         {
             StartCoroutine(IStartSession());
@@ -17,7 +15,6 @@ namespace DeadLink.Menus.Other.Scoreboard
         
         private IEnumerator IStartSession()
         {
-            isDone = false;
             bool done = false;
             string playerId = System.Guid.NewGuid().ToString();
 
@@ -37,6 +34,11 @@ namespace DeadLink.Menus.Other.Scoreboard
             
             yield return new WaitWhile(() => done == false);
 
+            StartCoroutine(ISetPlayerName());
+        }
+
+        public void SetPlayerName()
+        {
             StartCoroutine(ISetPlayerName());
         }
         
@@ -59,8 +61,6 @@ namespace DeadLink.Menus.Other.Scoreboard
             });
 
             yield return new WaitWhile(() => done == false);
-
-            isDone = true;
         }
     }
 }

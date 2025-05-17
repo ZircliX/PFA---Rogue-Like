@@ -104,7 +104,6 @@ namespace DeadLink.Entities.Movement
         
         #region Movement Inputs
 
-        public bool WalkInput { get; protected set; }
         public bool CrouchInput { get; protected set; }
 
         protected float currentWallrunExitTime;

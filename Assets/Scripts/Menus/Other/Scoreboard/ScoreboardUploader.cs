@@ -13,13 +13,13 @@ namespace DeadLink.Menus.Other.Scoreboard
         
         public void OnSubmitScore()
         {
-            StartCoroutine(ISubmitScore());
+            string leaderboardKey = GameDatabase.Global.GetScoreboardKey();
+            StartCoroutine(ISubmitScore(leaderboardKey));
         }
         
-        private IEnumerator ISubmitScore()
+        private IEnumerator ISubmitScore(string leaderboardKey)
         {
             bool done = false;
-            string leaderboardKey = GameController.Metrics.LevelOneNormal;
             
             LootLockerSDKManager.SubmitScore("", (int)TimerManager.Instance.ElapsedTime, leaderboardKey, (response) =>
             {
@@ -37,7 +37,7 @@ namespace DeadLink.Menus.Other.Scoreboard
             
             yield return new WaitWhile(() => done == false);
 
-            ScoreboardViewer.Instance.RefreshScoreboard();
+            ScoreboardViewer.Instance.RefreshScoreboard(GameDatabase.Global.GetScoreboardKey());
         }
     }
 }

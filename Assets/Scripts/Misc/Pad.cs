@@ -1,4 +1,3 @@
-using System;
 using DeadLink.Cameras.Data;
 using DeadLink.Entities.Movement;
 using UnityEngine;

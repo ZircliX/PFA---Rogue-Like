@@ -1,7 +1,15 @@
+using System.Collections.Generic;
+using System.Linq;
 using DeadLink.Entities.Data;
+using DeadLink.Level;
+using DeadLink.Misc;
 using DeadLink.PowerUpSystem;
+using DeadLink.Save.LevelProgression;
+using DevLocker.Utils;
 using Enemy;
+using UnityEditor.SearchService;
 using UnityEngine;
+using Scene = UnityEngine.SceneManagement.Scene;
 
 namespace RogueLike.Controllers
 {
@@ -69,8 +77,52 @@ namespace RogueLike.Controllers
         
         #endregion
 
+        #region Scenes
+
+        public SceneData[] Scenes { get; private set; }
+
+        public SceneData GetSceneDataFromScene(Scene scene)
+        {
+            return Scenes.FirstOrDefault(ctx => ctx.Scene.BuildIndex == scene.buildIndex);
+        }
+        
+        public SceneData GetSceneFromSceneReference(SceneReference sceneReference)
+        {
+            return Scenes.FirstOrDefault(ctx => ctx.Scene.BuildIndex == sceneReference.BuildIndex);
+        }
+        
+        public SceneData GetScene(string targetGUID)
+        {
+            for (int index = 0; index < Scenes.Length; index++)
+            {
+                SceneData sceneData = Scenes[index];
+                if (sceneData.GUID == targetGUID)
+                {
+                    return sceneData;
+                }
+            }
+
+            return null;
+        }
+
+        #endregion
+
+        #region Scoreboard
+
+        public string GetScoreboardKey()
+        {
+            LevelScenarioSaveFile levelScenarioSaveFile = LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile;
+            SceneData sceneData = Global.GetScene(levelScenarioSaveFile.Scene);
+            DifficultyData difficultyDataData = GetDifficulty(levelScenarioSaveFile.DifficultyData);
+            
+            return $"{sceneData.ScoreboardSceneIndex}{difficultyDataData.DifficultyName}";
+        }
+
+        #endregion
+
         public void Load()
         {
+            Scenes = Resources.LoadAll<SceneData>("Scenes");
             PowerUps = Resources.LoadAll<PowerUp>("PowerUps");
             EnemiesDatas = Resources.LoadAll<EntityData>("Entities/Enemies");
             PlayerEntityData = Resources.Load<EntityData>("Entities/Player");
