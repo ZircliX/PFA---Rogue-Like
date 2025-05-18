@@ -47,7 +47,7 @@ namespace DeadLink.Weapons
             CurrentMunitions = WeaponData.MaxAmmunition;
         }
         
-        public virtual bool Fire(Entity entity, Vector3 direction)
+        public virtual bool Fire(Entity entity, Vector3 direction, GameObject shouldHit)
         {
             if (!MenuManager.Instance.TryGetCurrentMenu(out IMenu menu) || menu.MenuType != MenuType.HUD) return false;
             
@@ -69,7 +69,7 @@ namespace DeadLink.Weapons
             bullet.OnBulletHit += BulletHit;
             bullet.OnBulletDestroy += BulletDestroy;
             
-            bullet.Shoot(entity.Strength, direction);
+            bullet.Shoot(entity.Strength, direction, shouldHit);
 
             if (entity.CompareTag("Player"))
             {

@@ -71,7 +71,7 @@ namespace EditorAttributes.Editor
 			var defaultInspector = DrawDefaultInspector();
 			var buttons = DrawButtons();
 
-			var staticMembers = DrawStaticMembers();
+			//var staticMembers = DrawStaticMembers();
 			//var nonSerializedMembers = DrawNonSerilizedMembers();
 
 			root.Add(defaultInspector);
@@ -81,11 +81,11 @@ namespace EditorAttributes.Editor
 			{
 				if (ENABLE_STATIC_MEMBERS)
 				{
-					PropertyDrawerBase.AddElement(root, staticMembers);
+					//PropertyDrawerBase.AddElement(root, staticMembers);
 				}
 				else
 				{
-					PropertyDrawerBase.RemoveElement(root, staticMembers);
+					//PropertyDrawerBase.RemoveElement(root, staticMembers);
 				}
 
 				if (ENABLE_NON_SERIALIZED_MEMBERS)
@@ -249,15 +249,15 @@ namespace EditorAttributes.Editor
 				if (staticMethod.GetParameters().Length > 0 || staticMethod.ContainsGenericParameters)
 					continue;
 
-				var field = DrawField(staticMethod, staticMethod.ReturnType, staticMethod.Invoke(target, null));
+				//var field = DrawField(staticMethod, staticMethod.ReturnType, staticMethod.Invoke(target, null));
 
-				if (field == null)
-					continue;
+				//if (field == null)
+					//continue;
 
-				if (field.name.StartsWith("get_")) // Don't draw the property backing functions since we already draw the properties ourself
-					continue;
+				//if (field.name.StartsWith("get_")) // Don't draw the property backing functions since we already draw the properties ourself
+					//continue;
 
-				root.Add(field);
+				//root.Add(field);
 			}
 
 			if (root.childCount != 0)

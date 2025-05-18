@@ -83,7 +83,6 @@ namespace DeadLink.Menus.Implementation
                 {
                     ui.transform.DOMoveY(ui.transform.position.y, 3f).SetTarget(ui.transform).SetUpdate(true).OnComplete(() =>
                     {
-                        //SceneController.Global.ChangeScene(SceneController.Global.previousScene.buildIndex);
                         canBeClosed = true;
                         MenuManager.Instance.CloseMenu();
                         

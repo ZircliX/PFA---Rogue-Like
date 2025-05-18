@@ -1,17 +1,33 @@
+using DeadLink.Level;
 using DeadLink.Menus.Other.Scoreboard;
 using DeadLink.SceneManagement;
+using DG.Tweening;
 using Enemy;
 using LTX.ChanneledProperties;
 using RogueLike;
 using RogueLike.Controllers;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DeadLink.Menus.Implementation
 {
     public class MainMenu : Menu
     {
-        [SerializeField] private GameObject difficultyPanel;
-        [SerializeField] private DifficultyData[] difficultyDatas;
+        [Header("Difficulty")]
+        [SerializeField] private CanvasGroup difficultyPanel;
+        
+        [Header("Name")]
+        [SerializeField] private CanvasGroup namePanel;
+        [SerializeField] private TMP_InputField nameInputField;
+        private string playerName;
+        
+        [Header("Buttons")]
+        [SerializeField] private Button playButton;
+        [SerializeField] private Button continueButton;
+        
+        [Header("References")]
+        [SerializeField] private MainMenuLevelScenarioProvider mainMenuLevelScenarioProvider;
         
         public override MenuType MenuType { get; protected set; }
 
@@ -30,32 +46,57 @@ namespace DeadLink.Menus.Implementation
         private void Awake()
         {
             MenuType = MenuType.Main;
+            ScoreboardSession.Instance.StartSession();
+        }
+
+        private void Start()
+        {
+            continueButton.interactable = mainMenuLevelScenarioProvider.LevelScenario.IsValid;
         }
         
-        public void SetPlayerName(string playerName)
+        public void UpdatePlayerName()
+        {
+            playerName = nameInputField.text;
+            playButton.interactable = !string.IsNullOrEmpty(playerName);
+        }
+
+        public void SetPlayerName()
         {
             GameController.GameProgressionListener.SetPlayerName(playerName);
-            ScoreboardSession.Instance.StartSession();
+            ScoreboardSession.Instance.SetPlayerName();
+        }
+        
+        public void OpenNamePanel()
+        {
+            OpenCanvasGroup(namePanel);
         }
 
         public void OpenDifficulty()
         {
-            difficultyPanel.SetActive(!difficultyPanel.activeSelf);
+            OpenCanvasGroup(difficultyPanel);
+        }
+        
+        private void OpenCanvasGroup(CanvasGroup canvasGroup)
+        {
+            canvasGroup.interactable = Mathf.Approximately(canvasGroup.alpha, 0);
+            canvasGroup.DOFade(Mathf.Approximately(canvasGroup.alpha, 1) ? 0 : 1, 0.25f).SetUpdate(true);
         }
 
         public void SetDifficulty(int index)
         {
-            //GameController.GameProgressionListener.SetDifficultyData(difficultyDatas[index]);
+            DifficultyData difficulty = GameController.GameDatabase.Difficulties[index];
+            mainMenuLevelScenarioProvider.SetDifficulty(difficulty);
         }
         
         public void StartNewGame()
         {
-            SceneController.Global.ChangeScene(GameMetrics.Global.LevelOne);
+            mainMenuLevelScenarioProvider.SetScene(GameDatabase.Global.GetSceneFromSceneReference(GameMetrics.Global.LevelOne));
+            SceneController.Global.ChangeScene(mainMenuLevelScenarioProvider.LevelScenario.Scene);
         }
         
         public void ContinueGame()
         {
-            SceneController.Global.ChangeScene(GameMetrics.Global.LevelOne);
+            SceneController.Global.ChangeScene(mainMenuLevelScenarioProvider.LevelScenario.Scene.Scene);
         }
 
         public void Quit()
@@ -77,7 +118,7 @@ namespace DeadLink.Menus.Implementation
 
         public void Scoreboard()
         {
-            IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.ScoreboardMenu);
+            IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.GameplayScoreboard);
             MenuManager.Instance.OpenMenu(menu);
         }
     }

@@ -21,19 +21,22 @@ namespace DeadLink.Level
             return new LevelScenarioSaveFile()
             {
                 DifficultyData = string.Empty,
+                Scene = string.Empty,
                 LevelElements = null,
             };
         }
         
         public int Version => 1;
-        public bool IsValid => !string.IsNullOrEmpty(DifficultyData) && LevelElements != null;
+        public bool IsValid => !string.IsNullOrEmpty(DifficultyData) && !string.IsNullOrEmpty(Scene) && LevelElements != null;
 
         [SerializeField] public string DifficultyData;
+        [SerializeField] public string Scene;
         [SerializeField] public List<LevelElementSaveFile> LevelElements;
 
         public LevelScenarioSaveFile(LevelScenario levelScenario)
         {
             DifficultyData = levelScenario.DifficultyData.GUID;
+            Scene = levelScenario.Scene.GUID;
             LevelElements = levelScenario.LevelElements.Select(kvp => new LevelElementSaveFile()
             {
                 GUID = kvp.Key,

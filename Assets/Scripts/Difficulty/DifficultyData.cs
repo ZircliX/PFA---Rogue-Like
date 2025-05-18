@@ -7,6 +7,7 @@ namespace Enemy
     [CreateAssetMenu(menuName = "RogueLike/Difficulty")]
     public class DifficultyData : ScriptableObject
     {
+        [field: SerializeField] public string DifficultyName { get; private set; }
         [field: SerializeField, ReadOnly] public string GUID { get; private set; }
 
         private void OnValidate()

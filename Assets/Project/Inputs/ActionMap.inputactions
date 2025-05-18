@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Walk",
-                    "type": "Button",
-                    "id": "742891ed-3345-4251-b289-da8e9bc08864",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Slide",
                     "type": "Button",
                     "id": "225496a6-e5f8-460c-8c51-94b8caa470ed",
@@ -253,28 +244,6 @@
                     "processors": "",
                     "groups": ";Controller",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "445187c3-3a31-471e-a90d-de7869c8dc41",
-                    "path": "<Gamepad>/leftStickPress",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Controller",
-                    "action": "Walk",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "56dbbc7a-ca9f-43a6-ad1c-45cb85b0720c",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard and Mouse",
-                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -501,7 +470,7 @@
                 {
                     "name": "",
                     "id": "6593fa5c-787d-4562-a2b1-38c5fbb71d4c",
-                    "path": "<Keyboard>/capsLock",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard and Mouse",

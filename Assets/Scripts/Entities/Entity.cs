@@ -13,6 +13,7 @@ using LTX.ChanneledProperties;
 using RogueLike;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 namespace DeadLink.Entities
 {
@@ -36,12 +37,13 @@ namespace DeadLink.Entities
         
         public int Health { get; private set; }
         public int HealthBarCount { get; private set; }
-        private int removedHealthBar;
         public bool IsInvisible { get; protected set; }
 
         public bool ContinuousFire { get; protected set; }
         
         public List<PowerUp> PowerUps { get; protected set; }
+
+        private bool firstSpawn;
         
         #region Influenced Properties
         
@@ -55,6 +57,8 @@ namespace DeadLink.Entities
 
         public void SetInfos(PlayerController.PlayerInfos playerInfos)
         {
+            //Debug.Log($"health : {playerInfos.HealthPoints}, health bar : {playerInfos.HealthBarCount}");
+            
             Health = playerInfos.HealthPoints;
             HealthBarCount = playerInfos.HealthBarCount;
             PowerUps = playerInfos.PlayerPowerUps.Select(PowerUp.GetPowerUpFromGUID).Where(ctx => ctx != null).ToList();
@@ -73,7 +77,12 @@ namespace DeadLink.Entities
             Resistance = new InfluencedProperty<float>(EntityData.BaseResistance);
             MaxHealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
             MaxHealthBarCount.AddInfluence(this, Influence.Subtract);
-
+            if (!firstSpawn)
+            {
+                HealthBarCount = MaxHealthBarCount.Value;
+                firstSpawn = true;
+            }
+            
             CurrentWeapon = Weapons[^1];
             currentWeaponIndex = Weapons.Length - 1;
 
@@ -99,14 +108,12 @@ namespace DeadLink.Entities
             
             if (Health <= 0)
             {
-                removedHealthBar++;
-                MaxHealthBarCount.Write(this, removedHealthBar);
+                HealthBarCount--;
                 
-                //Debug.Log("Removing health bar, remaining health bar count : " + MaxHealthBarCount.Value);
-                //Debug.Log($"Current health bar count : {MaxHealthBarCount.Value}");
+                //Debug.Log($"Remaining health bar : {HealthBarCount}, max health : {MaxHealthBarCount.Value}");
                 
                 int remainingDamages = Mathf.Abs(Health);
-                if (MaxHealthBarCount.Value <= 0)
+                if (HealthBarCount <= 0)
                 {
                     StartCoroutine(Die());
                     return true;
@@ -188,26 +195,32 @@ namespace DeadLink.Entities
                 Camera mainCam = Camera.main;
                 Ray ray = mainCam!.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
 
-                bool raycast = Physics.Raycast(ray, out RaycastHit hit, 1000, GameMetrics.Global.BulletRayCast);
-                if (raycast && hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())
-                    raycast = false;
-                
-                if (raycast)
-                {
-                    // Calculate direction from bullet spawn to the hit point
-                    direction = (hit.point - BulletSpawnPoint.position).normalized;
-                    //Debug.DrawLine(BulletSpawnPoint.position, hit.point, Color.cyan, 5);
+                GameObject objectToHit = null;
+                RaycastHit[] hits = Physics.SphereCastAll(ray, 0.1f, 500, GameMetrics.Global.BulletRayCast);
 
-                    //Debug.Log("Hit: " + hit.collider.name + ", Direction: " + direction);
-                }
-                else
+                for (int i = 0; i < hits.Length; i++)
                 {
-                    //Debug.Log("No hit");
-                    direction = ray.direction;
+                    RaycastHit hit = hits[i];
+                    if (hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())
+                    {
+                        continue;
+                    }
+
+                    if (hit.collider.TryGetComponent(out Entity entity))
+                    {
+                        objectToHit = entity.gameObject;
+                        break;
+                    }
+                    if (hit.collider != null)
+                    {
+                        objectToHit = hit.collider.gameObject;
+                    }
                 }
-                //Debug.DrawRay(BulletSpawnPoint.position, direction * 10, Color.red, 2);
+
+                Debug.DrawRay(BulletSpawnPoint.position, ray.direction * 50, Color.red, 2);
                 
-                CurrentWeapon.Fire(this, direction);
+                direction = ray.direction;
+                CurrentWeapon.Fire(this, direction, objectToHit);
             }
             else
             {
@@ -217,7 +230,9 @@ namespace DeadLink.Entities
         
         protected virtual void Reload()
         {
-            if (CurrentWeapon == null && CurrentWeapon.CurrentReloadTime >= CurrentWeapon.WeaponData.ReloadTime) return;
+            if (CurrentWeapon == null || 
+                CurrentWeapon.CurrentReloadTime < CurrentWeapon.WeaponData.ReloadTime || 
+                CurrentWeapon.CurrentMunitions >= CurrentWeapon.WeaponData.MaxAmmunition) return;
             
             StartCoroutine(CurrentWeapon.Reload(this));
         }

@@ -7,10 +7,10 @@ using DeadLink.Menus;
 using DeadLink.Player;
 using DeadLink.Save.LevelProgression;
 using DeadLink.SceneManagement;
-using EditorAttributes;
 using Enemy;
 using LTX.ChanneledProperties;
 using LTX.Singletons;
+using RogueLike.Controllers;
 using RogueLike.Timer;
 using SaveSystem.Core;
 using UnityEngine;
@@ -28,6 +28,7 @@ namespace RogueLike.Managers
                 return new LevelScenario()
                 {
                     DifficultyData = GameMetrics.Global.NormalDifficulty,
+                    Scene = GameDatabase.Global.GetSceneDataFromScene(levelManager.gameObject.scene),
                     LevelElements = levelManager.LevelElements
                         .AsValueEnumerable()
                         .ToDictionary(ctx => ctx.GUID, ctx => ctx.Pull())
@@ -67,6 +68,7 @@ namespace RogueLike.Managers
             yield return new WaitForEndOfFrame();
             
             LastLevelScenario = LevelScenarioProvider.Value.GetLevelScenario(this);
+            
             PrepareLevel();
             StartLevel();
         }
@@ -108,7 +110,7 @@ namespace RogueLike.Managers
             LastLevelScenario = LevelScenario.GetDefault();
             SaveManager<LevelScenarioSaveFile>.Push();
             
-            IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.ScoreboardMenu);
+            IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.GameplayScoreboard);
             MenuManager.Instance.OpenMenu(menu);
         }
 
@@ -134,6 +136,7 @@ namespace RogueLike.Managers
             LastLevelScenario = new LevelScenario()
             {
                 DifficultyData = Difficulty,
+                Scene = GameDatabase.Global.GetSceneDataFromScene(gameObject.scene),
                 LevelElements = LevelElements
                     .AsValueEnumerable()
                     .ToDictionary(ctx => ctx.GUID, ctx => ctx.Pull())

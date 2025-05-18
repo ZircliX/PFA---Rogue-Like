@@ -1,4 +1,5 @@
 using DeadLink.Level;
+using Enemy;
 using SaveSystem.Core;
 
 namespace DeadLink.Save.LevelProgression
@@ -7,7 +8,7 @@ namespace DeadLink.Save.LevelProgression
     {
         public int Priority => 1;
 
-        public static LevelScenarioSaveFile CurrentLevelScenarioSaveFile { get; private set; } // Is valid ?
+        public static LevelScenarioSaveFile CurrentLevelScenarioSaveFile { get; private set; }
         public static ILevelManager CurrentILevelManager { get; set; }
         
         public void Write(ref LevelScenarioSaveFile saveFile)

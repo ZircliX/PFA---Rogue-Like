@@ -1,9 +1,9 @@
+using System.Collections;
 using DeadLink.Cameras;
 using DeadLink.Entities.Movement;
-using DeadLink.Extensions;
 using DeadLink.Level.CheckPoint;
 using DeadLink.Menus;
-using DeadLink.PowerUpSystem;
+using DeadLink.Misc;
 using LTX.ChanneledProperties;
 using RogueLike.Managers;
 using UnityEngine;
@@ -19,6 +19,8 @@ namespace RogueLike.Player
         [field: SerializeField] public Camera Camera { get; private set; }
         
         #endregion
+
+        private Coroutine voidEnter;
         
         protected override void Awake()
         {
@@ -38,9 +40,27 @@ namespace RogueLike.Player
             base.HandleVoidDetection();
             if (Position.y < - Mathf.Abs(maxYPosition) || Position.y > Mathf.Abs(maxYPosition))
             {
-                LevelManager.Instance.ReloadFromLastScenario();
-                CheckPointManager.Instance.TeleportToCheckPoint(this);
+                if (voidEnter != null) return; 
+                voidEnter = StartCoroutine(OnVoidEnter());
             }
+        }
+
+        private IEnumerator OnVoidEnter()
+        {
+            LevelManager.Instance.PlayerController.PlayerEntity.EmptyHealthBar();
+            //LevelManager.Instance.SaveCurrentLevelScenario();
+            
+            FadeUI.Instance.FadeIn(0.35f);
+            yield return new WaitForSeconds(0.35f);
+            
+            //Reload Scenario + Teleport to CheckPoint
+            LevelManager.Instance.ReloadFromLastScenario();
+            CheckPointManager.Instance.TeleportToCheckPoint(this);
+            yield return new WaitForSeconds(0.5f);
+            
+            FadeUI.Instance.FadeOut(0.35f);
+
+            voidEnter = null;
         }
 
         #region Inputs
@@ -63,11 +83,6 @@ namespace RogueLike.Player
             }
         }
 
-        public void ReadInputRun(InputAction.CallbackContext context)
-        {
-            WalkInput = context.performed;
-        }
-
         public void ReadInputCrouch(InputAction.CallbackContext context)
         {
             CrouchInput = context.performed;
@@ -75,8 +90,6 @@ namespace RogueLike.Player
 
         public void ReadInputSlide(InputAction.CallbackContext context)
         {
-            //Debug.Log("SLIDE");
-
             if (context.performed)
             {
                 slideInput = coyoteTime;
@@ -91,7 +104,6 @@ namespace RogueLike.Player
         {
             if (context.performed)
             {
-                //Debug.Log("Dash = true");
                 DashInput = true;
             }
             else if (context.canceled)

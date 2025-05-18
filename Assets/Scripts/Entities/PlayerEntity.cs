@@ -91,6 +91,13 @@ namespace RogueLike.Entities
             MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
             return die;
         }
+        
+        public bool EmptyHealthBar()
+        {
+            bool die = base.TakeDamage(Health);
+            MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
+            return die;
+        }
 
         public override IEnumerator Die()
         {

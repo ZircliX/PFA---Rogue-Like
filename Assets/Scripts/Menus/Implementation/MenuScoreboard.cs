@@ -1,14 +1,14 @@
 using DeadLink.Menus.Other.Scoreboard;
-using DeadLink.SceneManagement;
 using LTX.ChanneledProperties;
-using RogueLike;
 using UnityEngine;
 
 namespace DeadLink.Menus.Implementation
 {
-    public class Scoreboard : Menu
+    public class MenuScoreboard : Menu
     {
         public override MenuType MenuType { get; protected set; }
+        private string levelIndex = "1";
+        private string difficultyIndex = "Easy";
         
         public override MenuProperties GetMenuProperties()
         {
@@ -24,33 +24,35 @@ namespace DeadLink.Menus.Implementation
         
         private void Awake()
         {
-            MenuType = MenuType.Scoreboard;
+            MenuType = MenuType.GameplayScoreboard;
         }
-
-        public void GoToShop()
-        {
-            SceneController.Global.ChangeScene(GameMetrics.Global.ShopScene);
-        }
-
+        
         public override void Open()
         {
             base.Open();
-            ScoreboardViewer.Instance.RefreshScoreboard();
+            RefreshScoreboard();
         }
 
         public void Back()
         {
             MenuManager.Instance.CloseMenu();
         }
-
-        public void ChangeDifficulty()
+        
+        public void ChangeDifficulty(string difficulty)
         {
-            
+            difficultyIndex = difficulty;
+            RefreshScoreboard();
         }
         
-        public void ChangeLevel()
+        public void ChangeLevel(string level)
         {
-            
+            levelIndex = level;
+            RefreshScoreboard();
+        }
+
+        private void RefreshScoreboard()
+        {
+            ScoreboardViewer.Instance.RefreshScoreboard($"{levelIndex}{difficultyIndex}");
         }
     }
 }

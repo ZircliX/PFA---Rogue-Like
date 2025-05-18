@@ -12,6 +12,7 @@ namespace DeadLink.Menus
         public static MenuType Settings => GameMetrics.Global.SettingsMenu;
         public static MenuType Upgrades => GameMetrics.Global.UpgradesMenu;
         public static MenuType Credits => GameMetrics.Global.CreditsMenu;
-        public static MenuType Scoreboard => GameMetrics.Global.ScoreboardMenu;
+        public static MenuType GameplayScoreboard => GameMetrics.Global.GameplayScoreboard;
+        public static MenuType MenuScoreboard => GameMetrics.Global.MenuScoreboard;
     }
 }

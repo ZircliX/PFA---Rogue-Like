@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DeadLink.Menus;
 using DeadLink.SceneManagement;
 using DevLocker.Utils;
@@ -17,9 +18,6 @@ namespace RogueLike
         [field: SerializeField] public DifficultyData NormalDifficulty { get; private set; }
         [field: SerializeField] public DifficultyData HardDifficulty { get; private set; }
         [field: SerializeField] public DifficultyData InsaneDifficulty { get; private set; }
-
-        [field: Header("Leaderboard")]
-        [field: SerializeField] public string LevelOneNormal { get; private set; }
         
         
         [field: Header("Debug Settings")]
@@ -43,7 +41,8 @@ namespace RogueLike
         [field: SerializeField] public MenuType SettingsMenu { get; private set; }
         [field: SerializeField] public MenuType UpgradesMenu { get; private set; }
         [field: SerializeField] public MenuType CreditsMenu { get; private set; }
-        [field: SerializeField] public MenuType ScoreboardMenu { get; private set; }
+        [field: SerializeField] public MenuType GameplayScoreboard { get; private set; }
+        [field: SerializeField] public MenuType MenuScoreboard { get; private set; }
         #endregion
         
     }

@@ -17,8 +17,17 @@ namespace DeadLink.Level.Interfaces
             }
         }
 
-        private void OnEnable() => LevelManager.Instance.LevelElements.Add(this);
-        private void OnDisable() => LevelManager.Instance.LevelElements.Remove(this);
+        private void OnEnable()
+        {
+            if (LevelManager.HasInstance)
+                LevelManager.Instance.LevelElements.Add(this);
+        }
+
+        private void OnDisable()
+        {
+            if (LevelManager.HasInstance)
+                LevelManager.Instance.LevelElements.Remove(this);
+        }
 
         internal abstract ILevelElementInfos Pull();
         internal abstract void Push(ILevelElementInfos levelElementInfos);

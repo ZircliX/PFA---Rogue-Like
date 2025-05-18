@@ -12,15 +12,14 @@ namespace DeadLink.Menus.Other.Scoreboard
         
         private bool isDone;
 
-        public void RefreshScoreboard()
+        public void RefreshScoreboard(string leaderboardKey = "1Easy")
         {
-            StartCoroutine(IRefreshLeaderboard());
+            StartCoroutine(IRefreshLeaderboard(leaderboardKey));
         }
         
-        private IEnumerator IRefreshLeaderboard()
+        private IEnumerator IRefreshLeaderboard(string leaderboardKey)
         {
             bool done = false;
-            string leaderboardKey = GameController.Metrics.LevelOneNormal;
             int count = scoreFields.Length;
 
             LootLockerSDKManager.GetScoreList(leaderboardKey, count, 0, (response) =>
@@ -34,12 +33,15 @@ namespace DeadLink.Menus.Other.Scoreboard
                 {
                     Debug.Log("Successfully got score list!");
                     
-                    for (int index = 0; index < response.items.Length; index++)
+                    if (response.items != null)
                     {
-                        LootLockerLeaderboardMember score = response.items[index];
-                        string playerName = score.player.name != "" ? score.player.name : score.player.id.ToString();
-                        
-                        scoreFields[index].SetScore(playerName, score.score);
+                        for (int index = 0; index < response.items.Length; index++)
+                        {
+                            LootLockerLeaderboardMember score = response.items[index];
+                            string playerName = score.player.name != "" ? score.player.name : score.player.id.ToString();
+                            
+                            scoreFields[index].SetScore(playerName, score.score);
+                        }
                     }
                     
                     done = true;

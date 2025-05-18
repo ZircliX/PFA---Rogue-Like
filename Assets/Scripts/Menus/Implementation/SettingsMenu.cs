@@ -49,8 +49,7 @@ namespace DeadLink.Menus.Implementation
         {
             MenuType = MenuType.Settings;
         }
-
-
+        
         public override void Open()
         {
             base.Open();
@@ -66,17 +65,24 @@ namespace DeadLink.Menus.Implementation
         private void LoadSettings()
         {
             SetMusicVolume(GameController.SettingsListener.MusicVolume);
+            musicSlider.value = GameController.SettingsListener.MusicVolume;
             SetSfxVolume(GameController.SettingsListener.SfxVolume);
+            sfxSlider.value = GameController.SettingsListener.SfxVolume;
             SetVoiceVolume(GameController.SettingsListener.VoiceVolume);
+            voiceSlider.value = GameController.SettingsListener.VoiceVolume;
         }
 
         private void SaveSettings()
         {
-            /*
+            if (musicSlider == null || sfxSlider == null || voiceSlider == null)
+            {
+                Debug.LogError("Settings sliders are not initialized.");
+                return;
+            }
+            
             GameController.SettingsListener.SetMusicVolume(musicSlider.value);
             GameController.SettingsListener.SetSfxVolume(sfxSlider.value);
             GameController.SettingsListener.SetVoiceVolume(voiceSlider.value);
-            */
         }
         
         private void Start()
@@ -97,7 +103,7 @@ namespace DeadLink.Menus.Implementation
             for (int i = 0; i < resolutions.Length; i++)
             {
                 string option = resolutions[i].width + " x " + resolutions[i].height;
-                Debug.Log($"Added : {option}");
+                //Debug.Log($"Added : {option}");
                 options.Add(option);
 
                 if (resolutions[i].width == Screen.currentResolution.width &&
