@@ -47,7 +47,7 @@ namespace DeadLink.Menus.Implementation
 
         public void MainMenu()
         {
-            SceneController.Global.ChangeScene(GameMetrics.Global.MainMenuScene);
+            LevelManager.Instance.LeaveLevel();
         }
 
         public void Quit()

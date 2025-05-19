@@ -47,7 +47,6 @@ namespace RogueLike.Player
 
         private IEnumerator OnVoidEnter()
         {
-            LevelManager.Instance.PlayerController.PlayerEntity.EmptyHealthBar();
             //LevelManager.Instance.SaveCurrentLevelScenario();
             
             FadeUI.Instance.FadeIn(0.35f);
@@ -55,7 +54,7 @@ namespace RogueLike.Player
             
             //Reload Scenario + Teleport to CheckPoint
             LevelManager.Instance.ReloadFromLastScenario();
-            CheckPointManager.Instance.TeleportToCheckPoint(this);
+            LevelManager.Instance.PlayerController.PlayerEntity.EmptyHealthBar();
             yield return new WaitForSeconds(0.5f);
             
             FadeUI.Instance.FadeOut(0.35f);

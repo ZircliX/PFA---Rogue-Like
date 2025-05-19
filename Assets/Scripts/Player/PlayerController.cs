@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DeadLink.Extensions;
+using DeadLink.Level.CheckPoint;
 using DeadLink.Level.Interfaces;
 using KBCore.Refs;
 using RogueLike.Entities;
@@ -13,6 +15,7 @@ namespace DeadLink.Player
 {
     public class PlayerController : LevelElement
     {
+        [Serializable]
         public class PlayerInfos : ILevelElementInfos
         {
             public List<string> PlayerPowerUps;
@@ -20,7 +23,7 @@ namespace DeadLink.Player
             public int HealthPoints;
             public int HealthBarCount;
             
-            public SerializedTransform LastCheckPoint;
+            public int LastCheckPoint;
         }
         
         [field: SerializeField, Self] public PlayerInput PlayerInput { get; private set; }
@@ -37,12 +40,16 @@ namespace DeadLink.Player
         
         internal override ILevelElementInfos Pull()
         {
+            CheckPointManager manager = CheckPointManager.Instance;
+            
+            Debug.Log($"Pulling player controller");
+            Debug.Log(manager.HasCheckPoint() ? manager.CurrentCheckPoint.CheckPointIndex : 0);
             return new PlayerInfos()
             {
                 PlayerPowerUps = PlayerEntity.PowerUps.Select(ctx => ctx.GUID).ToList(),
                 HealthPoints = PlayerEntity.Health,
                 HealthBarCount = PlayerEntity.HealthBarCount,
-                LastCheckPoint = LastCheckPoint.ToSerializeTransform()
+                LastCheckPoint = manager.HasCheckPoint() ? manager.CurrentCheckPoint.CheckPointIndex : 0
             };
         }
 
@@ -50,13 +57,27 @@ namespace DeadLink.Player
         {
             if (levelElementInfos is PlayerInfos playerInfos)
             {
-                PlayerEntity.SetInfos(playerInfos);
-                transform.ApplySerialized(playerInfos.LastCheckPoint);
+                //Debug.Log($"Checkpoint = {playerInfos.LastCheckPoint}");
                 
                 PlayerEntity.Spawn(
                     PlayerEntity.EntityData, 
                     LevelManager.Instance.Difficulty, 
-                    PlayerEntity.SpawnPosition.position);
+                    PlayerEntity.transform.position);
+                
+                PlayerEntity.SetInfos(playerInfos);
+
+                //Debug.Log(playerInfos.LastCheckPoint);
+                if (CheckPointManager.Instance.TryGetCheckPoint(playerInfos.LastCheckPoint, out CheckPoint checkPoint))
+                {
+                    Debug.Log($"Weeee {LastCheckPoint}");
+                    PlayerMovement.TeleportPlayer(checkPoint.transform, 1);
+                }
+                else
+                {
+                    Debug.Log("Hooo, Spawned at spawn");
+                    Transform respawn = CheckPointManager.Instance.GetRespawn();
+                    PlayerMovement.TeleportPlayer(respawn, 1);
+                }
             }
         }
     }

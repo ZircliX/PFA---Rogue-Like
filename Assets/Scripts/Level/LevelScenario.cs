@@ -13,13 +13,15 @@ namespace DeadLink.Level
     {
         public DifficultyData DifficultyData;
         public SceneData Scene;
-        public Dictionary<string, ILevelElementInfos> LevelElements;
+        public bool UseCustomInfos;
+        public Dictionary<string, ILevelElementInfos> LevelElementsCustomInfos;
 
         public LevelScenario(LevelScenarioSaveFile levelScenarioSaveFile)
         {
             DifficultyData = GameDatabase.Global.GetDifficulty(levelScenarioSaveFile.DifficultyData);
             Scene = GameDatabase.Global.GetScene(levelScenarioSaveFile.Scene);
-            LevelElements = levelScenarioSaveFile.LevelElements.
+            UseCustomInfos = true;
+            LevelElementsCustomInfos = levelScenarioSaveFile.LevelElements.
                 ToDictionary(ctx => ctx.GUID, ctx => ctx.ILevelElementInfos);
         }
         
@@ -29,10 +31,11 @@ namespace DeadLink.Level
             {
                 DifficultyData = null,
                 Scene = null,
-                LevelElements = null
+                LevelElementsCustomInfos = null,
+                UseCustomInfos = false
             };
         }
         
-        public bool IsValid => DifficultyData != null && LevelElements != null;
+        public bool IsValid => DifficultyData != null && (!UseCustomInfos || LevelElementsCustomInfos != null);
     }
 }

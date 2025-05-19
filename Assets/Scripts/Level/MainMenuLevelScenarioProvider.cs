@@ -32,42 +32,46 @@ namespace DeadLink.Level
         {
             if (LevelManager.HasInstance && LevelScenario.IsValid)
             {
-                LevelManager.Instance.LevelScenarioProvider.AddPriority(this, PriorityTags.Highest);
-                LevelManager.Instance.LevelScenarioProvider.Write(this, this);
+                LevelManager.Instance.LevelScenarioProvider.AddPriority(this, PriorityTags.Highest, this);
             }
         }
 
         private void Awake()
         {
-            SetLevelScenario();
             DontDestroyOnLoad(this);
         }
         
-        private void SetLevelScenario()
+        public void SetLevelScenarioToSavedFile()
         {
             if (LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile.IsValid)
             {
-                LevelScenario = new LevelScenario(LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile);
+                LevelScenario = new LevelScenario(LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile)
+                {
+                    UseCustomInfos = true,
+                };
             }
         }
         
-        public void SetDifficulty(DifficultyData difficultyData)
+        public void SetDifficultyForNewGame(DifficultyData difficultyData)
         {
             LevelScenario = new LevelScenario()
             {
                 DifficultyData = difficultyData,
                 Scene = LevelScenario.Scene,
-                LevelElements = LevelScenario.LevelElements
+                LevelElementsCustomInfos = LevelScenario.LevelElementsCustomInfos ?? new(),
+                UseCustomInfos = false,
             };
         }
         
-        public void SetScene(SceneData sceneData)
+        public void SetSceneForNewGame(SceneData sceneData)
         {
+            Debug.Log("set scene");
             LevelScenario = new LevelScenario()
             {
                 DifficultyData = LevelScenario.DifficultyData,
                 Scene = sceneData,
-                LevelElements = LevelScenario.LevelElements
+                LevelElementsCustomInfos = LevelScenario.LevelElementsCustomInfos ?? new(),
+                UseCustomInfos = false,
             };
         }
     }
