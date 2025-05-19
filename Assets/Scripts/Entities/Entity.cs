@@ -148,6 +148,11 @@ namespace DeadLink.Entities
             Health = Mathf.CeilToInt(MaxHealth.Value);
         }
         
+        public virtual void SetHealth(float health)
+        {
+            Health = Mathf.CeilToInt(health);
+        }
+        
         public virtual void SetBonusHealthBarCount(int bonusHealthBarCount)
         {
             MaxHealthBarCount.AddInfluence(this, bonusHealthBarCount, Influence.Add);
