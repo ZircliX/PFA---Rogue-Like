@@ -22,7 +22,7 @@ namespace RogueLike.Entities
         private Dictionary<string, IVisitor> unlockedPowerUps;
         private Dictionary<string, string> inputToPowerUpName;
         public bool isLastChanceActivated;
-        public static Action<PlayerEntity, PlayerMovement> OnPlayerLastChanceSaved;
+        public static Action<PlayerEntity, PlayerMovement> OnPlayerLastChanceUsed;
         
         [SerializeField, Self] private PlayerMovement pm;
 
@@ -93,7 +93,7 @@ namespace RogueLike.Entities
             bool isLastHealthBar = HealthBarCount <= 1;
             if (isDying && isLastHealthBar && isLastChanceActivated)
             {
-                OnPlayerLastChanceSaved?.Invoke(this, pm);
+                OnPlayerLastChanceUsed?.Invoke(this, pm);
                 SetHealth(1f);
                 MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
                 return false;

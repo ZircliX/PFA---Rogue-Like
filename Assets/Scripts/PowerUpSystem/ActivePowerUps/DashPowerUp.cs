@@ -10,16 +10,27 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
 
         public override void OnBeUnlocked(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
-            playerMovement.AddBonusDash(BonusDashCount);
-            Debug.Log("Visitor accepted in DeshComponent");
+            IsUnlocked = true;
+            OnBeUsed(playerEntity, playerMovement);
         }
 
         public override void OnBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
+            if (IsUnlocked)
+            {
+                playerMovement.AddBonusDash(BonusDashCount);
+                OnFinishedToBeUsed(playerEntity, playerMovement);
+            }
         }
 
         public override void OnFinishedToBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
+        }
+        
+        public override void OnReset(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
+        {
+            OnFinishedToBeUsed(playerEntity, playerMovement);
+            IsUnlocked = false;
         }
     }
 }
