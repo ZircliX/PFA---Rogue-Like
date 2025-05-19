@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using DeadLink.Entities.Movement;
 using DeadLink.Extensions;
@@ -11,7 +12,8 @@ namespace DeadLink.Level.CheckPoint
 {
     public class CheckPointManager : MonoSingleton<CheckPointManager>
     {
-        [SerializeField] private CheckPointInfos[] checkPoints;
+        [SerializeField] 
+        private CheckPointInfos[] checkPoints;
         public CheckPointInfos CurrentCheckPoint { get; private set; }
 
         protected override void Awake()
@@ -24,25 +26,25 @@ namespace DeadLink.Level.CheckPoint
             };
         }
 
-        public void TeleportToCheckPoint(PlayerMovement player)
+        private void OnValidate()
         {
-            if (CurrentCheckPoint.CheckPoint != null)
-            {
-                player.TeleportPlayer(CurrentCheckPoint.CheckPoint.transform, 1f);
-            }
-            else
-            {
-                player.TeleportPlayer(LevelManager.Instance.PlayerController.PlayerEntity.SpawnPosition, 1f);
-            }
+            if(Application.isPlaying)
+                return;
+            
+            if(checkPoints.Any(ctx => ctx.CheckPoint.gameObject.CompareTag("Respawn")))
+                return;
+            
+            checkPoints[0].CheckPoint.tag = "Respawn";
         }
-        
+
         public void SetCheckPoint(CheckPoint checkPoint)
         {
             bool pointInfos = GetCheckPointInfos(checkPoint, out CheckPointInfos checkPointInfos);
-            if (CurrentCheckPoint.CheckPoint != null && pointInfos)
-            {
-                if (checkPointInfos.CheckPointIndex < CurrentCheckPoint.CheckPointIndex) return;
-            }
+   
+            if (checkPointInfos.CheckPointIndex < CurrentCheckPoint.CheckPointIndex) 
+                return;
+            Debug.Log($"new : {checkPointInfos.CheckPointIndex}, current : {CurrentCheckPoint.CheckPointIndex}");
+            
             CurrentCheckPoint = checkPointInfos;
             LevelManager.Instance.SaveCurrentLevelScenario();
         }
@@ -52,6 +54,27 @@ namespace DeadLink.Level.CheckPoint
             checkPointInfos = checkPoints.FirstOrDefault(ctx => ctx.CheckPoint == checkPoint);
             return !checkPointInfos.IsDefault;
         }
+        
+        public bool TryGetCheckPoint(int index, out CheckPoint checkPoint)
+        {
+            checkPoint = null;
+            if (index < 0 || index >= checkPoints.Length) 
+                return false;
+            
+            checkPoint = checkPoints.FirstOrDefault(ctx => ctx.CheckPointIndex == index).CheckPoint;
+            return checkPoint != null;
+        }
+
+        public Transform GetRespawn()
+        {
+            GameObject respawn = GameObject.FindWithTag("Respawn");
+            if (respawn == null)
+            {
+                return transform;
+            }
+            return respawn.transform;
+        }
+        public bool HasCheckPoint() => CurrentCheckPoint.CheckPoint != null;
     }
     
     [System.Serializable]

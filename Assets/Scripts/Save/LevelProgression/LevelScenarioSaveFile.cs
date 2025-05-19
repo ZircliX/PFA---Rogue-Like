@@ -35,13 +35,19 @@ namespace DeadLink.Level
 
         public LevelScenarioSaveFile(LevelScenario levelScenario)
         {
+            Debug.Log("convert to save file");
             DifficultyData = levelScenario.DifficultyData.GUID;
             Scene = levelScenario.Scene.GUID;
-            LevelElements = levelScenario.LevelElements.Select(kvp => new LevelElementSaveFile()
+            LevelElements = levelScenario.LevelElementsCustomInfos.Select(kvp => new LevelElementSaveFile()
             {
                 GUID = kvp.Key,
                 ILevelElementInfos = kvp.Value
             }).ToList();
+        }
+        
+        public override string ToString()
+        {
+            return $"Difficulty : {DifficultyData}, Scene : {Scene}, LevelElement : {LevelElements.Count}, IsValid : {IsValid}";
         }
     }
 }

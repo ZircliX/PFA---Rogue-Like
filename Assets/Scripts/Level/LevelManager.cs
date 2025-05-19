@@ -29,7 +29,7 @@ namespace RogueLike.Managers
                 {
                     DifficultyData = GameMetrics.Global.NormalDifficulty,
                     Scene = GameDatabase.Global.GetSceneDataFromScene(levelManager.gameObject.scene),
-                    LevelElements = levelManager.LevelElements
+                    LevelElementsCustomInfos = levelManager.LevelElements
                         .AsValueEnumerable()
                         .ToDictionary(ctx => ctx.GUID, ctx => ctx.Pull())
                 };
@@ -67,8 +67,8 @@ namespace RogueLike.Managers
         {
             yield return new WaitForEndOfFrame();
             
+            Debug.Log("Start");
             LastLevelScenario = LevelScenarioProvider.Value.GetLevelScenario(this);
-            
             PrepareLevel();
             StartLevel();
         }
@@ -76,13 +76,16 @@ namespace RogueLike.Managers
         private void PrepareLevel()
         {
             Difficulty = LastLevelScenario.DifficultyData;
-
+            var infosMap = LastLevelScenario.UseCustomInfos ? 
+                LastLevelScenario.LevelElementsCustomInfos :
+                GetCurrentElementInfos();
+            
             foreach (LevelElement element in LevelElements)
             {
-                foreach (KeyValuePair<string, ILevelElementInfos> elementSaveFile in LastLevelScenario.LevelElements)
+                foreach (KeyValuePair<string, ILevelElementInfos> elementSaveFile in infosMap)
                 {
                     if (element.GUID != elementSaveFile.Key) continue;
-                    
+
                     element.Push(elementSaveFile.Value);
                 }
             }
@@ -114,6 +117,14 @@ namespace RogueLike.Managers
             MenuManager.Instance.OpenMenu(menu);
         }
 
+        public void LeaveLevel()
+        {
+            TimerManager.Instance.PauseTimer();
+            SaveManager<LevelScenarioSaveFile>.Push();
+            
+            SceneController.Global.ChangeScene(GameMetrics.Global.MainMenuScene);
+        }
+
         public void RetryLevel()
         {
             SceneController.Global.ChangeScene(SceneManager.GetActiveScene().buildIndex);
@@ -137,12 +148,18 @@ namespace RogueLike.Managers
             {
                 DifficultyData = Difficulty,
                 Scene = GameDatabase.Global.GetSceneDataFromScene(gameObject.scene),
-                LevelElements = LevelElements
-                    .AsValueEnumerable()
-                    .ToDictionary(ctx => ctx.GUID, ctx => ctx.Pull())
+                LevelElementsCustomInfos = GetCurrentElementInfos(),
+                UseCustomInfos = true,
             };
             
             SaveManager<LevelScenarioSaveFile>.Push();
+        }
+
+        private Dictionary<string, ILevelElementInfos> GetCurrentElementInfos()
+        {
+            return LevelElements
+                .AsValueEnumerable()
+                .ToDictionary(ctx => ctx.GUID, ctx => ctx.Pull());
         }
     }
 }

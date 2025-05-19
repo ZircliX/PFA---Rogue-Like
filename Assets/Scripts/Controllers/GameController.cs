@@ -11,6 +11,7 @@ using UnityEditor;
 #endif
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RogueLike.Controllers
 {
@@ -94,8 +95,11 @@ namespace RogueLike.Controllers
             
             SaveManager<SettingsSave>.Push();
             SaveManager<SettingsSave>.RemoveListener(SettingsListener);
-            
-            SaveManager<LevelScenarioSaveFile>.Push();
+
+            if (SceneManager.GetActiveScene().buildIndex != 0)
+            {
+                SaveManager<LevelScenarioSaveFile>.Push();
+            }
             SaveManager<LevelScenarioSaveFile>.RemoveListener(LevelScenarioSaveFileListener);
         }
 

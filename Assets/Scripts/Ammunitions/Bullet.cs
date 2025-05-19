@@ -34,7 +34,7 @@ namespace DeadLink.Ammunitions
                 if (shouldHit.TryGetComponent(out Entity entity))
                 {
                     ApplyDamage(entity);
-                    Debug.Log("apply damage");
+                    //Debug.Log("apply damage");
                     HitObject(entity.gameObject);
                 }
                 else

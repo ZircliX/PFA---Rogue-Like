@@ -19,7 +19,7 @@ namespace DeadLink.Menus.Implementation
                 0f,
                 CursorLockMode.None,
                 true,
-                true,
+                false,
                 false);
         }
         

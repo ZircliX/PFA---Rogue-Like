@@ -1,6 +1,8 @@
 using DeadLink.Level;
 using Enemy;
+using RogueLike.Controllers;
 using SaveSystem.Core;
+using UnityEngine;
 
 namespace DeadLink.Save.LevelProgression
 {
@@ -16,11 +18,15 @@ namespace DeadLink.Save.LevelProgression
             if (CurrentILevelManager != null)
             {
                 LevelScenarioSaveFile scenarioSaveFile = CurrentILevelManager.GetLevelScenario();
+                Debug.Log(scenarioSaveFile);
+                if (!scenarioSaveFile.IsValid) return;
+                
                 CurrentLevelScenarioSaveFile = scenarioSaveFile;
 
                 if (!scenarioSaveFile.IsValid) return;
                 
                 saveFile.DifficultyData = scenarioSaveFile.DifficultyData;
+                saveFile.Scene = scenarioSaveFile.Scene;
                 saveFile.LevelElements = scenarioSaveFile.LevelElements;
             }
         }

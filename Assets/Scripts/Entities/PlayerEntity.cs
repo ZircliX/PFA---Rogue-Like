@@ -17,7 +17,6 @@ namespace RogueLike.Entities
 {
     public class PlayerEntity : Entity
     {
-        [field : SerializeField] public Transform SpawnPosition { get; private set; }
         [field : SerializeField] public List<string> PowerUpsInputName{ get; private set; }
         private Dictionary<string, IVisitor> unlockedPowerUps;
         private Dictionary<string, string> inputToPowerUpName;

@@ -1,11 +1,14 @@
 using DeadLink.Level;
 using DeadLink.Menus.Other.Scoreboard;
+using DeadLink.Save.GameProgression;
+using DeadLink.Save.LevelProgression;
 using DeadLink.SceneManagement;
 using DG.Tweening;
 using Enemy;
 using LTX.ChanneledProperties;
 using RogueLike;
 using RogueLike.Controllers;
+using SaveSystem.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,9 +28,10 @@ namespace DeadLink.Menus.Implementation
         [Header("Buttons")]
         [SerializeField] private Button playButton;
         [SerializeField] private Button continueButton;
-        
+
         [Header("References")]
-        [SerializeField] private MainMenuLevelScenarioProvider mainMenuLevelScenarioProvider;
+        private MainMenuLevelScenarioProvider mainMenuLevelScenarioProvider =>
+            GameObject.FindAnyObjectByType<MainMenuLevelScenarioProvider>();
         
         public override MenuType MenuType { get; protected set; }
 
@@ -51,7 +55,8 @@ namespace DeadLink.Menus.Implementation
 
         private void Start()
         {
-            continueButton.interactable = mainMenuLevelScenarioProvider.LevelScenario.IsValid;
+            Debug.Log(LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile.IsValid);
+            continueButton.interactable = LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile.IsValid;
         }
         
         public void UpdatePlayerName()
@@ -64,6 +69,7 @@ namespace DeadLink.Menus.Implementation
         {
             GameController.GameProgressionListener.SetPlayerName(playerName);
             ScoreboardSession.Instance.SetPlayerName();
+            SaveManager<GameProgression>.Pull();
         }
         
         public void OpenNamePanel()
@@ -85,17 +91,18 @@ namespace DeadLink.Menus.Implementation
         public void SetDifficulty(int index)
         {
             DifficultyData difficulty = GameController.GameDatabase.Difficulties[index];
-            mainMenuLevelScenarioProvider.SetDifficulty(difficulty);
+            mainMenuLevelScenarioProvider.SetDifficultyForNewGame(difficulty);
         }
         
         public void StartNewGame()
         {
-            mainMenuLevelScenarioProvider.SetScene(GameDatabase.Global.GetSceneFromSceneReference(GameMetrics.Global.LevelOne));
+            mainMenuLevelScenarioProvider.SetSceneForNewGame(GameDatabase.Global.GetSceneFromSceneReference(GameMetrics.Global.LevelOne));
             SceneController.Global.ChangeScene(mainMenuLevelScenarioProvider.LevelScenario.Scene);
         }
         
         public void ContinueGame()
         {
+            mainMenuLevelScenarioProvider.SetLevelScenarioToSavedFile(); 
             SceneController.Global.ChangeScene(mainMenuLevelScenarioProvider.LevelScenario.Scene.Scene);
         }
 
