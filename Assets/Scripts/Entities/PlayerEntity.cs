@@ -21,7 +21,9 @@ namespace RogueLike.Entities
         [field : SerializeField] public List<string> PowerUpsInputName{ get; private set; }
         private Dictionary<string, IVisitor> unlockedPowerUps;
         private Dictionary<string, string> inputToPowerUpName;
-
+        public bool isLastChanceActivated;
+        public static Action<PlayerEntity, PlayerMovement> OnPlayerLastChanceSaved;
+        
         [SerializeField, Self] private PlayerMovement pm;
 
         public int Kills { get; private set; }
@@ -87,6 +89,15 @@ namespace RogueLike.Entities
         public override bool TakeDamage(int damage)
         {
             int finalDamage = Mathf.CeilToInt(damage / Resistance);
+            bool isDying = Health - finalDamage <= 0;
+            bool isLastHealthBar = HealthBarCount <= 1;
+            if (isDying && isLastHealthBar && isLastChanceActivated)
+            {
+                OnPlayerLastChanceSaved?.Invoke(this, pm);
+                SetHealth(1f);
+                MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
+                return false;
+            }
             bool die = base.TakeDamage(finalDamage);
             MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
             return die;
@@ -159,21 +170,7 @@ namespace RogueLike.Entities
         
         public override void UsePowerUp(InputAction.CallbackContext context)
         {
-            if (!context.performed) return;
-
-            string actionName = context.action.name;
-            
-            if (inputToPowerUpName.TryGetValue(actionName, out string powerUpName))
-            {
-                Debug.Log($"Touched {powerUpName} found powerUp named {powerUpName}");
-                
-                if (unlockedPowerUps.TryGetValue(powerUpName, out IVisitor powerUp))
-                {
-                    Debug.Log($"Entry {powerUpName} found powerUp named {powerUp}");
-
-                    powerUp.OnBeUsed(this, pm);
-                }
-            }
+            //TODO: check if the power up is unlocked and use it ! 
         }
 
         public override void OnUpdate()
