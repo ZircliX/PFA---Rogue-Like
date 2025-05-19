@@ -38,7 +38,8 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
                     playerEntity.StartCoroutine(CompetenceDuration(playerEntity, playerMovement, OnFinishedToBeUsed));
 
                 }
-                CanBeUsed = true;
+
+                OnFinishedToBeUsed(playerEntity, playerMovement);
             }
             
         }
@@ -52,6 +53,14 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
                     enemy.outline.SetActive(false);
                 }
             }
+            
+            CanBeUsed = true;
+        }
+        
+        public override void OnReset(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
+        {
+            OnFinishedToBeUsed(playerEntity, playerMovement);
+            IsUnlocked = false;
         }
     }
 }

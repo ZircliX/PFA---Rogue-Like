@@ -7,7 +7,7 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
     [CreateAssetMenu(menuName = "PowerUp/CounterPowerUp", fileName = "CounterPowerUp")]
     public class CounterPowerUp : PowerUp
     {
-        
+        // MAYBE LEAVE THIS
         public override void OnBeUnlocked(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
             IsUnlocked = true;
