@@ -19,5 +19,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 82eae57a0fae6c84f86e681afb514c94, type: 3}
   - {fileID: 21300000, guid: f5f1fc4b7e989dd47a05a616ba620155, type: 3}
   - {fileID: 21300000, guid: c320b01e206747e46b22ab746b8cfa82, type: 3}
+  <Badge>k__BackingField: {fileID: 21300074, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+  <GUID>k__BackingField: cebfe114-ccc2-438f-8953-af4619536428
   <CooldownTime>k__BackingField: 10
   <CompetenceTime>k__BackingField: 0.1

@@ -21,7 +21,7 @@ namespace DeadLink.Menus.Other.Scoreboard
         {
             bool done = false;
             
-            LootLockerSDKManager.SubmitScore("", (int)TimerManager.Instance.ElapsedTime, leaderboardKey, (response) =>
+            LootLockerSDKManager.SubmitScore("", (int)TimerManager.Instance.Timer.ElapsedTime, leaderboardKey, (response) =>
             {
                 if (!response.success)
                 {

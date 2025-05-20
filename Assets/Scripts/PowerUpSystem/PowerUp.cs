@@ -13,7 +13,10 @@ namespace DeadLink.PowerUpSystem
     {
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string Description { get; private set; }
+        [field: Header("Cards")]
         [field: SerializeField] public Sprite[] Icon { get; private set; }
+        [field: Header("Icons")]
+        [field: SerializeField] public Sprite Badge { get; private set; }
 
         public bool IsUnlocked { get; protected set; }
         public bool CanBeUsed { get; protected set; }

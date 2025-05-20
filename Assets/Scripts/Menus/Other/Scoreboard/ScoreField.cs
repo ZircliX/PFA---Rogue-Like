@@ -11,7 +11,7 @@ namespace DeadLink.Menus.Other.Scoreboard
         public void SetScore(string playerName, int score)
         {
             PlayerName.text = playerName;
-            Score.text = score.ToString();
+            Score.text = $"{(int)score / 60}:{score%60:00}";
         }
     }
 }

@@ -43,6 +43,15 @@ namespace DeadLink.Menus.Other.Scoreboard
                             scoreFields[index].SetScore(playerName, score.score);
                         }
                     }
+                    else
+                    {
+                        for (int index = 0; index < scoreFields.Length; index++)
+                        {
+                            string playerName = "PLAYER";
+                            
+                            scoreFields[index].SetScore(playerName, 0);
+                        }
+                    }
                     
                     done = true;
                 }

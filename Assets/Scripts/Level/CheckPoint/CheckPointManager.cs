@@ -43,7 +43,7 @@ namespace DeadLink.Level.CheckPoint
    
             if (checkPointInfos.CheckPointIndex < CurrentCheckPoint.CheckPointIndex) 
                 return;
-            Debug.Log($"new : {checkPointInfos.CheckPointIndex}, current : {CurrentCheckPoint.CheckPointIndex}");
+            //Debug.Log($"new : {checkPointInfos.CheckPointIndex}, current : {CurrentCheckPoint.CheckPointIndex}");
             
             CurrentCheckPoint = checkPointInfos;
             LevelManager.Instance.SaveCurrentLevelScenario();

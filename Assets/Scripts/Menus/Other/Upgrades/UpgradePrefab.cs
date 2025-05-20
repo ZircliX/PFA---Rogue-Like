@@ -14,8 +14,9 @@ namespace DeadLink.Menus.Other
     {
         [SerializeField] private TMP_Text title;
         [SerializeField] private TMP_Text description;
-        [SerializeField] private RectTransform layersParent;
+        [SerializeField] public RectTransform layersParent;
         [SerializeField] private Image imagePrefab;
+        [field: SerializeField] public LayoutElement layout { get; private set; }
         private UpgradesMenu upgradesMenu;
         
         public PowerUp powerUp { get; private set; }

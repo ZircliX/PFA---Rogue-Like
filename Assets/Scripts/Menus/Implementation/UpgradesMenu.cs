@@ -3,7 +3,6 @@ using DeadLink.Menus.Other;
 using DeadLink.PowerUpSystem;
 using DG.Tweening;
 using LTX.ChanneledProperties;
-using RogueLike.Controllers;
 using RogueLike.Managers;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -13,7 +12,9 @@ namespace DeadLink.Menus.Implementation
     public class UpgradesMenu : Menu
     {
         [SerializeField] private UpgradePrefab upgradePrefab;
+        [SerializeField] private UpgradeBadge upgradeBadge;
         [SerializeField] private Transform targetUpgradePanel;
+        [SerializeField] private RectTransform middle;
         public PowerUp[] PowerUps { get; private set; }
         private List<UpgradePrefab> upgradeUIs;
         
@@ -78,18 +79,15 @@ namespace DeadLink.Menus.Implementation
             for (int i = upgradeUIs.Count - 1; i >= 0; i--)
             {
                 UpgradePrefab ui = upgradeUIs[i];
+                Debug.Log(ui.layout);
+                ui.layout.ignoreLayout = true;
                 
                 if (ui == upgradeInstance)
                 {
-                    ui.transform.DOMoveY(ui.transform.position.y, 3f).SetTarget(ui.transform).SetUpdate(true).OnComplete(() =>
+                    ui.transform.DOMove(middle.position, 1.5f).SetTarget(ui.transform).SetUpdate(true).OnComplete(() =>
                     {
-                        canBeClosed = true;
-                        MenuManager.Instance.CloseMenu();
-                        
-                        upgradeUIs.Remove(ui);
-                        Destroy(ui.gameObject);
+                        AddBadge(ui);
                     });
-                    ui.powerUp.OnBeUnlocked(LevelManager.Instance.PlayerController.PlayerEntity, LevelManager.Instance.PlayerController.PlayerMovement);
                 }
                 else
                 {
@@ -100,6 +98,29 @@ namespace DeadLink.Menus.Implementation
                     });
                 }
             }
+        }
+
+        private void AddBadge(UpgradePrefab upgrade)
+        {
+            upgrade.powerUp.OnBeUnlocked(LevelManager.Instance.PlayerController.PlayerEntity, LevelManager.Instance.PlayerController.PlayerMovement);
+            
+            UpgradeBadge badge = Instantiate(upgradeBadge, middle);
+            badge.transform.SetSiblingIndex(0);
+            badge.SetImage(upgrade.powerUp.Badge);
+            
+            upgrade.transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
+            {
+                DeleteUpgrade(upgrade);
+            });
+        }
+
+        private void DeleteUpgrade(UpgradePrefab upgrade)
+        {
+            upgradeUIs.Remove(upgrade);
+            Destroy(upgrade.gameObject);
+            
+            canBeClosed = true;
+            MenuManager.Instance.CloseMenu();
         }
     }
 }
