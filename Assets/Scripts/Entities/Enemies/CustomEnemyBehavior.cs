@@ -74,11 +74,6 @@ namespace DeadLink.Entities
         }
         
         #endregion
-        
-        protected override void Attack()
-        {
-            
-        }
 
     }
 }

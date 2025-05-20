@@ -107,7 +107,7 @@ namespace DeadLink.Weapons
                 float reloadProgress = CurrentReloadTime / WeaponData.ReloadTime;
                 CurrentMunitions = Mathf.FloorToInt(Mathf.Lerp(previousMunitions, WeaponData.MaxAmmunition, reloadProgress));
 
-                if (entity.CurrentWeapon == this)
+                if (entity.CurrentWeapon == this && entity.CompareTag("Player"))
                     MenuManager.Instance.HUDMenu.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
                 yield return null;
             }
@@ -115,7 +115,7 @@ namespace DeadLink.Weapons
             CurrentReloadTime = WeaponData.ReloadTime;
             
             SetMaxBullets();
-            if (entity.CurrentWeapon == this)
+            if (entity.CurrentWeapon == this && entity.CompareTag("Player"))
                 MenuManager.Instance.HUDMenu.UpdateAmmunitions(CurrentMunitions, WeaponData.MaxAmmunition);
         }
 

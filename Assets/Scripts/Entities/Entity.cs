@@ -189,8 +189,6 @@ namespace DeadLink.Entities
             CurrentWeapon = Weapons[newIndex];
             currentShootTime = 0;
         }
-
-        protected abstract void Attack();
         
         protected virtual void Shoot()
         {
@@ -245,13 +243,14 @@ namespace DeadLink.Entities
         protected virtual void ShootLogic()
         {
             if (CurrentWeapon == null) return;
-
+            
             if (currentShootTime > 0f)
                 currentShootTime -= Time.deltaTime;
 
             if (canShoot)
             {
-                Attack();
+                //Debug.Log("shoot", this);
+                Shoot();
                 currentShootTime = CurrentWeapon.WeaponData.ShootRate;
             }
 

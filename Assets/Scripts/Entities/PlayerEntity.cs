@@ -79,12 +79,7 @@ namespace RogueLike.Entities
                 power.Value.OnReset(this, pm);
             }
         }
-
-        protected override void Attack()
-        {
-            Shoot();
-        }
-
+        
         public override bool TakeDamage(int damage)
         {
             int finalDamage = Mathf.CeilToInt(damage / Resistance);
@@ -104,6 +99,7 @@ namespace RogueLike.Entities
         
         public bool EmptyHealthBar()
         {
+            Debug.Log(Health);
             bool die = base.TakeDamage(Health);
             MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
             return die;

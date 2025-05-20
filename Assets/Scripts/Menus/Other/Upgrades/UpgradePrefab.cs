@@ -88,15 +88,18 @@ namespace DeadLink.Menus.Other
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            transform.DOScale(1.1f, 0.25f).SetUpdate(true);
             currentlyHovered = this;
+            if (hasClicked) return;
+            transform.DOScale(1.1f, 0.25f).SetUpdate(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            transform.DOScale(1f, 0.25f).SetUpdate(true);
             if (currentlyHovered == this)
                 currentlyHovered = null;
+            
+            if (hasClicked) return;
+            transform.DOScale(1f, 0.25f).SetUpdate(true);
         }
         
         public void OnPointerClick(PointerEventData eventData)

@@ -108,9 +108,16 @@ namespace DeadLink.Menus.Implementation
             badge.transform.SetSiblingIndex(0);
             badge.SetImage(upgrade.powerUp.Badge);
             
-            upgrade.transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
+            upgrade.transform.DOScale(Vector3.zero, 0.5f).SetUpdate(true).OnComplete(() =>
             {
-                DeleteUpgrade(upgrade);
+                bool tryGetNextPowerUpPosition = MenuManager.Instance.HUDMenu.TryGetNextPowerUpPosition(out Transform target);
+                if (tryGetNextPowerUpPosition)
+                {
+                    badge.transform.DOMove(target.position, 0.75f).SetDelay(0.25f).OnComplete(() =>
+                    {
+                        DeleteUpgrade(upgrade);
+                    });
+                }
             });
         }
 

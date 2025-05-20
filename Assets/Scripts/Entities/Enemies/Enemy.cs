@@ -164,26 +164,33 @@ namespace DeadLink.Entities
         {
             HandleDetection();
             HandleOrientation();
-            Attack();
         }
         
         #endregion
+        
+        protected override void Shoot()
+        {
+            if (CurrentWeapon != null && CurrentWeapon.CurrentReloadTime >= CurrentWeapon.WeaponData.ReloadTime)
+            {
+                Vector3 direction = player.transform.position - transform.position;
+                GameObject objectToHit = player.transform.gameObject;
+
+                Debug.DrawRay(BulletSpawnPoint.position, direction * 50, Color.red, 2);
+                
+                CurrentWeapon.Fire(this, direction, objectToHit);
+            }
+            else
+            {
+                //Debug.LogError($"No equipped weapon for {gameObject.name}");
+            }
+        }
 
         private void HandleDetection()
         {
             bool hasVision = HasVisionOnPlayer();
+            //Debug.Log(hasVision, this);
             canAttack = inAttackRange && hasVision;
-            
-            if (hasVision)
-            {
-                if (inAggroRange)
-                {
-                    Vector3 direction = (player.transform.position - transform.position).normalized;
-                    Vector3 deltaOffset = direction * attackRadius;
-
-                    //targetPosition = player.transform.position - deltaOffset;
-                }
-            }
+            isShooting = canAttack;
         }
         
         private void HandleOrientation()
@@ -192,14 +199,7 @@ namespace DeadLink.Entities
             
             Vector3 direction = (player.transform.position - transform.position).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 5f);
-        }
-        
-        protected override void Attack()
-        {
-            if (!canAttack) return;
-            
-            player.TakeDamage(1);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 5f);
         }
 
         private bool HasVisionOnPlayer()
@@ -217,7 +217,7 @@ namespace DeadLink.Entities
 
             Debug.DrawLine(transform.position, player.transform.position, Color.black);
             
-            float angle = Vector3.Dot(transform.forward, direction.normalized);
+            float angle = Vector3.Dot(-transform.forward, direction.normalized);
             bool correctAngle = angle < -0.7f;
             
             return correctAngle;

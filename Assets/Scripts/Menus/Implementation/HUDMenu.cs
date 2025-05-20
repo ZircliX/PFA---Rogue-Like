@@ -24,6 +24,9 @@ namespace DeadLink.Menus.Implementation
         [SerializeField] private Color activeColor, disableColor;
         [SerializeField] private Image health;
         
+        [Header("Health")]
+        [SerializeField] private UpgradeBadgeSlot[] upgradeBadgeSlots;
+        
         private int currentWeaponIndex;
 
         public override MenuType MenuType { get; protected set; }
@@ -88,6 +91,26 @@ namespace DeadLink.Menus.Implementation
                 x => health.fillAmount = x,
                 current / maxHealth,
                 0.25f).SetEase(Ease.OutSine);
+        }
+        
+        public void UpdatePowerUps(int index, bool isActive)
+        {
+            upgradeBadgeSlots[index].gameObject.SetActive(isActive);
+        }
+
+        public bool TryGetNextPowerUpPosition(out Transform t)
+        {
+            for (int i = 0; i < upgradeBadgeSlots.Length; i++)
+            {
+                if (upgradeBadgeSlots[i].IsEmpty)
+                {
+                    t = upgradeBadgeSlots[i].transform;
+                    return true;
+                }
+            }
+
+            t = null;
+            return false;
         }
     }
 }
