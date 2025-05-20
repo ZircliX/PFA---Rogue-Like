@@ -20,6 +20,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f44a056c8183c6e48b1ffb933d7f0226, type: 3}
   - {fileID: 21300000, guid: 1c92d68ee5d8f904c91bb1638829d7f6, type: 3}
   - {fileID: 21300000, guid: 84292efe3fc30c24ea8c7c5fa1c6052b, type: 3}
+  <Badge>k__BackingField: {fileID: 21300002, guid: 07103c52b3aaeca4da8a83361edd059f, type: 3}
+  <GUID>k__BackingField: 0ad3e92e-fb31-458b-881e-2ec824001fe9
   <CooldownTime>k__BackingField: 60
   <CompetenceTime>k__BackingField: 20
   <AdrenalineMultiplier>k__BackingField: 2

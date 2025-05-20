@@ -1,13 +1,15 @@
-using UnityEngine;
+using DeadLink.Level.Interfaces;
 using LTX.Singletons;
+using UnityEngine;
 
 namespace RogueLike.Timer
 {
     public class TimerManager : MonoSingleton<TimerManager>
     {
         [Header("Timer State")]
+        [field: SerializeField] public Timer Timer { get; private set; }
         private bool isRunning;
-        public float ElapsedTime { get; private set; }
+        
 
         private void Update()
         {
@@ -31,7 +33,7 @@ namespace RogueLike.Timer
             
             if (isRunning)
             {
-                ElapsedTime += Time.deltaTime;
+                Timer.UpdateTimer();
             }
         }
         
@@ -54,7 +56,7 @@ namespace RogueLike.Timer
         public void ResetTimer()
         {
             isRunning = false;
-            ElapsedTime = 0f;
+            Timer.ResetTimer();
         }
     }
 }

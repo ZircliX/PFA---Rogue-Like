@@ -18,7 +18,7 @@ namespace DeadLink.Save.LevelProgression
             if (CurrentILevelManager != null)
             {
                 LevelScenarioSaveFile scenarioSaveFile = CurrentILevelManager.GetLevelScenario();
-                Debug.Log(scenarioSaveFile);
+                Debug.Log("writing save " + scenarioSaveFile);
                 if (!scenarioSaveFile.IsValid) return;
                 
                 CurrentLevelScenarioSaveFile = scenarioSaveFile;

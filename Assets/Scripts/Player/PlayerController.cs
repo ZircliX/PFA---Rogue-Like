@@ -42,8 +42,7 @@ namespace DeadLink.Player
         {
             CheckPointManager manager = CheckPointManager.Instance;
             
-            Debug.Log($"Pulling player controller");
-            Debug.Log(manager.HasCheckPoint() ? manager.CurrentCheckPoint.CheckPointIndex : 0);
+            //Debug.Log($"Pulling player controller");
             return new PlayerInfos()
             {
                 PlayerPowerUps = PlayerEntity.PowerUps.Select(ctx => ctx.GUID).ToList(),

@@ -16,7 +16,7 @@ namespace RogueLike.Timer
 
         private void UpdateTimer()
         {
-            TimeSpan timeSpan = TimeSpan.FromSeconds(TimerManager.Instance.ElapsedTime);
+            TimeSpan timeSpan = TimeSpan.FromSeconds(TimerManager.Instance.Timer.ElapsedTime);
             string timeString = timeSpan.ToString(@"hh\:mm\:ss");
             timerText.text = timeString;
         }

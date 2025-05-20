@@ -55,7 +55,7 @@ namespace DeadLink.Menus.Implementation
 
         private void Start()
         {
-            Debug.Log(LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile.IsValid);
+            //Debug.Log(LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile.IsValid);
             continueButton.interactable = LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile.IsValid;
         }
         

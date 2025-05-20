@@ -67,7 +67,7 @@ namespace RogueLike.Managers
         {
             yield return new WaitForEndOfFrame();
             
-            Debug.Log("Start");
+            //Debug.Log("Start");
             LastLevelScenario = LevelScenarioProvider.Value.GetLevelScenario(this);
             PrepareLevel();
             StartLevel();
@@ -157,6 +157,8 @@ namespace RogueLike.Managers
 
         private Dictionary<string, ILevelElementInfos> GetCurrentElementInfos()
         {
+            Debug.LogError("Non arrête");
+            //Debug.Break();
             return LevelElements
                 .AsValueEnumerable()
                 .ToDictionary(ctx => ctx.GUID, ctx => ctx.Pull());
