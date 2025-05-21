@@ -17,7 +17,7 @@ MonoBehaviour:
   <BaseHealth>k__BackingField: 75
   <BaseHealthBarAmount>k__BackingField: 1
   <BaseSpeed>k__BackingField: 1
-  <BaseResistance>k__BackingField: 0
+  <BaseResistance>k__BackingField: 1
   <BaseStrength>k__BackingField: 1
   <VFXToSpawn>k__BackingField: {fileID: 0}
   <DelayAfterDestroyVFX>k__BackingField: 0

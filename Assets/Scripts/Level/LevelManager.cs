@@ -157,8 +157,6 @@ namespace RogueLike.Managers
 
         private Dictionary<string, ILevelElementInfos> GetCurrentElementInfos()
         {
-            Debug.LogError("Non arrête");
-            //Debug.Break();
             return LevelElements
                 .AsValueEnumerable()
                 .ToDictionary(ctx => ctx.GUID, ctx => ctx.Pull());

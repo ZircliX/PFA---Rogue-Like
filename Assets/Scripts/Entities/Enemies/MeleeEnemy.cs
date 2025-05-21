@@ -95,7 +95,7 @@ namespace DeadLink.Entities.Enemies
                 Vector3 target = transform.position + candidateDirection * idleMoveRadius;
                 if (NavMesh.SamplePosition(target, out NavMeshHit hit, 1, NavMesh.AllAreas))
                 {
-                    Debug.Log("Found new position");
+                    //Debug.Log("Found new position");
                     targetPosition = hit.position;
                     lastDirection = (hit.position - transform.position).normalized;
                     return;

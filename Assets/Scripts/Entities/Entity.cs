@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DeadLink.Entities.Data;
+using DeadLink.Menus;
 using DeadLink.Player;
 using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
@@ -76,12 +77,12 @@ namespace DeadLink.Entities
             Speed = new InfluencedProperty<float>(EntityData.BaseSpeed);
             Resistance = new InfluencedProperty<float>(EntityData.BaseResistance);
             MaxHealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
-            MaxHealthBarCount.AddInfluence(this, Influence.Subtract);
             if (!firstSpawn)
             {
                 HealthBarCount = MaxHealthBarCount.Value;
                 firstSpawn = true;
             }
+            
             CurrentWeapon = Weapons[^1];
             currentWeaponIndex = Weapons.Length - 1;
 
@@ -146,7 +147,7 @@ namespace DeadLink.Entities
 
         public virtual void SetFullHealth() => SetHealth(MaxHealth.Value);
         
-        public virtual void SetHealth(float health)
+        protected virtual void SetHealth(float health)
         {
             Health = health;
         }

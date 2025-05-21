@@ -137,7 +137,7 @@ namespace DeadLink.Entities
             SetFullHealth();
         }
 
-        public override void SetHealth(float health)
+        protected override void SetHealth(float health)
         {
             base.SetHealth(health);
             enemyUI.UpdateHealthBar(Health, MaxHealth.Value);
@@ -181,7 +181,7 @@ namespace DeadLink.Entities
             {
                 Vector3 direction = player.transform.position - transform.position;
                 GameObject objectToHit = player.transform.gameObject;
-
+                
                 Debug.DrawRay(BulletSpawnPoint.position, direction * 50, Color.red, 2);
                 
                 CurrentWeapon.Fire(this, direction, objectToHit);

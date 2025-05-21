@@ -69,6 +69,7 @@ namespace RogueLike.Entities
             unlockedPowerUps = new Dictionary<string, IVisitor>();
             inputToPowerUpName = new Dictionary<string, string>();
             
+            SetFullHealth();
             ResetPowerUps();
         }
 
@@ -82,9 +83,16 @@ namespace RogueLike.Entities
         
         public override bool TakeDamage(int damage)
         {
+            Debug.Log(damage);
+            Debug.Log(Resistance.Value);
+            
             int finalDamage = Mathf.CeilToInt(damage / Resistance);
+            Debug.Log($"Final damage : {finalDamage}");
             bool isDying = Health - finalDamage <= 0;
+            Debug.Log($"Is Dying {isDying}");
             bool isLastHealthBar = HealthBarCount <= 1;
+            Debug.Log($"Is last health bar {isLastHealthBar}");
+            
             if (isDying && isLastHealthBar && isLastChanceActivated)
             {
                 OnPlayerLastChanceUsed?.Invoke(this, pm);
@@ -96,7 +104,13 @@ namespace RogueLike.Entities
             MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
             return die;
         }
-        
+
+        protected override void SetHealth(float health)
+        {
+            base.SetHealth(health);
+            MenuManager.Instance.HUDMenu.UpdateHealth(health, MaxHealth.Value, HealthBarCount);
+        }
+
         public bool EmptyHealthBar()
         {
             Debug.Log(Health);

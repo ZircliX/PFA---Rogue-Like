@@ -69,7 +69,7 @@ namespace DeadLink.Weapons
             bullet.OnBulletHit += BulletHit;
             bullet.OnBulletDestroy += BulletDestroy;
             
-            bullet.Shoot(entity.Strength, direction, shouldHit);
+            bullet.Shoot(entity, direction, shouldHit);
 
             if (entity.CompareTag("Player"))
             {

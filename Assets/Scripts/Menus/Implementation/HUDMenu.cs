@@ -80,6 +80,8 @@ namespace DeadLink.Menus.Implementation
 
         public void UpdateHealth(float current, float maxHealth, int healthBarCount)
         {
+            Debug.Log($"current : {current}, max : {maxHealth}, bar : {healthBarCount}");
+            
             for (int i = 0; i < healthBars.Length; i++)
             {
                 healthBars[i].gameObject.SetActive(i < healthBarCount);

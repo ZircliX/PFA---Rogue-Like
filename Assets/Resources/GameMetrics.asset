@@ -16,7 +16,6 @@ MonoBehaviour:
   <NormalDifficulty>k__BackingField: {fileID: 11400000, guid: c37f0028a9d5e7742a7abf8e0f892751, type: 2}
   <HardDifficulty>k__BackingField: {fileID: 11400000, guid: 2cd4a70f6f1503e49b6f8105dcb8d288, type: 2}
   <InsaneDifficulty>k__BackingField: {fileID: 11400000, guid: a92bbb00a52979147986d41fd4431cd0, type: 2}
-  <LevelOneNormal>k__BackingField: 30906
   <SpawnEnemies>k__BackingField: 1
   <SceneLoader>k__BackingField: {fileID: 3979984848490167843, guid: a39c2f37b5967cf42a360df5d75d8c96, type: 3}
   <EnemyStopDetect>k__BackingField:
@@ -43,7 +42,8 @@ MonoBehaviour:
   <SettingsMenu>k__BackingField: {fileID: 11400000, guid: 61e8a13d4abad89418df7511ed34ef5f, type: 2}
   <UpgradesMenu>k__BackingField: {fileID: 11400000, guid: 7949dcdc7f87fbb4b9d31c6865dcc52e, type: 2}
   <CreditsMenu>k__BackingField: {fileID: 11400000, guid: 2e2470dcf0f8c544083947adcc638650, type: 2}
-  <ScoreboardMenu>k__BackingField: {fileID: 11400000, guid: 53dabc4e62dc60c42af9c356a48f04e7, type: 2}
+  <GameplayScoreboard>k__BackingField: {fileID: 11400000, guid: 8398bb69823e6894484d9951adbd45b8, type: 2}
+  <MenuScoreboard>k__BackingField: {fileID: 11400000, guid: b649403b119154e4abd14cded3f6dca4, type: 2}
   <FMOD_PlayerAutomaticReload>k__BackingField:
     Guid:
       Data1: 1352886904
