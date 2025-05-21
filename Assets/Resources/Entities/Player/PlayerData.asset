@@ -15,7 +15,7 @@ MonoBehaviour:
   <EntityPrefab>k__BackingField: {fileID: 0}
   <GUID>k__BackingField: e4799c1c-0e27-4a90-92a6-f3bf48ee0ed9
   <BaseHealth>k__BackingField: 100
-  <BaseHealthBarAmount>k__BackingField: 3
+  <BaseHealthBarAmount>k__BackingField: 1
   <BaseSpeed>k__BackingField: 1
   <BaseResistance>k__BackingField: 1
   <BaseStrength>k__BackingField: 1

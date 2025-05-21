@@ -504,9 +504,9 @@ MonoBehaviour:
   - {fileID: 7682103927050320968}
   - {fileID: 1105781393924151091}
   - {fileID: 4144670010414020347}
-  <SpawnPosition>k__BackingField: {fileID: 8406938040259338861}
   <PowerUpsInputName>k__BackingField:
   - 
+  isLastChanceActivated: 0
   pm: {fileID: 7673975130547769438}
 --- !u!114 &3016530247966428140
 MonoBehaviour:
@@ -708,7 +708,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.25
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

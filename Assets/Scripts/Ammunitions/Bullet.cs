@@ -23,25 +23,11 @@ namespace DeadLink.Ammunitions
         protected float damage;
         protected Vector3 lastPosition;
         protected float currentLifeCycle;
-        protected GameObject shouldHit;
 
         private void OnValidate() => this.ValidateRefs();
         
         protected virtual void FixedUpdate()
         {
-            if (shouldHit)
-            {
-                if (shouldHit.TryGetComponent(out Entity entity))
-                {
-                    ApplyDamage(entity);
-                    HitObject(entity.gameObject);
-                }
-                else
-                {
-                    HitObject(shouldHit);
-                }
-            }
-            
             Vector3 currentPosition = rb.position;
             Vector3 direction = currentPosition - lastPosition;
             float distance = direction.magnitude;
@@ -52,19 +38,18 @@ namespace DeadLink.Ammunitions
                 
                 if (Physics.Raycast(ray, out RaycastHit hit, distance, ~0, QueryTriggerInteraction.Ignore))
                 {
-                    /*
-                    if (hit.collider.TryGetComponent(out Entity entity))
-                    {
-                        //Debug.Log($"Hit Entity {entity.name}");
-                        ApplyDamage(entity);
-                        HitObject(hit);
-                    }
-                    else if (hit.collider.gameObject.GetInstanceID() != gameObject.GetInstanceID())
+                    // if (hit.collider.TryGetComponent(out Entity entity))
+                    // {
+                    //     //Debug.Log($"Hit Entity {entity.name}");
+                    //     ApplyDamage(entity);
+                    //     HitObject(hit);
+                    // }
+                    
+                    if (hit.collider.gameObject.GetInstanceID() != gameObject.GetInstanceID())
                     {
                         //Debug.Log($"Hit object {hit.collider.name}");
                         HitObject(hit);
                     }
-                    */
                     
                     if (hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())
                     {
@@ -90,10 +75,18 @@ namespace DeadLink.Ammunitions
 
         public void Shoot(Entity entity, Vector3 direction, GameObject shouldHit)
         {
-            this.shouldHit = shouldHit;
             Author = entity;
             damage = BulletData.Damage * entity.Strength.Value;
             lastPosition = rb.position;
+            
+            if (shouldHit)
+            {
+                if (shouldHit.TryGetComponent(out Entity obj))
+                {
+                    ApplyDamage(obj);
+                }
+            }
+            
             rb.AddForce(direction * BulletData.BulletSpeed, ForceMode.Impulse);
         }
 

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using DeadLink.Entities.Data;
 using DeadLink.Level;
@@ -7,7 +6,6 @@ using DeadLink.PowerUpSystem;
 using DeadLink.Save.LevelProgression;
 using DevLocker.Utils;
 using Enemy;
-using UnityEditor.SearchService;
 using UnityEngine;
 using Scene = UnityEngine.SceneManagement.Scene;
 

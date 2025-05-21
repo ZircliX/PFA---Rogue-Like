@@ -14,8 +14,8 @@ namespace DeadLink.Entities
             DOTween.Kill(this);
             Sequence sequence = DOTween.Sequence();
             
-            sequence.Append(healthBar.DOFillAmount(current / max, 0.15f))
-                .Append(healthBarBg.DOFillAmount(current / max, 0.25f).SetEase(Ease.OutCubic));
+            sequence.Append(healthBar.DOFillAmount(current / max, 0.1f))
+                .Append(healthBarBg.DOFillAmount(current / max, 0.15f).SetEase(Ease.OutCubic));
 
             sequence.SetTarget(gameObject);
             

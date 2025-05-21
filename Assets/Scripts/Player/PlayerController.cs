@@ -24,6 +24,19 @@ namespace DeadLink.Player
             public int HealthBarCount;
             
             public int LastCheckPoint;
+
+            public bool IsNull() => HealthPoints == 0 && HealthBarCount == 0;
+
+            public PlayerInfos GetDefault()
+            {
+                return new PlayerInfos()
+                {
+                    PlayerPowerUps = null,
+                    HealthPoints = 100,
+                    HealthBarCount = 3,
+                    LastCheckPoint = 0
+                };
+            }
         }
         
         [field: SerializeField, Self] public PlayerInput PlayerInput { get; private set; }
@@ -64,7 +77,7 @@ namespace DeadLink.Player
                     PlayerEntity.transform.position);
                 
                 PlayerEntity.SetInfos(playerInfos);
-
+                
                 //Debug.Log(playerInfos.LastCheckPoint);
                 if (CheckPointManager.Instance.TryGetCheckPoint(playerInfos.LastCheckPoint, out CheckPoint checkPoint))
                 {
