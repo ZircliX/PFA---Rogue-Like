@@ -11,7 +11,6 @@ namespace DeadLink.Ammunitions
     {
         [SerializeField] private RocketBulletData rocketBulletData;
         public override BulletData BulletData => rocketBulletData;
-        public override string AuthorTag { get; set; } = "Player";
 
         protected override void FixedUpdate()
         {

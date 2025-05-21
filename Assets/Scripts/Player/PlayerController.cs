@@ -20,7 +20,7 @@ namespace DeadLink.Player
         {
             public List<string> PlayerPowerUps;
 
-            public int HealthPoints;
+            public float HealthPoints;
             public int HealthBarCount;
             
             public int LastCheckPoint;
@@ -68,12 +68,12 @@ namespace DeadLink.Player
                 //Debug.Log(playerInfos.LastCheckPoint);
                 if (CheckPointManager.Instance.TryGetCheckPoint(playerInfos.LastCheckPoint, out CheckPoint checkPoint))
                 {
-                    Debug.Log($"Weeee {LastCheckPoint}");
+                    //Debug.Log($"Weeee {LastCheckPoint}");
                     PlayerMovement.TeleportPlayer(checkPoint.transform, 1);
                 }
                 else
                 {
-                    Debug.Log("Hooo, Spawned at spawn");
+                    //Debug.Log("Hooo, Spawned at spawn");
                     Transform respawn = CheckPointManager.Instance.GetRespawn();
                     PlayerMovement.TeleportPlayer(respawn, 1);
                 }

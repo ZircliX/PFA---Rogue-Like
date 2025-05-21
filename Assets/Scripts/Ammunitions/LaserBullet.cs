@@ -7,6 +7,5 @@ namespace DeadLink.Ammunitions
     {
         [SerializeField] private BulletData bulletData;
         public override BulletData BulletData => bulletData;
-        public override string AuthorTag { get; set; } = "Player";
     }
 }

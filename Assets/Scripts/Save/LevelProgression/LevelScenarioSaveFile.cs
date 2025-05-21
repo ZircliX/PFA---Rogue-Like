@@ -35,7 +35,7 @@ namespace DeadLink.Level
 
         public LevelScenarioSaveFile(LevelScenario levelScenario)
         {
-            Debug.Log("convert to save file");
+            //Debug.Log("convert to save file");
             DifficultyData = levelScenario.DifficultyData.GUID;
             Scene = levelScenario.Scene.GUID;
             LevelElements = levelScenario.LevelElementsCustomInfos.Select(kvp => new LevelElementSaveFile()

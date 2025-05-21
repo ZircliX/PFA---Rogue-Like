@@ -15,7 +15,7 @@ namespace DeadLink.Ammunitions
     {
         public abstract BulletData BulletData { get; }
         [SerializeField, Self] private Rigidbody rb;
-        public abstract string AuthorTag { get; set; }
+        public Entity Author { get; protected set; }
         
         public event Action<Bullet> OnBulletHit;
         public event Action<Bullet> OnBulletDestroy;
@@ -34,7 +34,6 @@ namespace DeadLink.Ammunitions
                 if (shouldHit.TryGetComponent(out Entity entity))
                 {
                     ApplyDamage(entity);
-                    //Debug.Log("apply damage");
                     HitObject(entity.gameObject);
                 }
                 else
@@ -89,10 +88,11 @@ namespace DeadLink.Ammunitions
             lastPosition = currentPosition;
         }
 
-        public void Shoot(float entityStrength, Vector3 direction, GameObject shouldHit)
+        public void Shoot(Entity entity, Vector3 direction, GameObject shouldHit)
         {
             this.shouldHit = shouldHit;
-            damage = BulletData.Damage * entityStrength;
+            Author = entity;
+            damage = BulletData.Damage * entity.Strength.Value;
             lastPosition = rb.position;
             rb.AddForce(direction * BulletData.BulletSpeed, ForceMode.Impulse);
         }
@@ -113,7 +113,7 @@ namespace DeadLink.Ammunitions
             for (int i = 0; i < entities.Length; i++)
             {
                 Entity entity = entities[i];
-                if (entity.CompareTag(AuthorTag)) continue;
+                if (entity == Author) continue;
                 if (entity.TakeDamage(damage) && entity.TryGetComponent(out RayfireRigid rfr))
                 {
                     foreach (RayfireRigid frag in rfr.fragments)
@@ -134,7 +134,7 @@ namespace DeadLink.Ammunitions
 
         protected virtual void HitObject(GameObject gm)
         {
-            if (gm.CompareTag(AuthorTag)) return;
+            if (gm.name == Author.name) return;
             if (gm.TryGetComponent(out RayfireRigid rfr))
             {
                 if (rfr.ApplyDamage(50, gm.transform.position, 0.25f))

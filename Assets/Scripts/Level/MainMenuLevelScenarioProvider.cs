@@ -15,6 +15,8 @@ namespace DeadLink.Level
         
         public LevelScenario GetLevelScenario(LevelManager levelManager)
         {
+            levelManager.LevelScenarioProvider.RemovePriority(this);
+            Destroy(gameObject);
             return LevelScenario;
         }
 
@@ -65,7 +67,7 @@ namespace DeadLink.Level
         
         public void SetSceneForNewGame(SceneData sceneData)
         {
-            Debug.Log("set scene");
+            //Debug.Log("set scene");
             LevelScenario = new LevelScenario()
             {
                 DifficultyData = LevelScenario.DifficultyData,

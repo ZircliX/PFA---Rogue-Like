@@ -18,17 +18,6 @@ namespace DeadLink.Entities.Enemies
         public override void UsePowerUp(InputAction.CallbackContext context)
         {
         }
-
-        protected override void Attack()
-        {
-            if (!canAttack) return;
-            Shoot();
-        }
-
-        protected override void Shoot()
-        {
-            base.Shoot();
-            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemiesAttack, transform.position);
-        }
+        
     }
 }

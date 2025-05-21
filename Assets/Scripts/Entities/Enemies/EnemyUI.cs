@@ -11,8 +11,9 @@ namespace DeadLink.Entities
         
         public void UpdateHealthBar(float current, float max)
         {
+            DOTween.Kill(this);
             Sequence sequence = DOTween.Sequence();
-
+            
             sequence.Append(healthBar.DOFillAmount(current / max, 0.15f))
                 .Append(healthBarBg.DOFillAmount(current / max, 0.25f).SetEase(Ease.OutCubic));
 

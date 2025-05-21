@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DeadLink.Entities.Data;
+using DeadLink.Menus;
 using DeadLink.Player;
 using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
@@ -35,7 +36,7 @@ namespace DeadLink.Entities
         protected bool canShoot => isShooting && currentShootTime <= 0f;
         #endregion
         
-        public int Health { get; private set; }
+        public float Health { get; private set; }
         public int HealthBarCount { get; private set; }
         public bool IsInvisible { get; protected set; }
 
@@ -76,7 +77,6 @@ namespace DeadLink.Entities
             Speed = new InfluencedProperty<float>(EntityData.BaseSpeed);
             Resistance = new InfluencedProperty<float>(EntityData.BaseResistance);
             MaxHealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
-            MaxHealthBarCount.AddInfluence(this, Influence.Subtract);
             if (!firstSpawn)
             {
                 HealthBarCount = MaxHealthBarCount.Value;
@@ -106,21 +106,24 @@ namespace DeadLink.Entities
         {
             Health -= damage;
             
-            if (Health <= 0)
+            if (Mathf.FloorToInt(Health) <= 0)
             {
                 HealthBarCount--;
                 
-                //Debug.Log($"Remaining health bar : {HealthBarCount}, max health : {MaxHealthBarCount.Value}");
-                
-                int remainingDamages = Mathf.Abs(Health);
+                float remainingDamages = -Health;
                 if (HealthBarCount <= 0)
                 {
+                    SetHealth(0);
                     StartCoroutine(Die());
                     return true;
                 }
                 
                 SetFullHealth();
                 Health -= remainingDamages;
+            }
+            else
+            {
+                SetHealth(Health);
             }
             
             return false;
@@ -135,22 +138,18 @@ namespace DeadLink.Entities
         public virtual void Heal(int heal)
         {
             int maxHealth = Mathf.CeilToInt(MaxHealth.Value);
-            Health += heal;
-
-            if (Health > maxHealth)
-            {
-                Health = maxHealth;
-            }
+            float targetHealth = Health + heal;
+            if (targetHealth > maxHealth)
+                targetHealth = maxHealth;
+            
+            SetHealth(targetHealth);
         }
 
-        public virtual void SetFullHealth()
-        {
-            Health = Mathf.CeilToInt(MaxHealth.Value);
-        }
+        public virtual void SetFullHealth() => SetHealth(MaxHealth.Value);
         
-        public virtual void SetHealth(float health)
+        protected virtual void SetHealth(float health)
         {
-            Health = Mathf.CeilToInt(health);
+            Health = health;
         }
         
         public virtual void SetBonusHealthBarCount(int bonusHealthBarCount)
@@ -189,8 +188,6 @@ namespace DeadLink.Entities
             CurrentWeapon = Weapons[newIndex];
             currentShootTime = 0;
         }
-
-        protected abstract void Attack();
         
         protected virtual void Shoot()
         {
@@ -245,13 +242,14 @@ namespace DeadLink.Entities
         protected virtual void ShootLogic()
         {
             if (CurrentWeapon == null) return;
-
+            
             if (currentShootTime > 0f)
                 currentShootTime -= Time.deltaTime;
 
             if (canShoot)
             {
-                Attack();
+                //Debug.Log("shoot", this);
+                Shoot();
                 currentShootTime = CurrentWeapon.WeaponData.ShootRate;
             }
 

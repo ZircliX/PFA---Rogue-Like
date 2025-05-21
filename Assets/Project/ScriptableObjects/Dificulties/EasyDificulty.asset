@@ -16,8 +16,8 @@ MonoBehaviour:
   <GUID>k__BackingField: d3cc7804-7071-4fbe-bba4-0b191dc0a6ee
   <PlayerHealthMultiplier>k__BackingField: 1.25
   <PlayerStrengthMultiplier>k__BackingField: 1.25
-  <PlayerResistanceMultiplier>k__BackingField: 0
-  <PlayerHealthBarCount>k__BackingField: 0
+  <PlayerResistanceMultiplier>k__BackingField: 1.25
+  <PlayerHealthBarCount>k__BackingField: 3
   <WaveBalanceMultiplier>k__BackingField: 0
   <EnemyStrengthMultiplier>k__BackingField: 0.75
   <EnemyHealthMultiplier>k__BackingField: 0.75

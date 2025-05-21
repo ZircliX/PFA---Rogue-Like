@@ -33,6 +33,7 @@ namespace DeadLink.Entities.Enemies
         
         private void Move()
         {
+            //Debug.Log("Move");
             navMeshAgent.SetDestination(targetPosition);
         }
         
@@ -40,7 +41,7 @@ namespace DeadLink.Entities.Enemies
         {
             if (inAggroRange || findingNewPos) return;
 
-            bool shouldFindNew = navMeshAgent.velocity.sqrMagnitude < 0.1f;
+            bool shouldFindNew = navMeshAgent.velocity.sqrMagnitude < 1f;
             if (shouldFindNew)
             {
                 findingNewPos = true;
@@ -94,6 +95,7 @@ namespace DeadLink.Entities.Enemies
                 Vector3 target = transform.position + candidateDirection * idleMoveRadius;
                 if (NavMesh.SamplePosition(target, out NavMeshHit hit, 1, NavMesh.AllAreas))
                 {
+                    //Debug.Log("Found new position");
                     targetPosition = hit.position;
                     lastDirection = (hit.position - transform.position).normalized;
                     return;
@@ -110,16 +112,6 @@ namespace DeadLink.Entities.Enemies
         public override void UsePowerUp(InputAction.CallbackContext context)
         {
         }
-
-        protected override void Attack()
-        {
-            //Shoot();
-        }
-
-        protected override void Shoot()
-        {
-            base.Shoot();
-            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemiesAttack, transform.position);
-        }
+        
     }
 }

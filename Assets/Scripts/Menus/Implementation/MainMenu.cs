@@ -126,6 +126,15 @@ namespace DeadLink.Menus.Implementation
         public void Scoreboard()
         {
             IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.GameplayScoreboard);
+            if (MenuManager.Instance.TryGetCurrentMenu(out IMenu current))
+            {
+                if (current == menu)
+                {
+                    MenuManager.Instance.CloseMenu();
+                    return;
+                }
+            }
+            
             MenuManager.Instance.OpenMenu(menu);
         }
     }
