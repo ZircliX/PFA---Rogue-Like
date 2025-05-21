@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/ZCX/MainMenu.unity.meta
 guid: 699ac3a7803a1a644842267e9b1a4f5e
+========
+guid: 9033466b6e22b924b9625437ae953bb3
+>>>>>>>> MouniaBranch:Assets/Plugins/AllIn1SpriteShader/2DRenderer-URP-Package-2021.2+.unitypackage.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
