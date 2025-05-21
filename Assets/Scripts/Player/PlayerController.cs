@@ -20,7 +20,7 @@ namespace DeadLink.Player
         {
             public List<string> PlayerPowerUps;
 
-            public int HealthPoints;
+            public float HealthPoints;
             public int HealthBarCount;
             
             public int LastCheckPoint;

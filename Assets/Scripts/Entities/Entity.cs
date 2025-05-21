@@ -35,7 +35,7 @@ namespace DeadLink.Entities
         protected bool canShoot => isShooting && currentShootTime <= 0f;
         #endregion
         
-        public int Health { get; private set; }
+        public float Health { get; private set; }
         public int HealthBarCount { get; private set; }
         public bool IsInvisible { get; protected set; }
 
@@ -82,7 +82,6 @@ namespace DeadLink.Entities
                 HealthBarCount = MaxHealthBarCount.Value;
                 firstSpawn = true;
             }
-            
             CurrentWeapon = Weapons[^1];
             currentWeaponIndex = Weapons.Length - 1;
 
@@ -106,21 +105,24 @@ namespace DeadLink.Entities
         {
             Health -= damage;
             
-            if (Health <= 0)
+            if (Mathf.FloorToInt(Health) <= 0)
             {
                 HealthBarCount--;
                 
-                //Debug.Log($"Remaining health bar : {HealthBarCount}, max health : {MaxHealthBarCount.Value}");
-                
-                int remainingDamages = Mathf.Abs(Health);
+                float remainingDamages = -Health;
                 if (HealthBarCount <= 0)
                 {
+                    SetHealth(0);
                     StartCoroutine(Die());
                     return true;
                 }
                 
                 SetFullHealth();
                 Health -= remainingDamages;
+            }
+            else
+            {
+                SetHealth(Health);
             }
             
             return false;
@@ -135,22 +137,18 @@ namespace DeadLink.Entities
         public virtual void Heal(int heal)
         {
             int maxHealth = Mathf.CeilToInt(MaxHealth.Value);
-            Health += heal;
-
-            if (Health > maxHealth)
-            {
-                Health = maxHealth;
-            }
+            float targetHealth = Health + heal;
+            if (targetHealth > maxHealth)
+                targetHealth = maxHealth;
+            
+            SetHealth(targetHealth);
         }
 
-        public virtual void SetFullHealth()
-        {
-            Health = Mathf.CeilToInt(MaxHealth.Value);
-        }
+        public virtual void SetFullHealth() => SetHealth(MaxHealth.Value);
         
         public virtual void SetHealth(float health)
         {
-            Health = Mathf.CeilToInt(health);
+            Health = health;
         }
         
         public virtual void SetBonusHealthBarCount(int bonusHealthBarCount)

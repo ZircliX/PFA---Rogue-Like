@@ -15,6 +15,8 @@ namespace DeadLink.Level
         
         public LevelScenario GetLevelScenario(LevelManager levelManager)
         {
+            levelManager.LevelScenarioProvider.RemovePriority(this);
+            Destroy(gameObject);
             return LevelScenario;
         }
 

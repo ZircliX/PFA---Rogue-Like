@@ -113,7 +113,7 @@ namespace DeadLink.Menus.Implementation
                 bool tryGetNextPowerUpPosition = MenuManager.Instance.HUDMenu.TryGetNextPowerUpPosition(out Transform target);
                 if (tryGetNextPowerUpPosition)
                 {
-                    badge.transform.DOMove(target.position, 0.75f).SetDelay(0.25f).OnComplete(() =>
+                    badge.transform.DOMove(target.position, 0.75f).SetDelay(0.25f).SetUpdate(true).OnComplete(() =>
                     {
                         DeleteUpgrade(upgrade);
                     });

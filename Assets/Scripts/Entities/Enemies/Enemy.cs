@@ -133,12 +133,19 @@ namespace DeadLink.Entities
             Speed.AddInfluence(difficultyData, difficultyData.EnemyStrengthMultiplier, Influence.Multiply);
             
             OutlinerManager.Instance.AddOutline(gameObject);
+            
+            SetFullHealth();
+        }
+
+        public override void SetHealth(float health)
+        {
+            base.SetHealth(health);
+            enemyUI.UpdateHealthBar(Health, MaxHealth.Value);
         }
 
         public override bool TakeDamage(float damage)
         {
             bool die = base.TakeDamage(damage);
-            enemyUI.UpdateHealthBar(Health, MaxHealth.Value);
             return die;
         }
 
