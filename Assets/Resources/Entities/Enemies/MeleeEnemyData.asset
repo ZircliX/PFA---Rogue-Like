@@ -21,3 +21,4 @@ MonoBehaviour:
   <BaseStrength>k__BackingField: 1
   <VFXToSpawn>k__BackingField: {fileID: 0}
   <DelayAfterDestroyVFX>k__BackingField: 0
+  <Cost>k__BackingField: 10

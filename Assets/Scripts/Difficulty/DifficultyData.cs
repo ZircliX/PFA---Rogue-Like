@@ -34,10 +34,26 @@ namespace Enemy
         #endregion
         
         #region Enemy
+        [field : Header("Wave Balance")]
         
         [field : SerializeField]
-        public int WaveBalanceMultiplier { get; private set; }
+        public int BaseWaveBalance { get; private set; }
         
+        [field : SerializeField]
+        
+        public float WaveBalanceMultiplier { get; private set; }
+        
+        [field : Header("Wave Balance")]
+
+        [field : SerializeField]
+        public int BaseWaveCount { get; private set; }
+        
+        [field : SerializeField]
+        
+        public int WaveCountAddend { get; private set; }
+        
+        [field : Header("Enemies")]
+
         [field : SerializeField]
         public float EnemyStrengthMultiplier { get; private set; }
         

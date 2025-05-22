@@ -18,6 +18,9 @@ MonoBehaviour:
   <PlayerStrengthMultiplier>k__BackingField: 0.25
   <PlayerResistanceMultiplier>k__BackingField: 0.25
   <PlayerHealthBarCount>k__BackingField: 1
-  <WaveBalanceMultiplier>k__BackingField: 0
+  <BaseWaveBalance>k__BackingField: 150
+  <WaveBalanceMultiplier>k__BackingField: 3.5
+  <BaseWaveCount>k__BackingField: 1
+  <WaveCountAddend>k__BackingField: 3
   <EnemyStrengthMultiplier>k__BackingField: 2
   <EnemyHealthMultiplier>k__BackingField: 2

@@ -17,7 +17,6 @@ namespace DeadLink.Entities
 {
     public class EnemyManager : MonoSingleton<EnemyManager>
     {
-        [SerializeField] private int wavesToSpawn;
         [SerializeField] private Transform[] SpawnPositions;
         public List<Enemy> SpawnedEnemies { get; private set; }
 
@@ -92,6 +91,11 @@ namespace DeadLink.Entities
         
         public void UnregisterEnemy(Enemy enemy)
         {
+            if (SpawnedEnemies.Count - 1 <= 0)
+            {
+                SpawnedEnemies.Remove(enemy);
+                WaveManager.Instance.OnWaveFinished();
+            }
             SpawnedEnemies.Remove(enemy);
         }
         
