@@ -4,6 +4,7 @@ using DeadLink.Entities;
 using DeadLink.Level;
 using DeadLink.Level.Interfaces;
 using DeadLink.Menus;
+using DeadLink.Misc;
 using DeadLink.Player;
 using DeadLink.Save.LevelProgression;
 using DeadLink.SceneManagement;
@@ -28,7 +29,7 @@ namespace RogueLike.Managers
                 return new LevelScenario()
                 {
                     DifficultyData = GameMetrics.Global.NormalDifficulty,
-                    Scene = GameDatabase.Global.GetSceneDataFromScene(levelManager.gameObject.scene),
+                    Scene = GameDatabase.Global.GetSceneDataFromScene(levelManager.gameObject.scene, out SceneData data) ? data : GameDatabase.Global.Scenes[0],
                     LevelElementsCustomInfos = levelManager.LevelElements
                         .AsValueEnumerable()
                         .ToDictionary(ctx => ctx.GUID, ctx => ctx.Pull())
@@ -145,7 +146,7 @@ namespace RogueLike.Managers
             LastLevelScenario = new LevelScenario()
             {
                 DifficultyData = Difficulty,
-                Scene = GameDatabase.Global.GetSceneDataFromScene(gameObject.scene),
+                Scene = GameDatabase.Global.GetSceneDataFromScene(gameObject.scene, out SceneData data) ? data : GameDatabase.Global.Scenes[0],
                 LevelElementsCustomInfos = GetCurrentElementInfos(),
                 UseCustomInfos = true,
             };

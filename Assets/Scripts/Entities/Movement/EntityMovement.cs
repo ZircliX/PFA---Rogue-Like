@@ -281,6 +281,7 @@ namespace DeadLink.Entities.Movement
         protected virtual void FixedUpdate()
         {
             Position = rb.position;
+            
             currentStateIndex = currentStateIndex == -1 ? 0 : currentStateIndex;
 
             ComputePenetration();
@@ -304,8 +305,11 @@ namespace DeadLink.Entities.Movement
             MovePlayer();
             HandleGravityOrientation();
             HandleStateChange();
-
-            HandleVoidDetection();
+            
+            if (IsGrounded)
+            {
+                lastSafePosition = Position;
+            }
         }
         
         #endregion
@@ -377,12 +381,9 @@ namespace DeadLink.Entities.Movement
         
         #region Detections
         
-        protected virtual void HandleVoidDetection()
+        public virtual void OnVoidDetection()
         {
-            if (IsGrounded)
-            {
-                lastSafePosition = Position;
-            }
+            
         }
 
         private void HandleWallDetection()
