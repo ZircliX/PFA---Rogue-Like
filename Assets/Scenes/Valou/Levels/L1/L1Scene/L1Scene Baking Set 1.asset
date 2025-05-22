@@ -18,7 +18,7 @@ MonoBehaviour:
     m_Version: 1
     dilationSettings:
       enableDilation: 1
-      dilationDistance: 10
+      dilationDistance: 1
       dilationValidityThreshold: 0.25
       dilationIterations: 1
       squaredDistWeighting: 1
