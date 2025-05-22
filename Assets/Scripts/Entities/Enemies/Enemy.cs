@@ -20,7 +20,6 @@ namespace DeadLink.Entities
 {
     public abstract class Enemy : Entity
     {
-        [field: SerializeField] public int Cost { get; private set; }
         [field: SerializeField] public EnemyUI enemyUI { get; private set; }
         
         #region Detection Params

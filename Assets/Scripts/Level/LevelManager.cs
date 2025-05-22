@@ -46,13 +46,11 @@ namespace RogueLike.Managers
         
         private void OnEnable()
         {
-            WaveManager.Instance.OnAllEnemiesDie += EndWaveMode;
             LevelScenarioSaveFileListener.CurrentILevelManager = this;
         }
 
         private void OnDisable()
         {
-            WaveManager.Instance.OnAllEnemiesDie -= EndWaveMode;
             LevelScenarioSaveFileListener.CurrentILevelManager = null;
         }
 
