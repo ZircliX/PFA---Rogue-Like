@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: ca81847dc32902c46b2a3a790246256a, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 00e3f6b8857b5b649a6f3a20ae588dc5, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -12571,6 +12571,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce77f0059ee4ce8a9f57d2757425a95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWaveBalance: 0
+  currentWaveCount: 0
+  <WaveSpawnPoints>k__BackingField: []
 --- !u!1 &165228691
 GameObject:
   m_ObjectHideFlags: 0
@@ -28656,7 +28659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83d2f7ae04ab6f4f99b0d85377be998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedBakingSet: {fileID: 0}
+  serializedBakingSet: {fileID: 11400000, guid: 9415390b23a9825408d2438964d12a1f, type: 2}
   sceneGUID: c9cac20e2c1d89d4bb9eaa71c167447e
   obsoleteAsset: {fileID: 0}
   obsoleteCellSharedDataAsset: {fileID: 0}
@@ -30556,7 +30559,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 0.67058825, g: 0.77254903, b: 0.8745098, a: 1}
-  m_Intensity: 0.1
+  m_Intensity: 0.25
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -46465,7 +46468,9 @@ MonoBehaviour:
   <BaseState>k__BackingField: 0
   canvasGroup: {fileID: 1326965409}
   upgradePrefab: {fileID: 4923274060539642181, guid: 93ffb0f32eb650947a2dedabbe33b19e, type: 3}
+  upgradeBadge: {fileID: 0}
   targetUpgradePanel: {fileID: 1326965408}
+  middle: {fileID: 0}
 --- !u!114 &1326965411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52048,7 +52053,6 @@ Transform:
   m_Children:
   - {fileID: 1632864408}
   - {fileID: 634813099}
-  - {fileID: 1930326053}
   - {fileID: 639494290}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52979,7 +52983,7 @@ MonoBehaviour:
   lowestSubdivLevelOverride: 0
   highestSubdivLevelOverride: 7
   overridesSubdivLevels: 0
-  mightNeedRebaking: 1
+  mightNeedRebaking: 0
   cachedTransform:
     e00: 1
     e01: 0
@@ -52997,8 +53001,8 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
-  cachedHashCode: 2083699560
-  fillEmptySpaces: 0
+  cachedHashCode: 2083699561
+  fillEmptySpaces: 1
   version: 2
   globalVolume: 0
 --- !u!4 &1632864408
@@ -63541,6 +63545,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812916093}
   m_CullTransparentMesh: 1
+--- !u!1 &1820822442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1820822444}
+  - component: {fileID: 1820822443}
+  m_Layer: 0
+  m_Name: Outdoor Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1820822443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820822442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 1
+  blendDistance: 4
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: f084ebe1159637642b2bfe902a0fe2ad, type: 2}
+--- !u!4 &1820822444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820822442}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1845087584
 GameObject:
   m_ObjectHideFlags: 0
@@ -64675,55 +64728,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1921455913}
   m_CullTransparentMesh: 1
---- !u!1 &1930326050
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1930326053}
-  - component: {fileID: 1930326051}
-  m_Layer: 0
-  m_Name: Outdoor Volume
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1930326051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1930326050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 1
-  blendDistance: 4
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: f839d9e4bc86f904ea179a826a6fcdd2, type: 2}
---- !u!4 &1930326053
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1930326050}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1586100917}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1976744377
 Mesh:
   m_ObjectHideFlags: 0
@@ -70066,6 +70070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d84b09f4c5e4ae792dfbf5c099f90a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Timer>k__BackingField: {fileID: 0}
 --- !u!1 &2044301945
 GameObject:
   m_ObjectHideFlags: 0
@@ -70736,6 +70741,7 @@ MonoBehaviour:
   activeColor: {r: 0.59607846, g: 0.95686275, b: 0.99607843, a: 1}
   disableColor: {r: 0.40392157, g: 0.5529412, b: 0.5686275, a: 1}
   health: {fileID: 43944755}
+  upgradeBadgeSlots: []
 --- !u!114 &2077870674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72401,3 +72407,4 @@ SceneRoots:
   - {fileID: 1502591576}
   - {fileID: 1801603619}
   - {fileID: 1763908252}
+  - {fileID: 1820822444}
