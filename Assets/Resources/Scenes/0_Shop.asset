@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: 0_Shop
   m_EditorClassIdentifier: 
   <Scene>k__BackingField:
-    m_SceneAsset: {fileID: 102900000, guid: ff0a13eafa480fc4bb98467bd8530cf8, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: c9cac20e2c1d89d4bb9eaa71c167447e, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/ZCX/TransitionScene_ZCX.unity
+    m_ScenePath: Assets/Scenes/Valou/Transition/TransitionScene.unity
+  <ScoreboardSceneIndex>k__BackingField: 0
   <GUID>k__BackingField: 255e4443-10e6-407a-a9df-6a9101212ccd
