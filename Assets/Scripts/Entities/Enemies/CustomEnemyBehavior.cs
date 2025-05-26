@@ -35,9 +35,9 @@ namespace DeadLink.Entities
             OutlinerManager.Instance.AddOutline(gameObject);
         }
         
-        public override bool TakeDamage(float damage)
+        public override bool TakeDamage(int damage, bool byPass = false)
         {
-            bool die = base.TakeDamage(damage);
+            bool die = base.TakeDamage(damage, byPass);
             enemyUI.UpdateHealthBar(Health, MaxHealth.Value);
             return die;
         }
