@@ -1,5 +1,6 @@
 using System;
 using EditorAttributes;
+using RogueLike.VFX;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -24,7 +25,7 @@ namespace DeadLink.Entities.Data
         public float BaseStrength { get; private set; }
         
         [field: Header("VFX")]
-        [field: SerializeField] public VisualEffect VFXToSpawn { get; private set; }
+        [field: SerializeField] public VfxComponent VFXToSpawn { get; private set; }
         [field: SerializeField] public float DelayAfterDestroyVFX { get; private set; }
 
 

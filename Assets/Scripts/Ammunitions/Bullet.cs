@@ -122,10 +122,10 @@ namespace DeadLink.Ammunitions
 
         protected virtual void HitObject(RaycastHit hit)
         {
-            HitObject(hit.collider.gameObject);
+            HitObject(hit.collider.gameObject, hit);
         }
 
-        protected virtual void HitObject(GameObject gm)
+        protected virtual void HitObject(GameObject gm, RaycastHit hit)
         {
             if (gm.name == Author.name) return;
             if (gm.TryGetComponent(out RayfireRigid rfr))
@@ -143,7 +143,16 @@ namespace DeadLink.Ammunitions
             }
             
             //+ hit.normal * 0.5f
-            BulletData.HitVFX.PlayVFX(gm.transform.position, 2);
+            Ray ray = Camera.main!.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+            bool hitsomething = Physics.Raycast(ray,out RaycastHit hits, 500);
+            if (hitsomething)
+            {
+                BulletData.HitVFX.PlayVFX(hits.point, 2);
+            }
+            else
+            {
+                BulletData.HitVFX.PlayVFX(hit.point, 2);
+            }
             
             OnBulletHit?.Invoke(this);
             DestroyBullet();

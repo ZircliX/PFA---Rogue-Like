@@ -1,4 +1,5 @@
 using DeadLink.Cameras;
+using RogueLike.VFX;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -12,7 +13,7 @@ namespace DeadLink.Ammunitions.Data
         [field : SerializeField] public float MaxLifeCycle { get; private set; }
         
         [field: Header("VFX")]
-        [field : SerializeField] public VisualEffect HitVFX { get; private set; }
+        [field : SerializeField] public VfxComponent HitVFX { get; private set; }
         [field : SerializeField] public CameraShakeComposite CameraShake { get; private set; }
         
         [field: Header("Prefab")]

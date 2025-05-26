@@ -19,6 +19,6 @@ MonoBehaviour:
   <BaseSpeed>k__BackingField: 1
   <BaseResistance>k__BackingField: 1
   <BaseStrength>k__BackingField: 0.6
-  <VFXToSpawn>k__BackingField: {fileID: 0}
-  <DelayAfterDestroyVFX>k__BackingField: 0
+  <VFXToSpawn>k__BackingField: {fileID: -933928875416206819, guid: 746fecb3275c3a34298def3ae81507f3, type: 3}
+  <DelayAfterDestroyVFX>k__BackingField: 3
   <Cost>k__BackingField: 10
