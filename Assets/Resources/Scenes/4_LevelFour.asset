@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 4_LevelFour
   m_EditorClassIdentifier: 
   <Scene>k__BackingField:
-    m_SceneAsset: {fileID: 0}
+    m_SceneAsset: {fileID: 102900000, guid: 0344fb27eaab64b40b6c2712820fd3e6, type: 3}
     m_IsDirty: 0
-    m_ScenePath: 
+    m_ScenePath: Assets/Scenes/Valou/Levels/L4/L4Scene.unity
   <ScoreboardSceneIndex>k__BackingField: 4
   <GUID>k__BackingField: d5f54dfd-f29f-4bc8-8303-402aa96ce826

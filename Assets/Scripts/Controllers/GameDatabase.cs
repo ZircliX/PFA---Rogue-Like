@@ -129,6 +129,7 @@ namespace RogueLike.Controllers
             SceneData sceneData = Global.GetScene(levelScenarioSaveFile.Scene);
             DifficultyData difficultyDataData = GetDifficulty(levelScenarioSaveFile.DifficultyData);
             
+            Debug.Log($"{sceneData.ScoreboardSceneIndex}{difficultyDataData.DifficultyName}");
             return $"{sceneData.ScoreboardSceneIndex}{difficultyDataData.DifficultyName}";
         }
 

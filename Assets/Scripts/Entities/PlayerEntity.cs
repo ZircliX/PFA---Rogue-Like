@@ -126,7 +126,7 @@ namespace RogueLike.Entities
         public override IEnumerator Die()
         {
             yield return new WaitForSeconds(0.25f);
-            Debug.Break();
+            //Debug.Break();
         }
         
         #endregion

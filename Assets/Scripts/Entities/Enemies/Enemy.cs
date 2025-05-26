@@ -94,7 +94,10 @@ namespace DeadLink.Entities
         
         private void OnDisable()
         {
-            EnemyManager.Instance.UnregisterEnemy(this);
+            if (EnemyManager.HasInstance)
+            {
+                EnemyManager.Instance.UnregisterEnemy(this);
+            }
             
             detectDetector.OnTriggerEnterEvent -= TriggerEnter;
             detectDetector.OnTriggerStayEvent -= TriggerStay;

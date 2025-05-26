@@ -14703,50 +14703,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!1 &317530087
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 317530088}
-  - component: {fileID: 317530089}
-  m_Layer: 0
-  m_Name: WaveManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &317530088
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 317530087}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1899741988}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &317530089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 317530087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fce77f0059ee4ce8a9f57d2757425a95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &340031433
 GameObject:
   m_ObjectHideFlags: 0
@@ -17391,7 +17347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b165bec16625e6a4b829caef99b3f6a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wavesToSpawn: 1
   SpawnPositions:
   - {fileID: 36833392}
 --- !u!1 &437314002
@@ -52032,7 +51987,6 @@ Transform:
   m_Children:
   - {fileID: 1190534668}
   - {fileID: 426500398}
-  - {fileID: 317530088}
   - {fileID: 340031434}
   - {fileID: 1030346033}
   - {fileID: 1744246454}
