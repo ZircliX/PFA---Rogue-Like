@@ -40,7 +40,10 @@ namespace DeadLink.PowerUpSystem
         {
         }
 
-        public abstract void OnBeUnlocked(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement);
+        public virtual void OnBeUnlocked(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
+        {
+            playerEntity.PowerUps.Add(this);
+        }
         public abstract void OnBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement);
         public abstract void OnFinishedToBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement);
 

@@ -17,9 +17,7 @@ namespace RogueLike.Entities
 {
     public class PlayerEntity : Entity
     {
-        [field : SerializeField] public List<string> PowerUpsInputName{ get; private set; }
         private Dictionary<string, IVisitor> unlockedPowerUps;
-        private Dictionary<string, string> inputToPowerUpName;
         public bool isLastChanceActivated;
         public static Action<PlayerEntity, PlayerMovement> OnPlayerLastChanceUsed;
         
@@ -75,7 +73,6 @@ namespace RogueLike.Entities
             }
             
             unlockedPowerUps = new Dictionary<string, IVisitor>();
-            inputToPowerUpName = new Dictionary<string, string>();
             
             ResetPowerUps();
         }
