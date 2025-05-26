@@ -15,7 +15,7 @@ MonoBehaviour:
   <BulletSpeed>k__BackingField: 500
   <Damage>k__BackingField: 25
   <MaxLifeCycle>k__BackingField: 5
-  <HitVFX>k__BackingField: {fileID: 0}
+  <HitVFX>k__BackingField: {fileID: 2196168151583340840, guid: df26a7fbd38646240a58d8cae298b648, type: 3}
   <CameraShake>k__BackingField:
     Amplitude: 0.075
     Frequency: 100

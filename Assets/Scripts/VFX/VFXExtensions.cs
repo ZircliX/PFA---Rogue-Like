@@ -1,21 +1,29 @@
+using RogueLike.VFX;
 using UnityEngine;
-using UnityEngine.VFX;
 
 namespace RogueLike.Controllers
 {
     public static class VFXExtensions
     {
-        public static void PlayVFX(this VisualEffect vfx, Vector3 position, float delayAfterDestroyVfx)
+        
+        public static void PlayVFX(this VfxComponent effects, Vector3 position, float delayAfterDestroyVfx)
         {
-            if (vfx == null) return;
+            if (effects == null) return;
             
-            VisualEffect spawnedVFX = Object.Instantiate(vfx, position, Quaternion.identity);
+            VfxComponent vfxInstance = Object.Instantiate(effects, position, Quaternion.identity);
             
-            if (spawnedVFX != null)
+            for (int i = 0; i < vfxInstance.vfxPsArray.Length; i++)
             {
-                spawnedVFX.Play();
-                Object.Destroy(spawnedVFX.gameObject, delayAfterDestroyVfx);
+                effects.vfxPsArray[i].Play();
             }
+            
+            for (int i = 0; i < vfxInstance.vfxVeArray.Length; i++)
+            {
+                effects.vfxVeArray[i].Play();
+            }
+            
+            Object.Destroy(vfxInstance.gameObject, delayAfterDestroyVfx);
+
         }
     }
 }
