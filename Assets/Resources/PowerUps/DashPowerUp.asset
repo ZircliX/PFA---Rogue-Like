@@ -19,6 +19,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 82eae57a0fae6c84f86e681afb514c94, type: 3}
   - {fileID: 21300000, guid: 595042c6e0d2f3244aa5c876b43e8519, type: 3}
   - {fileID: 21300000, guid: fc870b20b0c51fb4ba64fe5c7756b31d, type: 3}
-  <Badge>k__BackingField: {fileID: 21300022, guid: 09e4c6a7d75923945afe43953ef58ad2, type: 3}
+  <Badge>k__BackingField: {fileID: 21300000, guid: 204d47f625ea70d448cfa68d59f50bcc, type: 3}
   <GUID>k__BackingField: 5b156e25-b629-490c-aae4-7919c34411c0
   <BonusDashCount>k__BackingField: 1

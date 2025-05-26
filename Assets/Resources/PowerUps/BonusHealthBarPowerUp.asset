@@ -20,6 +20,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fef9011c926252a418046951b1559194, type: 3}
   - {fileID: 21300000, guid: b68504670c0cb4e44bd058907c10f147, type: 3}
   - {fileID: 21300000, guid: 6c75d4b0934ee394a9715e68e71f4dfd, type: 3}
-  <Badge>k__BackingField: {fileID: 21300096, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+  <Badge>k__BackingField: {fileID: 21300000, guid: 09a40039101eca9418c2526e8e4f7c30, type: 3}
   <GUID>k__BackingField: 2bd70746-3784-479c-9e78-0c6c04224f72
   <BonusHealthBarCount>k__BackingField: 1
