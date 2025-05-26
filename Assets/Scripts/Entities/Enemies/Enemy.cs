@@ -25,15 +25,23 @@ namespace DeadLink.Entities
         
         #region Detection Params
         [Header("Detection Parameters")]
-        [SerializeField] private float detectRadius = 12.5f;
+        [SerializeField] protected float detectRadius = 12.5f;
         [SerializeField] private SphereDetector detectDetector;
-        [SerializeField] private float aggroRadius = 10;
+        [SerializeField] protected float aggroRadius = 10;
         [SerializeField] private SphereDetector aggroDetector;
-        [SerializeField] private float attackRadius = 8;
+        [SerializeField] protected float attackRadius = 8;
         [SerializeField] private SphereDetector attackDetector;
         protected bool inDetectRange;
         protected bool inAggroRange;
         protected bool inAttackRange;
+        
+        [Header("Targeting")]
+        [SerializeField] protected float visionAngle = 90f;
+        [SerializeField] protected float chaseRotationSpeed = 120f;
+        
+        protected Entity player;
+        protected bool canAttack;
+        
         #endregion
         
         [Header("References")]
@@ -41,8 +49,6 @@ namespace DeadLink.Entities
 
         public GameObject outline;
         
-        protected Entity player;
-        protected bool canAttack;
         
         [field: SerializeField, ReadOnly, HideInEditMode] public string GUID { get; private set; }
         
@@ -112,7 +118,7 @@ namespace DeadLink.Entities
             attackDetector.OnTriggerExitEvent -= TriggerExit;
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             if (string.IsNullOrEmpty(GUID))
             {
@@ -186,7 +192,7 @@ namespace DeadLink.Entities
             {
                 GameObject objectToHit = null;
                 Vector3 direction = player.transform.position - transform.position + Vector3.Scale(transform.forward, Random.onUnitSphere) * 10;
-                Debug.DrawRay(BulletSpawnPoint.position, direction * 50, Color.red, 2);
+                Debug.DrawRay(BulletSpawnPoint.position, direction * 50, Color.red);
 
                 if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 500, GameMetrics.Global.BulletRayCast))
                 {
@@ -201,30 +207,29 @@ namespace DeadLink.Entities
             }
         }
 
-        private void HandleDetection()
+        protected void HandleDetection()
         {
             bool hasVision = HasVisionOnPlayer();
             //Debug.Log(hasVision, this);
             canAttack = inAttackRange && hasVision;
             isShooting = canAttack;
         }
-        
-        private void HandleOrientation()
-        {
-            if (!HasVisionOnPlayer()) return;
-            
-            Vector3 direction = (player.transform.position - transform.position).normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 5f);
-        }
 
-        private bool HasVisionOnPlayer()
+        protected abstract void HandleOrientation();
+
+        protected bool HasVisionOnPlayer()
         {
             if (player == null) return false;
             
             Vector3 deltaPosition = (player.transform.position - transform.position);
             Vector3 direction = deltaPosition.normalized;
             float distance = deltaPosition.magnitude;
+            
+            float angleToPlayer = Vector3.Angle(transform.forward, deltaPosition);
+            if (angleToPlayer > visionAngle / 2f)
+            {
+                return false;
+            }
             
             bool objectBlocking = Physics.Raycast(transform.position, direction, out RaycastHit hit,
                 distance, GameMetrics.Global.EnemyStopDetect);

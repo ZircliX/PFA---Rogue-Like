@@ -50,16 +50,16 @@ namespace RogueLike.Player.States
                 movement.SetMovementState(MovementState.Falling);
 
             Vector3 finalVelocity = gravityNormal * (jumpModifier * jumpForce) + baseVelocity;
-
-            //Debug.Log($"{count++} | {baseVelocity.y} => {finalVelocity.magnitude}");
-
+            Debug.Log(finalVelocity);
+            Debug.DrawRay(movement.Position, finalVelocity * 2, Color.red);
+            
             return finalVelocity;
         }
 
         public override MovementState GetNextState(EntityMovement movement)
         {
             float dot = Vector3.Dot(movement.CurrentVelocity.Value.normalized, movement.Gravity.Value.normalized);
-            //Debug.Log(dot);
+
             if (dot > 0f)
             {
                 return MovementState.Falling;
