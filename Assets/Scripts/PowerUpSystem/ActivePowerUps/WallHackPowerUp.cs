@@ -10,6 +10,7 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
     {
         public override void OnBeUnlocked(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
+            base.OnBeUnlocked(playerEntity, playerMovement);
             IsUnlocked = true;
             CanBeUsed = true;
         }
