@@ -25,13 +25,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 649
   <MainMenuScene>k__BackingField:
-    m_SceneAsset: {fileID: 102900000, guid: 699ac3a7803a1a644842267e9b1a4f5e, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: 34f84abd710f1174d85b84bf5845ade9, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/ZCX/MainMenu_ZCX.unity
+    m_ScenePath: Assets/Scenes/Valou/MM/MMScene.unity
   <ShopScene>k__BackingField:
-    m_SceneAsset: {fileID: 102900000, guid: ff0a13eafa480fc4bb98467bd8530cf8, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: c9cac20e2c1d89d4bb9eaa71c167447e, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/ZCX/TransitionScene_ZCX.unity
+    m_ScenePath: Assets/Scenes/Valou/Transition/TransitionScene.unity
   <LevelOne>k__BackingField:
     m_SceneAsset: {fileID: 102900000, guid: 81e7f174a78704b45949bf4ae7d74584, type: 3}
     m_IsDirty: 0
