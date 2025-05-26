@@ -308,20 +308,22 @@ MonoBehaviour:
   <BulletSpawnPoint>k__BackingField: {fileID: 350594462093974123}
   <Weapons>k__BackingField:
   - {fileID: 1122071608671705726, guid: b718e74461952984b93c265396036d67, type: 3}
-  <Cost>k__BackingField: 0
   <enemyUI>k__BackingField: {fileID: 259710934558240639}
   detectRadius: 20
   detectDetector: {fileID: 553871397517849164}
   aggroRadius: 10
   aggroDetector: {fileID: 8700123457204935612}
-  attackRadius: 5
+  attackRadius: 1
   attackDetector: {fileID: 7936516376208140070}
+  visionAngle: 90
+  chaseRotationSpeed: 120
   rayfireRigid: {fileID: 8754444563749847026}
   outline: {fileID: 5457429843632214089}
   <GUID>k__BackingField: 
-  idleMoveRadius: 15
-  maxTurnAngle: 120
-  idleTime: 0.3
+  moveSpeed: 12
+  patrolActivityRadius: 10
+  minPatrolWaitTime: 2
+  maxPatrolWaitTime: 5
   navMeshAgent: {fileID: 7118967720084334429}
 --- !u!114 &259710934558240639
 MonoBehaviour:
@@ -1108,7 +1110,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7936516376208140070
 MonoBehaviour:

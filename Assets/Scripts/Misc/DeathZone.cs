@@ -5,7 +5,7 @@ namespace DeadLink.Misc
 {
     public class DeathZone : MonoBehaviour
     {
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             if (other.TryGetComponent(out EntityMovement entityMovement))
             {

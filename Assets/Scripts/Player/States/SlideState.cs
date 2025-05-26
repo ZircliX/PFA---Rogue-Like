@@ -62,6 +62,7 @@ namespace RogueLike.Player.States
                 Vector3 projectOnPlane = Vector3.ProjectOnPlane(direction, projectionPlaneNormal);
                 Vector3 newVelocity = projectOnPlane * (accelerationCurve.Evaluate(currentSlideTime / accelerationDuration) * slideSpeed);
                 velocity = newVelocity;
+                Debug.DrawRay(movement.Position, velocity, Color.magenta);
             }
             //Deceleration
             else
