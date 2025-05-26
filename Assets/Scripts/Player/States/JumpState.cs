@@ -50,7 +50,7 @@ namespace RogueLike.Player.States
                 movement.SetMovementState(MovementState.Falling);
 
             Vector3 finalVelocity = gravityNormal * (jumpModifier * jumpForce) + baseVelocity;
-            Debug.Log(finalVelocity);
+            //Debug.Log(finalVelocity);
             Debug.DrawRay(movement.Position, finalVelocity * 2, Color.red);
             
             return finalVelocity;

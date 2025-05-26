@@ -22,7 +22,6 @@ namespace RogueLike
         
         [field: Header("Debug Settings")]
         [field: SerializeField] public bool SpawnEnemies { get; private set; }
-        [field : SerializeField] public SceneLoader SceneLoader { get; private set; }
         [field : SerializeField] public LayerMask EnemyStopDetect { get; private set; }
         [field : SerializeField] public LayerMask BulletRayCast { get; private set; }
         
@@ -43,6 +42,8 @@ namespace RogueLike
         [field: SerializeField] public MenuType CreditsMenu { get; private set; }
         [field: SerializeField] public MenuType GameplayScoreboard { get; private set; }
         [field: SerializeField] public MenuType MenuScoreboard { get; private set; }
+        [field: SerializeField] public MenuType DieMenu { get; private set; }
+        [field: SerializeField] public MenuType WinningMenu { get; private set; }
         #endregion
         
     }

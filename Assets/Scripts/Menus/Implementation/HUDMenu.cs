@@ -23,8 +23,9 @@ namespace DeadLink.Menus.Implementation
         [SerializeField] private Image[] healthBars;
         [SerializeField] private Color activeColor, disableColor;
         [SerializeField] private Image health;
+        [SerializeField] private CanvasGroup warning;
         
-        [Header("Health")]
+        [Header("Power ups")]
         [SerializeField] private UpgradeBadgeSlot[] upgradeBadgeSlots;
         
         private int currentWeaponIndex;
@@ -91,6 +92,25 @@ namespace DeadLink.Menus.Implementation
                 x => health.fillAmount = x,
                 current / maxHealth,
                 0.25f).SetEase(Ease.OutSine);
+        }
+
+        private Sequence warningSequence;
+        public void HandleWarning()
+        {
+            //if (warningSequence != null || warningSequence.IsPlaying()) return;
+            
+            warningSequence = DOTween.Sequence();
+
+            for (int i = 0; i < 3; i++)
+            {
+                warningSequence.Append(warning.DOFade(1f, 0.15f)).Append(warning.DOFade(0f, 0.15f));
+            }
+
+            warningSequence.Play().OnComplete(() =>
+            {
+                warning.alpha = 0f;
+                warningSequence = null;
+            });
         }
         
         public void UpdatePowerUps(int index, bool isActive)

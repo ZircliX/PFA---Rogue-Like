@@ -85,12 +85,17 @@ namespace RogueLike.Entities
             }
         }
         
-        public override bool TakeDamage(int damage)
+        public override bool TakeDamage(int damage, bool byPass = false)
         {
-            int finalDamage = Mathf.CeilToInt(damage / Resistance);
+            int finalDamage = byPass ? damage : Mathf.CeilToInt(damage / Resistance);
+
+            if (Health <= MaxHealth.Value * 0.5f && HealthBarCount == 1)
+            {
+                MenuManager.Instance.HUDMenu.HandleWarning();
+            }
+            
             bool isDying = Health - finalDamage <= 0;
             bool isLastHealthBar = HealthBarCount <= 1;
-            
             
             if (isDying && isLastHealthBar && isLastChanceActivated)
             {
@@ -100,7 +105,7 @@ namespace RogueLike.Entities
                 return false;
             }
             
-            bool die = base.TakeDamage(finalDamage);
+            bool die = base.TakeDamage(finalDamage, byPass);
             
             MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
             return die;
@@ -114,8 +119,16 @@ namespace RogueLike.Entities
 
         public bool EmptyHealthBar()
         {
-            Debug.Log(Health);
-            bool die = base.TakeDamage(Health);
+            if (HealthBarCount - 1 <= 0)
+            {
+                HealthBarCount = 0;
+                SetHealth(0);
+                MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
+                StartCoroutine(Die());
+                return true;
+            }
+            
+            bool die = base.TakeDamage(Health, true);
             MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
             return die;
         }
