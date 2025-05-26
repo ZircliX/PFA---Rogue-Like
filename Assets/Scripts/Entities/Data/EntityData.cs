@@ -21,7 +21,7 @@ namespace DeadLink.Entities.Data
         [field: SerializeField]
         public float BaseResistance { get; private set; }
         [field: SerializeField]
-        public int BaseStrength { get; private set; }
+        public float BaseStrength { get; private set; }
         
         [field: Header("VFX")]
         [field: SerializeField] public VisualEffect VFXToSpawn { get; private set; }

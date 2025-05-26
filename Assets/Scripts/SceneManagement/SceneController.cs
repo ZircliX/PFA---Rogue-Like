@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using DeadLink.Misc;
 using DevLocker.Utils;
 using DG.Tweening;
@@ -13,30 +14,36 @@ namespace DeadLink.SceneManagement
     {
         public static SceneController Global => GameController.SceneController;
         public event Action OnWantsToChangeScene;
+
+        public int LastLevelIndex { get; private set; }
         
-        public Scene PreviousScene { get; private set; }
-        
-        public IEnumerator LoadSceneAsync(string sceneName)
+        public int GetNextSceneIndex(int currentScene)
         {
-            OnWantsToChangeScene?.Invoke();
-            AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
-            while (op != null && !op.isDone)
-                yield return null;
-        }
-        
-        public IEnumerator LoadSceneAsync(int sceneIndex)
-        {
-            OnWantsToChangeScene?.Invoke();
-            AsyncOperation op = SceneManager.LoadSceneAsync(sceneIndex);
-            while (op != null && !op.isDone)
-                yield return null;
-        }
-        public void ChangeScene(string sceneName)
-        {
-            OnWantsToChangeScene?.Invoke();
-            PreviousScene = SceneManager.GetActiveScene();
+            if (GameDatabase.Global.GetSceneDataFromBuildIndex(currentScene, out SceneData sceneData))
+            {
+                if (sceneData.Scene.BuildIndex is > 1 and < 8)
+                {
+                    LastLevelIndex = currentScene;
+                    
+                    if (sceneData.Scene.BuildIndex is 2 or 3 or 4)
+                    {
+                        return 1;
+                    }
+                    
+                    return LastLevelIndex + 1;
+                }
+                if (sceneData.Scene.BuildIndex is 0 or 1)
+                {
+                    return LastLevelIndex + 1;
+                }
+            }
             
-            SceneManager.LoadScene(sceneName);
+            return 0;
+        }
+        
+        public void ResetNextSceneIndex()
+        {
+            LastLevelIndex = 2;
         }
 
         public void ChangeScene(SceneData scene)
@@ -52,10 +59,25 @@ namespace DeadLink.SceneManagement
         public void ChangeScene(int sceneIndex)
         {
             OnWantsToChangeScene?.Invoke();
-            PreviousScene = SceneManager.GetActiveScene();
+            Debug.Log($"Wants to change scene to {sceneIndex}");
+            
             FadeUI.Instance.FadeIn(1f).OnComplete(() =>
             {
                 SceneManager.LoadScene(sceneIndex);
+            });
+        }
+        
+        public void GoToNextLevel(int sceneIndex)
+        {
+            OnWantsToChangeScene?.Invoke();
+
+            Debug.Log($"From scene {sceneIndex}");
+            int index = GetNextSceneIndex(sceneIndex);
+            Debug.Log($"Wants to change scene to {index}");
+            
+            FadeUI.Instance.FadeIn(1f).OnComplete(() =>
+            {
+                SceneManager.LoadScene(index);
             });
         }
     }

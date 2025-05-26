@@ -35,9 +35,8 @@ namespace RogueLike.Player
             CameraController.Instance.CameraEffectProperty.Write(stateChannelKey, movementStates[currentStateIndex].GetCameraEffects(this, Time.deltaTime));
         }
 
-        protected override void HandleVoidDetection()
+        public override void OnVoidDetection()
         {
-            base.HandleVoidDetection();
             if (Position.y < - Mathf.Abs(maxYPosition) || Position.y > Mathf.Abs(maxYPosition))
             {
                 if (voidEnter != null) return; 

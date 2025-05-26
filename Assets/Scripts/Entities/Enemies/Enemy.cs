@@ -11,6 +11,7 @@ using RayFire;
 using RogueLike;
 using RogueLike.Controllers;
 using UnityEngine;
+using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -93,7 +94,10 @@ namespace DeadLink.Entities
         
         private void OnDisable()
         {
-            EnemyManager.Instance.UnregisterEnemy(this);
+            if (EnemyManager.HasInstance)
+            {
+                EnemyManager.Instance.UnregisterEnemy(this);
+            }
             
             detectDetector.OnTriggerEnterEvent -= TriggerEnter;
             detectDetector.OnTriggerStayEvent -= TriggerStay;
@@ -127,9 +131,11 @@ namespace DeadLink.Entities
             //Debug.Log("Spawn 1 enemy");
             base.Spawn(entityData, difficultyData, SpawnPosition);
             
+            MaxHealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarCount, Influence.Multiply);
             MaxHealth.AddInfluence(difficultyData, difficultyData.EnemyHealthMultiplier, Influence.Multiply);
             Strength.AddInfluence(difficultyData, difficultyData.EnemyStrengthMultiplier, Influence.Multiply);
-            Speed.AddInfluence(difficultyData, difficultyData.EnemyStrengthMultiplier, Influence.Multiply);
+            Resistance.AddInfluence(difficultyData, difficultyData.PlayerResistanceMultiplier, Influence.Multiply);
+            Speed.AddInfluence(difficultyData, 1, Influence.Multiply);
             
             OutlinerManager.Instance.AddOutline(gameObject);
             
@@ -152,7 +158,7 @@ namespace DeadLink.Entities
         {
             OutlinerManager.Instance.RemoveOutline(gameObject);
             
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.25f);
             DOTween.Kill(gameObject);
             
             AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemiesDeath, transform.position);
@@ -178,10 +184,14 @@ namespace DeadLink.Entities
         {
             if (CurrentWeapon != null && CurrentWeapon.CurrentReloadTime >= CurrentWeapon.WeaponData.ReloadTime)
             {
-                Vector3 direction = player.transform.position - transform.position;
-                GameObject objectToHit = player.transform.gameObject;
-                
+                GameObject objectToHit = null;
+                Vector3 direction = player.transform.position - transform.position + Vector3.Scale(transform.forward, Random.onUnitSphere) * 10;
                 Debug.DrawRay(BulletSpawnPoint.position, direction * 50, Color.red, 2);
+
+                if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 500, GameMetrics.Global.BulletRayCast))
+                {
+                    objectToHit = hit.collider.gameObject;
+                }
                 
                 CurrentWeapon.Fire(this, direction, objectToHit);
             }

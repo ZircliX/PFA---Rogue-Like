@@ -27,16 +27,16 @@ namespace DeadLink.Menus.Implementation
         {
             MenuType = MenuType.GameplayScoreboard;
         }
-
-        public void GoToShop()
-        {
-            SceneController.Global.ChangeScene(GameMetrics.Global.ShopScene);
-        }
-
+        
         public override void Open()
         {
             base.Open();
-            ScoreboardViewer.Instance.RefreshScoreboard(GameDatabase.Global.GetScoreboardKey());
+            ScoreboardUploader.Instance.OnSubmitScore();
+        }
+
+        public void GoToShop()
+        {
+            SceneController.Global.GoToNextLevel(gameObject.scene.buildIndex);
         }
 
         public void Back()

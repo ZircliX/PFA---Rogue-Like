@@ -36,15 +36,15 @@ namespace DeadLink.Entities
         protected bool canShoot => isShooting && currentShootTime <= 0f;
         #endregion
         
-        public float Health { get; private set; }
-        public int HealthBarCount { get; private set; }
+        public float Health { get; protected set; }
+        public int HealthBarCount { get; protected set; }
         public bool IsInvisible { get; protected set; }
 
         public bool ContinuousFire { get; protected set; }
         
         public List<PowerUp> PowerUps { get; protected set; }
 
-        private bool firstSpawn;
+        protected bool firstSpawn;
         
         #region Influenced Properties
         
@@ -58,7 +58,9 @@ namespace DeadLink.Entities
 
         public void SetInfos(PlayerController.PlayerInfos playerInfos)
         {
-            //Debug.Log($"health : {playerInfos.HealthPoints}, health bar : {playerInfos.HealthBarCount}");
+            if (playerInfos.IsNull()) return;
+            
+            Debug.Log($"health : {playerInfos.HealthPoints}, health bar : {playerInfos.HealthBarCount}");
             
             Health = playerInfos.HealthPoints;
             HealthBarCount = playerInfos.HealthBarCount;
@@ -77,16 +79,9 @@ namespace DeadLink.Entities
             Speed = new InfluencedProperty<float>(EntityData.BaseSpeed);
             Resistance = new InfluencedProperty<float>(EntityData.BaseResistance);
             MaxHealthBarCount = new InfluencedProperty<int>(EntityData.BaseHealthBarAmount);
-            if (!firstSpawn)
-            {
-                HealthBarCount = MaxHealthBarCount.Value;
-                firstSpawn = true;
-            }
             
             CurrentWeapon = Weapons[^1];
             currentWeaponIndex = Weapons.Length - 1;
-
-            SetFullHealth();
         }
 
         public abstract IEnumerator Die();
@@ -104,17 +99,20 @@ namespace DeadLink.Entities
 
         public virtual bool TakeDamage(int damage)
         {
+            Debug.Log($"Take {damage} => health {Health}");
             Health -= damage;
             
             if (Mathf.FloorToInt(Health) <= 0)
             {
                 HealthBarCount--;
+                Debug.Log($"Remove Health bar count => {HealthBarCount}");
                 
                 float remainingDamages = -Health;
                 if (HealthBarCount <= 0)
                 {
                     SetHealth(0);
                     StartCoroutine(Die());
+                    
                     return true;
                 }
                 

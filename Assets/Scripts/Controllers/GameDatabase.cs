@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using DeadLink.Entities.Data;
 using DeadLink.Level;
@@ -7,7 +6,6 @@ using DeadLink.PowerUpSystem;
 using DeadLink.Save.LevelProgression;
 using DevLocker.Utils;
 using Enemy;
-using UnityEditor.SearchService;
 using UnityEngine;
 using Scene = UnityEngine.SceneManagement.Scene;
 
@@ -81,9 +79,25 @@ namespace RogueLike.Controllers
 
         public SceneData[] Scenes { get; private set; }
 
-        public SceneData GetSceneDataFromScene(Scene scene)
+        public bool GetSceneDataFromScene(Scene scene, out SceneData sceneData)
         {
-            return Scenes.FirstOrDefault(ctx => ctx.Scene.BuildIndex == scene.buildIndex);
+            return GetSceneDataFromBuildIndex(scene.buildIndex, out sceneData);
+        }
+        
+        public bool GetSceneDataFromBuildIndex(int buildIndex, out SceneData sceneData)
+        {
+            sceneData = null;
+
+            for (int i = 0; i < Scenes.Length; i++)
+            {
+                if (Scenes[i].Scene.BuildIndex == buildIndex)
+                {
+                    sceneData = Scenes[i];
+                    break;
+                }
+            }
+            
+            return sceneData != null;
         }
         
         public SceneData GetSceneFromSceneReference(SceneReference sceneReference)
@@ -115,6 +129,7 @@ namespace RogueLike.Controllers
             SceneData sceneData = Global.GetScene(levelScenarioSaveFile.Scene);
             DifficultyData difficultyDataData = GetDifficulty(levelScenarioSaveFile.DifficultyData);
             
+            Debug.Log($"{sceneData.ScoreboardSceneIndex}{difficultyDataData.DifficultyName}");
             return $"{sceneData.ScoreboardSceneIndex}{difficultyDataData.DifficultyName}";
         }
 

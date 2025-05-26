@@ -96,6 +96,7 @@ namespace DeadLink.Menus.Implementation
         
         public void StartNewGame()
         {
+            SceneController.Global.ResetNextSceneIndex();
             mainMenuLevelScenarioProvider.SetSceneForNewGame(GameDatabase.Global.GetSceneFromSceneReference(GameMetrics.Global.LevelOne));
             SceneController.Global.ChangeScene(mainMenuLevelScenarioProvider.LevelScenario.Scene);
         }

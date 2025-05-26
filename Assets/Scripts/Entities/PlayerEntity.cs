@@ -60,16 +60,23 @@ namespace RogueLike.Entities
             base.Spawn(data, difficultyData, spawnPoint);
             MenuManager.Instance.HUDMenu.ChangeWeapon(currentWeaponIndex);
             
-            MaxHealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarCount, Influence.Add);
+            MaxHealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarCount, Influence.Multiply);
             MaxHealth.AddInfluence(difficultyData, difficultyData.PlayerHealthMultiplier, Influence.Multiply);
             Strength.AddInfluence(difficultyData, difficultyData.PlayerStrengthMultiplier, Influence.Multiply);
             Resistance.AddInfluence(difficultyData, difficultyData.PlayerResistanceMultiplier, Influence.Multiply);
-            Speed.AddInfluence(this, 1, Influence.Add);
+            Speed.AddInfluence(difficultyData, 1, Influence.Multiply);
+
+            if (!firstSpawn)
+            {
+                firstSpawn = true;
+                Health = MaxHealth.Value;
+                HealthBarCount = MaxHealthBarCount.Value;
+                MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
+            }
             
             unlockedPowerUps = new Dictionary<string, IVisitor>();
             inputToPowerUpName = new Dictionary<string, string>();
             
-            SetFullHealth();
             ResetPowerUps();
         }
 
@@ -83,15 +90,10 @@ namespace RogueLike.Entities
         
         public override bool TakeDamage(int damage)
         {
-            Debug.Log(damage);
-            Debug.Log(Resistance.Value);
-            
             int finalDamage = Mathf.CeilToInt(damage / Resistance);
-            Debug.Log($"Final damage : {finalDamage}");
             bool isDying = Health - finalDamage <= 0;
-            Debug.Log($"Is Dying {isDying}");
             bool isLastHealthBar = HealthBarCount <= 1;
-            Debug.Log($"Is last health bar {isLastHealthBar}");
+            
             
             if (isDying && isLastHealthBar && isLastChanceActivated)
             {
@@ -100,7 +102,9 @@ namespace RogueLike.Entities
                 MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
                 return false;
             }
+            
             bool die = base.TakeDamage(finalDamage);
+            
             MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
             return die;
         }
@@ -121,7 +125,8 @@ namespace RogueLike.Entities
 
         public override IEnumerator Die()
         {
-            yield return null;
+            yield return new WaitForSeconds(0.25f);
+            //Debug.Break();
         }
         
         #endregion

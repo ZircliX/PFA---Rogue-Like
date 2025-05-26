@@ -27,15 +27,15 @@ MonoBehaviour:
   <MainMenuScene>k__BackingField:
     m_SceneAsset: {fileID: 102900000, guid: 699ac3a7803a1a644842267e9b1a4f5e, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/ZCX/MainMenu.unity
+    m_ScenePath: Assets/Scenes/ZCX/MainMenu_ZCX.unity
   <ShopScene>k__BackingField:
     m_SceneAsset: {fileID: 102900000, guid: ff0a13eafa480fc4bb98467bd8530cf8, type: 3}
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/ZCX/TransitionScene_ZCX.unity
   <LevelOne>k__BackingField:
-    m_SceneAsset: {fileID: 102900000, guid: 29a5aee83d2e2224480ebced603fc37e, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: 81e7f174a78704b45949bf4ae7d74584, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/ZCX/ZircliX_New.unity
+    m_ScenePath: Assets/Scenes/Valou/Levels/L1/L1Scene.unity
   <HUDMenu>k__BackingField: {fileID: 11400000, guid: dbea5b65fb6d5fa4192af463fff236f1, type: 2}
   <MainMenu>k__BackingField: {fileID: 11400000, guid: 8c73c9023678ccb4b86a4422c2f32837, type: 2}
   <PauseMenu>k__BackingField: {fileID: 11400000, guid: 97638f9619455f64b97d7c00e144f118, type: 2}

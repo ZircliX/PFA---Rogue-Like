@@ -108,6 +108,7 @@ namespace DeadLink.Menus.Implementation
             badge.transform.SetSiblingIndex(0);
             badge.SetImage(upgrade.powerUp.Badge);
             
+            if (upgrade.transform == null) return;
             upgrade.transform.DOScale(Vector3.zero, 0.5f).SetUpdate(true).OnComplete(() =>
             {
                 bool tryGetNextPowerUpPosition = MenuManager.Instance.HUDMenu.TryGetNextPowerUpPosition(out Transform target);
@@ -123,6 +124,7 @@ namespace DeadLink.Menus.Implementation
 
         private void DeleteUpgrade(UpgradePrefab upgrade)
         {
+            upgrade.DOKill();
             upgradeUIs.Remove(upgrade);
             Destroy(upgrade.gameObject);
             

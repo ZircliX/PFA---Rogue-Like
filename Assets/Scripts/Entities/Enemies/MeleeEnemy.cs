@@ -34,7 +34,7 @@ namespace DeadLink.Entities.Enemies
         private void Move()
         {
             //Debug.Log("Move");
-            navMeshAgent.SetDestination(targetPosition);
+            //navMeshAgent.SetDestination(targetPosition);
         }
         
         private void HandleIdleMovement()
