@@ -111,7 +111,7 @@ namespace DeadLink.Entities.Enemies
         
         void PerformIdlePatrol()
         {
-            if (navMeshAgent != null && navMeshAgent.enabled)
+            if (navMeshAgent != null && navMeshAgent.enabled && navMeshAgent.isOnNavMesh)
             {
                 navMeshAgent.speed = moveSpeed; // Or use a dedicated patrolMoveSpeed
                 if (!navMeshAgent.hasPath && navMeshAgent.remainingDistance < 0.5f) // If not moving or reached destination
@@ -163,7 +163,7 @@ namespace DeadLink.Entities.Enemies
 
             _isMovingToPatrolDestination = true;
 
-            if (navMeshAgent != null && navMeshAgent.enabled)
+            if (navMeshAgent != null && navMeshAgent.enabled && navMeshAgent.isOnNavMesh)
             {
                 NavMeshHit hit;
                 if (NavMesh.SamplePosition(_currentPatrolDestination, out hit, patrolActivityRadius * 0.5f, NavMesh.AllAreas)) // Sample within a reasonable radius
@@ -211,7 +211,7 @@ namespace DeadLink.Entities.Enemies
             }
 
             // If using NavMeshAgent for following
-            if (navMeshAgent != null && navMeshAgent.enabled)
+            if (navMeshAgent != null && navMeshAgent.enabled && navMeshAgent.isOnNavMesh)
             {
                 navMeshAgent.isStopped = false;
                 navMeshAgent.speed = moveSpeed; // Ensure using chase speed

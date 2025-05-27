@@ -154,9 +154,9 @@ namespace DeadLink.Entities
             enemyUI.UpdateHealthBar(Health, MaxHealth.Value);
         }
 
-        public override bool TakeDamage(float damage)
+        public override bool TakeDamage(float damage, bool byPass = false)
         {
-            bool die = base.TakeDamage(damage);
+            bool die = base.TakeDamage(damage, byPass);
             return die;
         }
 

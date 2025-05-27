@@ -4,10 +4,12 @@ using DeadLink.Entities.Movement;
 using DeadLink.Level.CheckPoint;
 using DeadLink.Menus;
 using DeadLink.Misc;
+using DeadLink.SceneManagement;
 using LTX.ChanneledProperties;
 using RogueLike.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace RogueLike.Player
 {
@@ -53,7 +55,11 @@ namespace RogueLike.Player
             
             //Reload Scenario + Teleport to CheckPoint
             LevelManager.Instance.ReloadFromLastScenario();
-            LevelManager.Instance.PlayerController.PlayerEntity.EmptyHealthBar();
+            if (LevelManager.Instance.PlayerController.PlayerEntity.EmptyHealthBar())
+            {
+                IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.DieMenu);
+                MenuManager.Instance.OpenMenu(menu);
+            }
             yield return new WaitForSeconds(0.5f);
             
             FadeUI.Instance.FadeOut(0.35f);

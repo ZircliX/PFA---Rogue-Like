@@ -10,7 +10,7 @@ namespace DeadLink.Save.LevelProgression
     {
         public int Priority => 1;
 
-        public static LevelScenarioSaveFile CurrentLevelScenarioSaveFile { get; private set; }
+        public static LevelScenarioSaveFile CurrentLevelScenarioSaveFile { get; set; }
         public static ILevelManager CurrentILevelManager { get; set; }
         
         public void Write(ref LevelScenarioSaveFile saveFile)

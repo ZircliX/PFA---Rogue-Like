@@ -92,15 +92,16 @@ namespace DeadLink.Entities
             Destroy(gameObject);
         }
 
-        public virtual bool TakeDamage(float damage)
+        public virtual bool TakeDamage(float damage, bool byPass = false)
         {
-            return TakeDamage(Mathf.CeilToInt(damage));
+            return TakeDamage(Mathf.CeilToInt(damage), byPass);
         }
 
-        public virtual bool TakeDamage(int damage)
+        public virtual bool TakeDamage(int damage, bool byPass = false)
         {
-            Debug.Log($"Take {damage} => health {Health}");
-            Health -= damage;
+            //Debug.Log($"Take {damage} => health {Health}");
+            int finalDamage = byPass ? damage : Mathf.CeilToInt(damage / Resistance);
+            Health -= finalDamage;
             
             if (Mathf.FloorToInt(Health) <= 0)
             {

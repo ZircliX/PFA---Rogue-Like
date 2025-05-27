@@ -143,11 +143,18 @@ namespace DeadLink.Ammunitions
             }
             
             //+ hit.normal * 0.5f
-            Ray ray = Camera.main!.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
-            bool hitsomething = Physics.Raycast(ray,out RaycastHit hits, 500);
-            if (hitsomething)
+            if (Author.CompareTag("Player"))
             {
-                BulletData.HitVFX.PlayVFX(hits.point, 2);
+                Ray ray = Camera.main!.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+                bool hitsomething = Physics.Raycast(ray,out RaycastHit hits, 500);
+                if (hitsomething)
+                {
+                    BulletData.HitVFX.PlayVFX(hits.point, 2);
+                }
+                else
+                {
+                    BulletData.HitVFX.PlayVFX(hit.point, 2);
+                }
             }
             else
             {
