@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DeadLink.Menus.Other;
 using DeadLink.PowerUpSystem;
+using DeadLink.VoiceLines;
 using DG.Tweening;
 using LTX.ChanneledProperties;
 using RogueLike.Managers;
@@ -42,6 +43,7 @@ namespace DeadLink.Menus.Implementation
         public override void Open()
         {
             base.Open();
+            VoiceLinesManager.Instance.PlayVoiceLine(0);
             SetPowerUps();
         }
 
@@ -86,6 +88,7 @@ namespace DeadLink.Menus.Implementation
                 {
                     ui.transform.DOMove(middle.position, 1.5f).SetTarget(ui.transform).SetUpdate(true).OnComplete(() =>
                     {
+                        VoiceLinesManager.Instance.PlayVoiceLine(1);
                         AddBadge(ui);
                     });
                 }

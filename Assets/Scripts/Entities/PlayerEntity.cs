@@ -6,6 +6,7 @@ using DeadLink.Entities.Data;
 using DeadLink.Menus;
 using DeadLink.PowerUpSystem;
 using DeadLink.PowerUpSystem.InterfacePowerUps;
+using DeadLink.VoiceLines;
 using Enemy;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
@@ -106,6 +107,7 @@ namespace RogueLike.Entities
             }
             
             bool die = base.TakeDamage(finalDamage, byPass);
+            VoiceLinesManager.Instance.PlayerHit();
             
             MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
             return die;
