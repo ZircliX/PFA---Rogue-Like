@@ -50,7 +50,6 @@ namespace DeadLink.Entities
             
             yield return new WaitForSeconds(0.5f);
             
-            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemiesDeath, transform.position);
             //EnemyManager.Instance.EnemyKilled(this);
             Destroy(gameObject);
         }

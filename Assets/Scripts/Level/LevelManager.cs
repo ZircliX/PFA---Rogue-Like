@@ -95,7 +95,6 @@ namespace RogueLike.Managers
         public void StartLevel()
         {
             TimerManager.Instance.StartTimer();
-            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_LevelStart, transform.position);
         }
 
         public void StartWaveMode()

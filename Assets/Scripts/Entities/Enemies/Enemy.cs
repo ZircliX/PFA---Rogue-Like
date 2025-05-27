@@ -167,7 +167,6 @@ namespace DeadLink.Entities
             yield return new WaitForSeconds(0.25f);
             DOTween.Kill(gameObject);
             
-            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemiesDeath, transform.position);
             EntityData.VFXToSpawn.PlayVFX(transform.position, EntityData.DelayAfterDestroyVFX);
 
             EnemyManager.Instance.EnemyKilled(this);
