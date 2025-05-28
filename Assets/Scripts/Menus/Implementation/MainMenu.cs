@@ -52,6 +52,7 @@ namespace DeadLink.Menus.Implementation
             MenuType = MenuType.Main;
             ScoreboardSession.Instance.StartSession();
         }
+        
 
         private void Start()
         {
@@ -96,6 +97,7 @@ namespace DeadLink.Menus.Implementation
         
         public void StartNewGame()
         {
+            PlayerPrefs.DeleteKey("PlayerPowerUps");
             SceneController.Global.ResetNextSceneIndex();
             mainMenuLevelScenarioProvider.SetSceneForNewGame(GameDatabase.Global.GetSceneFromSceneReference(GameMetrics.Global.LevelOne));
             SceneController.Global.ChangeScene(mainMenuLevelScenarioProvider.LevelScenario.Scene);

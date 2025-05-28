@@ -190,7 +190,7 @@ namespace DeadLink.Entities
             if (CurrentWeapon != null && CurrentWeapon.CurrentReloadTime >= CurrentWeapon.WeaponData.ReloadTime)
             {
                 GameObject objectToHit = null;
-                Vector3 direction = player.transform.position - transform.position + Vector3.Scale(transform.forward, Random.onUnitSphere) * 10;
+                Vector3 direction = player.transform.position - transform.position + Vector3.Scale(transform.forward, Random.onUnitSphere) * 3;
                 Debug.DrawRay(BulletSpawnPoint.position, direction * 50, Color.red);
 
                 if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 500, GameMetrics.Global.BulletRayCast))

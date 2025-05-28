@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DeadLink.Entities;
 using DeadLink.Entities.Data;
 using DeadLink.Menus;
@@ -9,7 +10,9 @@ using DeadLink.PowerUpSystem.InterfacePowerUps;
 using DeadLink.VoiceLines;
 using Enemy;
 using KBCore.Refs;
+using LLlibs.ZeroDepJson;
 using LTX.ChanneledProperties;
+using RogueLike.Controllers;
 using RogueLike.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -74,8 +77,31 @@ namespace RogueLike.Entities
             }
             
             unlockedPowerUps = new Dictionary<string, IVisitor>();
-            
             ResetPowerUps();
+            
+            if (PlayerPrefs.HasKey("PlayerPowerUps"))
+            {
+                
+                string json = PlayerPrefs.GetString("PlayerPowerUps");
+                string[] powerUps = json.Split('/');
+                
+                foreach (string p in powerUps)
+                {
+                    PowerUp powerUp = GameDatabase.Global.GetPowerUp(p);
+                    if (powerUp != null)
+                    {
+                        Unlock(powerUp);
+                    }
+                    else
+                    {
+                        Debug.LogError(p);
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("zeruiozerouhrzeurhze");
+            }
         }
 
         private void ResetPowerUps()
@@ -210,8 +236,21 @@ namespace RogueLike.Entities
                 Debug.Log("already unlocked");
                 return;
             }
-            unlockedPowerUps.Add(visitor.Name, visitor);
+            
             visitor.OnBeUnlocked(this, pm);
+            if (visitor is PowerUp up)
+            {
+                Debug.Log("Unlocking power up: " + up.Name);
+                if (PowerUps.Contains(up))
+                {
+                    return;
+                }
+                PowerUps.Add(up);
+                PlayerPrefs.SetString("PlayerPowerUps", string.Join('/', PowerUps.Select((ctx => ctx.GUID))));
+                Debug.Log("Set string");
+                
+                MenuManager.Instance.HUDMenu.AddBadges();
+            }
         }
         
         public void StartCooldownCoroutine(CooldownPowerUp cooldownPowerUp)

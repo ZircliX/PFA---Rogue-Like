@@ -90,6 +90,8 @@ namespace RogueLike.Managers
                     element.Push(elementSaveFile.Value);
                 }
             }
+            
+            //MenuManager.Instance.HUDMenu.AddBadges();
         }
 
         public void StartLevel()
