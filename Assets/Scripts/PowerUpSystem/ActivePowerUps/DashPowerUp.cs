@@ -12,14 +12,16 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         {
             base.OnBeUnlocked(playerEntity, playerMovement); 
             IsUnlocked = true;
+            CanBeUsed = true;
             OnBeUsed(playerEntity, playerMovement);
         }
 
         public override void OnBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)
         {
-            if (IsUnlocked)
+            if (IsUnlocked && CanBeUsed)
             {
                 playerMovement.AddBonusDash(BonusDashCount);
+                CanBeUsed = false;
                 OnFinishedToBeUsed(playerEntity, playerMovement);
             }
         }
@@ -32,6 +34,7 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         {
             OnFinishedToBeUsed(playerEntity, playerMovement);
             IsUnlocked = false;
+            CanBeUsed = false;
         }
     }
 }
