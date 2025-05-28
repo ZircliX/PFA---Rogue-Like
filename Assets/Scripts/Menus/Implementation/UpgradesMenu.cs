@@ -13,7 +13,6 @@ namespace DeadLink.Menus.Implementation
     public class UpgradesMenu : Menu
     {
         [SerializeField] private UpgradePrefab upgradePrefab;
-        [SerializeField] private UpgradeBadge upgradeBadge;
         [SerializeField] private Transform targetUpgradePanel;
         [SerializeField] private RectTransform middle;
         public PowerUp[] PowerUps { get; private set; }
@@ -105,23 +104,14 @@ namespace DeadLink.Menus.Implementation
 
         private void AddBadge(UpgradePrefab upgrade)
         {
-            upgrade.powerUp.OnBeUnlocked(LevelManager.Instance.PlayerController.PlayerEntity, LevelManager.Instance.PlayerController.PlayerMovement);
-            
-            UpgradeBadge badge = Instantiate(upgradeBadge, middle);
-            badge.transform.SetSiblingIndex(0);
-            badge.SetImage(upgrade.powerUp.Badge);
-            
+            LevelManager.Instance.PlayerController.PlayerEntity.Unlock(upgrade.powerUp);
+            //upgrade.powerUp.OnBeUnlocked(LevelManager.Instance.PlayerController.PlayerEntity, LevelManager.Instance.PlayerController.PlayerMovement);
+            Debug.Log("Adding badge for " + upgrade.powerUp.Name + "in Upgrade menu");
             if (upgrade.transform == null) return;
             upgrade.transform.DOScale(Vector3.zero, 0.5f).SetUpdate(true).OnComplete(() =>
             {
-                bool tryGetNextPowerUpPosition = MenuManager.Instance.HUDMenu.TryGetNextPowerUpPosition(out Transform target);
-                if (tryGetNextPowerUpPosition)
-                {
-                    badge.transform.DOMove(target.position, 0.75f).SetDelay(0.25f).SetUpdate(true).OnComplete(() =>
-                    {
-                        DeleteUpgrade(upgrade);
-                    });
-                }
+                DeleteUpgrade(upgrade);
+                LevelManager.Instance.SaveCurrentLevelScenario();
             });
         }
 

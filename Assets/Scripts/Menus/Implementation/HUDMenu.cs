@@ -1,8 +1,12 @@
 using DeadLink.Menus.Other;
+using DeadLink.PowerUpSystem;
+using DeadLink.Save.LevelProgression;
 using DG.Tweening;
 using LTX.ChanneledProperties;
 using RogueLike.Controllers;
+using RogueLike.Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using CrosshairOffset = DeadLink.Menus.Other.CrosshairOffset;
 
@@ -27,6 +31,7 @@ namespace DeadLink.Menus.Implementation
         
         [Header("Power ups")]
         [SerializeField] private UpgradeBadgeSlot[] upgradeBadgeSlots;
+        [SerializeField] private UpgradeBadge upgradeBadgePrefab;
         
         private int currentWeaponIndex;
 
@@ -112,24 +117,39 @@ namespace DeadLink.Menus.Implementation
                 warningSequence = null;
             });
         }
-        
-        public void UpdatePowerUps(int index, bool isActive)
+
+        public void AddBadges()
         {
-            upgradeBadgeSlots[index].gameObject.SetActive(isActive);
+            for (int i = 0; i < upgradeBadgeSlots.Length; i++)
+            {
+                upgradeBadgeSlots[i].Delete();
+            }
+            
+            //Debug.Log("Show Badges");
+            Debug.Log(LevelManager.Instance.PlayerController.PlayerEntity.PowerUps.Count);
+            
+            foreach (PowerUp pu in LevelManager.Instance.PlayerController.PlayerEntity.PowerUps)
+            {
+                if (TryGetNextPowerUpSlot(out UpgradeBadgeSlot slot))
+                {
+                    //Debug.Log($"Slot {slot.name}, pu : {pu.Name}");
+                    slot.SetUpgradeBadge(upgradeBadgePrefab, pu);
+                }
+            }
         }
 
-        public bool TryGetNextPowerUpPosition(out Transform t)
+        public bool TryGetNextPowerUpSlot(out UpgradeBadgeSlot upgradeBadge)
         {
             for (int i = 0; i < upgradeBadgeSlots.Length; i++)
             {
                 if (upgradeBadgeSlots[i].IsEmpty)
                 {
-                    t = upgradeBadgeSlots[i].transform;
+                    upgradeBadge = upgradeBadgeSlots[i];
                     return true;
                 }
             }
 
-            t = null;
+            upgradeBadge = null;
             return false;
         }
     }

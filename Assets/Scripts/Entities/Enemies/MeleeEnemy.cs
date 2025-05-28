@@ -175,7 +175,7 @@ namespace DeadLink.Entities.Enemies
                     // Failed to find a point on the NavMesh, try picking another point or wait again
                     _isMovingToPatrolDestination = false;
                     _patrolWaitTimer = Random.Range(minPatrolWaitTime, maxPatrolWaitTime) / 2f; // Shorter wait before retry
-                    Debug.LogWarning("Failed to sample NavMesh position for patrol. Retrying soon.", this);
+                    //Debug.LogWarning("Failed to sample NavMesh position for patrol. Retrying soon.", this);
                 }
             }
             // If not using NavMeshAgent, _currentPatrolDestination is used directly by transform.position update.

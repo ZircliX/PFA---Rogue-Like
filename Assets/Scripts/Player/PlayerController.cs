@@ -69,7 +69,7 @@ namespace DeadLink.Player
         {
             if (levelElementInfos is PlayerInfos playerInfos)
             {
-                Debug.Log($"Checkpoint = {playerInfos.LastCheckPoint}");
+                //Debug.Log($"Checkpoint = {playerInfos.LastCheckPoint}");
                 
                 PlayerEntity.Spawn(
                     PlayerEntity.EntityData, 
@@ -81,12 +81,12 @@ namespace DeadLink.Player
                 Debug.Log(playerInfos.LastCheckPoint);
                 if (CheckPointManager.Instance.TryGetCheckPoint(playerInfos.LastCheckPoint, out CheckPoint checkPoint))
                 {
-                    Debug.Log($"Weeee {LastCheckPoint}");
+                    //Debug.Log($"Weeee {LastCheckPoint}");
                     PlayerMovement.TeleportPlayer(checkPoint.transform, 1);
                 }
                 else
                 {
-                    Debug.Log("Hooo, Spawned at spawn");
+                    //Debug.Log("Hooo, Spawned at spawn");
                     Transform respawn = CheckPointManager.Instance.GetRespawn();
                     PlayerMovement.TeleportPlayer(respawn, 1);
                 }

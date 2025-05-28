@@ -59,12 +59,12 @@ namespace RogueLike.Controllers
         #region PowerUps
         public PowerUp[] PowerUps { get; private set; }
 
-        public PowerUp GetPowerUp(string targetName)
+        public PowerUp GetPowerUp(string targetGUID)
         {
             for (int index = 0; index < PowerUps.Length; index++)
             {
                 PowerUp powerUp = PowerUps[index];
-                if (powerUp.Name == targetName)
+                if (powerUp.GUID == targetGUID)
                 {
                     return powerUp;
                 }
