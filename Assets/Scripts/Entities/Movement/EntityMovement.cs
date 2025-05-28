@@ -70,7 +70,6 @@ namespace DeadLink.Entities.Movement
         
         [Header("Coyote")]
         [SerializeField] protected int coyoteTime = 10;
-        [SerializeField] protected float maxYPosition = -35;
         
         #region Gravity
 
