@@ -39,11 +39,8 @@ namespace RogueLike.Player
 
         public override void OnVoidDetection()
         {
-            if (Position.y < - Mathf.Abs(maxYPosition) || Position.y > Mathf.Abs(maxYPosition))
-            {
-                if (voidEnter != null) return; 
-                voidEnter = StartCoroutine(OnVoidEnter());
-            }
+            if (voidEnter != null) return;
+            voidEnter = StartCoroutine(OnVoidEnter());
         }
 
         private IEnumerator OnVoidEnter()
