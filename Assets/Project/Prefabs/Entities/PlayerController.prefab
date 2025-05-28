@@ -456,6 +456,7 @@ GameObject:
   - component: {fileID: 8676647657924908099}
   - component: {fileID: 5095986187323191965}
   - component: {fileID: 3016530247966428140}
+  - component: {fileID: 7850186075365365505}
   - component: {fileID: 7673975130547769438}
   - component: {fileID: 7362595536518079642}
   - component: {fileID: 2649105432247018214}
@@ -504,8 +505,6 @@ MonoBehaviour:
   - {fileID: 7682103927050320968}
   - {fileID: 1105781393924151091}
   - {fileID: 4144670010414020347}
-  <PowerUpsInputName>k__BackingField:
-  - 
   isLastChanceActivated: 0
   pm: {fileID: 7673975130547769438}
 --- !u!114 &3016530247966428140
@@ -526,6 +525,18 @@ MonoBehaviour:
   pm: {fileID: 7673975130547769438}
   camPivot: {fileID: 2193368421882999979}
   cineMachineCam: {fileID: 8357952404330784461}
+--- !u!114 &7850186075365365505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6401934034392761331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e6ad82cfac428392f2db3ab5d3a309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7673975130547769438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1073,6 +1084,54 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 28aeb271-3226-487d-a8eb-d8e2b9ef65b1
     m_ActionName: 'Player/Reload[/Keyboard/r]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7850186075365365505}
+        m_TargetAssemblyTypeName: DeadLink.Player.PlayerPowerUps, DeadLink
+        m_MethodName: ReadInputPowerUp1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5ee5b977-4fd0-442a-bff6-26c3a35c351a
+    m_ActionName: 'Player/PowerUp1[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7850186075365365505}
+        m_TargetAssemblyTypeName: DeadLink.Player.PlayerPowerUps, DeadLink
+        m_MethodName: ReadInputPowerUp2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 74403de5-9e31-4d9c-8eeb-2c61a1c2e1ed
+    m_ActionName: 'Player/PowerUp2[/Keyboard/2]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7850186075365365505}
+        m_TargetAssemblyTypeName: DeadLink.Player.PlayerPowerUps, DeadLink
+        m_MethodName: ReadInputPowerUp3
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7b2c44e3-5b43-42b6-9eee-49e6a06c57e1
+    m_ActionName: 'Player/PowerUp3[/Keyboard/3]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard and Mouse
   m_DefaultActionMap: Player
