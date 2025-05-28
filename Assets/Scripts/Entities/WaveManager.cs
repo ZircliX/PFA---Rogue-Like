@@ -41,14 +41,6 @@ namespace DeadLink.Entities
             currentWaveBalance = WaveBalance.Value;
             currentWaveCount = WaveCount.Value;
         }
-        
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                StartWaveMode();
-            }
-        }
 
         private void StartWaveMode()
         {
