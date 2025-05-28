@@ -110,7 +110,8 @@ namespace RogueLike.Managers
         public void FinishLevel()
         {
             TimerManager.Instance.PauseTimer();
-            LastLevelScenario = LevelScenario.GetDefault();
+            //LastLevelScenario = LevelScenario.GetDefault();
+            //PlayerController.LastCheckPoint = null;
             SaveManager<LevelScenarioSaveFile>.Push();
             
             IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.GameplayScoreboard);

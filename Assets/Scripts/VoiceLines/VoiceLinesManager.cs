@@ -29,7 +29,7 @@ namespace DeadLink.VoiceLines
 
         public void PlayerHit()
         {
-            if (playerHit) return;
+            if (playerHit || PlayerHitEvent.IsNull) return;
             playerHit = true;
             AudioManager.Global.PlayOneShot(PlayerHitEvent, player.position);
         }
