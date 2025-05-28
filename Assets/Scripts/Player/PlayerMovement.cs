@@ -52,10 +52,10 @@ namespace RogueLike.Player
             
             //Reload Scenario + Teleport to CheckPoint
             LevelManager.Instance.ReloadFromLastScenario();
+            AudioManager.Global.StopSounds();
             if (LevelManager.Instance.PlayerController.PlayerEntity.EmptyHealthBar())
             {
-                IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.DieMenu);
-                MenuManager.Instance.OpenMenu(menu);
+                StartCoroutine(LevelManager.Instance.PlayerController.PlayerEntity.Die());
             }
             yield return new WaitForSeconds(0.5f);
             

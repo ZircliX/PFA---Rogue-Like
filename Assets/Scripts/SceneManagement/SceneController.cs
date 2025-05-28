@@ -60,6 +60,7 @@ namespace DeadLink.SceneManagement
         {
             OnWantsToChangeScene?.Invoke();
             Debug.Log($"Wants to change scene to {sceneIndex}");
+            AudioManager.Global.StopSounds();
             
             FadeUI.Instance.FadeIn(1f).OnComplete(() =>
             {
@@ -74,6 +75,7 @@ namespace DeadLink.SceneManagement
             Debug.Log($"From scene {sceneIndex}");
             int index = GetNextSceneIndex(sceneIndex);
             Debug.Log($"Wants to change scene to {index}");
+            AudioManager.Global.StopSounds();
             
             FadeUI.Instance.FadeIn(1f).OnComplete(() =>
             {

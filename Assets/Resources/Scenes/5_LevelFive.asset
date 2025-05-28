@@ -17,4 +17,11 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/Valou/Levels/L5/L5Scene.unity
   <ScoreboardSceneIndex>k__BackingField: 5
+  <LevelMusic>k__BackingField:
+    Guid:
+      Data1: 132870320
+      Data2: 1148875672
+      Data3: -187727220
+      Data4: -1075505565
+    Path: event:/Musics/Levels/Music_Level5
   <GUID>k__BackingField: 4f37e414-4b2a-4cf8-85a0-49eb9a395f69

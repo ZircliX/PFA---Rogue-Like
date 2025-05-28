@@ -18,11 +18,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Valou/Levels/L2/L2Scene.unity
     guid: ef6b2c9cd3ab8bb4d80dc5d7c275708f
   - enabled: 1
-    path: Assets/Scenes/Valou/Levels/L3/L3Scene.unity
-    guid: 601803f13a2e0f3488a0fd412d572e0b
-  - enabled: 1
     path: Assets/Scenes/Valou/Levels/L4/L4Scene.unity
     guid: 0344fb27eaab64b40b6c2712820fd3e6
+  - enabled: 1
+    path: Assets/Scenes/Valou/Levels/L3/L3Scene.unity
+    guid: 601803f13a2e0f3488a0fd412d572e0b
   - enabled: 1
     path: Assets/Scenes/Valou/Levels/L5/L5Scene.unity
     guid: b62b6c24017788047a593b33cf64a93b

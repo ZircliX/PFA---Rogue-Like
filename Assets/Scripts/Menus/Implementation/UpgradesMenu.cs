@@ -58,6 +58,14 @@ namespace DeadLink.Menus.Implementation
             {
                 pow.AddRange(PowerUps);
                 int count = pow.Count >= 3 ? 3 : pow.Count;
+
+                foreach (PowerUp p in LevelManager.Instance.PlayerController.PlayerEntity.PowerUps)
+                {
+                    if (pow.Contains(p))
+                    {
+                        pow.Remove(p);
+                    }
+                }
                 
                 for (int i = 0; i < count; i++)
                 {

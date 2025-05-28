@@ -3,6 +3,7 @@ using FMODUnity;
 using LTX.Singletons;
 using RogueLike.Controllers;
 using UnityEngine;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class AudioManager
 {
@@ -18,4 +19,12 @@ public class AudioManager
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
         return eventInstance;
     }
+
+    public void StopSounds()
+    {
+        RuntimeManager.GetBus("bus:/Music").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+        RuntimeManager.GetBus("bus:/Voices").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+        RuntimeManager.GetBus("bus:/SFX").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+    }
+    
 }

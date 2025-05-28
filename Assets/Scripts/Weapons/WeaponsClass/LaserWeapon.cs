@@ -2,6 +2,7 @@ using System.Collections;
 using DeadLink.Entities;
 using DeadLink.Menus;
 using DeadLink.Weapons.Data;
+using RogueLike;
 using RogueLike.Managers;
 using UnityEngine;
 
@@ -74,7 +75,7 @@ namespace DeadLink.Weapons.WeaponsClass
                 {
                     StartCoroutine(CooldownLaser(entity));
                 }
-                //AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerAutomaticShoot, entity.transform.position);
+                AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerLaserShoot, entity.transform.position);
                 return true;
             }
 

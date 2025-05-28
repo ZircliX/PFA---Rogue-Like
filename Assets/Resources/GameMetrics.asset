@@ -43,8 +43,8 @@ MonoBehaviour:
   <CreditsMenu>k__BackingField: {fileID: 11400000, guid: 2e2470dcf0f8c544083947adcc638650, type: 2}
   <GameplayScoreboard>k__BackingField: {fileID: 11400000, guid: 8398bb69823e6894484d9951adbd45b8, type: 2}
   <MenuScoreboard>k__BackingField: {fileID: 11400000, guid: b649403b119154e4abd14cded3f6dca4, type: 2}
-  <DieMenu>k__BackingField: {fileID: 0}
-  <WinningMenu>k__BackingField: {fileID: 0}
+  <DieMenu>k__BackingField: {fileID: 11400000, guid: bfe145829db17a24a96a7ab1216d2f3e, type: 2}
+  <WinningMenu>k__BackingField: {fileID: 11400000, guid: 68c2ce97d8e30a844a887b84ec198050, type: 2}
   <FMOD_PlayerHandAttack>k__BackingField:
     Guid:
       Data1: 683273949
