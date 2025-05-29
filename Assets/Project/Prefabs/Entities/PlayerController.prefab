@@ -320,7 +320,7 @@ Camera:
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 0
+  m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!114 &6948168961954344921
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -578,7 +578,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   coyoteTime: 25
-  maxYPosition: 35
   gravityScale: 2.75
   gravityAlignSpeed: 5
   <BaseCapsuleHeight>k__BackingField: 2
