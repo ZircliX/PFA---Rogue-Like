@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Project/Textures/Blocking/Materials.meta
 guid: b61c7c4a45cf60949947ead37a71c9cc
+========
+guid: 40ab017acd2bc124ba3713f3006fcb4f
+>>>>>>>> DydouBranch:Assets/Project/Textures/UI/SettingsMenuUi.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
