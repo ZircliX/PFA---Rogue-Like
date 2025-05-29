@@ -1,3 +1,4 @@
+using System;
 using FMOD.Studio;
 using FMODUnity;
 using LTX.Singletons;
@@ -22,9 +23,29 @@ public class AudioManager
 
     public void StopSounds()
     {
-        RuntimeManager.GetBus("bus:/Music").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
-        RuntimeManager.GetBus("bus:/Voices").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
-        RuntimeManager.GetBus("bus:/SFX").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+        try
+        {
+            RuntimeManager.GetBus("bus:/Music").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+            RuntimeManager.GetBus("bus:/Voices").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+            RuntimeManager.GetBus("bus:/SFX").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
-    
+
+    public void StopVoices()
+    {
+        try
+        {
+            RuntimeManager.GetBus("bus:/Voices").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }
