@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40186065fd8d4622ae0d52d3b454754f, type: 3}
   m_Name: Pad
   m_EditorClassIdentifier: 
-  Dialogue: 
+  Dialogue: 'Elevated trajectory required.
+
+    Step into the pad. Let vector force
+    do the rest.'
+  DialogueDuration: 8

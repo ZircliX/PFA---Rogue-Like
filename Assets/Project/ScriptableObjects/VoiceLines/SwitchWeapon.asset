@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40186065fd8d4622ae0d52d3b454754f, type: 3}
   m_Name: SwitchWeapon
   m_EditorClassIdentifier: 
-  Dialogue: 
+  Dialogue: "Tactical flexibility is critical. These androids look tough, your primary
+    weapon will not do much damage. \nAdapt your output based on threat level.\nOne
+    tool does not fit all problems."
+  DialogueDuration: 13.4

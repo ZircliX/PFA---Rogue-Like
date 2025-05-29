@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40186065fd8d4622ae0d52d3b454754f, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  Dialogue: 
+  Dialogue: 'Now it is your turn. You are well equipped.
+
+    Engage with your weapon,
+    aim and shoot.
+
+    Repeat as needed.'
+  DialogueDuration: 7.7

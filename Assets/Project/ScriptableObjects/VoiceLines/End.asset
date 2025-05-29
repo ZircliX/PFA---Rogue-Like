@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40186065fd8d4622ae0d52d3b454754f, type: 3}
   m_Name: End
   m_EditorClassIdentifier: 
-  Dialogue: 
+  Dialogue: 'Proceed, Android 1087... or may I name you... Ren.
+
+    The system will
+    not wait for you.'
+  DialogueDuration: 9.4

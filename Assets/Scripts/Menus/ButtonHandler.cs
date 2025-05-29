@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace DeadLink.Menus
 {
-    public class ButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class ButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [Header("References")]
         [field: SerializeField, Self] public Image OriginalImage { get; private set; } 
@@ -51,7 +51,6 @@ namespace DeadLink.Menus
 
         public void OnPointerExit(PointerEventData eventData)
         {
-
             if (OriginalImage != null)
             {
                 OriginalImage.material = null;  
@@ -68,8 +67,9 @@ namespace DeadLink.Menus
             }
         }
         
-        
-        
-        
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_UIClick, eventData.position);
+        }
     }
 }

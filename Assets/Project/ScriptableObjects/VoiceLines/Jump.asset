@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40186065fd8d4622ae0d52d3b454754f, type: 3}
   m_Name: Jump
   m_EditorClassIdentifier: 
-  Dialogue: 
+  Dialogue: "Obstacle detected. Execute jump.\nYour legs are augmented lift off the
+    ground to clear the gap. \nSimple biomechanics, nothing you can not handle."
+  DialogueDuration: 13

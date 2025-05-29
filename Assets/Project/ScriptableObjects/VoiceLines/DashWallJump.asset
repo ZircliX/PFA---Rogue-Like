@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40186065fd8d4622ae0d52d3b454754f, type: 3}
   m_Name: DashWallJump
   m_EditorClassIdentifier: 
-  Dialogue: 
+  Dialogue: "You may encounter walls unsuitable for standard movement. \nInitiate
+    lateral burst to dash forward ; momentum is key.\n\nRun along its surface, it
+    will engage magnetic traction."
+  DialogueDuration: 14

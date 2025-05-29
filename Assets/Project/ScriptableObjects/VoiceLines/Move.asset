@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40186065fd8d4622ae0d52d3b454754f, type: 3}
   m_Name: Move
   m_EditorClassIdentifier: 
-  Dialogue: 
+  Dialogue: Neural Link is stable. Begin protocol.   You should feel the impulse.
+    Accelerate when necessary. The system will compensate for your inertia.
+  DialogueDuration: 12
