@@ -1,5 +1,7 @@
+using System.Collections;
 using DeadLink.Entities;
 using DeadLink.Weapons.Data;
+using RogueLike;
 using UnityEngine;
 
 namespace DeadLink.Weapons.WeaponsClass
@@ -15,11 +17,17 @@ namespace DeadLink.Weapons.WeaponsClass
         {
             if (base.Fire(entity, direction, shouldHit))
             {
-                //AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerAutomaticShoot, entity.transform.position);
+                AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerRocketShoot, entity.transform.position);
                 return true;
             }
 
             return false;
+        }
+
+        public override IEnumerator Reload(Entity entity)
+        {
+            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerRocketReload, entity.transform.position);
+            return base.Reload(entity);
         }
     }
 }

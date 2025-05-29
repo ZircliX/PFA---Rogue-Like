@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: DashPowerUp
   m_EditorClassIdentifier: 
   <Name>k__BackingField: DUAL BURST
-  <Description>k__BackingField: "\u201CAllows two dashes in sequence. Increase movement
-    speed.\u201D"
+  <Description>k__BackingField: "PASSIVE \u201CAllows two dashes in sequence. Increase
+    movement speed.\u201D"
   <Icon>k__BackingField:
   - {fileID: 21300000, guid: 82eae57a0fae6c84f86e681afb514c94, type: 3}
   - {fileID: 21300000, guid: 595042c6e0d2f3244aa5c876b43e8519, type: 3}

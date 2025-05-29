@@ -1,3 +1,4 @@
+using System.Linq;
 using DeadLink.Menus.Other;
 using DeadLink.PowerUpSystem;
 using DeadLink.Save.LevelProgression;
@@ -151,6 +152,19 @@ namespace DeadLink.Menus.Implementation
 
             upgradeBadge = null;
             return false;
+        }
+
+        public void UsePowerUp(CooldownPowerUp pu, float current, float max)
+        {
+            UpgradeBadgeSlot slot = upgradeBadgeSlots.FirstOrDefault(ctx => ctx.PowerUp == pu);
+            if (slot != null)
+            {
+                slot.UpgradeBadge.Use(current, max);
+            }
+            else
+            {
+                Debug.Log("Null slot ? " + (slot == null));
+            }
         }
     }
 }

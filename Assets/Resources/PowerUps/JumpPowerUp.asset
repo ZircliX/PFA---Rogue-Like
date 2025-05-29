@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: JumpPowerUp
   m_EditorClassIdentifier: 
   <Name>k__BackingField: SKY BREAKER
-  <Description>k__BackingField: "\u201CAllows a second jump before landing. Reach
-    higher platforms and extend airtime.\u201D"
+  <Description>k__BackingField: "PASSIVE \u201CAllows a second jump before landing.
+    Reach higher platforms and extend airtime.\u201D"
   <Icon>k__BackingField:
   - {fileID: 21300000, guid: 82eae57a0fae6c84f86e681afb514c94, type: 3}
   - {fileID: 21300000, guid: 04f55fd49ec68084993dd4e5ccf7a406, type: 3}

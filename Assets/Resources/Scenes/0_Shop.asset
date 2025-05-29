@@ -17,4 +17,11 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/Valou/Transition/TransitionScene.unity
   <ScoreboardSceneIndex>k__BackingField: 0
+  <LevelMusic>k__BackingField:
+    Guid:
+      Data1: 1788183728
+      Data2: 1246109846
+      Data3: -721730905
+      Data4: 381618460
+    Path: "event:/Musics/Other/Music_RoomPsych\xE9"
   <GUID>k__BackingField: 255e4443-10e6-407a-a9df-6a9101212ccd

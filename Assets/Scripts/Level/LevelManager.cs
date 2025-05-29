@@ -97,6 +97,11 @@ namespace RogueLike.Managers
         public void StartLevel()
         {
             TimerManager.Instance.StartTimer();
+
+            if (GameDatabase.Global.GetSceneDataFromScene(gameObject.scene, out SceneData data))
+            {
+                AudioManager.Global.PlayOneShot(data.LevelMusic, PlayerController.PlayerMovement.transform.position);
+            }
         }
 
         public void StartWaveMode()

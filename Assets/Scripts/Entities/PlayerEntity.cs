@@ -28,6 +28,7 @@ namespace RogueLike.Entities
         [SerializeField, Self] private PlayerMovement pm;
 
         public int Kills { get; private set; }
+        private bool died;
 
         #region Event Functions
         
@@ -134,6 +135,10 @@ namespace RogueLike.Entities
             
             bool die = base.TakeDamage(finalDamage, byPass);
             VoiceLinesManager.Instance.PlayerHit();
+            if (die)
+            {
+                StartCoroutine(Die());
+            }
             
             MenuManager.Instance.HUDMenu.UpdateHealth(Health, MaxHealth.Value, HealthBarCount);
             return die;
@@ -163,8 +168,16 @@ namespace RogueLike.Entities
 
         public override IEnumerator Die()
         {
-            yield return new WaitForSeconds(0.25f);
-            //Debug.Break();
+            if (!died)
+            {
+                died = true;
+                AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerDie, transform.position);
+                //yield return new WaitForSeconds(0.25f);
+                IMenu menu = MenuManager.Instance.GetMenu(GameMetrics.Global.DieMenu);
+                MenuManager.Instance.OpenMenu(menu);
+            }
+            
+            yield return null;
         }
         
         #endregion

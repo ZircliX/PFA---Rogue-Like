@@ -1,3 +1,4 @@
+using System.Collections;
 using DeadLink.Entities;
 using DeadLink.Weapons.Data;
 using RogueLike;
@@ -21,6 +22,12 @@ namespace DeadLink.Weapons.WeaponsClass
             }
 
             return false;
+        }
+        
+        public override IEnumerator Reload(Entity entity)
+        {
+            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerAutomaticReload, entity.transform.position);
+            return base.Reload(entity);
         }
     }
 }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BonusHealthBarPowerUp
   m_EditorClassIdentifier: 
   <Name>k__BackingField: CORE REGEN
-  <Description>k__BackingField: "\u201CInstantly restore a full health bar, regardless
-    of the damage taken.\u201D"
+  <Description>k__BackingField: "PASSIVE \u201CInstantly restore a full health bar,
+    regardless of the damage taken.\u201D"
   <Icon>k__BackingField:
   - {fileID: 21300000, guid: 82eae57a0fae6c84f86e681afb514c94, type: 3}
   - {fileID: 21300000, guid: fef9011c926252a418046951b1559194, type: 3}

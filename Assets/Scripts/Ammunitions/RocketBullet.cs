@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DeadLink.Ammunitions.Data;
 using DeadLink.Entities;
+using RogueLike;
 using UnityEngine;
 using ZLinq;
 
@@ -40,6 +41,7 @@ namespace DeadLink.Ammunitions
                         
                         ApplyDamage(entities.AsValueEnumerable().ToArray());
                         HitObject(hit);
+                        AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerRocketHit, transform.position);
                     }
                     
                     else if (hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())

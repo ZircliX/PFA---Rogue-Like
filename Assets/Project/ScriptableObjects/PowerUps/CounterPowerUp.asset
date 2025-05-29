@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4206576d2d77420cac3b1e14a2a34dda, type: 3}
+  m_Name: CounterPowerUp
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: RIPOSTE
+  <Description>k__BackingField: "\u201CAttack at the right moment to parry incoming
+    bullets and deflect them back toward enemies.\u201D"
+  <Icon>k__BackingField:
+  - {fileID: 21300000, guid: 82eae57a0fae6c84f86e681afb514c94, type: 3}
+  - {fileID: 21300000, guid: df45d550bf7bee644b6d9633f10c5149, type: 3}
+  - {fileID: 21300000, guid: c8c9875d635f87140a0a3973c8b87b8a, type: 3}
+  <Badge>k__BackingField: {fileID: 21300000, guid: 07103c52b3aaeca4da8a83361edd059f, type: 3}
+  <GUID>k__BackingField: aa0d709a-839a-4f76-84b8-1d2a87685dce
