@@ -48,7 +48,7 @@ namespace DeadLink.Entities
         [SerializeField, Self] private RayfireRigid rayfireRigid;
 
         public GameObject outline;
-        
+        private bool died;
         
         [field: SerializeField, ReadOnly, HideInEditMode] public string GUID { get; private set; }
         
@@ -157,20 +157,28 @@ namespace DeadLink.Entities
         public override bool TakeDamage(float damage, bool byPass = false)
         {
             bool die = base.TakeDamage(damage, byPass);
+            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_HitEnemy, transform.position);
             return die;
         }
 
         public override IEnumerator Die()
         {
-            OutlinerManager.Instance.RemoveOutline(gameObject);
-            
-            yield return new WaitForSeconds(0.25f);
-            DOTween.Kill(gameObject);
-            
-            EntityData.VFXToSpawn.PlayVFX(transform.position, EntityData.DelayAfterDestroyVFX);
+            if (!died)
+            {
+                died = true;
+                AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemyDie, transform.position);
+                OutlinerManager.Instance.RemoveOutline(gameObject);
+                            
+                yield return new WaitForSeconds(0.25f);
+                DOTween.Kill(gameObject);
+                
+                EntityData.VFXToSpawn.PlayVFX(transform.position, EntityData.DelayAfterDestroyVFX);
+    
+                EnemyManager.Instance.EnemyKilled(this);
+                rayfireRigid.Demolish();
+            }
 
-            EnemyManager.Instance.EnemyKilled(this);
-            rayfireRigid.Demolish();
+            yield return null;
         }
 
         #endregion

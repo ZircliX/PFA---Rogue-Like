@@ -1,3 +1,4 @@
+using DeadLink.Menus;
 using RogueLike.Player;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
             if (IsUnlocked && CanBeUsed)
             {
                 playerEntity.SetInstantHeal(InstantHealBonus);
+                MenuManager.Instance.HUDMenu.UpdateHealth(playerEntity.Health, playerEntity.MaxHealth.Value, playerEntity.HealthBarCount);
                 playerEntity.StartCoroutine(Cooldown());
             }
         }

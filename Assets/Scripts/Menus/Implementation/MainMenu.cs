@@ -52,7 +52,12 @@ namespace DeadLink.Menus.Implementation
             MenuType = MenuType.Main;
             ScoreboardSession.Instance.StartSession();
         }
-        
+
+        public override void Open()
+        {
+            base.Open();
+            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_MainMenu, transform.position);
+        }
 
         private void Start()
         {

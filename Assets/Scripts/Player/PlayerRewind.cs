@@ -43,6 +43,8 @@ namespace RogueLike.Player
             pm.rb.isKinematic = true;
             cineMachineCam.enabled = false;
 
+            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_Rewind, transform.position);
+            
             buffer.Clear();
             buffer.CopyFrom(Composites);
             

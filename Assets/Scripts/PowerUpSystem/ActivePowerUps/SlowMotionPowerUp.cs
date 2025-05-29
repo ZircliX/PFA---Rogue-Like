@@ -1,3 +1,4 @@
+using RogueLike;
 using RogueLike.Player;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         {
             if (IsUnlocked && CanBeUsed)
             {
+                AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_SlowMo, playerEntity.transform.position);
                 ActiveSlowMotion();
                 playerMovement.StartCoroutine(Cooldown());
                 playerMovement.StartCoroutine(CompetenceDuration(playerEntity, playerMovement, OnFinishedToBeUsed));

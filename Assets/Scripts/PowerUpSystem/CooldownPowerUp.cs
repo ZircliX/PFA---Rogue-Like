@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DeadLink.Menus;
 using RogueLike.Player;
 using UnityEngine;
 
@@ -22,8 +23,8 @@ namespace DeadLink.PowerUpSystem
 
             while (currentTime < CooldownTime)
             {
-                currentTime += Time.deltaTime;
-                HandleUI();
+                currentTime += Time.unscaledDeltaTime;
+                MenuManager.Instance.HUDMenu.UsePowerUp(this, currentTime, CooldownTime);
                 
                 yield return null;
             }
@@ -31,24 +32,18 @@ namespace DeadLink.PowerUpSystem
             CanBeUsed = true;
         }
         
-        private void HandleUI()
-        {
-            //implement UI logic here?
-        }
-
         public virtual IEnumerator CompetenceDuration(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement, Action<RogueLike.Entities.PlayerEntity, PlayerMovement> callback)
         {
             float currentTime = 0;
 
-            while (currentTime < CooldownTime)
+            while (currentTime < CompetenceTime)
             {
-                currentTime += Time.deltaTime;
+                currentTime += Time.unscaledDeltaTime;
                 
                 yield return null;
             }
             
             callback.Invoke(playerEntity, playerMovement);
-
         }
     }
 }

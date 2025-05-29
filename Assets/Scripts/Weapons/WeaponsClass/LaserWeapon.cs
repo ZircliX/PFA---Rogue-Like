@@ -73,9 +73,13 @@ namespace DeadLink.Weapons.WeaponsClass
             {
                 if (CurrentMunitions <= 0)
                 {
+                    AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerLaserOverHeat, entity.transform.position);
                     StartCoroutine(CooldownLaser(entity));
                 }
-                AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerLaserShoot, entity.transform.position);
+                else
+                {
+                    AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerLaserShoot, entity.transform.position);
+                }
                 return true;
             }
 

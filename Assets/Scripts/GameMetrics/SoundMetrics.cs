@@ -17,6 +17,7 @@ namespace RogueLike
         [field: SerializeField] public EventReference FMOD_PlayerRocketHit { get; private set; }
 
         [field: SerializeField] public EventReference FMOD_PlayerDie { get; private set; }
+        [field: SerializeField] public EventReference FMOD_EnemyDie { get; private set; }
         [field: SerializeField] public EventReference FMOD_HitEnemy { get; private set; }
         [field: SerializeField] public EventReference FMOD_Rewind { get; private set; }
         [field: SerializeField] public EventReference FMOD_SlowMo { get; private set; }
@@ -46,6 +47,5 @@ namespace RogueLike
         [field: SerializeField] public EventReference FMOD_Level6 { get; private set; }
         [field: SerializeField] public EventReference FMOD_MainMenu { get; private set; }
         [field: SerializeField] public EventReference FMOD_Shop { get; private set; }
-        [field: SerializeField] public EventReference FMOD_Scoreboard { get; private set; }
     }
 }

@@ -22,7 +22,7 @@ MonoBehaviour:
     m_Bits: 640
   <BulletRayCast>k__BackingField:
     serializedVersion: 2
-    m_Bits: 649
+    m_Bits: 705
   <MainMenuScene>k__BackingField:
     m_SceneAsset: {fileID: 102900000, guid: 34f84abd710f1174d85b84bf5845ade9, type: 3}
     m_IsDirty: 0
@@ -108,6 +108,13 @@ MonoBehaviour:
       Data3: 1918332554
       Data4: 1983190010
     Path: event:/SoundEffects/Death
+  <FMOD_EnemyDie>k__BackingField:
+    Guid:
+      Data1: 733605250
+      Data2: 1255134526
+      Data3: 1827318424
+      Data4: -1156535670
+    Path: event:/SoundEffects/EnemyDeath
   <FMOD_HitEnemy>k__BackingField:
     Guid:
       Data1: -155374662
@@ -124,11 +131,11 @@ MonoBehaviour:
     Path: event:/SoundEffects/Rewind
   <FMOD_SlowMo>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -100716615
+      Data2: 1311404817
+      Data3: 1319010199
+      Data4: -220035109
+    Path: event:/SoundEffects/SlowMo
   <FMOD_GlassBreak>k__BackingField:
     Guid:
       Data1: -1171221887
@@ -264,10 +271,10 @@ MonoBehaviour:
     Path: event:/Musics/Levels/Music_Level6
   <FMOD_MainMenu>k__BackingField:
     Guid:
-      Data1: -704133489
-      Data2: 1239687858
-      Data3: -80479555
-      Data4: -283434342
+      Data1: -1969477389
+      Data2: 1333566043
+      Data3: 1902986643
+      Data4: -1282648794
     Path: event:/Musics/Other/Music_MainMenu
   <FMOD_Shop>k__BackingField:
     Guid:
@@ -276,10 +283,3 @@ MonoBehaviour:
       Data3: -721730905
       Data4: 381618460
     Path: "event:/Musics/Other/Music_RoomPsych\xE9"
-  <FMOD_Scoreboard>k__BackingField:
-    Guid:
-      Data1: -1969477389
-      Data2: 1333566043
-      Data3: 1902986643
-      Data4: -1282648794
-    Path: event:/Musics/Other/Music_Scoreboard

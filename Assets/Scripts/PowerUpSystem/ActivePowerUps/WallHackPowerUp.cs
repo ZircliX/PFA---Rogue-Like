@@ -36,13 +36,11 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
                         }
                     }
                     enemy.outline.SetActive(true);
-                    playerEntity.StartCoroutine(CompetenceDuration(playerEntity, playerMovement, OnFinishedToBeUsed));
 
                 }
 
-                OnFinishedToBeUsed(playerEntity, playerMovement);
+                playerEntity.StartCoroutine(CompetenceDuration(playerEntity, playerMovement, OnFinishedToBeUsed));
             }
-            
         }
 
         public override void OnFinishedToBeUsed(RogueLike.Entities.PlayerEntity playerEntity, PlayerMovement playerMovement)

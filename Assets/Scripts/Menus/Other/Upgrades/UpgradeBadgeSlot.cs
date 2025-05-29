@@ -5,30 +5,33 @@ namespace DeadLink.Menus.Other
 {
     public class UpgradeBadgeSlot : MonoBehaviour
     {
-        private UpgradeBadge upgradeBadge;
+        public UpgradeBadge UpgradeBadge { get; private set; }
+        public PowerUp PowerUp { get; private set; }
         
-        public bool IsEmpty => upgradeBadge == null;
+        public bool IsEmpty => UpgradeBadge == null;
         
         public void SetUpgradeBadge(UpgradeBadge badgePrefab, PowerUp pu)
         {
-            if (upgradeBadge != null)
+            if (UpgradeBadge != null)
             {
-                Destroy(upgradeBadge.gameObject);
+                Destroy(UpgradeBadge.gameObject);
             }
             
-            upgradeBadge = Instantiate(badgePrefab, transform);
+            UpgradeBadge = Instantiate(badgePrefab, transform);
             //upgradeBadge.transform.localPosition = Vector3.zero;
             //upgradeBadge.transform.localScale = Vector3.one;
             
-            upgradeBadge.SetImage(pu.Badge);
+            UpgradeBadge.SetImage(pu.Badge);
+            PowerUp = pu;
         }
 
         public void Delete()
         {
-            if (upgradeBadge != null)
+            if (UpgradeBadge != null)
             {
-                Destroy(upgradeBadge.gameObject);
-                upgradeBadge = null;
+                Destroy(UpgradeBadge.gameObject);
+                UpgradeBadge = null;
+                PowerUp = null;
             }
         }
     }

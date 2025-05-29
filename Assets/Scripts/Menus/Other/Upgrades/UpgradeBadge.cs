@@ -14,21 +14,14 @@ namespace DeadLink.Menus.Other
             icon.sprite = sprite;
         }
 
-        public void Use(float cd)
+        public void Use(float current, float max)
         {
-            StartCoroutine(Cooldown(cd));
+            Cooldown(current, max);
         }
 
-        private IEnumerator Cooldown(float cd)
+        private void Cooldown(float current, float max)
         {
-            float currentCooldown = cd;
-
-            while (currentCooldown > 0)
-            {
-                yield return null;
-                currentCooldown -= Time.deltaTime;
-                cooldown.fillAmount = currentCooldown - cd;
-            }
+            cooldown.fillAmount = current / max;
         }
     }
 }
