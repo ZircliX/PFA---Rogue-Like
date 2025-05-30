@@ -17,9 +17,11 @@ namespace DeadLink.Menus
         [field: SerializeField] public TextMeshProUGUI Text { get; private set; } 
         [field: SerializeField] public Color OriginalColor { get; private set; } 
         [field: SerializeField] public Color Color { get; private set; }
+        public bool IsSelected;
+        [field: SerializeField] public bool IsSelectionable { get; private set; } 
         [field: SerializeField, Self] public Button button { get; private set; }
         
-        private Sprite _image;
+        public Sprite _image;
 
         private void OnValidate()
         {
@@ -33,7 +35,7 @@ namespace DeadLink.Menus
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (!button.IsInteractable()) return;
+            if (!button.IsInteractable() || IsSelected) return;
             AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_UIHover, eventData.position);
             if (OriginalImage != null)
             {
@@ -53,7 +55,7 @@ namespace DeadLink.Menus
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (!button.IsInteractable()) return;
+            if (!button.IsInteractable() || IsSelected) return;
             if (OriginalImage != null)
             {
                 OriginalImage.material = null;  
@@ -72,6 +74,10 @@ namespace DeadLink.Menus
         
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (IsSelectionable && !IsSelected)
+            {
+                ButtonSelectioner.Instance.Select(this);
+            }
             AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_UIClick, eventData.position);
         }
     }

@@ -23,7 +23,7 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         {
             if (IsUnlocked && CanBeUsed)
             {
-                CameraVfxTransformHandler.Instance.OverdriveComponent.PlayVFXCamera(20f, CameraVfxTransformHandler.Instance.OverdrivePosition);
+                //CameraVfxTransformHandler.Instance.OverdriveComponent.PlayVFXCamera(20f, CameraVfxTransformHandler.Instance.OverdrivePosition);
 
                 playerEntity.OnAdrenalineShot(AdrenalineMultiplier);
                 playerMovement.StartCooldownCoroutine(this);

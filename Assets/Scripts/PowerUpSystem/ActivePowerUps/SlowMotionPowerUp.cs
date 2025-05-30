@@ -22,7 +22,7 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
             if (IsUnlocked && CanBeUsed)
             {
                 AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_SlowMo, playerEntity.transform.position);
-                CameraVfxTransformHandler.Instance.SlowMotionComponent.PlayVFXCamera(5f, CameraVfxTransformHandler.Instance.SlowMotionPosition);
+                //CameraVfxTransformHandler.Instance.SlowMotionComponent.PlayVFXCamera(5f, CameraVfxTransformHandler.Instance.SlowMotionPosition);
 
                 ActiveSlowMotion();
                 playerMovement.StartCoroutine(Cooldown());
