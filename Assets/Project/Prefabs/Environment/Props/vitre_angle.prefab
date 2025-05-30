@@ -49,9 +49,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 31304ba05bcd3b2428421c36851541d0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ccd035bb6f38d9b46b8dd20c7aa276a1, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 31304ba05bcd3b2428421c36851541d0, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 67c0f49bf51aaba469b9b2d8e7002cc3, type: 2}
+      objectReference: {fileID: 2100000, guid: a3380fd4ecfd2174a8a138c5571d85c9, type: 2}
     - target: {fileID: -7511558181221131132, guid: 31304ba05bcd3b2428421c36851541d0, type: 3}
       propertyPath: 'm_Materials.Array.data[3]'
       value: 
@@ -59,6 +63,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 31304ba05bcd3b2428421c36851541d0, type: 3}
       propertyPath: m_Name
       value: vitre_angle
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 31304ba05bcd3b2428421c36851541d0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

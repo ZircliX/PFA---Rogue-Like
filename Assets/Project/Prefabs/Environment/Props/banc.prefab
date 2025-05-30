@@ -60,6 +60,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: banc
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d4b2d73fe240e67468c865962d5322b7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502642181896147344, guid: d4b2d73fe240e67468c865962d5322b7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8183314321226685030, guid: d4b2d73fe240e67468c865962d5322b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
