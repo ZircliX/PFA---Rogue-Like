@@ -1,6 +1,7 @@
 using System.Collections;
 using FMODUnity;
 using LTX.Singletons;
+using RogueLike.Managers;
 using TMPro;
 using UnityEngine;
 
@@ -22,21 +23,24 @@ namespace DeadLink.VoiceLines
         
         public void PlayVoiceLine(int voiceLinesIndex)
         {
+            if (LevelManager.Instance.PlayerController.PlayerEntity.PowerUps.Count > 0) return;
             if (voiceLinesIndex <= dialogueIndex) return;
             dialogueIndex = voiceLinesIndex;
             
             AudioManager.Global.StopVoices();
-            if (dialogueCoroutine != null)
-                StopCoroutine(dialogueCoroutine);
-            
             AudioManager.Global.PlayOneShot(AudioEvents[voiceLinesIndex], player.position);
-            dialogueCoroutine = StartCoroutine(DialogueDuration(VoiceLineData[voiceLinesIndex].DialogueDuration));
         }
 
         public void PlayVoiceLineWithDialogue(int voiceLinesIndex)
         {
+            if (LevelManager.Instance.PlayerController.PlayerEntity.PowerUps.Count > 0) return;
             if (voiceLinesIndex <= dialogueIndex) return;
+            
             dialogueText.text = VoiceLineData[voiceLinesIndex].Dialogue;
+            if (dialogueCoroutine != null)
+                StopCoroutine(dialogueCoroutine);
+            dialogueCoroutine = StartCoroutine(DialogueDuration(VoiceLineData[voiceLinesIndex].DialogueDuration));
+            
             PlayVoiceLine(voiceLinesIndex);
         }
 
@@ -52,6 +56,20 @@ namespace DeadLink.VoiceLines
             AudioManager.Global.PlayOneShot(PlayerHitEvent, player.position);
             dialogueCoroutine = StartCoroutine(DialogueDuration(PlayerHitData.DialogueDuration));
             dialogueText.text = PlayerHitData.Dialogue;
+        }
+
+        public void SelectPower()
+        {
+            if (LevelManager.Instance.PlayerController.PlayerEntity.PowerUps.Count > 0) return;
+
+            PlayVoiceLine(1);
+        }
+        
+        public void SelectedPower()
+        {
+            if (LevelManager.Instance.PlayerController.PlayerEntity.PowerUps.Count > 0) return;
+
+            PlayVoiceLine(2);
         }
 
         private IEnumerator DialogueDuration(float duration)

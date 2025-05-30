@@ -48,12 +48,13 @@ namespace DeadLink.Menus.Implementation
         private void Awake()
         {
             MenuType = MenuType.Settings;
+            //LoadSettings();
         }
 
         public override void Initialize()
         {
-            base.Initialize();
             LoadSettings();
+            base.Initialize();
         }
 
         public override void Open()

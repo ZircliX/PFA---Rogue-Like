@@ -101,7 +101,7 @@ namespace RogueLike.Entities
             }
             else
             {
-                Debug.LogError("zeruiozerouhrzeurhze");
+                //Debug.LogError("zeruiozerouhrzeurhze");
             }
         }
 

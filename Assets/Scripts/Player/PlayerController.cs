@@ -78,7 +78,7 @@ namespace DeadLink.Player
                 
                 PlayerEntity.SetInfos(playerInfos);
                 
-                Debug.Log(playerInfos.LastCheckPoint);
+                //Debug.Log(playerInfos.LastCheckPoint);
                 if (CheckPointManager.Instance.TryGetCheckPoint(playerInfos.LastCheckPoint, out CheckPoint checkPoint))
                 {
                     //Debug.Log($"Weeee {LastCheckPoint}");

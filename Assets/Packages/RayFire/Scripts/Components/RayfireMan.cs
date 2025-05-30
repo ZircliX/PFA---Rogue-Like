@@ -828,7 +828,7 @@ namespace RayFire
             if (debugBuildStatic == true && Debug.isDebugBuild == false)
                 return;
             
-            Debug.Log (str, go);
+            //Debug.Log (str, go);
         }
     }
 }
