@@ -1,4 +1,6 @@
 using System.Collections;
+using DeadLink.Player;
+using RogueLike.Controllers;
 using RogueLike.Player;
 using UnityEngine;
 
@@ -21,6 +23,8 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         {
             if (IsUnlocked && CanBeUsed)
             {
+                CameraVfxTransformHandler.Instance.OverdriveComponent.PlayVFXCamera(20f, CameraVfxTransformHandler.Instance.OverdrivePosition);
+
                 playerEntity.OnAdrenalineShot(AdrenalineMultiplier);
                 playerMovement.StartCooldownCoroutine(this);
                 playerEntity.StartCoroutine(CompetenceDuration(playerEntity, playerMovement, OnFinishedToBeUsed));

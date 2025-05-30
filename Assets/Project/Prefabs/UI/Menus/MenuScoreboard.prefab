@@ -152,6 +152,7 @@ MonoBehaviour:
   <Text>k__BackingField: {fileID: 3115682850707543210}
   <OriginalColor>k__BackingField: {r: 0.59607846, g: 0.95686275, b: 0.99607843, a: 1}
   <Color>k__BackingField: {r: 0.13461198, g: 0.22592388, b: 0.23584908, a: 1}
+  <button>k__BackingField: {fileID: 3669277405177030127}
 --- !u!1 &113678640089506833
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +305,7 @@ MonoBehaviour:
   <Text>k__BackingField: {fileID: 6081448087728729411}
   <OriginalColor>k__BackingField: {r: 0.59607846, g: 0.95686275, b: 0.99607843, a: 1}
   <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
+  <button>k__BackingField: {fileID: 1350414176158765829}
 --- !u!1 &1097050365276322384
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +458,7 @@ MonoBehaviour:
   <Text>k__BackingField: {fileID: 1620765110838729884}
   <OriginalColor>k__BackingField: {r: 0.59607846, g: 0.95686275, b: 0.99607843, a: 1}
   <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
+  <button>k__BackingField: {fileID: 6938031823595780850}
 --- !u!1 &1778358789961597190
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,6 +611,7 @@ MonoBehaviour:
   <Text>k__BackingField: {fileID: 7064652181885295846}
   <OriginalColor>k__BackingField: {r: 0.59607846, g: 0.95686275, b: 0.99607843, a: 1}
   <Color>k__BackingField: {r: 0.13461198, g: 0.22592388, b: 0.23584908, a: 1}
+  <button>k__BackingField: {fileID: 6296950688009042720}
 --- !u!1 &2185732231369360175
 GameObject:
   m_ObjectHideFlags: 0
@@ -2000,6 +2004,7 @@ MonoBehaviour:
   <Text>k__BackingField: {fileID: 959524073560444010}
   <OriginalColor>k__BackingField: {r: 0.59607846, g: 0.95686275, b: 0.99607843, a: 1}
   <Color>k__BackingField: {r: 0.13461198, g: 0.22592388, b: 0.23584908, a: 1}
+  <button>k__BackingField: {fileID: 3827370622584802816}
 --- !u!1 &4515403919965287410
 GameObject:
   m_ObjectHideFlags: 0
@@ -2174,6 +2179,7 @@ MonoBehaviour:
   <Text>k__BackingField: {fileID: 5331444178750448394}
   <OriginalColor>k__BackingField: {r: 0.59607846, g: 0.95686275, b: 0.99607843, a: 1}
   <Color>k__BackingField: {r: 0.13333334, g: 0.22745098, b: 0.23529412, a: 1}
+  <button>k__BackingField: {fileID: 8536967057622952917}
 --- !u!1 &4695980934722945759
 GameObject:
   m_ObjectHideFlags: 0
@@ -2326,6 +2332,7 @@ MonoBehaviour:
   <Text>k__BackingField: {fileID: 7926856495395886226}
   <OriginalColor>k__BackingField: {r: 0.59607846, g: 0.95686275, b: 0.99607843, a: 1}
   <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
+  <button>k__BackingField: {fileID: 2157644726182949871}
 --- !u!1 &5128614139253877880
 GameObject:
   m_ObjectHideFlags: 0
@@ -2753,7 +2760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 7f76b5de16cc6244384df177a8618f99, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3186,6 +3193,7 @@ MonoBehaviour:
   <Text>k__BackingField: {fileID: 6423154224945791393}
   <OriginalColor>k__BackingField: {r: 0.59607846, g: 0.95686275, b: 0.99607843, a: 1}
   <Color>k__BackingField: {r: 0.13461198, g: 0.22592388, b: 0.23584908, a: 1}
+  <button>k__BackingField: {fileID: 8042487370052760273}
 --- !u!1 &6631037253764681491
 GameObject:
   m_ObjectHideFlags: 0
@@ -3408,6 +3416,7 @@ MonoBehaviour:
   <Text>k__BackingField: {fileID: 2949796668253281383}
   <OriginalColor>k__BackingField: {r: 0.59607846, g: 0.95686275, b: 0.99607843, a: 1}
   <Color>k__BackingField: {r: 0.13461198, g: 0.22592388, b: 0.23584908, a: 1}
+  <button>k__BackingField: {fileID: 107583905613933714}
 --- !u!1 &7934837547238282423
 GameObject:
   m_ObjectHideFlags: 0
@@ -3560,6 +3569,7 @@ MonoBehaviour:
   <Text>k__BackingField: {fileID: 7268362185163926129}
   <OriginalColor>k__BackingField: {r: 0.59607846, g: 0.95686275, b: 0.99607843, a: 1}
   <Color>k__BackingField: {r: 0.13461198, g: 0.22592388, b: 0.23584908, a: 1}
+  <button>k__BackingField: {fileID: 7483270755714543780}
 --- !u!1 &8080625786554395989
 GameObject:
   m_ObjectHideFlags: 0
@@ -3712,6 +3722,7 @@ MonoBehaviour:
   <Text>k__BackingField: {fileID: 1839329776310267236}
   <OriginalColor>k__BackingField: {r: 0.59607846, g: 0.95686275, b: 0.99607843, a: 1}
   <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
+  <button>k__BackingField: {fileID: 1535209489350227601}
 --- !u!1 &9051794180563477793
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DeadLink.Player;
 using DG.Tweening;
 using KBCore.Refs;
 using LTX.Tools;
+using RogueLike.Controllers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -38,7 +40,7 @@ namespace RogueLike.Player
         public IEnumerator DoRewind()
         {
             isRewinding = true;
-            
+
             pm.enabled = false;
             pm.rb.isKinematic = true;
             cineMachineCam.enabled = false;
@@ -116,6 +118,8 @@ namespace RogueLike.Player
             if (!isRewinding && context.performed)
             {
                 StartCoroutine(DoRewind());
+                CameraVfxTransformHandler.Instance.RewindComponent.PlayVFXCamera(2.5f, CameraVfxTransformHandler.Instance.RewindPosition);
+
             }
         }
     }

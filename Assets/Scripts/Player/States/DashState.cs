@@ -1,6 +1,9 @@
+using System;
 using DeadLink.Cameras;
 using DeadLink.Cameras.Data;
 using DeadLink.Entities.Movement;
+using DeadLink.Player;
+using RogueLike.Controllers;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -27,8 +30,8 @@ namespace RogueLike.Player.States
         public override void Enter(EntityMovement movement)
         {
             currentDashTime = 0;
+            CameraVfxTransformHandler.Instance.DashComponent.PlayVFXCamera(0.2f, CameraVfxTransformHandler.Instance.DashPosition);
             direction = GetCameraDirection(movement, Vector2.up);
-
             //Debug.Log("Enter Dash");
         }
 

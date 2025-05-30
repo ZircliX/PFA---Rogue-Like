@@ -98,6 +98,99 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   em: {fileID: 7673975130547769438}
+--- !u!1 &709886833913689051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3587920601624309634}
+  m_Layer: 0
+  m_Name: SlowMotionAnchorVfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3587920601624309634
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709886833913689051}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.49, y: 6.83, z: 6.47}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1853930067422575411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &727538341803633310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6839307175687210431}
+  m_Layer: 0
+  m_Name: RewindAnchorVfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6839307175687210431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727538341803633310}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.73, y: -49.43, z: -17.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1853930067422575411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1167580142286571261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9069356514270579555}
+  m_Layer: 0
+  m_Name: PermaShotAnchorVfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9069356514270579555
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167580142286571261}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.37, y: -49.43, z: -17.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1853930067422575411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3000591483809483146
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,6 +330,68 @@ Transform:
   - {fileID: 605377702698545526}
   m_Father: {fileID: 8873217921136611669}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4276491801335246945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4963051102519110363}
+  m_Layer: 0
+  m_Name: OverdriveAnchorVfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4963051102519110363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4276491801335246945}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0.06}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1853930067422575411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4330422039404999702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3374280243223908206}
+  m_Layer: 0
+  m_Name: DashAnchorVfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3374280243223908206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4330422039404999702}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.99984777, y: 0, z: 0, w: -0.017452264}
+  m_LocalPosition: {x: -0.02, y: 2.6, z: 12.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1853930067422575411}
+  m_LocalEulerAnglesHint: {x: -182, y: 0, z: 0}
 --- !u!1 &4586079106163108224
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,6 +994,7 @@ GameObject:
   - component: {fileID: 8406938040259338861}
   - component: {fileID: 2643648427546800899}
   - component: {fileID: 5946190847953547969}
+  - component: {fileID: 7616673589536579738}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Player
@@ -1153,6 +1309,28 @@ MonoBehaviour:
   <PlayerEntity>k__BackingField: {fileID: 5095986187323191965}
   <PlayerMovement>k__BackingField: {fileID: 7673975130547769438}
   <LastCheckPoint>k__BackingField: {fileID: 8406938040259338861}
+--- !u!114 &7616673589536579738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7771178899970783667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388876743fb84a8a916dc0f4090cb176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DashPosition>k__BackingField: {fileID: 3374280243223908206}
+  <DashComponent>k__BackingField: {fileID: -8768719008431250640, guid: 920f51e7afdd76e4c9dd521fc1d4ddef, type: 3}
+  <OverdrivePosition>k__BackingField: {fileID: 4963051102519110363}
+  <OverdriveComponent>k__BackingField: {fileID: -8391337376880173026, guid: 317964b7aaf12614081069cae5a2833c, type: 3}
+  <SlowMotionPosition>k__BackingField: {fileID: 3587920601624309634}
+  <SlowMotionComponent>k__BackingField: {fileID: -3683436356304469573, guid: fabb7bbf753a1e745b7680d6e861ba21, type: 3}
+  <RewindPosition>k__BackingField: {fileID: 6839307175687210431}
+  <RewindComponent>k__BackingField: {fileID: 8786812299513563716, guid: ec59d8535d4be8944ab69de28d8c7be0, type: 3}
+  <PermaShotPosition>k__BackingField: {fileID: 9069356514270579555}
+  <PermaShotComponent>k__BackingField: {fileID: -4482537716600945955, guid: 637ac73f68b0588429d8553321c69b6b, type: 3}
 --- !u!1 &7951095932090443510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1302,7 +1480,12 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3374280243223908206}
+  - {fileID: 4963051102519110363}
+  - {fileID: 3587920601624309634}
+  - {fileID: 6839307175687210431}
+  - {fileID: 9069356514270579555}
   m_Father: {fileID: 1477597775340241623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7880227904453035219

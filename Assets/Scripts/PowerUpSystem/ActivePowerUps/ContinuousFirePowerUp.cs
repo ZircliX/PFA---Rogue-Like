@@ -1,3 +1,5 @@
+using DeadLink.Player;
+using RogueLike.Controllers;
 using RogueLike.Player;
 using UnityEngine;
 
@@ -17,6 +19,8 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         {
             if (IsUnlocked && CanBeUsed)
             {
+                CameraVfxTransformHandler.Instance.PermaShotComponent.PlayVFXCamera(2.5f, CameraVfxTransformHandler.Instance.PermaShotPosition);
+
                 CanBeUsed = true;
                 playerEntity.ActiveContinuousFire(this);
                 playerEntity.StartCoroutine(Cooldown());
