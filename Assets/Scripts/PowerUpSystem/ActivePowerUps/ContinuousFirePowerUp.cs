@@ -19,7 +19,7 @@ namespace DeadLink.PowerUpSystem.ActivePowerUps
         {
             if (IsUnlocked && CanBeUsed)
             {
-                CameraVfxTransformHandler.Instance.PermaShotComponent.PlayVFXCamera(2.5f, CameraVfxTransformHandler.Instance.PermaShotPosition);
+                //CameraVfxTransformHandler.Instance.PermaShotComponent.PlayVFXCamera(2.5f, CameraVfxTransformHandler.Instance.PermaShotPosition);
 
                 CanBeUsed = true;
                 playerEntity.ActiveContinuousFire(this);

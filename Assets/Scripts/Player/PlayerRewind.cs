@@ -118,7 +118,7 @@ namespace RogueLike.Player
             if (!isRewinding && context.performed)
             {
                 StartCoroutine(DoRewind());
-                CameraVfxTransformHandler.Instance.RewindComponent.PlayVFXCamera(2.5f, CameraVfxTransformHandler.Instance.RewindPosition);
+                //CameraVfxTransformHandler.Instance.RewindComponent.PlayVFXCamera(2.5f, CameraVfxTransformHandler.Instance.RewindPosition);
 
             }
         }
