@@ -42,7 +42,8 @@ namespace DeadLink.Menus.Implementation
         public override void Open()
         {
             base.Open();
-            VoiceLinesManager.Instance.PlayVoiceLine(0);
+            VoiceLinesManager.Instance.SelectPower();
+            
             SetPowerUps();
         }
 
@@ -112,6 +113,7 @@ namespace DeadLink.Menus.Implementation
 
         private void AddBadge(UpgradePrefab upgrade)
         {
+            VoiceLinesManager.Instance.SelectedPower();
             LevelManager.Instance.PlayerController.PlayerEntity.Unlock(upgrade.powerUp);
             //upgrade.powerUp.OnBeUnlocked(LevelManager.Instance.PlayerController.PlayerEntity, LevelManager.Instance.PlayerController.PlayerMovement);
             Debug.Log("Adding badge for " + upgrade.powerUp.Name + "in Upgrade menu");

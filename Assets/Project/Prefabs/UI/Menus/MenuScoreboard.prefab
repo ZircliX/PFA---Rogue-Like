@@ -2143,9 +2143,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DeadLink.Menus.New.Implementation.SettingsMenu,
-          DeadLink
+      - m_Target: {fileID: 1015870754321313610}
+        m_TargetAssemblyTypeName: DeadLink.Menus.Implementation.MenuScoreboard, DeadLink
         m_MethodName: Back
         m_Mode: 1
         m_Arguments:

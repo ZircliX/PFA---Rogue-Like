@@ -3,6 +3,7 @@ using DeadLink.Ammunitions.Data;
 using DeadLink.Entities;
 using KBCore.Refs;
 using RayFire;
+using RogueLike;
 using RogueLike.Controllers;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -127,6 +128,7 @@ namespace DeadLink.Ammunitions
 
         protected virtual void HitObject(GameObject gm, RaycastHit hit)
         {
+            if (Author == null) return;
             if (gm.name == Author.name) return;
             if (gm.TryGetComponent(out RayfireRigid rfr))
             {
@@ -146,19 +148,23 @@ namespace DeadLink.Ammunitions
             if (Author.CompareTag("Player"))
             {
                 Ray ray = Camera.main!.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
-                bool hitsomething = Physics.Raycast(ray,out RaycastHit hits, 500);
+                bool hitsomething = Physics.Raycast(ray,out RaycastHit hits, GameMetrics.Global.BulletRayCast, 500);
                 if (hitsomething)
                 {
                     BulletData.HitVFX.PlayVFX(hits.point, 2);
+                    Debug.Log(hits.collider.name, hits.collider);
+                    Debug.Log("ajqeijiqzdz");
                 }
                 else
                 {
+                    Debug.LogError("ajqeijiqzdz");
                     BulletData.HitVFX.PlayVFX(hit.point, 2);
                 }
             }
             else
             {
                 BulletData.HitVFX.PlayVFX(hit.point, 2);
+                    Debug.LogWarning("ajqeijiqzdz");
             }
             
             OnBulletHit?.Invoke(this);

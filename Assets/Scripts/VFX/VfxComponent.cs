@@ -11,16 +11,21 @@ namespace RogueLike.VFX
         [field: SerializeField] public VisualEffect[] vfxVeArray { get; private set; }
 
         private Transform cameraTransform => LevelManager.Instance.PlayerController.PlayerMovement.Camera.transform;
+        private bool camVFX = false;
+        
         public void Initialize(Transform author)
         {
             transform.SetParent(author);
+            camVFX = true;
         }
 
         private void Update()
         {
-            transform.position = cameraTransform.position;
-            transform.rotation = cameraTransform.rotation;
-            Debug.Log(transform.rotation.eulerAngles);
+            if (camVFX)
+            {
+                transform.position = cameraTransform.position;
+                transform.rotation = cameraTransform.rotation;
+            }
         }
 
         private void OnDisable()
