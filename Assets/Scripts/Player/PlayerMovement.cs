@@ -1,12 +1,16 @@
+using System;
 using System.Collections;
 using DeadLink.Cameras;
 using DeadLink.Entities.Movement;
 using DeadLink.Level.CheckPoint;
 using DeadLink.Menus;
 using DeadLink.Misc;
+using DeadLink.Player;
 using DeadLink.SceneManagement;
 using LTX.ChanneledProperties;
+using RogueLike.Controllers;
 using RogueLike.Managers;
+using RogueLike.Player.States;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -24,6 +28,7 @@ namespace RogueLike.Player
 
         private Coroutine voidEnter;
         
+
         protected override void Awake()
         {
             base.Awake();

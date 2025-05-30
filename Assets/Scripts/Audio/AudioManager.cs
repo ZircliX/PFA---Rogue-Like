@@ -25,9 +25,9 @@ public class AudioManager
     {
         try
         {
-            RuntimeManager.GetBus("bus:/Music").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
-            RuntimeManager.GetBus("bus:/Voices").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
-            RuntimeManager.GetBus("bus:/SFX").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+            //RuntimeManager.GetBus("bus:/Music").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+            //RuntimeManager.GetBus("bus:/Voices").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+            //RuntimeManager.GetBus("bus:/SFX").stopAllEvents(STOP_MODE.ALLOWFADEOUT);
         }
         catch (Exception e)
         {
