@@ -127,7 +127,7 @@ namespace DeadLink.Menus.Implementation
             }
             
             //Debug.Log("Show Badges");
-            Debug.Log(LevelManager.Instance.PlayerController.PlayerEntity.PowerUps.Count);
+            //Debug.Log(LevelManager.Instance.PlayerController.PlayerEntity.PowerUps.Count);
             
             foreach (PowerUp pu in LevelManager.Instance.PlayerController.PlayerEntity.PowerUps)
             {

@@ -71,6 +71,7 @@ namespace RogueLike.Player.States
 
         public override Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale)
         {
+            gravityScale = 0;
             direction = movement.StateVelocity.sqrMagnitude > 0.1f ? movement.StateVelocity.normalized : Vector3.zero;
             Vector3 lastVelocity = movement.StateVelocity;
 
@@ -107,11 +108,6 @@ namespace RogueLike.Player.States
             //Wanted speed
             if (Mathf.Approximately(directionSqrMagnitude, wallVelocitySqrMagnitude))
             {
-                if (targetSpeed.y <= 0)
-                {
-                    targetSpeed = targetSpeed.ProjectOntoPlane(movement.Gravity.Value.normalized);
-                }
-
                 return targetSpeed;
             }
             //Accelerate

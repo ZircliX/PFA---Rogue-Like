@@ -339,14 +339,15 @@ namespace DeadLink.Entities.Movement
                     {
                         Position += offset * distance;
                         rb.position = Position;
+                        //Debug.Log(offset * distance);
+                        //Debug.Break();
                     }
                 }
                 if(overlapSize == 0)
                     return;
-                
             }
-
         }
+        
         private void MovePlayer()
         {
             if (IsGrounded)
@@ -487,9 +488,12 @@ namespace DeadLink.Entities.Movement
         
         private void HandleGroundDetection()
         {
-            if (CurrentState == MovementState.Jumping && StateVelocity.y >= 0)
+            Vector3 gravityNormalized = Gravity.Value.normalized;
+
+            float dot = Vector3.Dot(StateVelocity, gravityNormalized);
+            if (CurrentState == MovementState.Jumping && dot < 0)
             {
-                GroundNormal = Vector3.up;
+                GroundNormal = - gravityNormalized;
                 IsGrounded = false;
                 return;
             }
@@ -510,7 +514,7 @@ namespace DeadLink.Entities.Movement
                 castDistance, GroundLayer);
             
             int overlapSize = Physics.OverlapSphereNonAlloc(center, radius, collidersBuffer, GroundLayer);
-            Debug.DrawRay(center, rayDirection * (castDistance + radius));
+            //Debug.DrawRay(center, rayDirection * (castDistance + radius));
             // Debug.DrawLine(center, center + rayDirection * height, Color.cyan);
             // Debug.DrawRay(center, rayDirection * (castDistance + radius), Color.cyan);
             RaycastHit closestHit = default;
@@ -561,7 +565,7 @@ namespace DeadLink.Entities.Movement
                 return;
             }
 
-            GroundNormal = Vector3.up;
+            GroundNormal = -gravityNormalized;
             IsGrounded = false;
 
             if (PreviousIsGrounded)

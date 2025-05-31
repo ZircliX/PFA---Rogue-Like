@@ -58,6 +58,7 @@ namespace DeadLink.VoiceLines
             if (dialogueCoroutine != null)
                 StopCoroutine(dialogueCoroutine);
 
+            if (player == null) return;
             if (!PlayerHitEvent.IsNull)
             {
                 AudioManager.Global.PlayOneShot(PlayerHitEvent, player.position);
