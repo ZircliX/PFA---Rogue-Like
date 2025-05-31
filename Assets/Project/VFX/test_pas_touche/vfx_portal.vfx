@@ -33,30 +33,6 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614681}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614958}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614685}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614987}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614872}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614875}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614878}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614973}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614977}
-      id: 0
-      isStickyNote: 0
   - title: circle
     position:
       serializedVersion: 2
@@ -72,18 +48,6 @@ MonoBehaviour:
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661615074}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615137}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615081}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615087}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 0}
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661615179}
@@ -3240,7 +3204,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
