@@ -27,10 +27,10 @@ namespace DeadLink.Menus.Extensions
         [SerializeField] private float minFontSize = 24f;
         [SerializeField] private float hoverFontSize = 30f;
         [SerializeField] private float maxFontSize = 36f;
-        
-        [SerializeField] private float minAlpha = 0.6f;
-        [SerializeField] private float hoverAlpha = 0.8f;
-        [SerializeField] private float maxAlpha = 1f;
+
+        [SerializeField] private Color minColor;
+        [SerializeField] private Color hoverColor;
+        [SerializeField] private Color maxColor;
         
         [Header("References")]
         [SerializeField] private Image underline;
@@ -110,16 +110,16 @@ namespace DeadLink.Menus.Extensions
             
             if (currentState)
             {
-                properties = new ButtonProperties(new Color(0, 0, 0, maxAlpha), maxFontSize);
+                properties = new ButtonProperties(maxColor, maxFontSize);
                 return properties;
             }
             else if (hoverState)
             {
-                properties = new ButtonProperties(new Color(0, 0, 0, hoverAlpha), hoverFontSize);
+                properties = new ButtonProperties(hoverColor, hoverFontSize);
                 return properties;
             }
             
-            properties = new ButtonProperties(new Color(0, 0, 0, minAlpha), minFontSize);
+            properties = new ButtonProperties(minColor, minFontSize);
             return properties;
         }
     }

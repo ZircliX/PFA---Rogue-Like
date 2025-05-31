@@ -164,7 +164,6 @@ namespace DeadLink.Ammunitions
             else
             {
                 BulletData.HitVFX.PlayVFX(hit.point, 2);
-                    Debug.LogWarning("ajqeijiqzdz");
             }
             
             OnBulletHit?.Invoke(this);

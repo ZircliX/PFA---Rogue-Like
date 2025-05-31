@@ -84,7 +84,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 40
+  m_Radius: 25
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &413828581898031592
 MonoBehaviour:
@@ -173,7 +173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6826649691805911619}
   - component: {fileID: 8616839188521145074}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: base_canon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,6 +387,108 @@ MonoBehaviour:
   m_EffectColor: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 1}
   m_EffectDistance: {x: 0.2, y: -0.2}
   m_UseGraphicAlpha: 1
+--- !u!1 &1646864431965313745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4780819085032834107}
+  - component: {fileID: 172028513705094026}
+  m_Layer: 0
+  m_Name: Outline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4780819085032834107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646864431965313745}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000037748947, y: 0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2182323308930957747}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &172028513705094026
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646864431965313745}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7a0d9e7ac0d04fa4c834511cec182074, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
+  m_Mesh: {fileID: 6701287561473458430, guid: e7359f7cbb7fd6d438680b571b0b8759, type: 3}
+  m_Bones:
+  - {fileID: 6298454449451032882}
+  - {fileID: 3559407391440403257}
+  - {fileID: 5304832835547908834}
+  - {fileID: 8237549196357149021}
+  - {fileID: 4066120009099754483}
+  - {fileID: 9149177226957144913}
+  - {fileID: 7291454337202359899}
+  - {fileID: 8256433627035348715}
+  - {fileID: 781747809565024164}
+  - {fileID: 3460681628807207680}
+  - {fileID: 8612900455453288813}
+  - {fileID: 7018580707125355672}
+  - {fileID: 4890723222133313010}
+  - {fileID: 3978746241625758158}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 6298454449451032882}
+  m_AABB:
+    m_Center: {x: -0.034657244, y: 0.0037263967, z: 0.00030332245}
+    m_Extent: {x: 0.0349078, y: 0.05193742, z: 0.033255853}
+  m_DirtyAABB: 0
 --- !u!1 &2060507939196236200
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,6 +1567,7 @@ Transform:
   m_Children:
   - {fileID: 7278733302041275185}
   - {fileID: 6826649691805911619}
+  - {fileID: 4780819085032834107}
   - {fileID: 954377805845996395}
   - {fileID: 1604927580074836951}
   - {fileID: 5296886364388282282}
@@ -1513,12 +1616,12 @@ MonoBehaviour:
   detectDetector: {fileID: 1692457911958996900}
   aggroRadius: 45
   aggroDetector: {fileID: 635594653611474654}
-  attackRadius: 40
+  attackRadius: 25
   attackDetector: {fileID: 413828581898031592}
   visionAngle: 90
   chaseRotationSpeed: 120
   rayfireRigid: {fileID: 2401541887556146093}
-  outline: {fileID: 0}
+  outline: {fileID: 1646864431965313745}
   <GUID>k__BackingField: 
   patrolSweepAngle: 90
   patrolRotationSpeed: 1
