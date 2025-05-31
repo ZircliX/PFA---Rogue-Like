@@ -55,7 +55,7 @@ namespace DeadLink.Player
         {
             CheckPointManager manager = CheckPointManager.Instance;
             
-            Debug.Log($"Pulling player controller");
+            //Debug.Log($"Pulling player controller");
             return new PlayerInfos()
             {
                 PlayerPowerUps = PlayerEntity.PowerUps.Select(ctx => ctx.GUID).ToList(),

@@ -253,14 +253,14 @@ namespace RogueLike.Entities
             visitor.OnBeUnlocked(this, pm);
             if (visitor is PowerUp up)
             {
-                Debug.Log("Unlocking power up: " + up.Name);
+                //Debug.Log("Unlocking power up: " + up.Name);
                 if (PowerUps.Contains(up))
                 {
                     return;
                 }
                 PowerUps.Add(up);
                 PlayerPrefs.SetString("PlayerPowerUps", string.Join('/', PowerUps.Select((ctx => ctx.GUID))));
-                Debug.Log("Set string");
+                //Debug.Log("Set string");
                 
                 MenuManager.Instance.HUDMenu.AddBadges();
             }

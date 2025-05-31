@@ -79,7 +79,7 @@ namespace DeadLink.Entities
 
         private void OnWaveModeFinished()
         {
-            Debug.Log("c'est finito");
+            //Debug.Log("c'est finito");
             //Active portal to next level !
         }
 

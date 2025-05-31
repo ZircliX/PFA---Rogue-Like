@@ -152,12 +152,12 @@ namespace DeadLink.Ammunitions
                 if (hitsomething)
                 {
                     BulletData.HitVFX.PlayVFX(hits.point, 2);
-                    Debug.Log(hits.collider.name, hits.collider);
-                    Debug.Log("ajqeijiqzdz");
+                    //Debug.Log(hits.collider.name, hits.collider);
+                    //Debug.Log("ajqeijiqzdz");
                 }
                 else
                 {
-                    Debug.LogError("ajqeijiqzdz");
+                    //Debug.LogError("ajqeijiqzdz");
                     BulletData.HitVFX.PlayVFX(hit.point, 2);
                 }
             }
