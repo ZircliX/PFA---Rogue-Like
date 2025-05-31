@@ -1,3 +1,4 @@
+using System;
 using DeadLink.Level;
 using DeadLink.Save.LevelProgression;
 using DeadLink.SceneManagement;
@@ -21,6 +22,11 @@ namespace DeadLink.Menus.Implementation
                 true,
                 false,
                 false);
+        }
+
+        private void Awake()
+        {
+            MenuType = MenuType.DieMenu;
         }
 
         public override void Open()
