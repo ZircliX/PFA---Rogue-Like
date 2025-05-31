@@ -57,8 +57,16 @@ PrefabInstance:
       value: tuyeaux
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e2e18e8d07cbbbf46a21c1bda8e4d991, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e2e18e8d07cbbbf46a21c1bda8e4d991, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340519144419706400, guid: e2e18e8d07cbbbf46a21c1bda8e4d991, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7340519144419706400, guid: e2e18e8d07cbbbf46a21c1bda8e4d991, type: 3}
       propertyPath: m_StaticEditorFlags
