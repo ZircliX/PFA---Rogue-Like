@@ -20,9 +20,12 @@ namespace DeadLink.VoiceLines
         private bool playerHit;
         private Coroutine dialogueCoroutine;
         private int dialogueIndex = -1;
+
+        private bool active = true;
         
         public void PlayVoiceLine(int voiceLinesIndex)
         {
+            if (!active) return;
             if (LevelManager.Instance.PlayerController.PlayerEntity.PowerUps.Count > 0) return;
             if (voiceLinesIndex <= dialogueIndex) return;
             dialogueIndex = voiceLinesIndex;
@@ -33,6 +36,7 @@ namespace DeadLink.VoiceLines
 
         public void PlayVoiceLineWithDialogue(int voiceLinesIndex)
         {
+            if (!active) return;
             if (LevelManager.Instance.PlayerController.PlayerEntity.PowerUps.Count > 0) return;
             if (voiceLinesIndex <= dialogueIndex) return;
             
@@ -46,20 +50,25 @@ namespace DeadLink.VoiceLines
 
         public void PlayerHit()
         {
+            if (!active) return;
             if (playerHit || PlayerHitEvent.IsNull) return;
             playerHit = true;
             
             AudioManager.Global.StopVoices();
             if (dialogueCoroutine != null)
                 StopCoroutine(dialogueCoroutine);
-            
-            AudioManager.Global.PlayOneShot(PlayerHitEvent, player.position);
-            dialogueCoroutine = StartCoroutine(DialogueDuration(PlayerHitData.DialogueDuration));
-            dialogueText.text = PlayerHitData.Dialogue;
+
+            if (!PlayerHitEvent.IsNull)
+            {
+                AudioManager.Global.PlayOneShot(PlayerHitEvent, player.position);
+                dialogueCoroutine = StartCoroutine(DialogueDuration(PlayerHitData.DialogueDuration));
+                dialogueText.text = PlayerHitData.Dialogue;
+            }
         }
 
         public void SelectPower()
         {
+            if (!active) return;
             if (LevelManager.Instance.PlayerController.PlayerEntity.PowerUps.Count > 0) return;
 
             PlayVoiceLine(1);
@@ -67,6 +76,7 @@ namespace DeadLink.VoiceLines
         
         public void SelectedPower()
         {
+            if (!active) return;
             if (LevelManager.Instance.PlayerController.PlayerEntity.PowerUps.Count > 0) return;
 
             PlayVoiceLine(2);
@@ -77,6 +87,11 @@ namespace DeadLink.VoiceLines
             yield return new WaitForSeconds(duration);
             dialogueText.text = string.Empty;
             //playerHit = false;
+        }
+
+        public void SetActiveState(bool enableVoicelines)
+        {
+            active = enableVoicelines;
         }
     }
 }

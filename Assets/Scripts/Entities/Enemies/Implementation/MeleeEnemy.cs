@@ -215,8 +215,8 @@ namespace DeadLink.Entities.Enemies
             {
                 navMeshAgent.isStopped = false;
                 navMeshAgent.speed = moveSpeed; // Ensure using chase speed
-                Debug.Log(navMeshAgent.isStopped);
-                Debug.Log(navMeshAgent.remainingDistance);
+                //Debug.Log(navMeshAgent.isStopped);
+                //Debug.Log(navMeshAgent.remainingDistance);
                 navMeshAgent.SetDestination(player.transform.position);
             }
             else // Manual transform-based movement

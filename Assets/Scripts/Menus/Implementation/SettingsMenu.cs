@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DeadLink.VoiceLines;
 using FMOD.Studio;
 using FMODUnity;
 using LTX.ChanneledProperties;
@@ -11,11 +12,9 @@ namespace DeadLink.Menus.Implementation
 {
     public class SettingsMenu : Menu
     {
-        
         public override MenuType MenuType { get; protected set; }
         
         [Header("Sound Settings")]
-        
         [SerializeField] private Slider musicSlider;
         [SerializeField] private Slider sfxSlider;
         [SerializeField] private Slider voiceSlider;
@@ -31,7 +30,8 @@ namespace DeadLink.Menus.Implementation
         
         [Header("Luminosity Settings")]
         [SerializeField] private Slider brightnessSlider;
-
+        
+        private bool enableVoicelines = true;
 
         public override MenuProperties GetMenuProperties()
         {
@@ -48,7 +48,7 @@ namespace DeadLink.Menus.Implementation
         private void Awake()
         {
             MenuType = MenuType.Settings;
-            //LoadSettings();
+            LoadSettings();
         }
 
         public override void Initialize()
@@ -170,6 +170,12 @@ namespace DeadLink.Menus.Implementation
         public void EnableVibrations(bool state)
         {
             
+        }
+
+        public void EnableVoicelines()
+        {
+            enableVoicelines = !enableVoicelines;
+            VoiceLinesManager.Instance.SetActiveState(enableVoicelines);
         }
 
         public void ChangeLanguage(int index)
