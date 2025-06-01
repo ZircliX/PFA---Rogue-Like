@@ -10,6 +10,7 @@ using LTX.ChanneledProperties;
 using RayFire;
 using RogueLike;
 using RogueLike.Controllers;
+using RogueLike.Entities;
 using UnityEngine;
 using Random = UnityEngine.Random;
 #if UNITY_EDITOR
@@ -198,14 +199,13 @@ namespace DeadLink.Entities
             if (CurrentWeapon != null && CurrentWeapon.CurrentReloadTime >= CurrentWeapon.WeaponData.ReloadTime)
             {
                 GameObject objectToHit = null;
-                Vector3 direction = player.transform.position - transform.position + Vector3.Scale(transform.forward, Random.onUnitSphere) * 3;
+                Vector3 direction = player.transform.position - transform.position;
                 Debug.DrawRay(BulletSpawnPoint.position, direction * 50, Color.red);
 
                 if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 500, GameMetrics.Global.BulletRayCast))
                 {
                     objectToHit = hit.collider.gameObject;
                 }
-                
                 CurrentWeapon.Fire(this, direction, objectToHit);
             }
             else
@@ -217,8 +217,17 @@ namespace DeadLink.Entities
         protected void HandleDetection()
         {
             bool hasVision = HasVisionOnPlayer();
+
+            bool isPlayerInvisible = false;
+            if (player != null && player is PlayerEntity pe)
+            {
+                isPlayerInvisible = pe.IsInvisible;
+                //Debug.Break();
+            }
             //Debug.Log(hasVision, this);
-            canAttack = inAttackRange && hasVision;
+            //Debug.Log($" inAttackRange: {inAttackRange}, hasVision: {hasVision}, isPlayerInvisible: {isPlayerInvisible}", this);
+            canAttack = inAttackRange && hasVision && !isPlayerInvisible;
+            
             isShooting = canAttack;
         }
 

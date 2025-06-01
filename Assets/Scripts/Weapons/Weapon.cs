@@ -49,6 +49,7 @@ namespace DeadLink.Weapons
         
         public virtual bool Fire(Entity entity, Vector3 direction, GameObject shouldHit)
         {
+            Debug.Log($"entity : {entity.name}, direction : {direction}, shouldHit : {shouldHit?.name}");
             if (!MenuManager.Instance.TryGetCurrentMenu(out IMenu menu) || menu.MenuType != MenuType.HUD) return false;
             
             if (!entity.ContinuousFire)
@@ -61,6 +62,7 @@ namespace DeadLink.Weapons
                 }
             }
             
+            Debug.Log("Spawn bullet");
             Bullet bullet = Instantiate(
                 BulletData.BulletPrefab, 
                 entity.BulletSpawnPoint.position, 
@@ -69,6 +71,7 @@ namespace DeadLink.Weapons
             bullet.OnBulletHit += BulletHit;
             bullet.OnBulletDestroy += BulletDestroy;
             
+            Debug.Log("bullet shoot");
             bullet.Shoot(entity, direction, shouldHit);
 
             if (entity.CompareTag("Player"))

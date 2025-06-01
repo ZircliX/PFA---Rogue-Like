@@ -2,6 +2,7 @@ using DeadLink.VoiceLines;
 using FMOD.Studio;
 using FMODUnity;
 using LTX.ChanneledProperties;
+using RogueLike;
 using RogueLike.Controllers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,10 +20,7 @@ namespace DeadLink.Menus.Implementation
         private Bus musicBus;
         private Bus sfxBus;
         private Bus voiceBus;
-        
-        [Header("Luminosity Settings")]
-        [SerializeField] private Slider brightnessSlider;
-        
+
         private bool enableVoicelines = true;
 
         public override MenuProperties GetMenuProperties()
@@ -39,6 +37,8 @@ namespace DeadLink.Menus.Implementation
         
         private void Awake()
         {
+            MenuType = GameMetrics.Global.SettingsMenu;
+            
             musicBus = RuntimeManager.GetBus("bus:/Music");
             sfxBus = RuntimeManager.GetBus("bus:/SFX");
             voiceBus = RuntimeManager.GetBus("bus:/Voices");
@@ -47,7 +47,6 @@ namespace DeadLink.Menus.Implementation
             sfxSlider.onValueChanged.AddListener(SetSfxVolume);
             voiceSlider.onValueChanged.AddListener(SetVoiceVolume);
             
-            MenuType = MenuType.Settings;
             LoadSettings();
         }
 

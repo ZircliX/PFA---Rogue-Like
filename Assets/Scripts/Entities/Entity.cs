@@ -106,7 +106,7 @@ namespace DeadLink.Entities
             if (Mathf.FloorToInt(Health) <= 0)
             {
                 HealthBarCount--;
-                Debug.Log($"Remove Health bar count => {HealthBarCount}");
+                //Debug.Log($"Remove Health bar count => {HealthBarCount}");
                 
                 float remainingDamages = -Health;
                 if (HealthBarCount <= 0)
@@ -245,6 +245,7 @@ namespace DeadLink.Entities
             if (currentShootTime > 0f)
                 currentShootTime -= Time.deltaTime;
 
+            //Debug.Log("canShoot : " + canShoot);
             if (canShoot)
             {
                 //Debug.Log("shoot", this);

@@ -15,10 +15,16 @@ namespace RogueLike
         [field: SerializeField] public EventReference FMOD_PlayerRocketReload { get; private set; }
         [field: SerializeField] public EventReference FMOD_PlayerRocketShoot { get; private set; }
         [field: SerializeField] public EventReference FMOD_PlayerRocketHit { get; private set; }
-
         [field: SerializeField] public EventReference FMOD_PlayerDie { get; private set; }
+        
+        [field: Header("Enemies")]
+        [field: SerializeField] public EventReference FMOD_EnemyAttack { get; private set; }
+        [field: SerializeField] public EventReference FMOD_EnemyShoot { get; private set; }
+        [field: SerializeField] public EventReference FMOD_EnemyExplode { get; private set; }
         [field: SerializeField] public EventReference FMOD_EnemyDie { get; private set; }
         [field: SerializeField] public EventReference FMOD_HitEnemy { get; private set; }
+
+        [field: Header("Other")]
         [field: SerializeField] public EventReference FMOD_Rewind { get; private set; }
         [field: SerializeField] public EventReference FMOD_SlowMo { get; private set; }
         [field: SerializeField] public EventReference FMOD_GlassBreak { get; private set; }
