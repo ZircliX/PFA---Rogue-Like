@@ -29,7 +29,7 @@ namespace DeadLink.Menus
         }
 
         private void Awake()
-        {
+        { 
             _image = OriginalImage.sprite;
         }
 
