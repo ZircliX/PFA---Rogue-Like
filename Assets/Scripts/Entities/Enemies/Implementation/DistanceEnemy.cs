@@ -1,4 +1,5 @@
 using DeadLink.PowerUpSystem.InterfacePowerUps;
+using RogueLike;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,26 @@ namespace DeadLink.Entities.Enemies
             base.Start();
             initialLocalRotation = transform.localRotation;
             initialForward = transform.forward;
+        }
+        
+        protected override void Shoot()
+        {
+            if (CurrentWeapon != null && CurrentWeapon.CurrentReloadTime >= CurrentWeapon.WeaponData.ReloadTime)
+            {
+                GameObject objectToHit = null;
+                Vector3 direction = player.transform.position - transform.position + Vector3.Scale(transform.forward, Random.onUnitSphere) * 3;
+                Debug.DrawRay(BulletSpawnPoint.position, direction * 50, Color.red);
+
+                if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 500, GameMetrics.Global.BulletRayCast))
+                {
+                    objectToHit = hit.collider.gameObject;
+                }
+                CurrentWeapon.Fire(this, direction, objectToHit);
+            }
+            else
+            {
+                //Debug.LogError($"No equipped weapon for {gameObject.name}");
+            }
         }
 
         public override void OnUpdate()

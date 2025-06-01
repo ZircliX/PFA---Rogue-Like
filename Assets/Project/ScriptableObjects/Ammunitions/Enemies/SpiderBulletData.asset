@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea297867128481da6496586d0e58672, type: 3}
+  m_Name: SpiderBulletData
+  m_EditorClassIdentifier: 
+  <BulletSpeed>k__BackingField: 250
+  <Damage>k__BackingField: 25
+  <MaxLifeCycle>k__BackingField: 0
+  <HitVFX>k__BackingField: {fileID: 0}
+  <CameraShake>k__BackingField:
+    Amplitude: 0
+    Frequency: 0
+    Duration: 0
+  <BulletPrefab>k__BackingField: {fileID: 2516732057441812892, guid: 27cfed958c11062418cc1a2025e05736, type: 3}
+  <DamageRadius>k__BackingField: 5

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EntityPrefab>k__BackingField: {fileID: 1138779012306805573, guid: 82d3ac8b96abd7f4394a7acd2d166a14, type: 3}
   <GUID>k__BackingField: fdb37697-ff40-4dd7-9168-52df7266cbbf
-  <BaseHealth>k__BackingField: 50
+  <BaseHealth>k__BackingField: 75
   <BaseHealthBarAmount>k__BackingField: 1
   <BaseSpeed>k__BackingField: 1
   <BaseResistance>k__BackingField: 1

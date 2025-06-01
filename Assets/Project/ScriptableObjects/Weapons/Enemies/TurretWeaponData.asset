@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5109558360bc45d5a16223f3c69e259a, type: 3}
+  m_Name: TurretWeaponData
+  m_EditorClassIdentifier: 
+  <ShootVFX>k__BackingField: {fileID: 0}
+  <WeaponRecoilSettings>k__BackingField: {fileID: 0}
+  <WeaponPrefab>k__BackingField: {fileID: 2835843226785171589, guid: 61d34f80d253a304dae3f607370c2514, type: 3}
+  shootRate: 0.5
+  maxAmmunition: 5
+  reloadDuration: 1

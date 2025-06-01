@@ -120,7 +120,6 @@ namespace DeadLink.Entities.Enemies
                 }
             }
 
-
             if (_isMovingToPatrolDestination)
             {
                 // If not using NavMeshAgent, handle movement and orientation:

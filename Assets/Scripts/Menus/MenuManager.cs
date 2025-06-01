@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DeadLink.Menus.Implementation;
 using DeadLink.SceneManagement;
 using LTX.ChanneledProperties;
@@ -69,7 +70,12 @@ namespace DeadLink.Menus
 
         public IMenu GetMenu(MenuType menuType)
         {
-            return menus.AsValueEnumerable().First(ctx => ctx.MenuType == menuType);
+            for (int i = 0; i < menus.Length; i++)
+            {
+                if (menus[i].MenuType == menuType) return menus[i];
+            }
+
+            return menus.FirstOrDefault(ctx => ctx.MenuType == menuType);
         }
 
         private void ResetPriorities()

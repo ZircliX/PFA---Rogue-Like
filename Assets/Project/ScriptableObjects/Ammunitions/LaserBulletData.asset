@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99add3b889704a7da655ca9be35e50f2, type: 3}
   m_Name: LaserBulletData
   m_EditorClassIdentifier: 
-  <BulletSpeed>k__BackingField: 500
-  <Damage>k__BackingField: 5
+  <BulletSpeed>k__BackingField: 250
+  <Damage>k__BackingField: 3.5
   <MaxLifeCycle>k__BackingField: 5
   <HitVFX>k__BackingField: {fileID: -952117641174924032, guid: 7f2b0f511696afe47869d898086972b2, type: 3}
   <CameraShake>k__BackingField:

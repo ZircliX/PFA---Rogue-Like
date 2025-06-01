@@ -62,6 +62,7 @@ namespace DeadLink.Menus.Implementation
 
                 foreach (PowerUp p in LevelManager.Instance.PlayerController.PlayerEntity.PowerUps)
                 {
+                    Debug.Log($"Player has power up : {p.Name}, removing it from available upgrades");
                     if (pow.Contains(p))
                     {
                         pow.Remove(p);

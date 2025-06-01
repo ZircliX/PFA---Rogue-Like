@@ -26,7 +26,6 @@ namespace DeadLink.Weapons.WeaponsClass
 
         public override IEnumerator Reload(Entity entity)
         {
-            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerRocketReload, entity.transform.position);
             return base.Reload(entity);
         }
     }

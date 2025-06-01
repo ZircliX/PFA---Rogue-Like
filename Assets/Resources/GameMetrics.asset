@@ -108,6 +108,27 @@ MonoBehaviour:
       Data3: 1918332554
       Data4: 1983190010
     Path: event:/SoundEffects/Death
+  <FMOD_EnemyAttack>k__BackingField:
+    Guid:
+      Data1: -844070304
+      Data2: 1168945075
+      Data3: 1570777242
+      Data4: 416055276
+    Path: event:/SoundEffects/Enemies/EnemyAttack
+  <FMOD_EnemyShoot>k__BackingField:
+    Guid:
+      Data1: -1257481324
+      Data2: 1180431395
+      Data3: 1028598949
+      Data4: 1206700139
+    Path: event:/SoundEffects/Enemies/EnemyShoot
+  <FMOD_EnemyExplode>k__BackingField:
+    Guid:
+      Data1: 1171209357
+      Data2: 1276670988
+      Data3: 1058662279
+      Data4: -808282909
+    Path: event:/SoundEffects/Enemies/EnemyExplode
   <FMOD_EnemyDie>k__BackingField:
     Guid:
       Data1: 733605250
