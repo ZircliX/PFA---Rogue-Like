@@ -47,6 +47,7 @@ namespace DeadLink.Entities
         
         [Header("References")]
         [SerializeField, Self] private RayfireRigid rayfireRigid;
+        [SerializeField, Self] private Animator animator;
 
         public GameObject outline;
         private bool died;
@@ -274,14 +275,16 @@ namespace DeadLink.Entities
                     this.player = playerDetected;
                     inDetectRange = true;
                 }
-                else if (sphereDetector == aggroDetector)
+                if (sphereDetector == aggroDetector)
                 {
                     //Debug.Log("Enter aggro range");
+                    animator.SetBool("InAggroRange", true);
                     inAggroRange = true;
                 }
-                else if (sphereDetector == attackDetector)
+                if (sphereDetector == attackDetector)
                 {
                     //Debug.Log("Enter attack range");
+                    animator.SetBool("InAttackRange", true);
                     inAttackRange = true;
                 }
             }
@@ -302,14 +305,16 @@ namespace DeadLink.Entities
                     inDetectRange = false;
                     this.player = null;
                 }
-                else if (sphereDetector == aggroDetector)
+                if (sphereDetector == aggroDetector)
                 {
                     //Debug.Log("Exit aggro range");
+                    animator.SetBool("InAggroRange", false);
                     inAggroRange = false;
                 }
-                else if (sphereDetector == attackDetector)
+                if (sphereDetector == attackDetector)
                 {
                     //Debug.Log("Exit attack range");
+                    animator.SetBool("InAttackRange", false);
                     inAttackRange = false;
                 }
             }

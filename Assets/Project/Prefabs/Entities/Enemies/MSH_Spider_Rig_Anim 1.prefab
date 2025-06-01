@@ -913,7 +913,7 @@ Transform:
   m_GameObject: {fileID: 3025448025278655356}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.757198, y: 0, z: -3.947544}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -974,9 +974,10 @@ MonoBehaviour:
   visionAngle: 90
   chaseRotationSpeed: 120
   rayfireRigid: {fileID: 1238690097265858563}
+  animator: {fileID: 4624865632119258747}
   outline: {fileID: 5197500479032945943}
   <GUID>k__BackingField: 
-  moveSpeed: 3.5
+  moveSpeed: 5
   patrolActivityRadius: 10
   minPatrolWaitTime: 2
   maxPatrolWaitTime: 5
