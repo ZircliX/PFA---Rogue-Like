@@ -305,7 +305,7 @@ MonoBehaviour:
   RenderCompositeResult: 1
   SSRNativeScaleValue: 1
   Intensity: 2
-  _hizShader: {fileID: 0}
+  _hizShader: {fileID: 7200000, guid: 135dd399e355841bc9f579ddd7661f03, type: 3}
 --- !u!114 &8576725018938792061
 MonoBehaviour:
   m_ObjectHideFlags: 0
