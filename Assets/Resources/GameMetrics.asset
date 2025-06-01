@@ -108,6 +108,13 @@ MonoBehaviour:
       Data3: 1918332554
       Data4: 1983190010
     Path: event:/SoundEffects/Death
+  <FMOD_PlayerDash>k__BackingField:
+    Guid:
+      Data1: 1909130950
+      Data2: 1207040613
+      Data3: 1563654020
+      Data4: -294834610
+    Path: event:/SoundEffects/Dash
   <FMOD_EnemyAttack>k__BackingField:
     Guid:
       Data1: -844070304

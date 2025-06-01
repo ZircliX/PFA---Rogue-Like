@@ -31,6 +31,7 @@ namespace RogueLike.Player.States
         {
             currentDashTime = 0;
             CameraVfxTransformHandler.Instance.DashComponent.PlayVFXCamera(0.2f, CameraVfxTransformHandler.Instance.DashPosition);
+            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_PlayerDash, movement.Position);
             direction = GetCameraDirection(movement, Vector2.up);
             //Debug.Log("Enter Dash");
         }

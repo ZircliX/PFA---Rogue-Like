@@ -80,6 +80,8 @@ namespace RogueLike.Managers
             var infosMap = LastLevelScenario.UseCustomInfos ? 
                 LastLevelScenario.LevelElementsCustomInfos :
                 GetCurrentElementInfos();
+
+            Debug.Log(LastLevelScenario.LevelElementsCustomInfos.Count);
             
             foreach (LevelElement element in LevelElements)
             {
@@ -91,7 +93,6 @@ namespace RogueLike.Managers
                 }
             }
             
-            //MenuManager.Instance.HUDMenu.AddBadges();
         }
 
         public void StartLevel()

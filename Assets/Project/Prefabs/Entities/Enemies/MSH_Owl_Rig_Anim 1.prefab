@@ -156,9 +156,10 @@ MonoBehaviour:
   visionAngle: 90
   chaseRotationSpeed: 120
   rayfireRigid: {fileID: 4936430282630009831}
+  animator: {fileID: 8542509277220369387}
   outline: {fileID: 4013463237048443465}
   <GUID>k__BackingField: 
-  moveSpeed: 3.5
+  moveSpeed: 6
   patrolActivityRadius: 10
   minPatrolWaitTime: 2
   maxPatrolWaitTime: 5
