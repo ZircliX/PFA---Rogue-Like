@@ -192,8 +192,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6524187900436630146}
-        m_TargetAssemblyTypeName: DeadLink.Menus.Menu, DeadLink
-        m_MethodName: Close
+        m_TargetAssemblyTypeName: DeadLink.Menus.Implementation.Credits, DeadLink
+        m_MethodName: Back
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
