@@ -188,7 +188,6 @@ MonoBehaviour:
     probeSamplingDebugTexture: {fileID: 0}
     probeVolumeBlendStatesCS: {fileID: 0}
   m_RendererFeatures:
-  - {fileID: 8326091706882214757}
   - {fileID: 8576725018938792061}
   - {fileID: -8139568218931253441}
   - {fileID: -4761773832874261343}
@@ -197,7 +196,7 @@ MonoBehaviour:
   - {fileID: -8388500199080249310}
   - {fileID: 8781219399309377598}
   - {fileID: -3459972848673516354}
-  m_RendererFeatureMap: 654b0a3c4b388c737d580d9af6a506773f2f8b85d4710a8fa184c78eedc7eabd13c7348e4310154a1d184ad00bbd8d8c2238875b830f968b3ec09ace8428dd79be94519e06b5fbcf
+  m_RendererFeatureMap: 7d580d9af6a506773f2f8b85d4710a8fa184c78eedc7eabd13c7348e4310154a1d184ad00bbd8d8c2238875b830f968b3ec09ace8428dd79be94519e06b5fbcf
   m_UseNativeRenderPass: 0
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -286,26 +285,6 @@ MonoBehaviour:
   requiresColor: 1
   injectedBeforeTransparents: 0
   isEnabled: 1
---- !u!114 &8326091706882214757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12fb73196c9f4fea830d8b7ad8192f29, type: 3}
-  m_Name: URPScreenSpaceReflection
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  SSRPass: 2
-  HizOnly: 0
-  SsrStepSize: 0.1
-  RenderCompositeResult: 1
-  SSRNativeScaleValue: 1
-  Intensity: 2
-  _hizShader: {fileID: 7200000, guid: 135dd399e355841bc9f579ddd7661f03, type: 3}
 --- !u!114 &8576725018938792061
 MonoBehaviour:
   m_ObjectHideFlags: 0
