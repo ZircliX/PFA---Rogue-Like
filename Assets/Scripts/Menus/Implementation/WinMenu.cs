@@ -9,44 +9,31 @@ using UnityEngine;
 
 namespace DeadLink.Menus.Implementation
 {
-    public class DieMenu : Menu
+    public class WinMenu : Menu
     {
         public override MenuType MenuType { get; protected set; }
         public override MenuProperties GetMenuProperties()
         {
             return new MenuProperties(
                 gameObject,
-                PriorityTags.High,
-                1f,
+                PriorityTags.Default,
+                0f,
                 CursorLockMode.None,
                 true,
-                false,
+                true,
                 false);
         }
 
         private void Awake()
         {
-            MenuType = MenuType.DieMenu;
-        }
-
-        public override void Open()
-        {
-            base.Open();
-            LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile = LevelScenarioSaveFile.GetDefault();
-            SaveManager<LevelScenarioSaveFile>.Push();
-        }
-
-        public void Restart()
-        {
-            SceneController.Global.ResetNextSceneIndex();
-            SceneController.Global.ChangeScene(GameMetrics.Global.LevelOne);
+            MenuType = GameMetrics.Global.WinningMenu;
         }
 
         public void Menu()
         {
-            SceneController.Global.ChangeScene(GameMetrics.Global.MainMenuScene);
             LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile = LevelScenarioSaveFile.GetDefault();
             SaveManager<LevelScenarioSaveFile>.Push();
+            SceneController.Global.ChangeScene(GameMetrics.Global.MainMenuScene);
         }
     }
 }
