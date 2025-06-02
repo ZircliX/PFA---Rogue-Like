@@ -13,11 +13,15 @@ namespace DeadLink.Entities.Enemies
         internal override ILevelElementInfos Pull()
         {
             EnemyInfos[] enemiesInfos = EnemyManager.Instance.SpawnedEnemies.AsValueEnumerable()
-                .Select(ctx => new EnemyInfos()
+                .Select(ctx =>
                 {
-                    GUID = ctx.GUID,
-                    EntityDataGUID = ctx.EntityData.GUID,
-                    Transform = ctx.transform.ToSerializeTransform()
+                    Debug.Log($"{ctx.EntityData} : {ctx.EntityData.GUID}", ctx);
+                    return new EnemyInfos()
+                    {
+                        GUID = ctx.GUID,
+                        EntityDataGUID = ctx.EntityData.GUID,
+                        Transform = ctx.transform.ToSerializeTransform()
+                    };
                 }).ToArray();
 
             return new EnemiesInfos()
