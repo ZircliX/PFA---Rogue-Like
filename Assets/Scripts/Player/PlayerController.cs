@@ -44,6 +44,8 @@ namespace DeadLink.Player
         [field: SerializeField, Child] public PlayerMovement PlayerMovement { get; private set; }
         
         [field: SerializeField] public Transform LastCheckPoint {get; set;}
+        [field: SerializeField] public Transform ArmFlashPosition {get; set;}
+        [field: SerializeField] public float delayAfterDestroyFlash {get; set;}
 
         protected override void OnValidate()
         {
