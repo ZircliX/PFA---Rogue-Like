@@ -11,9 +11,9 @@ namespace DeadLink.Save.Settings
         {
             return new SettingsSave()
             {
-                SfxVolume = 1f,
-                MusicVolume = 1f,
-                VoiceVolume = 1f
+                SfxVolume = 5f,
+                MusicVolume = 5f,
+                VoiceVolume = 5f
             };
         }
         
