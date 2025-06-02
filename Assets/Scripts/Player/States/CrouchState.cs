@@ -1,3 +1,6 @@
+using DeadLink.Cameras;
+using DeadLink.Cameras.Data;
+using DeadLink.Entities.Movement;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -5,39 +8,49 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Crouch")]
     public class CrouchState : MoveState
     {
+        [field: Header("Camera Effects")]
+        [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
+
         [Header("Height")]
-        [SerializeField] private float headPositionOffset = 0.5f;
-        [SerializeField] private float colliderHightOffset = 0.5f;
-        public override void Enter(PlayerMovement movement)
+        [SerializeField] private float crouchCapsuleHeight = 0.5f;
+        [SerializeField] private  float crouchHeadHeight = 0f;
+
+        public override void Enter(EntityMovement movement)
         {
             base.Enter(movement);
-            
-            movement.Head.position -= Vector3.up * headPositionOffset;
-            movement.CapsuleCollider.height -= colliderHightOffset;
-            movement.CapsuleCollider.center -= Vector3.up * colliderHightOffset;
         }
 
-        public override void Exit(PlayerMovement movement)
+        public override void Exit(EntityMovement movement)
         {
             base.Exit(movement);
-            
-            movement.Head.position += Vector3.up * headPositionOffset;
-            movement.CapsuleCollider.height += colliderHightOffset;
-            movement.CapsuleCollider.center += Vector3.up * colliderHightOffset;
         }
 
-        public override MovementState GetNextState(PlayerMovement movement)
+        public override MovementState GetNextState(EntityMovement movement)
         {
             if (!movement.IsGrounded)
             {
                 return MovementState.Falling;
             }
-            if (!movement.CrouchInput)
+            if (movement.OnPad)
+            {
+                return MovementState.Pad;
+            }
+            if (!movement.CrouchInput && !movement.IsTouchingCeiling)
             {
                 return MovementState.Idle;
             }
 
             return State;
+        }
+
+        public override (float, float) GetHeight(EntityMovement movement)
+        {
+            return (crouchCapsuleHeight, crouchHeadHeight);
+        }
+
+        public override CameraEffectComposite GetCameraEffects(EntityMovement movement, float deltaTime)
+        {
+            return CameraEffectData.CameraEffectComposite;
         }
 
         public override MovementState State => MovementState.Crouching;

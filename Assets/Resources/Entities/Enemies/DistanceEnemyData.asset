@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba67f4a1984e4a7294304f42a9bfebf1, type: 3}
+  m_Name: DistanceEnemyData
+  m_EditorClassIdentifier: 
+  <EntityPrefab>k__BackingField: {fileID: 1138779012306805573, guid: 82d3ac8b96abd7f4394a7acd2d166a14, type: 3}
+  <GUID>k__BackingField: fdb37697-ff40-4dd7-9168-52df7266cbbf
+  <BaseHealth>k__BackingField: 75
+  <BaseHealthBarAmount>k__BackingField: 1
+  <BaseSpeed>k__BackingField: 1
+  <BaseResistance>k__BackingField: 1
+  <BaseStrength>k__BackingField: 0.5
+  <VFXToSpawn>k__BackingField: {fileID: -933928875416206819, guid: 746fecb3275c3a34298def3ae81507f3, type: 3}
+  <DelayAfterDestroyVFX>k__BackingField: 3
+  <Cost>k__BackingField: 0

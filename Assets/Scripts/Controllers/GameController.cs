@@ -1,5 +1,9 @@
+using DeadLink.Level;
+using DeadLink.Save.GameProgression;
+using DeadLink.Save.LevelProgression;
+using DeadLink.Save.Settings;
+using DeadLink.SceneManagement;
 using LTX.ChanneledProperties;
-using RogueLike.Save;
 using SaveSystem.Core;
 
 #if UNITY_EDITOR
@@ -7,19 +11,25 @@ using UnityEditor;
 #endif
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RogueLike.Controllers
 {
+    [System.Serializable] public enum GameState { MainMenu, Loading, Playing}
     public static class GameController
     {
-        public static bool IsPlaying { get; private set; }
-        public static void End() => IsPlaying = false;
-        public static void Play() => IsPlaying = true;
+        public static GameState CurrentState { get; private set; }
+        public static void SetGameState(GameState state)
+        {
+            CurrentState = state;
+        }
         
-        public static SaveListener SaveListener { get; private set; }
+        public static GameDatabase GameDatabase { get; private set; }
+        public static GameProgressionListener GameProgressionListener { get; private set; }
+        public static LevelScenarioSaveFileListener LevelScenarioSaveFileListener { get; private set; }
+        public static SettingsListener SettingsListener { get; private set; }
         public static AudioManager AudioManager { get; private set; }
-        public static VFXManager VFXManager { get; private set; }
-        
+        public static SceneController SceneController { get; private set; }
 
         private static GameMetrics gameMetrics;
         public static GameMetrics Metrics
@@ -36,7 +46,6 @@ namespace RogueLike.Controllers
         private static GameMetrics LoadMetrics() => Resources.Load<GameMetrics>("GameMetrics");
         
 #if UNITY_EDITOR
-        
         [InitializeOnLoadMethod]
         private static void LoadInEditor()
         {
@@ -48,27 +57,61 @@ namespace RogueLike.Controllers
         private static void LoadGame()
         {
             Application.quitting += QuitGame;
+            SetGameState(GameState.MainMenu);
 
             SetupFields();
             SetupPrioritisedProperties();
+            AddSaveControllers();
             
-            SaveManager<SampleSaveFile>.SetSaveController(new SaveController());
-            SaveManager<SampleSaveFile>.AddListener(SaveListener);
-            SaveManager<SampleSaveFile>.Pull();
+            GameDatabase.Load();
         }
 
         public static void QuitGame()
         {
-            SaveManager<SampleSaveFile>.Push();
-            SaveManager<SampleSaveFile>.RemoveListener(SaveListener);
+            RemoveSaveControllers();
+            
             Application.Quit();
+        }
+
+        private static void AddSaveControllers()
+        {
+            SaveManager<GameProgression>.SetSaveController(new GameSaveController());
+            SaveManager<GameProgression>.AddListener(GameProgressionListener);
+            SaveManager<GameProgression>.Pull();
+            
+            SaveManager<SettingsSave>.SetSaveController(new SettingsSaveController());
+            SaveManager<SettingsSave>.AddListener(SettingsListener);
+            SaveManager<SettingsSave>.Pull();
+            
+            SaveManager<LevelScenarioSaveFile>.SetSaveController(new LevelScenarioSaveController());
+            SaveManager<LevelScenarioSaveFile>.AddListener(LevelScenarioSaveFileListener);
+            SaveManager<LevelScenarioSaveFile>.Pull();
+        }
+        
+        private static void RemoveSaveControllers()
+        {
+            SaveManager<GameProgression>.Push();
+            SaveManager<GameProgression>.RemoveListener(GameProgressionListener);
+            
+            SaveManager<SettingsSave>.Push();
+            SaveManager<SettingsSave>.RemoveListener(SettingsListener);
+
+            if (SceneManager.GetActiveScene().buildIndex != 0)
+            {
+                SaveManager<LevelScenarioSaveFile>.Push();
+            }
+            SaveManager<LevelScenarioSaveFile>.RemoveListener(LevelScenarioSaveFileListener);
         }
 
         private static void SetupFields()
         {
-            SaveListener = new SaveListener();
+            GameDatabase = new GameDatabase();
+            GameProgressionListener = new GameProgressionListener();
+            LevelScenarioSaveFileListener = new LevelScenarioSaveFileListener();
+            SettingsListener = new SettingsListener();
+            
             AudioManager = new AudioManager();
-            VFXManager = new VFXManager();
+            SceneController = new SceneController();
         }
         
         #region Prioritised Properties

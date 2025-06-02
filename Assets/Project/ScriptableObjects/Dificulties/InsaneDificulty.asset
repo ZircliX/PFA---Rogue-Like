@@ -12,7 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e6cc8c51cf43dbb5b5ba46a807dd1e, type: 3}
   m_Name: InsaneDificulty
   m_EditorClassIdentifier: 
+  <DifficultyName>k__BackingField: Insane
+  <GUID>k__BackingField: fb08d517-e2d1-47e4-b96d-da7d21aa27f0
   <PlayerHealthMultiplier>k__BackingField: 0.25
   <PlayerStrengthMultiplier>k__BackingField: 0.25
-  <EnemyHealthMultiplier>k__BackingField: 1.75
-  <EnemyStrengthMultiplier>k__BackingField: 1.75
+  <PlayerResistanceMultiplier>k__BackingField: 0.25
+  <PlayerHealthBarCount>k__BackingField: 1
+  <BaseWaveBalance>k__BackingField: 150
+  <WaveBalanceMultiplier>k__BackingField: 3.5
+  <BaseWaveCount>k__BackingField: 1
+  <WaveCountAddend>k__BackingField: 3
+  <EnemyStrengthMultiplier>k__BackingField: 2
+  <EnemyHealthMultiplier>k__BackingField: 2

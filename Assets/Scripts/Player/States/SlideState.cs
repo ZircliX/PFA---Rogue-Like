@@ -1,3 +1,6 @@
+using DeadLink.Cameras;
+using DeadLink.Cameras.Data;
+using DeadLink.Entities.Movement;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -5,6 +8,9 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Slide")]
     public class SlideState : MovementStateBehavior
     {
+        [field: Header("Camera Effects")]
+        [field: SerializeField] public CameraEffectData CameraEffectData { get; protected set; }
+
         [Header("Speed")]
         [SerializeField] private float slideSpeed;
         [SerializeField] private float slideMinSpeed;
@@ -17,57 +23,45 @@ namespace RogueLike.Player.States
         [SerializeField] private AnimationCurve slopeCurve;
         [SerializeField] private float slopeModifier;
         [SerializeField, Range(0, 1)] private float minSlopeAngle;
-        
+
         [Header("Sliding")]
         [SerializeField] private float maxSlideTime = 1.5f;
 
         [Header("Height")]
-        [SerializeField] private float headPositionOffset = 0.5f;
-        [SerializeField] private float colliderHightOffset = 0.5f;
-        
+        [SerializeField] private float crouchCapsuleHeight = 1f;
+        [SerializeField] private  float crouchHeadHeight = 0f;
+
         private float currentSlideTime;
         private Vector3 direction;
-        private Camera cam;
 
-        public override void Initialize(PlayerMovement movement)
+        public override void Dispose(EntityMovement movement)
         {
-            cam = Camera.main;
+
         }
 
-        public override void Dispose(PlayerMovement movement)
-        {
-        }
-
-        public override void Enter(PlayerMovement movement)
+        public override void Enter(EntityMovement movement)
         {
             currentSlideTime = 0;
-            direction = GetCameraDirection(movement, Vector2.up);
-            
-            movement.Head.position -= Vector3.up * headPositionOffset;
-            movement.CapsuleCollider.height -= colliderHightOffset;
-            movement.CapsuleCollider.center -= Vector3.up * colliderHightOffset;
+            direction = GetWorldInputs(movement);
         }
 
-        public override void Exit(PlayerMovement movement)
+        public override void Exit(EntityMovement movement)
         {
             currentSlideTime = 0;
-            
-            movement.Head.position += Vector3.up * headPositionOffset;
-            movement.CapsuleCollider.height += colliderHightOffset;
-            movement.CapsuleCollider.center += Vector3.up * colliderHightOffset;
         }
-        
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
+
+        public override Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale)
         {
             Vector3 velocity = Vector3.zero;
-            Vector3 projectionPlaneNormal = GetProjectionPlaneNormal(movement);
-            
+            Vector3 projectionPlaneNormal = GetGroundNormal(movement);
+
             //Acceleration
             if (currentSlideTime < accelerationDuration)
             {
                 Vector3 projectOnPlane = Vector3.ProjectOnPlane(direction, projectionPlaneNormal);
-                Vector3 newVelocity = projectOnPlane * accelerationCurve.Evaluate(currentSlideTime / accelerationDuration) * slideSpeed;
+                Vector3 newVelocity = projectOnPlane * (accelerationCurve.Evaluate(currentSlideTime / accelerationDuration) * slideSpeed);
                 velocity = newVelocity;
+                Debug.DrawRay(movement.Position, velocity, Color.magenta);
             }
             //Deceleration
             else
@@ -79,7 +73,7 @@ namespace RogueLike.Player.States
                     velocity = Vector3.MoveTowards(currentVelocity, direction * slideMinSpeed, decelerationStrength * deltaTime);
                 else
                     velocity = currentVelocity;
-                
+
                 float modifier = slopeCurve.Evaluate(dotProduct) * slopeModifier * deltaTime;
                 velocity += direction.normalized * modifier;
             }
@@ -88,26 +82,44 @@ namespace RogueLike.Player.States
             return velocity;
         }
 
-        public override MovementState GetNextState(PlayerMovement movement)
+        public override MovementState GetNextState(EntityMovement movement)
         {
             if (!movement.IsGrounded)
             {
+                //Debug.Break();
                 return MovementState.Falling;
             }
-            if (movement.WantsToJump)
+            if (movement.CanJump() && !movement.IsTouchingCeiling)
             {
                 return MovementState.Jumping;
             }
-            
-            Vector3 projectionPlaneNormal = GetProjectionPlaneNormal(movement);
+            if (movement.OnPad)
+            {
+                return MovementState.Pad;
+            }
+
+            Vector3 projectionPlaneNormal = GetGroundNormal(movement);
             Vector3 projectOnPlane = Vector3.ProjectOnPlane(movement.StateVelocity, projectionPlaneNormal);
-            
+
             if (projectOnPlane.sqrMagnitude < slideMinSpeed * slideMinSpeed + decelerationThreshold)
             {
-                return MovementState.Running;
+                if (!movement.IsTouchingCeiling)
+                    return MovementState.Running;
+                else
+                    return MovementState.Crouching;
             }
 
             return State;
+        }
+
+        public override (float, float) GetHeight(EntityMovement movement)
+        {
+            return (crouchCapsuleHeight, crouchHeadHeight);
+        }
+
+        public override CameraEffectComposite GetCameraEffects(EntityMovement movement, float deltaTime)
+        {
+            return CameraEffectData.CameraEffectComposite;
         }
 
         public override MovementState State => MovementState.Sliding;

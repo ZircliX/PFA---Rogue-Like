@@ -1,95 +1,178 @@
+using System;
 using DeadLink.Ammunitions.Data;
-using DeadLink.Cameras;
 using DeadLink.Entities;
 using KBCore.Refs;
-using LTX.ChanneledProperties;
+using RayFire;
+using RogueLike;
+using RogueLike.Controllers;
 using UnityEngine;
+using UnityEngine.VFX;
+using Random = UnityEngine.Random;
 
 namespace DeadLink.Ammunitions
 {
     [RequireComponent(typeof(Rigidbody))]
     public abstract class Bullet : MonoBehaviour
     {
-        [field: SerializeField] public BulletData BulletData { get; private set; }
+        public abstract BulletData BulletData { get; }
         [SerializeField, Self] private Rigidbody rb;
+        public Entity Author { get; protected set; }
         
-        private float damage;
-        private Vector3 lastPosition;
+        public event Action<Bullet> OnBulletHit;
+        public event Action<Bullet> OnBulletDestroy;
+        
+        protected float damage;
+        protected Vector3 lastPosition;
+        protected float currentLifeCycle;
 
         private void OnValidate() => this.ValidateRefs();
         
-        private void Awake()
-        {
-            CameraController.Instance.CameraShakeProperty.AddPriority(this, PriorityTags.Default);
-        }
-        
-        /*
-        protected virtual void OnTriggerEnter(Collider other)
-        {
-            if (other.TryGetComponent(out Entity entity))
-            {
-                Debug.Log("Hit an entity");
-                HitEntity(entity);
-            }
-            else
-            {
-                Debug.Log("Hit something else");
-                Hit();
-            }
-        }
-        */
-        
         protected virtual void FixedUpdate()
         {
-            Vector3 currentPosition = transform.position;
+            Vector3 currentPosition = rb.position;
             Vector3 direction = currentPosition - lastPosition;
             float distance = direction.magnitude;
             
             if (distance > 0)
             {
                 Ray ray = new Ray(lastPosition, direction.normalized);
-
-                if (Physics.Raycast(ray, out RaycastHit hit, distance))
+                
+                if (Physics.Raycast(ray, out RaycastHit hit, distance, ~0, QueryTriggerInteraction.Ignore))
                 {
-                    if (hit.collider.TryGetComponent(out Entity entity))
+                    // if (hit.collider.TryGetComponent(out Entity entity))
+                    // {
+                    //     //Debug.Log($"Hit Entity {entity.name}");
+                    //     ApplyDamage(entity);
+                    //     HitObject(hit);
+                    // }
+                    
+                    if (hit.collider.gameObject.GetInstanceID() != gameObject.GetInstanceID())
                     {
-                        Debug.Log($"Hit Entity {entity.name}");
-                        HitEntity(entity, hit);
+                        //Debug.Log($"Hit object {hit.collider.name}");
+                        HitObject(hit);
                     }
-                    else if (hit.collider.gameObject.GetInstanceID() != gameObject.GetInstanceID())
+                    
+                    if (hit.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())
                     {
-                        Debug.Log($"Hit object {hit.collider.name}");
-                        Hit(hit);
+                        currentLifeCycle += Time.deltaTime;
+                        if (currentLifeCycle >= BulletData.MaxLifeCycle)
+                        {
+                            DestroyBullet();
+                        }
                     }
-                }
-                else
-                {
-                    Debug.Log("Didn't hit anything");
+                    else
+                    {
+                        currentLifeCycle += Time.deltaTime;
+                        if (currentLifeCycle >= BulletData.MaxLifeCycle)
+                        {
+                            DestroyBullet();
+                        }
+                    }
                 }
             }
             
             lastPosition = currentPosition;
         }
 
-        public void Shoot(float entityStrength, Vector3 direction)
+        public void Shoot(Entity entity, Vector3 direction, GameObject shouldHit)
         {
-            damage = BulletData.Damage * entityStrength;
-            lastPosition = transform.position;
+            Author = entity;
+            damage = BulletData.Damage * entity.Strength.Value;
+            lastPosition = rb.position;
+            
+            if (shouldHit)
+            {
+                if (shouldHit.TryGetComponent(out Entity obj))
+                {
+                    ApplyDamage(obj);
+                }
+            }
+            
             rb.AddForce(direction * BulletData.BulletSpeed, ForceMode.Impulse);
         }
-        
-        protected virtual void HitEntity(Entity entity, RaycastHit hit)
+
+        protected virtual void Explode(Rigidbody otherRB)
         {
-            entity.TakeDamage(damage);
-            Hit(hit);
+            Vector3 currentPosition = rb.position;
+            Vector3 direction = currentPosition - lastPosition;
+            
+            float explosionForce = 3 * BulletData.Damage * Random.value;
+            
+            otherRB.AddForce(direction.normalized * explosionForce, ForceMode.Impulse);
         }
 
-        protected virtual void Hit(RaycastHit hit)
+        protected virtual void ApplyDamage(params Entity[] entities)
         {
-            CameraController.Instance.CameraShakeProperty.Write(this, BulletData.CameraShake);
-            Instantiate(BulletData.HitVFX, hit.point, Quaternion.identity);
+            entities ??= Array.Empty<Entity>();
+            for (int i = 0; i < entities.Length; i++)
+            {
+                Entity entity = entities[i];
+                if (entity == Author) continue;
+                if (entity.TakeDamage(damage) && entity.TryGetComponent(out RayfireRigid rfr))
+                {
+                    foreach (RayfireRigid frag in rfr.fragments)
+                    {
+                        if (frag.TryGetComponent(out Rigidbody rfRb))
+                        {
+                            Explode(rfRb);
+                        }
+                    }
+                }
+            }
+        }
+
+        protected virtual void HitObject(RaycastHit hit)
+        {
+            HitObject(hit.collider.gameObject, hit);
+        }
+
+        protected virtual void HitObject(GameObject gm, RaycastHit hit)
+        {
+            if (Author == null) return;
+            if (gm.name == Author.name) return;
+            if (gm.TryGetComponent(out RayfireRigid rfr))
+            {
+                if (rfr.ApplyDamage(50, gm.transform.position, 0.25f))
+                {
+                    foreach (RayfireRigid frag in rfr.fragments)
+                    {
+                        if (frag.TryGetComponent(out Rigidbody rfRb))
+                        {
+                            Explode(rfRb);
+                        }
+                    }
+                }
+            }
             
-            CameraController.Instance.CameraShakeProperty.RemovePriority(this);
+            //+ hit.normal * 0.5f
+            if (Author.CompareTag("Player"))
+            {
+                Ray ray = Camera.main!.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+                bool hitsomething = Physics.Raycast(ray,out RaycastHit hits, GameMetrics.Global.BulletRayCast, 500);
+                if (hitsomething)
+                {
+                    BulletData.HitVFX.PlayVFX(hits.point, 2);
+                    //Debug.Log(hits.collider.name, hits.collider);
+                    //Debug.Log("ajqeijiqzdz");
+                }
+                else
+                {
+                    //Debug.LogError("ajqeijiqzdz");
+                    BulletData.HitVFX.PlayVFX(hit.point, 2);
+                }
+            }
+            else
+            {
+                BulletData.HitVFX.PlayVFX(hit.point, 2);
+            }
+            
+            OnBulletHit?.Invoke(this);
+            DestroyBullet();
+        }
+
+        protected virtual void DestroyBullet()
+        {
+            OnBulletDestroy?.Invoke(this);
             Destroy(gameObject);
         }
     }

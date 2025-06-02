@@ -1,5 +1,4 @@
-using KBCore.Refs;
-using Unity.Cinemachine;
+using DeadLink.Menus;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,22 +9,25 @@ namespace RogueLike.Player
         private Vector2 targetCamVelocity;
         private Vector2 camRotation;
 
-        [SerializeField] private float speed;
+        [SerializeField] private float speed = 150;
         [SerializeField] private float gravityAlignSpeed;
         [SerializeField, Range(0,1)] private float xModifier = 1;
         [SerializeField, Range(0,1)] private float yModifier = 1;
+        private float sens = 1f;
         [SerializeField] private int yRange = 70;
         [SerializeField] private PlayerMovement pm;
 
-        [SerializeField, Child]
-        private CinemachineCamera cinemachineCamera;
-
-        private void OnValidate() => this.ValidateRefs();
-
+        [SerializeField] private Transform cameraRoot;
+        [SerializeField] private Transform cameraRotations;
+        [SerializeField] private Transform shouldersRoot;
+        [SerializeField] private Transform armsRotation;
+        
         private void Update()
         {
-            camRotation.x -= targetCamVelocity.x * speed;
-            camRotation.y += targetCamVelocity.y * speed;
+            if (!MenuManager.Instance.TryGetCurrentMenu(out IMenu menu) || menu.MenuType != MenuType.HUD) return;
+            
+            camRotation.x -= targetCamVelocity.x * speed * Time.deltaTime * sens;
+            camRotation.y += targetCamVelocity.y * speed * Time.deltaTime * sens;
             camRotation.x = Mathf.Clamp(camRotation.x, -yRange, yRange);
 
             // --- Calculate Gravity Alignment ---
@@ -33,13 +35,15 @@ namespace RogueLike.Player
             Quaternion localPitch = Quaternion.AngleAxis(-camRotation.x, Vector3.right);
 
             Vector3 up = -pm.Gravity.Value.normalized;
-            Vector3 forward = Vector3.ProjectOnPlane(transform.forward, up).normalized;
+            Vector3 forward = Vector3.ProjectOnPlane(cameraRoot.forward, up).normalized;
 
             Quaternion look = Quaternion.LookRotation(forward, up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, look, gravityAlignSpeed * Time.deltaTime);
-
+            cameraRoot.rotation = Quaternion.Slerp(cameraRoot.rotation, look, gravityAlignSpeed * Time.deltaTime);
+            shouldersRoot.rotation = Quaternion.Slerp(shouldersRoot.rotation, look, gravityAlignSpeed * Time.deltaTime);
+            
             Quaternion rot = localYaw * localPitch;
-            cinemachineCamera.transform.localRotation = rot;
+            cameraRotations.localRotation = rot;
+            armsRotation.localRotation = rot;
         }
 
         public void OnLookX(InputAction.CallbackContext context)
@@ -50,6 +54,11 @@ namespace RogueLike.Player
         public void OnLookY(InputAction.CallbackContext context)
         {
             targetCamVelocity.x = context.ReadValue<float>() * yModifier;
+        }
+        
+        public void SetSens(float value)
+        {
+            sens = value;
         }
     }
 }

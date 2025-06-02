@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f0e9f74c6045b3990113609608702f, type: 3}
+  m_Name: SlowMotionPowerUp
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: SYNC DISTORTION
+  <Description>k__BackingField: "\u201CActivate temporal distortion. Slow down surrounding
+    events for a short duration.\u201D"
+  <Icon>k__BackingField:
+  - {fileID: 21300000, guid: 403a0b5117307f6428b40db508572b58, type: 3}
+  - {fileID: 21300000, guid: 8f8a19735bcf92c43b47567d3b0c0715, type: 3}
+  - {fileID: 21300000, guid: a8f913972431e7f4196a4612c2c5faf0, type: 3}
+  - {fileID: 21300000, guid: e9e2e09af48c4d546b02f8832c16d5da, type: 3}
+  - {fileID: 21300000, guid: 56a3bd7d2d86d3a47a54dd2ef00645a8, type: 3}
+  <Badge>k__BackingField: {fileID: 21300000, guid: 27c47bcffba5dd846b51fbe975064f77, type: 3}
+  <GUID>k__BackingField: 1820d0b8-2f3c-4bb9-87a8-f41904a31aa2
+  <CooldownTime>k__BackingField: 30
+  <CompetenceTime>k__BackingField: 5

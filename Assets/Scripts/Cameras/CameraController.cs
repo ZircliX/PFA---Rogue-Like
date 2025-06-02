@@ -1,3 +1,5 @@
+using System.Collections;
+using DG.Tweening;
 using KBCore.Refs;
 using LTX.ChanneledProperties;
 using LTX.Singletons;
@@ -9,15 +11,20 @@ namespace DeadLink.Cameras
     public class CameraController : MonoSingleton<CameraController>
     {
         [Header("References")]
+        [SerializeField] private Transform shouldersRoot;
         [SerializeField, Self] private CinemachineCamera cam;
-        [SerializeField, Self] private CinemachineBasicMultiChannelPerlin noise;
+        [SerializeField, Self] private CinemachineCameraOffset camFollow;
+        [SerializeField, Self] private CinemachineRecomposer camRecomposer;
         
-        [Header("Camera Shake")]
+        [Header("Camera Properties")]
         public PrioritisedProperty<CameraShakeComposite> CameraShakeProperty { get; private set; }
+        public PrioritisedProperty<CameraEffectComposite> CameraEffectProperty { get; private set; }
 
-        private CameraShakeComposite currentComposite;
-        private float currentShakeTime;
-        private float currentDelayTime;
+        private CameraShakeComposite currentShakeComposite;
+        private Coroutine shakeCoroutine;
+        private Vector3 originalOffset;
+        private CameraEffectComposite currentEffectComposite;
+        private Coroutine effectCoroutine;
         
         private void OnValidate() => this.ValidateRefs();
 
@@ -25,47 +32,122 @@ namespace DeadLink.Cameras
         {
             base.Awake();
             
-            CameraShakeProperty = new PrioritisedProperty<CameraShakeComposite>(CameraShakeComposite.GetDefault());
-            CameraShakeProperty.AddOnValueChangeCallback(ShakeCamera, true);
+            CameraShakeProperty = new PrioritisedProperty<CameraShakeComposite>();
+            CameraShakeProperty.AddOnValueChangeCallback(ApplyCameraShake, true);
+
+            CameraEffectProperty = new PrioritisedProperty<CameraEffectComposite>(CameraEffectComposite.Default);
+            CameraEffectProperty.AddOnValueChangeCallback(ApplyCameraEffect, true);
+            
+            originalOffset = camFollow.Offset;
         }
+        
+        private IEnumerator IShakeRoutine()
+        {
+            float timer = 0f;
+            float shakeInterval = 1f / Mathf.Max(currentShakeComposite.Frequency, 0.01f);
+            float shakeTimer = 0f;
+
+            Vector3 targetOffset = Vector3.zero;
+            Vector3 currentOffset = Vector3.zero;
+
+            while (timer < currentShakeComposite.Duration)
+            {
+                timer += Time.deltaTime;
+                shakeTimer += Time.deltaTime;
+
+                //Debug.Log($"shake timer: {shakeTimer}, shakeInterval: {shakeInterval}");
+                if (shakeTimer >= shakeInterval)
+                {
+                    shakeTimer = 0f;
+                    targetOffset = Random.insideUnitSphere * currentShakeComposite.Amplitude;
+                }
+
+                currentOffset = Vector3.Lerp(currentOffset, targetOffset, 0.5f);
+                camFollow.Offset = originalOffset + currentOffset;
+                
+                yield return null;
+            }
+
+            camFollow.Offset = originalOffset;
+        }
+        
+        private void ApplyCameraShake(CameraShakeComposite composite)
+        {
+            if (!camFollow.isActiveAndEnabled) return;
+            
+            currentShakeComposite = composite;
+
+            if (shakeCoroutine != null)
+            {
+                StopCoroutine(shakeCoroutine);
+            }
+
+            shakeCoroutine = StartCoroutine(IShakeRoutine());
+            //Debug.Log($"Started camera shake with composite: {composite}");
+        }
+
+        private IEnumerator IEffectCoroutine()
+        {
+            float timer = 0f;
+            float duration = CameraEffectProperty.Value.Speed;
+
+            float startDutch = camRecomposer.Dutch;
+            float targetDutch = CameraEffectProperty.Value.Dutch;
+
+            float startZoom = camRecomposer.ZoomScale;
+            float targetZoom = CameraEffectProperty.Value.FovScale;
+
+            while (timer < duration)
+            {
+                timer += Time.deltaTime;
+                float t = Mathf.Clamp01(timer / duration);
+
+                // Smooth interpolation
+                camRecomposer.Dutch = Mathf.Lerp(startDutch, targetDutch, t);
+                camRecomposer.ZoomScale = Mathf.Lerp(startZoom, targetZoom, t);
+
+                yield return null;
+            }
+
+            // Ensure final values are perfectly set
+            camRecomposer.Dutch = targetDutch;
+            camRecomposer.ZoomScale = targetZoom;
+        }
+
+        private void ApplyCameraEffect(CameraEffectComposite composite)
+        {
+            if (!camRecomposer.isActiveAndEnabled) return;
+            
+            currentEffectComposite = composite;
+            
+            if (effectCoroutine != null)
+            {
+                StopCoroutine(effectCoroutine);
+            }
+            
+            effectCoroutine = StartCoroutine(IEffectCoroutine());
+        }
+
+        private Vector3 _targetRotation;
+        private Vector3 currentRotation;
+        private float _snap;
+        private float _returnSpeed;
         
         private void Update()
         {
-            //Manage Timers
-            if (currentDelayTime > 0)
-            {
-                currentDelayTime -= Time.deltaTime;
-            }
-            else
-            {
-                currentShakeTime -= Time.deltaTime;
-            }
+            _targetRotation = Vector3.Lerp(_targetRotation, Vector3.zero, _returnSpeed * Time.deltaTime);
+            currentRotation = Vector3.Slerp(currentRotation, _targetRotation, _snap * Time.fixedDeltaTime);
+            Quaternion recoilRotation = Quaternion.Euler(currentRotation);
             
-            //Manage Shake
-            if (currentShakeTime > 0 && currentDelayTime <= 0)
-            {
-                float lerp = currentComposite.Curve.Evaluate(currentShakeTime - currentComposite.Duration);
-                noise.AmplitudeGain = Mathf.Lerp(currentComposite.Amplitude, 0, lerp);
-            }
-            else
-            {
-                noise.AmplitudeGain = 0;
-            }
+            transform.localRotation = recoilRotation;
+            shouldersRoot.localRotation = recoilRotation;
         }
-        
-        /// <summary>
-        /// Shakes the camera based on the provided composite.
-        /// </summary>
-        /// <param name="composite"></param>
-        private void ShakeCamera(CameraShakeComposite composite)
-        {
-            noise.AmplitudeGain = composite.Amplitude;
-            noise.FrequencyGain = composite.Frequency;
 
-            currentShakeTime = composite.Duration;
-            currentDelayTime = composite.Delay;
-            
-            currentComposite = composite;
+        public void RecoilFire(Vector3 targetRotation, float snap, float returnSpeed)
+        {
+            _targetRotation = targetRotation;
+            _snap = snap;
+            _returnSpeed = returnSpeed;
         }
     }
 }

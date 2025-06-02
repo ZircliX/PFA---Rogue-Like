@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78395f6380a5481f882ee335a63259c2, type: 3}
   m_Name: WallRun
   m_EditorClassIdentifier: 
-  wallrunSpeed: 25
+  <CameraEffectData>k__BackingField: {fileID: 11400000, guid: fcacfa08fe574454c9fd31f3af0af199, type: 2}
+  wallrunSpeed: 17.5
   minWallrunSpeed: 3
   directionControl: 0
   accelerationCurve:
@@ -68,4 +69,5 @@ MonoBehaviour:
   decelerationDuration: 0.5
   deceleration: 2
   decelerationThreshold: 0.5
-  wallPull: 0.25
+  wallPull: 5
+  wallSnapDistance: 1

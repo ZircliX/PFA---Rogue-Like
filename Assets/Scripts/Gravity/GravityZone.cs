@@ -26,6 +26,7 @@ namespace DeadLink.Gravity
 
         protected virtual void OnDisable()
         {
+            if (!GravityManager.HasInstance) return;
             GravityManager.Instance.UnregisterGravityZone(this);
         }
 
@@ -38,7 +39,7 @@ namespace DeadLink.Gravity
         {
             if (other.TryGetComponent(out GravityReceiver gravityReceiver))
             {
-                Debug.Log($"Entered {other.name} into {name}");
+                //Debug.Log($"Entered {other.name} into {name}");
                 gravityReceivers.Add(gravityReceiver);
                 gravityReceiver.Gravity.AddPriority(this, priority);
             }
@@ -48,7 +49,7 @@ namespace DeadLink.Gravity
         {
             if (other.TryGetComponent(out GravityReceiver gravityReceiver))
             {
-                Debug.Log($"Exited {other.name} into {name}");
+                //Debug.Log($"Exited {other.name} into {name}");
                 gravityReceivers.Remove(gravityReceiver);
                 gravityReceiver.Gravity.RemovePriority(this);
             }

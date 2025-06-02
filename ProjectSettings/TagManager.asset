@@ -11,24 +11,24 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - OutlineOnly
   - Water
   - UI
-  - 
+  - Enemy
   - Ground
   - 
   - Wall
   - 
   - 
   - 
-  - 
+  - Player
   - 
   - GravityHurtBox
   - GravityField
   - 
   - 
   - 
-  - 
+  - Arms
   - 
   - 
   - 
@@ -70,7 +70,7 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
-  - Light Layer 1
+  - Player
   - Light Layer 2
   - Light Layer 3
   - Light Layer 4

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d357ea3576304f87861d6c09d88e548f, type: 3}
+  m_Name: 0_Shop
+  m_EditorClassIdentifier: 
+  <Scene>k__BackingField:
+    m_SceneAsset: {fileID: 102900000, guid: c9cac20e2c1d89d4bb9eaa71c167447e, type: 3}
+    m_IsDirty: 0
+    m_ScenePath: Assets/Scenes/Valou/Transition/TransitionScene.unity
+  <ScoreboardSceneIndex>k__BackingField: 0
+  <LevelMusic>k__BackingField:
+    Guid:
+      Data1: 1788183728
+      Data2: 1246109846
+      Data3: -721730905
+      Data4: 381618460
+    Path: "event:/Musics/Other/Music_RoomPsych\xE9"
+  <GUID>k__BackingField: 255e4443-10e6-407a-a9df-6a9101212ccd

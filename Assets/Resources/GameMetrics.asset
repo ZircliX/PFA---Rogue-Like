@@ -12,11 +12,302 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdf870fed234952a77aa0036142d86c, type: 3}
   m_Name: GameMetrics
   m_EditorClassIdentifier: 
-  <test>k__BackingField:
+  <EasyDifficulty>k__BackingField: {fileID: 11400000, guid: c88190c6be38ada458b34b6c959b5d6c, type: 2}
+  <NormalDifficulty>k__BackingField: {fileID: 11400000, guid: c37f0028a9d5e7742a7abf8e0f892751, type: 2}
+  <HardDifficulty>k__BackingField: {fileID: 11400000, guid: 2cd4a70f6f1503e49b6f8105dcb8d288, type: 2}
+  <InsaneDifficulty>k__BackingField: {fileID: 11400000, guid: a92bbb00a52979147986d41fd4431cd0, type: 2}
+  <SpawnEnemies>k__BackingField: 1
+  <EnemyStopDetect>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 640
+  <BulletRayCast>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 705
+  <MainMenuScene>k__BackingField:
+    m_SceneAsset: {fileID: 102900000, guid: 34f84abd710f1174d85b84bf5845ade9, type: 3}
+    m_IsDirty: 0
+    m_ScenePath: Assets/Scenes/Valou/MM/MMScene.unity
+  <ShopScene>k__BackingField:
+    m_SceneAsset: {fileID: 102900000, guid: c9cac20e2c1d89d4bb9eaa71c167447e, type: 3}
+    m_IsDirty: 0
+    m_ScenePath: Assets/Scenes/Valou/Transition/TransitionScene.unity
+  <LevelOne>k__BackingField:
+    m_SceneAsset: {fileID: 102900000, guid: 81e7f174a78704b45949bf4ae7d74584, type: 3}
+    m_IsDirty: 0
+    m_ScenePath: Assets/Scenes/Valou/Levels/L1/L1Scene.unity
+  <HUDMenu>k__BackingField: {fileID: 11400000, guid: dbea5b65fb6d5fa4192af463fff236f1, type: 2}
+  <MainMenu>k__BackingField: {fileID: 11400000, guid: 8c73c9023678ccb4b86a4422c2f32837, type: 2}
+  <PauseMenu>k__BackingField: {fileID: 11400000, guid: 97638f9619455f64b97d7c00e144f118, type: 2}
+  <SettingsMenu>k__BackingField: {fileID: 11400000, guid: 61e8a13d4abad89418df7511ed34ef5f, type: 2}
+  <UpgradesMenu>k__BackingField: {fileID: 11400000, guid: 7949dcdc7f87fbb4b9d31c6865dcc52e, type: 2}
+  <CreditsMenu>k__BackingField: {fileID: 11400000, guid: 2e2470dcf0f8c544083947adcc638650, type: 2}
+  <GameplayScoreboard>k__BackingField: {fileID: 11400000, guid: 8398bb69823e6894484d9951adbd45b8, type: 2}
+  <MenuScoreboard>k__BackingField: {fileID: 11400000, guid: b649403b119154e4abd14cded3f6dca4, type: 2}
+  <DieMenu>k__BackingField: {fileID: 11400000, guid: bfe145829db17a24a96a7ab1216d2f3e, type: 2}
+  <WinningMenu>k__BackingField: {fileID: 11400000, guid: 68c2ce97d8e30a844a887b84ec198050, type: 2}
+  <FMOD_PlayerHandAttack>k__BackingField:
     Guid:
-      Data1: -790836542
-      Data2: 1218030727
-      Data3: -1599217255
-      Data4: 1041057648
-    Path: event:/Blablabla
-  <PlayerBaseSpeed>k__BackingField: 10
+      Data1: 683273949
+      Data2: 1325812614
+      Data3: 655412352
+      Data4: 54501949
+    Path: event:/SoundEffects/Combat/HandAttack
+  <FMOD_PlayerAutomaticReload>k__BackingField:
+    Guid:
+      Data1: 1352886904
+      Data2: 1339542223
+      Data3: 1268556425
+      Data4: 1564372243
+    Path: event:/SoundEffects/Combat/AutomaticReload
+  <FMOD_PlayerAutomaticShoot>k__BackingField:
+    Guid:
+      Data1: 528887724
+      Data2: 1185781682
+      Data3: 604984734
+      Data4: 1718863008
+    Path: event:/SoundEffects/Combat/AutomaticShoot
+  <FMOD_PlayerLaserOverHeat>k__BackingField:
+    Guid:
+      Data1: 2068506968
+      Data2: 1337801182
+      Data3: -977639785
+      Data4: -1470043981
+    Path: event:/SoundEffects/Combat/LaserOverHeat
+  <FMOD_PlayerLaserShoot>k__BackingField:
+    Guid:
+      Data1: -1380027055
+      Data2: 1075263955
+      Data3: -444447827
+      Data4: 559236038
+    Path: event:/SoundEffects/Combat/LaserShoot
+  <FMOD_PlayerRocketReload>k__BackingField:
+    Guid:
+      Data1: 158399944
+      Data2: 1212388814
+      Data3: 788089776
+      Data4: -119164588
+    Path: event:/SoundEffects/Combat/RocketReload
+  <FMOD_PlayerRocketShoot>k__BackingField:
+    Guid:
+      Data1: 555210910
+      Data2: 1287308698
+      Data3: -1888536174
+      Data4: -1595420832
+    Path: event:/SoundEffects/Combat/RocketShoot
+  <FMOD_PlayerRocketHit>k__BackingField:
+    Guid:
+      Data1: 977474478
+      Data2: 1314068714
+      Data3: 1144247470
+      Data4: 1684266230
+    Path: event:/SoundEffects/Combat/RocketHit
+  <FMOD_PlayerDie>k__BackingField:
+    Guid:
+      Data1: 2065025503
+      Data2: 1250873640
+      Data3: 1918332554
+      Data4: 1983190010
+    Path: event:/SoundEffects/Death
+  <FMOD_PlayerDash>k__BackingField:
+    Guid:
+      Data1: 1909130950
+      Data2: 1207040613
+      Data3: 1563654020
+      Data4: -294834610
+    Path: event:/SoundEffects/Dash
+  <FMOD_EnemyAttack>k__BackingField:
+    Guid:
+      Data1: -844070304
+      Data2: 1168945075
+      Data3: 1570777242
+      Data4: 416055276
+    Path: event:/SoundEffects/Enemies/EnemyAttack
+  <FMOD_EnemyShoot>k__BackingField:
+    Guid:
+      Data1: -1257481324
+      Data2: 1180431395
+      Data3: 1028598949
+      Data4: 1206700139
+    Path: event:/SoundEffects/Enemies/EnemyShoot
+  <FMOD_EnemyExplode>k__BackingField:
+    Guid:
+      Data1: 1171209357
+      Data2: 1276670988
+      Data3: 1058662279
+      Data4: -808282909
+    Path: event:/SoundEffects/Enemies/EnemyExplode
+  <FMOD_EnemyDie>k__BackingField:
+    Guid:
+      Data1: 733605250
+      Data2: 1255134526
+      Data3: 1827318424
+      Data4: -1156535670
+    Path: event:/SoundEffects/EnemyDeath
+  <FMOD_HitEnemy>k__BackingField:
+    Guid:
+      Data1: -155374662
+      Data2: 1179866664
+      Data3: 1615632259
+      Data4: -1855026856
+    Path: event:/SoundEffects/HitEnemy
+  <FMOD_Rewind>k__BackingField:
+    Guid:
+      Data1: 1481616180
+      Data2: 1122031790
+      Data3: 2037917853
+      Data4: 679284043
+    Path: event:/SoundEffects/Rewind
+  <FMOD_SlowMo>k__BackingField:
+    Guid:
+      Data1: -100716615
+      Data2: 1311404817
+      Data3: 1319010199
+      Data4: -220035109
+    Path: event:/SoundEffects/SlowMo
+  <FMOD_GlassBreak>k__BackingField:
+    Guid:
+      Data1: -1171221887
+      Data2: 1236050953
+      Data3: 1439996826
+      Data4: -855323420
+    Path: event:/SoundEffects/GlassBreak
+  <FMOD_UIClick>k__BackingField:
+    Guid:
+      Data1: -397437623
+      Data2: 1097811178
+      Data3: -351384136
+      Data4: -1933315760
+    Path: event:/SoundEffects/UI/UI_Click
+  <FMOD_UIHover>k__BackingField:
+    Guid:
+      Data1: 1395523284
+      Data2: 1171631807
+      Data3: -1761097036
+      Data4: 1499469740
+    Path: event:/SoundEffects/UI/UI_Hover
+  <FMOD_Echo6BonusSelected>k__BackingField:
+    Guid:
+      Data1: 840577692
+      Data2: 1144107617
+      Data3: -1355157595
+      Data4: 1492719345
+    Path: event:/Voices/BonusRoom/BonusSelected
+  <FMOD_Echo6SelectBonus>k__BackingField:
+    Guid:
+      Data1: -1620948408
+      Data2: 1294231445
+      Data3: 436578711
+      Data4: -1119978422
+    Path: event:/Voices/BonusRoom/SelectBonus
+  <FMOD_Echo6Welcome>k__BackingField:
+    Guid:
+      Data1: 1349824588
+      Data2: 1313869923
+      Data3: 1329438089
+      Data4: -394776158
+    Path: event:/Voices/BonusRoom/Welcome
+  <FMOD_Echo6Intro>k__BackingField:
+    Guid:
+      Data1: 761767694
+      Data2: 1199734116
+      Data3: -1310755411
+      Data4: -2017109320
+    Path: event:/Voices/Echo6/Echo6_Intro
+  <FMOD_Echo6FireAndReload>k__BackingField:
+    Guid:
+      Data1: -1529528779
+      Data2: 1335738577
+      Data3: -657680734
+      Data4: -824149051
+    Path: event:/Voices/Echo6/Echo6_FireAndReload
+  <FMOD_Echo6Jump>k__BackingField:
+    Guid:
+      Data1: -1319879269
+      Data2: 1326757353
+      Data3: -333331314
+      Data4: 1304937249
+    Path: event:/Voices/Echo6/Echo6_Jump
+  <FMOD_Echo6Move>k__BackingField:
+    Guid:
+      Data1: 301886642
+      Data2: 1100566966
+      Data3: 1744916916
+      Data4: -1880455760
+    Path: event:/Voices/Echo6/Echo6_Move
+  <FMOD_Echo6Outro>k__BackingField:
+    Guid:
+      Data1: -82381320
+      Data2: 1119469784
+      Data3: -633383253
+      Data4: -42067445
+    Path: event:/Voices/Echo6/Echo6_Outro
+  <FMOD_Echo6Pad>k__BackingField:
+    Guid:
+      Data1: -336568810
+      Data2: 1126522713
+      Data3: -1434287717
+      Data4: -59063790
+    Path: event:/Voices/Echo6/Echo6_Pad
+  <FMOD_Echo6RegainHP>k__BackingField:
+    Guid:
+      Data1: 1603374760
+      Data2: 1295654240
+      Data3: 1556335015
+      Data4: 2114905212
+    Path: event:/Voices/Echo6/Echo6_RegainHP
+  <FMOD_Level1>k__BackingField:
+    Guid:
+      Data1: 455195058
+      Data2: 1197522425
+      Data3: -982228574
+      Data4: -1303800184
+    Path: event:/Musics/Levels/Music_Level1
+  <FMOD_Level2>k__BackingField:
+    Guid:
+      Data1: 1854499574
+      Data2: 1258265549
+      Data3: 61922482
+      Data4: -1420484717
+    Path: event:/Musics/Levels/Music_Level2
+  <FMOD_Level3>k__BackingField:
+    Guid:
+      Data1: 1633545728
+      Data2: 1306996806
+      Data3: -510894176
+      Data4: 2018275492
+    Path: event:/Musics/Levels/Music_Level3
+  <FMOD_Level4>k__BackingField:
+    Guid:
+      Data1: -129028756
+      Data2: 1235813758
+      Data3: 1283618446
+      Data4: 1264363602
+    Path: event:/Musics/Levels/Music_Level4
+  <FMOD_Level5>k__BackingField:
+    Guid:
+      Data1: 132870320
+      Data2: 1148875672
+      Data3: -187727220
+      Data4: -1075505565
+    Path: event:/Musics/Levels/Music_Level5
+  <FMOD_Level6>k__BackingField:
+    Guid:
+      Data1: 1526701224
+      Data2: 1197498099
+      Data3: 2002635172
+      Data4: 996825295
+    Path: event:/Musics/Levels/Music_Level6
+  <FMOD_MainMenu>k__BackingField:
+    Guid:
+      Data1: -1969477389
+      Data2: 1333566043
+      Data3: 1902986643
+      Data4: -1282648794
+    Path: event:/Musics/Other/Music_MainMenu
+  <FMOD_Shop>k__BackingField:
+    Guid:
+      Data1: 1788183728
+      Data2: 1246109846
+      Data3: -721730905
+      Data4: 381618460
+    Path: "event:/Musics/Other/Music_RoomPsych\xE9"

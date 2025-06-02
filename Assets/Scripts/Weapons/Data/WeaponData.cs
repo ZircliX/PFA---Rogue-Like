@@ -1,8 +1,3 @@
-#if UNITY_EDITOR
-using LTX.Editor;
-using UnityEditor;
-#endif
-using DeadLink.Cameras;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -12,26 +7,13 @@ namespace DeadLink.Weapons.Data
     {
         [field: Header("VFX")]
         [field : SerializeField] public VisualEffect ShootVFX { get; private set; }
-        [field : SerializeField] public CameraShakeComposite CameraShake { get; private set; }
+        [field : SerializeField] public WeaponRecoilSettings WeaponRecoilSettings { get; private set; }
+        
+        public abstract float ShootRate { get; }
+        public abstract int MaxAmmunition { get; }
+        public abstract float ReloadTime { get; }
         
         [field: Header("Prefab")]
         [field : SerializeField] public Weapon WeaponPrefab { get; private set; }
-        
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (WeaponPrefab && !Application.isPlaying)
-            {
-                using (SerializedObject serializedObject = new SerializedObject(WeaponPrefab))
-                {
-                    SerializedProperty dataProperty =
-                        serializedObject.FindBackingFieldProperty(nameof(Weapon.WeaponData));
-                    dataProperty.objectReferenceValue = this;
-                    
-                    serializedObject.ApplyModifiedProperties();
-                }
-            }
-        }
-#endif
     }
 }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55399b61a5a44cf9173bf9adad87eac, type: 3}
+  m_Name: WallHackPowerUp
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: WALL HACK
+  <Description>k__BackingField: "\u201CReveal hidden enemies through walls using
+    X-ray vision system.\u201D"
+  <Icon>k__BackingField:
+  - {fileID: 21300000, guid: 82eae57a0fae6c84f86e681afb514c94, type: 3}
+  - {fileID: 21300000, guid: 274316896da8af14aa14793fbdfcbd1d, type: 3}
+  - {fileID: 21300000, guid: cc7453e9d7b3a7f4e8aa05d8080e0df6, type: 3}
+  <Badge>k__BackingField: {fileID: 21300000, guid: c4455ca4c9fa6a44bbfdb1fa00ffcb2f, type: 3}
+  <GUID>k__BackingField: 80df7c2b-9443-4a39-909d-8e43c4e85ff5
+  <CooldownTime>k__BackingField: 15
+  <CompetenceTime>k__BackingField: 2

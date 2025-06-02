@@ -12,36 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99add3b889704a7da655ca9be35e50f2, type: 3}
   m_Name: LaserBulletData
   m_EditorClassIdentifier: 
-  <BulletSpeed>k__BackingField: 1000
-  <Damage>k__BackingField: 5
-  <HitVFX>k__BackingField: {fileID: 2708598583397607910, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}
+  <BulletSpeed>k__BackingField: 250
+  <Damage>k__BackingField: 3.5
+  <MaxLifeCycle>k__BackingField: 5
+  <HitVFX>k__BackingField: {fileID: -952117641174924032, guid: 7f2b0f511696afe47869d898086972b2, type: 3}
   <CameraShake>k__BackingField:
-    Delay: 0
-    Amplitude: 10
-    Frequency: 1
-    Duration: 0.25
-    Curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+    Amplitude: 0.05
+    Frequency: 100
+    Duration: 0.2
   <BulletPrefab>k__BackingField: {fileID: 5124190240242742243, guid: 9147eefa93c2b724e86e9e6f1d7fe6d1, type: 3}

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d357ea3576304f87861d6c09d88e548f, type: 3}
+  m_Name: 1_LevelOne
+  m_EditorClassIdentifier: 
+  <Scene>k__BackingField:
+    m_SceneAsset: {fileID: 102900000, guid: 81e7f174a78704b45949bf4ae7d74584, type: 3}
+    m_IsDirty: 0
+    m_ScenePath: Assets/Scenes/Valou/Levels/L1/L1Scene.unity
+  <ScoreboardSceneIndex>k__BackingField: 1
+  <LevelMusic>k__BackingField:
+    Guid:
+      Data1: 455195058
+      Data2: 1197522425
+      Data3: -982228574
+      Data4: -1303800184
+    Path: event:/Musics/Levels/Music_Level1
+  <GUID>k__BackingField: 85bc0a70-bedb-4dfd-ae22-4632ef1f14ef

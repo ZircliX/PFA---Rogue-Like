@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed0eb2d28094ee88862cff9ca2aa851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <WeaponData>k__BackingField: {fileID: 11400000, guid: 489cadd037a676a4d87d13242f4102f3, type: 2}
   <BulletData>k__BackingField: {fileID: 11400000, guid: 113f1131ae0aaf846ae4864f373a4e3f, type: 2}
+  rocketWeaponData: {fileID: 11400000, guid: 489cadd037a676a4d87d13242f4102f3, type: 2}

@@ -1,3 +1,6 @@
+using DeadLink.Cameras;
+using DeadLink.Cameras.Data;
+using DeadLink.Entities.Movement;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -5,7 +8,23 @@ namespace RogueLike.Player.States
     [CreateAssetMenu(menuName = "RogueLike/Movement/Fall")]
     public class FallState : MoveState
     {
-        public override MovementState GetNextState(PlayerMovement movement)
+        [field: Header("Camera Effects")]
+        [field: SerializeField] public FallCameraEffectData CameraEffectData { get; protected set; }
+        private float fovModifier;
+
+        public override void Enter(EntityMovement movement)
+        {
+            fovModifier = 0;
+            //Debug.Log($"Entering {State}");
+
+        }
+
+        public override void Exit(EntityMovement movement)
+        {
+            fovModifier = 0;
+        }
+
+        public override MovementState GetNextState(EntityMovement movement)
         {
             if (movement.IsGrounded)
             {
@@ -13,26 +32,59 @@ namespace RogueLike.Player.States
 
                 if (movement.CrouchInput)
                     nextState = MovementState.Crouching;
-                else if (movement.InputDirection.sqrMagnitude > PlayerMovement.MIN_THRESHOLD)
+                else if (movement.InputDirection.sqrMagnitude > EntityMovement.MIN_THRESHOLD)
                 {
-                    nextState = movement.RunInput ? MovementState.Running : MovementState.Walking;
+                    nextState = MovementState.Running;
                 }
 
                 return nextState;
             }
-            if (movement.WantsToWallrun)
+            if (movement.CanWallRun())
             {
                 return MovementState.WallRunning;
             }
-            
+
+            if (movement.CanJump())
+            {
+                return MovementState.Jumping;
+            }
+
+            if (movement.CanDash())
+            {
+                return MovementState.Dashing;
+            }
+
+            if (movement.OnPad)
+            {
+                return MovementState.Pad;
+            }
+
             return State;
         }
 
-        protected override Vector3 GetProjectionPlaneNormal(PlayerMovement movement)
+        public override (float, float) GetHeight(EntityMovement movement)
+        {
+            return (movement.BaseCapsuleHeight, movement.BaseHeadHeight);
+        }
+
+        public override CameraEffectComposite GetCameraEffects(EntityMovement movement, float deltaTime)
+        {
+            CameraEffectComposite composite = CameraEffectData.CameraEffectComposite;
+
+            fovModifier = Mathf.Min(
+                fovModifier + deltaTime * CameraEffectData.FovMultiplier,
+                CameraEffectData.MaxFov - composite.FovScale
+            );
+
+            composite.FovScale += fovModifier;
+            return composite;
+        }
+
+        protected override Vector3 GetGroundNormal(EntityMovement movement)
         {
             return -movement.Gravity.Value.normalized;
         }
-        
+
         public override MovementState State => MovementState.Falling;
     }
 }

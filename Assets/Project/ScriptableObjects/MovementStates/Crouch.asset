@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0e977de23a49dabee0eccb5be19521, type: 3}
   m_Name: Crouch
   m_EditorClassIdentifier: 
+  <CameraEffectData>k__BackingField: {fileID: 11400000, guid: 4f657cbc1b092e247878c9ff2d10ae92, type: 2}
   maxSpeed: 2
   directionControl: 50
   accelerationCurve:
@@ -66,4 +67,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   decelerationDuration: 1
   deceleration: 50
-  playerCrouchHeight: 0.5
+  maxStepHeight: 0
+  crouchCapsuleHeight: 0.5
+  crouchHeadHeight: 0

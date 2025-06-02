@@ -1,3 +1,5 @@
+using DeadLink.Cameras;
+using DeadLink.Entities.Movement;
 using UnityEngine;
 
 namespace RogueLike.Player.States
@@ -6,35 +8,35 @@ namespace RogueLike.Player.States
     public class JumpState : FallState
     {
         [Header("Jump")]
-        [SerializeField] private float jumpForce;
-        [SerializeField] private float jumpDuration;
-        [SerializeField] private AnimationCurve jumpCurve;
+        [SerializeField] protected float jumpForce;
+        [SerializeField] protected float jumpDuration;
+        [SerializeField] protected AnimationCurve jumpCurve;
         
-        private float currentJumpTime;
-        private int count;
+        protected float currentJumpTime;
         
-        public override void Enter(PlayerMovement movement)
+        public override void Enter(EntityMovement movement)
         {
+            movement.UseJump();
             base.Enter(movement);
-
-            count = 0;
+            //Debug.Log($"Entering {State}");
+            
             currentJumpTime = 0;
         }
 
-        public override void Exit(PlayerMovement movement)
+        public override void Exit(EntityMovement movement)
         {
             base.Exit(movement);
             currentJumpTime = 0;
         }
 
-        public override Vector3 GetVelocity(PlayerMovement movement, float deltaTime, ref float gravityScale)
+        public override Vector3 GetVelocity(EntityMovement movement, float deltaTime, ref float gravityScale)
         {
             float normTime = currentJumpTime / jumpDuration;
 
             float jumpModifier = jumpCurve.Evaluate(normTime);
 
             Vector3 baseVelocity = base.GetVelocity(movement, deltaTime, ref gravityScale);
-            Vector3 gravityNormal = GetProjectionPlaneNormal(movement);
+            Vector3 gravityNormal = GetGroundNormal(movement);
 
             if (currentJumpTime <= 0)
             {
@@ -48,24 +50,35 @@ namespace RogueLike.Player.States
                 movement.SetMovementState(MovementState.Falling);
 
             Vector3 finalVelocity = gravityNormal * (jumpModifier * jumpForce) + baseVelocity;
-
-            // Debug.Log($"{count++} | {baseVelocity.y} => {finalVelocity.y}");
-
+            //Debug.Log(finalVelocity);
+            Debug.DrawRay(movement.Position, finalVelocity * 2, Color.red);
+            
             return finalVelocity;
         }
 
-        public override MovementState GetNextState(PlayerMovement movement)
+        public override MovementState GetNextState(EntityMovement movement)
         {
-            if (movement.CurrentVelocity.Value.y < -0.2f)
+            float dot = Vector3.Dot(movement.CurrentVelocity.Value.normalized, movement.Gravity.Value.normalized);
+
+            if (dot > 0f)
             {
                 return MovementState.Falling;
             }
-            if (movement.WantsToWallrun)
+            if (movement.CanWallRun())
             {
                 return MovementState.WallRunning;
             }
+            if (movement.CanDash())
+            {
+                return MovementState.Dashing;
+            }
 
             return State;
+        }
+        
+        public override CameraEffectComposite GetCameraEffects(EntityMovement movement, float deltaTime)
+        {
+            return CameraEffectData.CameraEffectComposite;
         }
 
         public override MovementState State => MovementState.Jumping;

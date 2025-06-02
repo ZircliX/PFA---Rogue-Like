@@ -1,0 +1,325 @@
+using System;
+using System.Collections;
+using DeadLink.Entities.Data;
+using DeadLink.Entities.Enemies.Detection;
+using DG.Tweening;
+using EditorAttributes;
+using Enemy;
+using KBCore.Refs;
+using LTX.ChanneledProperties;
+using RayFire;
+using RogueLike;
+using RogueLike.Controllers;
+using RogueLike.Entities;
+using UnityEngine;
+using Random = UnityEngine.Random;
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
+
+namespace DeadLink.Entities
+{
+    public abstract class Enemy : Entity
+    {
+        [field: SerializeField] public EnemyUI enemyUI { get; private set; }
+        
+        #region Detection Params
+        [Header("Detection Parameters")]
+        [SerializeField] protected float detectRadius = 12.5f;
+        [SerializeField] private SphereDetector detectDetector;
+        [SerializeField] protected float aggroRadius = 10;
+        [SerializeField] private SphereDetector aggroDetector;
+        [SerializeField] protected float attackRadius = 8;
+        [SerializeField] private SphereDetector attackDetector;
+        protected bool inDetectRange;
+        protected bool inAggroRange;
+        protected bool inAttackRange;
+        
+        [Header("Targeting")]
+        [SerializeField] protected float visionAngle = 90f;
+        [SerializeField] protected float chaseRotationSpeed = 120f;
+        
+        protected Entity player;
+        protected bool canAttack;
+        
+        #endregion
+        
+        [Header("References")]
+        [SerializeField, Self] private RayfireRigid rayfireRigid;
+        [SerializeField, Self] private Animator animator;
+
+        public GameObject outline;
+        private bool died;
+        
+        [field: SerializeField, ReadOnly, HideInEditMode] public string GUID { get; private set; }
+        
+        #region Event Functions
+        
+        private void OnValidate()
+        {
+            this.ValidateRefs();
+            detectDetector.SphereCollider.radius = detectRadius;
+            aggroDetector.SphereCollider.radius = aggroRadius;
+            attackDetector.SphereCollider.radius = attackRadius;
+            
+#if UNITY_EDITOR
+            PrefabStage currentPrefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+            if (currentPrefabStage != null && currentPrefabStage.IsPartOfPrefabContents(gameObject))
+            {
+                //Debug.Log($" Prefab Instance: {currentPrefabStage.prefabContentsRoot == gameObject}", gameObject);
+                SetGUID(string.Empty);
+            }
+            else if (PrefabUtility.IsPartOfPrefabAsset(gameObject) || EditorUtility.IsPersistent(gameObject))
+            {
+                //Debug.Log($" Prefab Asset: {PrefabUtility.IsPartOfPrefabAsset(gameObject)}", gameObject);
+                SetGUID(string.Empty);
+            }
+            else if (string.IsNullOrEmpty(GUID))
+            {
+                //Debug.Log($"Assigning GUID: {GUID} to {gameObject.name}", gameObject);
+                SetGUID(Guid.NewGuid().ToString());
+            }
+#endif
+        }
+        
+        private void OnEnable()
+        {
+            EnemyManager.Instance.RegisterEnemy(this);
+            
+            detectDetector.OnTriggerEnterEvent += TriggerEnter;
+            detectDetector.OnTriggerStayEvent += TriggerStay;
+            detectDetector.OnTriggerExitEvent += TriggerExit;
+            
+            aggroDetector.OnTriggerEnterEvent += TriggerEnter;
+            aggroDetector.OnTriggerStayEvent += TriggerStay;
+            aggroDetector.OnTriggerExitEvent += TriggerExit;
+            
+            attackDetector.OnTriggerEnterEvent += TriggerEnter;
+            attackDetector.OnTriggerStayEvent += TriggerStay;
+            attackDetector.OnTriggerExitEvent += TriggerExit;
+        }
+        
+        private void OnDisable()
+        {
+            if (EnemyManager.HasInstance)
+            {
+                EnemyManager.Instance.UnregisterEnemy(this);
+            }
+            
+            detectDetector.OnTriggerEnterEvent -= TriggerEnter;
+            detectDetector.OnTriggerStayEvent -= TriggerStay;
+            detectDetector.OnTriggerExitEvent -= TriggerExit;
+            
+            aggroDetector.OnTriggerEnterEvent -= TriggerEnter;
+            aggroDetector.OnTriggerStayEvent -= TriggerStay;
+            aggroDetector.OnTriggerExitEvent -= TriggerExit;
+            
+            attackDetector.OnTriggerEnterEvent -= TriggerEnter;
+            attackDetector.OnTriggerStayEvent -= TriggerStay;
+            attackDetector.OnTriggerExitEvent -= TriggerExit;
+        }
+
+        protected virtual void Start()
+        {
+            if (string.IsNullOrEmpty(GUID))
+            {
+                SetGUID(Guid.NewGuid().ToString());
+            }
+        }
+
+        public void SetGUID(string guid) => GUID = guid;
+
+        #endregion
+
+        #region spawn damage heal die
+        
+        public override void Spawn(EntityData entityData, DifficultyData difficultyData, Vector3 SpawnPosition)
+        {
+            //Debug.Log("Spawn 1 enemy");
+            base.Spawn(entityData, difficultyData, SpawnPosition);
+            
+            MaxHealthBarCount.AddInfluence(difficultyData, difficultyData.PlayerHealthBarCount, Influence.Multiply);
+            MaxHealth.AddInfluence(difficultyData, difficultyData.EnemyHealthMultiplier, Influence.Multiply);
+            Strength.AddInfluence(difficultyData, difficultyData.EnemyStrengthMultiplier, Influence.Multiply);
+            Resistance.AddInfluence(difficultyData, difficultyData.PlayerResistanceMultiplier, Influence.Multiply);
+            Speed.AddInfluence(difficultyData, 1, Influence.Multiply);
+            
+            OutlinerManager.Instance.AddOutline(gameObject);
+            
+            SetFullHealth();
+        }
+
+        protected override void SetHealth(float health)
+        {
+            base.SetHealth(health);
+            enemyUI.UpdateHealthBar(Health, MaxHealth.Value);
+        }
+
+        public override bool TakeDamage(float damage, bool byPass = false)
+        {
+            bool die = base.TakeDamage(damage, byPass);
+            AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_HitEnemy, transform.position);
+            return die;
+        }
+
+        public override IEnumerator Die()
+        {
+            if (!died)
+            {
+                died = true;
+                AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemyDie, transform.position);
+                OutlinerManager.Instance.RemoveOutline(gameObject);
+                            
+                yield return new WaitForSeconds(0.25f);
+                DOTween.Kill(gameObject);
+                
+                EntityData.VFXToSpawn.PlayVFX(transform.position, EntityData.DelayAfterDestroyVFX);
+    
+                EnemyManager.Instance.EnemyKilled(this);
+                rayfireRigid.Demolish();
+            }
+
+            yield return null;
+        }
+
+        #endregion
+        
+        #region Updates
+        
+        public override void OnUpdate()
+        {
+            HandleDetection();
+            HandleOrientation();
+        }
+        
+        #endregion
+        
+        protected override void Shoot()
+        {
+            if (CurrentWeapon != null && CurrentWeapon.CurrentReloadTime >= CurrentWeapon.WeaponData.ReloadTime)
+            {
+                GameObject objectToHit = null;
+                Vector3 direction = player.transform.position - transform.position;
+                Debug.DrawRay(BulletSpawnPoint.position, direction * 50, Color.red);
+
+                if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 500, GameMetrics.Global.BulletRayCast))
+                {
+                    objectToHit = hit.collider.gameObject;
+                }
+                CurrentWeapon.Fire(this, direction, objectToHit);
+            }
+            else
+            {
+                //Debug.LogError($"No equipped weapon for {gameObject.name}");
+            }
+        }
+
+        protected void HandleDetection()
+        {
+            bool hasVision = HasVisionOnPlayer();
+
+            bool isPlayerInvisible = false;
+            if (player != null && player is PlayerEntity pe)
+            {
+                isPlayerInvisible = pe.IsInvisible;
+                //Debug.Break();
+            }
+            //Debug.Log(hasVision, this);
+            //Debug.Log($" inAttackRange: {inAttackRange}, hasVision: {hasVision}, isPlayerInvisible: {isPlayerInvisible}", this);
+            canAttack = inAttackRange && hasVision && !isPlayerInvisible;
+            
+            isShooting = canAttack;
+        }
+
+        protected abstract void HandleOrientation();
+
+        protected bool HasVisionOnPlayer()
+        {
+            if (player == null) return false;
+            
+            Vector3 deltaPosition = (player.transform.position - transform.position);
+            Vector3 direction = deltaPosition.normalized;
+            float distance = deltaPosition.magnitude;
+            
+            float angleToPlayer = Vector3.Angle(transform.forward, deltaPosition);
+            if (angleToPlayer > visionAngle / 2f)
+            {
+                return false;
+            }
+            
+            bool objectBlocking = Physics.Raycast(transform.position, direction, out RaycastHit hit,
+                distance, GameMetrics.Global.EnemyStopDetect);
+
+            if (objectBlocking) return false;
+
+            Debug.DrawLine(transform.position, player.transform.position, Color.black);
+            
+            float angle = Vector3.Dot(-transform.forward, direction.normalized);
+            bool correctAngle = angle < -0.7f;
+            
+            return correctAngle;
+        }
+        
+        #region Trigger Events
+        
+        private void TriggerEnter(Collider other, SphereDetector sphereDetector)
+        {
+            if (other.TryGetComponent(out RogueLike.Entities.PlayerEntity playerDetected))
+            {
+                if (playerDetected.IsInvisible) return;
+                
+                if (sphereDetector == detectDetector)
+                {
+                    //Debug.Log("Enter detect range");
+                    this.player = playerDetected;
+                    inDetectRange = true;
+                }
+                if (sphereDetector == aggroDetector)
+                {
+                    //Debug.Log("Enter aggro range");
+                    animator.SetBool("InAggroRange", true);
+                    inAggroRange = true;
+                }
+                if (sphereDetector == attackDetector)
+                {
+                    //Debug.Log("Enter attack range");
+                    animator.SetBool("InAttackRange", true);
+                    inAttackRange = true;
+                }
+            }
+        }
+        
+        private void TriggerStay(Collider other, SphereDetector sphereDetector)
+        {
+            
+        }
+        
+        private void TriggerExit(Collider other, SphereDetector sphereDetector)
+        {
+            if (other.TryGetComponent(out RogueLike.Entities.PlayerEntity playerDetected))
+            {
+                if (sphereDetector == detectDetector)
+                {
+                    //Debug.Log("Exit detect range");
+                    inDetectRange = false;
+                    this.player = null;
+                }
+                if (sphereDetector == aggroDetector)
+                {
+                    //Debug.Log("Exit aggro range");
+                    animator.SetBool("InAggroRange", false);
+                    inAggroRange = false;
+                }
+                if (sphereDetector == attackDetector)
+                {
+                    //Debug.Log("Exit attack range");
+                    animator.SetBool("InAttackRange", false);
+                    inAttackRange = false;
+                }
+            }
+        }
+        
+        #endregion
+    }
+}

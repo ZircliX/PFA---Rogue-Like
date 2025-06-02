@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40795e0f36cf472185c7a3ac7b79fa5e, type: 3}
+  m_Name: AdrenalineShotPowerUp
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: OVERDRIVE
+  <Description>k__BackingField: "\u201CTrigger adrenaline rush. Double your speed
+    but take double the damage.\u201D"
+  <Icon>k__BackingField:
+  - {fileID: 21300000, guid: 82eae57a0fae6c84f86e681afb514c94, type: 3}
+  - {fileID: 21300000, guid: f44a056c8183c6e48b1ffb933d7f0226, type: 3}
+  - {fileID: 21300000, guid: 1c92d68ee5d8f904c91bb1638829d7f6, type: 3}
+  - {fileID: 21300000, guid: 84292efe3fc30c24ea8c7c5fa1c6052b, type: 3}
+  <Badge>k__BackingField: {fileID: 21300000, guid: a829d4e5281bd124ba68eafe7309c0a6, type: 3}
+  <GUID>k__BackingField: 0ad3e92e-fb31-458b-881e-2ec824001fe9
+  <CooldownTime>k__BackingField: 60
+  <CompetenceTime>k__BackingField: 20
+  <AdrenalineMultiplier>k__BackingField: 2
