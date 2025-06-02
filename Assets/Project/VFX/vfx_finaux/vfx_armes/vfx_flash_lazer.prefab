@@ -287,7 +287,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.5
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4901,6 +4901,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6132144306872715605}
   - component: {fileID: -7395260326016201409}
+  - component: {fileID: 8643434419213645774}
   m_Layer: 0
   m_Name: vfx_flash_lazer
   m_TagString: Untagged
@@ -4941,6 +4942,18 @@ MonoBehaviour:
   - {fileID: 2583946947645864819}
   - {fileID: 2991471918883979980}
   <vfxVeArray>k__BackingField: []
+--- !u!114 &8643434419213645774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828317852422690996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8636ab1f28642e48baa87ad0ec92929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1126756302169465563
 GameObject:
   m_ObjectHideFlags: 0
@@ -5229,7 +5242,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -10121,7 +10134,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2

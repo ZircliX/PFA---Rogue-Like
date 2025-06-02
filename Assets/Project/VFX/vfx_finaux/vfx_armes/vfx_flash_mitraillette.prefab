@@ -288,7 +288,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5180,7 +5180,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -9794,6 +9794,7 @@ GameObject:
   m_Component:
   - component: {fileID: 104635549081285731}
   - component: {fileID: 4509109039264019900}
+  - component: {fileID: 2308023048882828155}
   m_Layer: 0
   m_Name: vfx_flash_mitraillette
   m_TagString: Untagged
@@ -9834,6 +9835,18 @@ MonoBehaviour:
   - {fileID: 1892677712823297148}
   - {fileID: 504174223727939733}
   <vfxVeArray>k__BackingField: []
+--- !u!114 &2308023048882828155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6416893159216188228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8636ab1f28642e48baa87ad0ec92929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8514132440929537701
 GameObject:
   m_ObjectHideFlags: 0
@@ -10121,7 +10134,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.5
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
