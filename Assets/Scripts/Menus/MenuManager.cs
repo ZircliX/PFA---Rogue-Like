@@ -101,6 +101,10 @@ namespace DeadLink.Menus
             //Debug.Log($"MenuToOpen : {menuToOpen}, menuType : {menuToOpen.MenuType}, menuName : {menuToOpen.GetMenuProperties().GameObject}");
 
             if (HasOpenMenu() && !openedMenus.Peek().GetMenuProperties().CanStack) return;
+            if (menuToOpen is SettingsMenu sm && openedMenus.Peek().MenuType == MenuType.Pause)
+            {
+                openedMenus.Peek().GetMenuProperties().GameObject.SetActive(false);
+            }
             
             openedMenus.Push(menuToOpen);
             
@@ -119,6 +123,12 @@ namespace DeadLink.Menus
                 IMenu menuToClose = openedMenus.Pop();
                 menuToClose.Close();
                 OnMenuClose?.Invoke(menuToClose);
+
+                if (menuToClose is SettingsMenu sm && openedMenus.Peek().MenuType == MenuType.Pause)
+                {
+                    openedMenus.Peek().GetMenuProperties().GameObject.SetActive(true);
+                }
+                
             
                 IMenu menu = openedMenus.Peek();
                 UpdateGameProperties(menu.GetMenuProperties());

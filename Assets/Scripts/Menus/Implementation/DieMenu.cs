@@ -46,6 +46,7 @@ namespace DeadLink.Menus.Implementation
         {
             SceneController.Global.ChangeScene(GameMetrics.Global.MainMenuScene);
             LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile = LevelScenarioSaveFile.GetDefault();
+            SaveManager<LevelScenarioSaveFile>.Push();
         }
     }
 }
