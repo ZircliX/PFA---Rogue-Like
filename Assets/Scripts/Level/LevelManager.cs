@@ -81,7 +81,7 @@ namespace RogueLike.Managers
                 LastLevelScenario.LevelElementsCustomInfos :
                 GetCurrentElementInfos();
 
-            Debug.Log(LastLevelScenario.LevelElementsCustomInfos.Count);
+            //Debug.Log(LastLevelScenario.LevelElementsCustomInfos.Count);
             
             foreach (LevelElement element in LevelElements)
             {
