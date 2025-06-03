@@ -57,7 +57,6 @@ namespace RogueLike.Player
             
             //Reload Scenario + Teleport to CheckPoint
             LevelManager.Instance.ReloadFromLastScenario();
-            AudioManager.Global.StopSounds();
             if (LevelManager.Instance.PlayerController.PlayerEntity.EmptyHealthBar())
             {
                 StartCoroutine(LevelManager.Instance.PlayerController.PlayerEntity.Die());

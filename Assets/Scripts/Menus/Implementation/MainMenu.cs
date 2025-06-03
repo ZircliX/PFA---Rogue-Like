@@ -39,7 +39,7 @@ namespace DeadLink.Menus.Implementation
         {
             return new MenuProperties(
                 gameObject,
-                PriorityTags.Default,
+                PriorityTags.Highest,
                 1f,
                 CursorLockMode.None,
                 true,

@@ -32,6 +32,8 @@ namespace DeadLink.Menus.Implementation
         public override void Open()
         {
             base.Open();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             LevelScenarioSaveFileListener.CurrentLevelScenarioSaveFile = LevelScenarioSaveFile.GetDefault();
             SaveManager<LevelScenarioSaveFile>.Push();
         }

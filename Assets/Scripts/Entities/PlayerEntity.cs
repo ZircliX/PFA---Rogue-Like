@@ -21,7 +21,7 @@ namespace RogueLike.Entities
 {
     public class PlayerEntity : Entity
     {
-        private Dictionary<string, IVisitor> unlockedPowerUps;
+        public Dictionary<string, IVisitor> unlockedPowerUps { get; private set; }
         public bool isLastChanceActivated;
         public static Action<PlayerEntity, PlayerMovement> OnPlayerLastChanceUsed;
         
