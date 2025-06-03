@@ -33,6 +33,15 @@ namespace DeadLink.Menus
             openedMenus = new Stack<IMenu>();
         }
 
+        protected override void OnDestroy()
+        {
+            //Pourquoi je l'ai pas fait avant, ZircliX tu pues
+            GameController.CursorVisibility.RemovePriority(this);
+            GameController.CursorLockMode.RemovePriority(this);
+            GameController.TimeScale.RemovePriority(this);
+            base.OnDestroy();
+        }
+
         private void OnEnable()
         {
             SceneController.Global.OnWantsToChangeScene += ResetPriorities;

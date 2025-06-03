@@ -18,7 +18,7 @@ namespace DeadLink.Weapons.WeaponsClass.Enemies
         {
             if (base.Fire(entity, direction, shouldHit))
             {
-                AudioManager.Global.PlayOneShot(GameMetrics.Global.FMOD_EnemyExplode, entity.transform.position);
+                
                 return true;
             }
 

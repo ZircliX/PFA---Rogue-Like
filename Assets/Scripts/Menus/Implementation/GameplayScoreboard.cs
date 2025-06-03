@@ -15,7 +15,7 @@ namespace DeadLink.Menus.Implementation
         {
             return new MenuProperties(
                 gameObject,
-                PriorityTags.Default,
+                PriorityTags.Highest,
                 0f,
                 CursorLockMode.None,
                 true,
@@ -31,6 +31,8 @@ namespace DeadLink.Menus.Implementation
         public override void Open()
         {
             base.Open();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             ScoreboardUploader.Instance.OnSubmitScore();
         }
 

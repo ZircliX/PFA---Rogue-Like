@@ -1,6 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DeadLink.Menus.Other;
 using DeadLink.PowerUpSystem;
+using DeadLink.PowerUpSystem.InterfacePowerUps;
 using DeadLink.VoiceLines;
 using DG.Tweening;
 using LTX.ChanneledProperties;
@@ -39,12 +42,16 @@ namespace DeadLink.Menus.Implementation
             upgradeUIs = new List<UpgradePrefab>();
         }
 
+        private IEnumerator Start()
+        {
+            yield return new WaitForEndOfFrame();
+            SetPowerUps();
+        }
+
         public override void Open()
         {
             base.Open();
             VoiceLinesManager.Instance.SelectPower();
-            
-            SetPowerUps();
         }
 
         private void GetPowerUps()
@@ -60,12 +67,14 @@ namespace DeadLink.Menus.Implementation
                 pow.AddRange(PowerUps);
                 int count = pow.Count >= 3 ? 3 : pow.Count;
 
-                foreach (PowerUp p in LevelManager.Instance.PlayerController.PlayerEntity.PowerUps)
+                foreach (PowerUp powerUp in pow.ToList())
                 {
-                    Debug.Log($"Player has power up : {p.Name}, removing it from available upgrades");
-                    if (pow.Contains(p))
+                    foreach (KeyValuePair<string, IVisitor> kvp in LevelManager.Instance.PlayerController.PlayerEntity.unlockedPowerUps)
                     {
-                        pow.Remove(p);
+                        if (kvp.Value.Name == powerUp.Name)
+                        {
+                            pow.Remove(powerUp);
+                        }
                     }
                 }
                 
